@@ -20,6 +20,9 @@
 </head>
 <body>
 
+  <!-- شريط التقدم أثناء القراءة العلوي -->
+  <div id="reading-progress" style="position: fixed; top: 0; left: 0; height: 3px; background: var(--accent); width: 0%; z-index: 99999; transition: width 0.1s ease-out;"></div>
+
   <!-- هيدر الموقع الإخباري والتقني -->
   <header class="app-header glass-nav">
     <div class="brand-container">
@@ -29,14 +32,17 @@
         <p class="subtitle">الموسوعة التقنية لإدارة الأعمال والتحول الرقمي</p>
       </div>
     </div>
-    <nav style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
-      <a href="#home" class="btn-ghost" style="text-decoration: none; font-weight: 700;">الرئيسية</a>
-      <a href="#articles" class="btn-ghost" style="text-decoration: none; font-weight: 700;">المقالات والأخبار</a>
+    <nav style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+      <a href="index.html" class="btn-ghost" style="text-decoration: none; font-weight: 700;">الرئيسية</a>
+      <a href="about.html" class="btn-ghost" style="text-decoration: none; font-weight: 700;">من نحن</a>
+      <a href="contact.html" class="btn-ghost" style="text-decoration: none; font-weight: 700;">اتصل بنا</a>
       <a href="privacy.html" target="_blank" class="btn-ghost" style="text-decoration: none; font-weight: 700;">سياسة الخصوصية</a>
+      <!-- زر تبديل الثيم المرئي -->
+      <button id="theme-toggle-btn" class="btn-icon" title="تبديل المظهر (داكن / فاتح)" style="cursor: pointer; padding: 6px 10px; border-radius: 8px;">🌓</button>
     </nav>
   </header>
 
-  <div id="main-app" style="max-width: 1000px; margin: 20px auto; padding: 0 15px;">
+  <div id="main-app" style="max-width: 1100px; margin: 20px auto; padding: 0 15px;">
 
     <!-- إعلان علوي معتمد -->
     <div class="giti-ad-wrapper" style="display: block !important; margin-bottom: 20px;">
@@ -51,81 +57,175 @@
       </script>
     </div>
 
-    <!-- قسم البانر الترحيبي -->
-    <section class="card" style="margin-bottom: 24px; text-align: center; padding: 35px 20px;">
-      <h2 style="font-size: 1.8rem; margin-bottom: 10px; color: var(--text-main);">مرحباً بكم في منصة GITI التقنية</h2>
-      <p style="color: var(--text-muted); max-width: 700px; margin: 0 auto; font-size: 0.95rem;">
-        نقدم لك مقالات وتحليلات عميقة حول أحدث تقنيات تطوير الويب، الحوسبة السحابية، إدارة المخازن الرقمية، وكيفية بناء أنظمة الشركات (ERP) لمواكبة التطور التقني لعام 2027.
-      </p>
-    </section>
-
-    <!-- قسم المقالات والمحتوى الأصلي (السر في قبول أدسنس) -->
-    <section id="articles" style="display: flex; flex-direction: column; gap: 20px;">
+    <!-- شبكة تخطيط الموقع (مقالات + شريط جانبي) -->
+    <div style="display: grid; grid-template-columns: 1fr; gap: 20px;" class="blog-layout">
       
-      <!-- المقال الأول -->
-      <article class="card">
-        <span class="badge badge-paid" style="margin-bottom: 8px; display: inline-block;">تكنولوجيا الشركات</span>
-        <h2 style="font-size: 1.3rem; margin-bottom: 10px; color: var(--accent);">أهمية أنظمة تخطيط موارد المؤسسات (ERP) في إدارة المتاجر والشركات الناشئة</h2>
-        <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px;">نشر بتاريخ: 28 سبتمبر 2026 • بواسطة فريق التحرير التقني</p>
-        <p style="line-height: 1.8; font-size: 0.95rem; margin-bottom: 14px;">
-          تعتبر أنظمة تخطيط موارد المؤسسات المعروفة اختصاراً بـ (ERP) العصب الرئيسي لأي نشاط تجاري حديث يسعى نحو النمو والاستدامة. في الماضي كانت هذه الأنظمة حكراً على الشركات الكبرى والعملاقة نظراً لتك تكلفتها العالية وتعقيد برمجياتها. أما اليوم، ومع ثورة الحوسبة السحابية وتطبيقات الويب التقدمية (PWAs)، أصبح بإمكان أصحاب المتاجر الصغيرة والمتوسطة إدارة مخازنهم، إصدار الفواتير الإلكترونية المعتمدة، ومتابعة حركة الخزينة والعملاء من خلال منصات سحابية مرنة وآمنة.
-        </p>
-        <p style="line-height: 1.8; font-size: 0.95rem;">
-          تساعد هذه الأنظمة على تقليل الأخطاء البشرية بنسبة كبيرة جداً، وتوفر تقارير فورية ودقيقة تساعد صانع القرار على معرفة المنتجات الأكثر طلباً وحساب صافي الأرباح بدقة متناهية دون الحاجة لدفاتر ورقية تقليدية عرضة للتلف أو الضياع.
-        </p>
-      </article>
+      <style>
+        @media (min-width: 850px) {
+          .blog-layout { grid-template-columns: 2.2fr 1fr !important; }
+        }
+      </style>
 
-      <!-- إعلان في المنتصف -->
-      <div class="giti-ad-wrapper" style="display: block !important;">
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-6651309355082807"
-             data-ad-slot="1516733351"
-             data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-      </div>
+      <!-- القسم الرئيسي للمقالات والأخبار -->
+      <main>
+        <!-- قسم البانر الترحيبي -->
+        <section class="card" style="margin-bottom: 20px; text-align: center; padding: 30px 20px;">
+          <h2 style="font-size: 1.6rem; margin-bottom: 8px; color: var(--text-main);">مرحباً بكم في منصة GITI التقنية</h2>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">
+            نقدم لك مقالات وتحليلات عميقة حول أحدث تقنيات تطوير الويب، الحوسبة السحابية، إدارة المخازن الرقمية، والذكاء الاصطناعي لعام 2027.
+          </p>
+        </section>
 
-      <!-- المقال الثاني -->
-      <article class="card">
-        <span class="badge badge-partial" style="margin-bottom: 8px; display: inline-block;">أمن البيانات</span>
-        <h2 style="font-size: 1.3rem; margin-bottom: 10px; color: var(--accent);">كيف تحمي بيانات عملائك ومعاملاتك المالية في قواعد البيانات السحابية؟</h2>
-        <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px;">نشر بتاريخ: 25 سبتمبر 2026 • بواسطة مهندس أمن المعلومات</p>
-        <p style="line-height: 1.8; font-size: 0.95rem; margin-bottom: 14px;">
-          مع الاعتماد المتزايد على التخزين السحابي وقواعد البيانات الموزعة مثل Firebase و Cloud Firestore، أصبح أمن المعلومات وحماية خصوصية المستخدمين الأولوية القصوى للمطورين وأصحاب الأعمال. إن تأمين قنوات الاتصال باستخدام بروتوكولات التشفير الحديثة (SSL/TLS) وتفعيل قواعد الأمان الصارمة (Security Rules) يضمن عدم وصول أي جهات غير مصرح لها إلى السجلات المالية أو بيانات العملاء الحساسة.
-        </p>
-        <p style="line-height: 1.8; font-size: 0.95rem;">
-          كما يجب على الشركات تطبيق استراتيجيات النسخ الاحتياطي الدوري (Backup Strategies) لضمان إمكانية استعادة البيانات في أوقات الطوارئ أو انقطاع الخدمات، مما يمنع أي خسائر مالية أو توقف مفاجئ في حركة المبيعات اليومية.
-        </p>
-      </article>
+        <!-- حقل البحث السريع في المقالات -->
+        <div class="card" style="margin-bottom: 20px; padding: 12px;">
+          <input type="text" id="article-search" placeholder="🔍 ابحث في المقالات والأخبار التقنية..." style="width: 100%; padding: 10px; background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-main); outline: none;">
+        </div>
 
-      <!-- المقال الثالث -->
-      <article class="card">
-        <span class="badge badge-success" style="margin-bottom: 8px; display: inline-block;">تطوير الويب</span>
-        <h2 style="font-size: 1.3rem; margin-bottom: 10px; color: var(--accent);">مستقبل تطبيقات الويب التقدمية (PWA) ودورها في تعزيز تجربة المستخدم</h2>
-        <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px;">نشر بتاريخ: 20 سبتمبر 2026 • بواسطة مطور واجهات المستخدم</p>
-        <p style="line-height: 1.8; font-size: 0.95rem; margin-bottom: 14px;">
-          تواصل تطبيقات الويب التقدمية (Progressive Web Apps) تغيير مفهوم استخدام برمجيات المتصفح؛ فهي تتيح للمستخدمين تثبيت التطبيقات مباشرة على الشاشة الرئيسية للهواتف الذكية أو أجهزة الكمبيوتر وكأنها تطبيقات أصلية (Native Apps)، مع ميزة العمل دون إنترنت (Offline Mode) بفضل تقنيات الـ Service Workers والكاش المحلي.
-        </p>
-        <p style="line-height: 1.8; font-size: 0.95rem;">
-          هذا التطور الهائل قلل من التكلفة الهائلة لتطوير تطبيقات منفصلة لكل نظام تشغيل (Android و iOS)، وأتاح للشركات الناشئة إطلاق حلولها الرقمية بسرعة فائقة وبكفاءة تشغيلية عالية جداً.
-        </p>
-      </article>
+        <!-- قائمة المقالات -->
+        <section id="articles-container" style="display: flex; flex-direction: column; gap: 20px;">
+          
+          <!-- المقال الأول -->
+          <article class="card article-item" data-category="erp">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 6px;">
+              <span class="badge badge-paid">تكنولوجيا الشركات</span>
+              <span class="reading-time" style="font-size: 0.75rem; color: var(--text-muted);">⏱️ وقت القراءة: جاري الحساب...</span>
+            </div>
+            <h2 style="font-size: 1.25rem; margin-bottom: 10px; color: var(--accent);">أهمية أنظمة تخطيط موارد المؤسسات (ERP) في إدارة المتاجر والشركات الناشئة</h2>
+            <p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 12px;">نشر بتاريخ: 28 سبتمبر 2026 • بواسطة فريق التحرير التقني</p>
+            <div class="article-body">
+              <p style="line-height: 1.8; font-size: 0.9rem; margin-bottom: 12px;">
+                تعتبر أنظمة تخطيط موارد المؤسسات المعروفة اختصاراً بـ (ERP) العصب الرئيسي لأي نشاط تجاري حديث يسعى نحو النمو والاستدامة. في الماضي كانت هذه الأنظمة حكراً على الشركات الكبرى والعملاقة نظراً لتكلفتها العالية وتعقيد برمجياتها. أما اليوم، ومع ثورة الحوسبة السحابية وتطبيقات الويب التقدمية (PWAs)، أصبح بإمكان أصحاب المتاجر الصغيرة والمتوسطة إدارة مخازنهم، إصدار الفواتير الإلكترونية المعتمدة، ومتابعة حركة الخزينة والعملاء من خلال منصات سحابية مرنة وآمنة.
+              </p>
+              <p style="line-height: 1.8; font-size: 0.9rem;">
+                تساعد هذه الأنظمة على تقليل الأخطاء البشرية بنسبة كبيرة جداً، وتوفر تقارير فورية ودقيقة تساعد صانع القرار على معرفة المنتجات الأكثر طلباً وحساب صافي الأرباح بدقة متناهية دون الحاجة لدفاتر ورقية تقليدية عرضة للتلف أو الضياع.
+              </p>
+            </div>
+          </article>
 
-    </section>
+          <!-- إعلان في المنتصف -->
+          <div class="giti-ad-wrapper" style="display: block !important;">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-6651309355082807"
+                 data-ad-slot="1516733351"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+          </div>
+
+          <!-- المقال الثاني -->
+          <article class="card article-item" data-category="security">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 6px;">
+              <span class="badge badge-partial">أمن البيانات</span>
+              <span class="reading-time" style="font-size: 0.75rem; color: var(--text-muted);">⏱️ وقت القراءة: جاري الحساب...</span>
+            </div>
+            <h2 style="font-size: 1.25rem; margin-bottom: 10px; color: var(--accent);">كيف تحمي بيانات عملائك ومعاملاتك المالية في قواعد البيانات السحابية؟</h2>
+            <p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 12px;">نشر بتاريخ: 25 سبتمبر 2026 • بواسطة مهندس أمن المعلومات</p>
+            <div class="article-body">
+              <p style="line-height: 1.8; font-size: 0.9rem; margin-bottom: 12px;">
+                مع الاعتماد المتزايد على التخزين السحابي وقواعد البيانات الموزعة مثل Firebase و Cloud Firestore، أصبح أمن المعلومات وحماية خصوصية المستخدمين الأولوية القصوى للمطورين وأصحاب الأعمال. إن تأمين قنوات الاتصال باستخدام بروتوكولات التشفير الحديثة (SSL/TLS) وتفعيل قواعد الأمان الصارمة (Security Rules) يضمن عدم وصول أي جهات غير مصرح لها إلى السجلات المالية أو بيانات العملاء الحساسة.
+              </p>
+              <p style="line-height: 1.8; font-size: 0.9rem;">
+                كما يجب على الشركات تطبيق استراتيجيات النسخ الاحتياطي الدوري (Backup Strategies) لضمان إمكانية استعادة البيانات في أوقات الطوارئ أو انقطاع الخدمات، مما يمنع أي خسائر مالية أو توقف مفاجئ في حركة المبيعات اليومية.
+              </p>
+            </div>
+          </article>
+
+          <!-- المقال الثالث -->
+          <article class="card article-item" data-category="web">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 6px;">
+              <span class="badge badge-success">تطوير الويب</span>
+              <span class="reading-time" style="font-size: 0.75rem; color: var(--text-muted);">⏱️ وقت القراءة: جاري الحساب...</span>
+            </div>
+            <h2 style="font-size: 1.25rem; margin-bottom: 10px; color: var(--accent);">مستقبل تطبيقات الويب التقدمية (PWA) ودورها في تعزيز تجربة المستخدم</h2>
+            <p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 12px;">نشر بتاريخ: 20 سبتمبر 2026 • بواسطة مطور واجهات المستخدم</p>
+            <div class="article-body">
+              <p style="line-height: 1.8; font-size: 0.9rem; margin-bottom: 12px;">
+                تواصل تطبيقات الويب التقدمية (Progressive Web Apps) تغيير مفهوم استخدام برمجيات المتصفح؛ فهي تتيح للمستخدمين تثبيت التطبيقات مباشرة على الشاشة الرئيسية للهواتف الذكية أو أجهزة الكمبيوتر وكأنها تطبيقات أصلية (Native Apps)، مع ميزة العمل دون إنترنت (Offline Mode) بفضل تقنيات الـ Service Workers والكاش المحلي.
+              </p>
+              <p style="line-height: 1.8; font-size: 0.9rem;">
+                هذا التطور الهائل قلل من التكلفة الهائلة لتطوير تطبيقات منفصلة لكل نظام تشغيل (Android و iOS)، وأتاح للشركات الناشئة إطلاق حلولها الرقمية بسرعة فائقة وبكفاءة تشغيلية عالية جداً.
+              </p>
+            </div>
+          </article>
+
+          <!-- المقال الرابع -->
+          <article class="card article-item" data-category="ai">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 6px;">
+              <span class="badge badge-paid">الذكاء الاصطناعي</span>
+              <span class="reading-time" style="font-size: 0.75rem; color: var(--text-muted);">⏱️ وقت القراءة: جاري الحساب...</span>
+            </div>
+            <h2 style="font-size: 1.25rem; margin-bottom: 10px; color: var(--accent);">دور الذكاء الاصطناعي في تحليل بيانات المبيعات وتحسين تجربة العملاء</h2>
+            <p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 12px;">نشر بتاريخ: 18 سبتمبر 2026 • بواسطة خبير الذكاء الاصطناعي</p>
+            <div class="article-body">
+              <p style="line-height: 1.8; font-size: 0.9rem; margin-bottom: 12px;">
+                لم يعد استخدام الذكاء الاصطناعي في قطاع الأعمال رفاهية، بل أصبح أداة استراتيجية رئيسية للتنبؤ بسلوك المستهلكين وتحليل المبيعات بدقة فائقة. تساعد خوارزميات التعلم الآلي المتاجر الإلكترونية والشركات الخدمية على تقديم توصيات مخصصة لكل عميل بناءً على تاريخ تصفحه ومشترياته السابقة.
+              </p>
+              <p style="line-height: 1.8; font-size: 0.9rem;">
+                كما تسهم روبوتات المحادثة المدعومة بنماذج اللغات الكبيرة (LLMs) في تقديم دعم فني فوري على مدار الساعة، مما يرفع من معدلات رضا العملاء ويقلل التكاليف التشغيلية بشكل ملحوظ.
+              </p>
+            </div>
+          </article>
+
+        </section>
+      </main>
+
+      <!-- الشريط الجانبي (Sidebar) -->
+      <aside style="display: flex; flex-direction: column; gap: 20px;">
+        
+        <!-- قسم التصنيفات -->
+        <div class="card">
+          <h3 style="font-size: 1.1rem; margin-bottom: 12px; color: var(--accent);">📁 تصنيفات المدونة</h3>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 8px;">
+            <li><a href="#" onclick="filterCategory('all'); return false;" class="btn-ghost" style="display: block; text-align: right; text-decoration: none; padding: 6px 10px; border-radius: 8px;">🌟 جميع المقالات</a></li>
+            <li><a href="#" onclick="filterCategory('erp'); return false;" class="btn-ghost" style="display: block; text-align: right; text-decoration: none; padding: 6px 10px; border-radius: 8px;">💼 تكنولوجيا الشركات (ERP)</a></li>
+            <li><a href="#" onclick="filterCategory('security'); return false;" class="btn-ghost" style="display: block; text-align: right; text-decoration: none; padding: 6px 10px; border-radius: 8px;">🔒 أمن البيانات والسحابة</a></li>
+            <li><a href="#" onclick="filterCategory('web'); return false;" class="btn-ghost" style="display: block; text-align: right; text-decoration: none; padding: 6px 10px; border-radius: 8px;">💻 تطوير الويب والـ PWA</a></li>
+            <li><a href="#" onclick="filterCategory('ai'); return false;" class="btn-ghost" style="display: block; text-align: right; text-decoration: none; padding: 6px 10px; border-radius: 8px;">🤖 الذكاء الاصطناعي والأعمال</a></li>
+          </ul>
+        </div>
+
+        <!-- قسم النشرة البريدية -->
+        <div class="card">
+          <h3 style="font-size: 1.1rem; margin-bottom: 8px; color: var(--accent);">📬 النشرة البريدية التقنية</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">اشترك ليصلك أحدث المقالات والنصائح البرمجية مباشرة إلى بريدك.</p>
+          <form id="newsletter-form" onsubmit="event.preventDefault(); alert('✅ شكراً لاشتراكك في النشرة التقنية!'); this.reset();" style="display: flex; flex-direction: column; gap: 10px;">
+            <input type="email" placeholder="بريدك الإلكتروني..." required style="padding: 9px; background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-main); font-size: 0.85rem; outline: none;">
+            <button type="submit" class="btn-primary" style="font-size: 0.85rem; padding: 8px;">اشتراك الآن</button>
+          </form>
+        </div>
+
+        <!-- إعلان جانبي إضافي -->
+        <div class="giti-ad-wrapper" style="display: block !important;">
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-6651309355082807"
+               data-ad-slot="1516733351"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>
+               (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
+        </div>
+
+      </aside>
+
+    </div>
 
     <!-- فوتر الموقع -->
     <footer style="margin-top: 30px; padding: 20px 0; text-align: center; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 0.85rem;">
       <p>جميع الحقوق محفوظة © 2027 GITI Tech & Business</p>
       <p style="margin-top: 6px;">
-        <a href="privacy.html" target="_blank" style="color: var(--accent); text-decoration: none;">سياسة الخصوصية</a> | 
-        <a href="privacy.html" target="_blank" style="color: var(--accent); text-decoration: none;">اتفاقية الاستخدام</a>
+        <a href="about.html" style="color: var(--accent); text-decoration: none;">من نحن</a> | 
+        <a href="contact.html" style="color: var(--accent); text-decoration: none;">اتصل بنا</a> | 
+        <a href="privacy.html" target="_blank" style="color: var(--accent); text-decoration: none;">سياسة الخصوصية</a>
       </p>
     </footer>
 
   </div>
 
+  <script src="app.js"></script>
 </body>
 </html>
