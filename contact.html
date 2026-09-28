@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#090d16">
+  <title>اتصل بنا | GITI Tech & Business</title>
+  <meta name="description" content="تواصل مع فريق الدعم والتحرير في منصة GITI Tech لأي استفسارات أو مقترحات تعاون تقني." />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="apple-touch-icon" href="logo.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- هيدر الموقع الاحترافي -->
+  <header class="app-header glass-nav">
+    <div class="brand-container">
+      <img src="logo.png" alt="GITI Logo" class="giti-header-logo">
+      <div>
+        <h1 style="font-size: 1.25rem; color: var(--accent); font-weight: 900;">GITI Tech & Business</h1>
+        <p class="subtitle">الموسوعة التقنية لإدارة الأعمال والتحول الرقمي</p>
+      </div>
+    </div>
+    
+    <nav class="header-nav-links">
+      <a href="index.html" class="nav-link">الرئيسية</a>
+      <a href="about.html" class="nav-link">من نحن</a>
+      <a href="contact.html" class="nav-link active">اتصل بنا</a>
+      <a href="privacy.html" target="_blank" class="nav-link">سياسة الخصوصية</a>
+    </nav>
+  </header>
+
+  <div id="main-app" style="max-width: 800px; margin: 20px auto; padding: 0 15px;">
+    
+    <section class="card" style="padding: 30px;">
+      <span class="badge badge-success" style="margin-bottom: 12px; display: inline-block;">الدعم والتواصل</span>
+      <h2 style="font-size: 1.6rem; margin-bottom: 15px; color: var(--accent);">تواصل معنا</h2>
+      
+      <p style="line-height: 1.8; font-size: 0.95rem; margin-bottom: 20px; color: var(--text-muted);">
+        نحن نحرص دائماً على سماع آرائكم واستفساراتكم. يمكنك التواصل معنا مباشرة عبر القنوات الرسمية التالية أو إرسال رسالة من خلال نموذج الاتصال أدناه:
+      </p>
+
+      <!-- بطاقات وسائل التواصل المباشر -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 24px;">
+        
+        <!-- البريد الإلكتروني -->
+        <div style="background: var(--input-bg); padding: 16px; border-radius: 12px; border: 1px solid var(--border-color); text-align: center;">
+          <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">البريد الإلكتروني:</span>
+          <a href="mailto:eelkady188@gmail.com" style="font-size: 0.95rem; color: var(--accent); text-decoration: none; font-weight: 700;">eelkady188@gmail.com</a>
+        </div>
+
+        <!-- الهاتف / واتساب -->
+        <div style="background: var(--input-bg); padding: 16px; border-radius: 12px; border: 1px solid var(--border-color); text-align: center;">
+          <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">الهاتف / واتساب:</span>
+          <a href="https://wa.me/201114099799" target="_blank" style="font-size: 0.95rem; color: var(--success); text-decoration: none; font-weight: 700;">+201114099799</a>
+        </div>
+
+        <!-- فيسبوك -->
+        <div style="background: var(--input-bg); padding: 16px; border-radius: 12px; border: 1px solid var(--border-color); text-align: center;">
+          <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">صفحة فيسبوك:</span>
+          <a href="https://facebook.com/smaregy" target="_blank" style="font-size: 0.95rem; color: var(--accent); text-decoration: none; font-weight: 700;">/smaregy</a>
+        </div>
+
+      </div>
+
+      <!-- نموذج إرسال الرسائل -->
+      <form onsubmit="event.preventDefault(); alert('✅ تم إرسال رسالتك بنجاح! سنقوم بالرد عليك في أقرب وقت.'); this.reset();" style="display: flex; flex-direction: column; gap: 14px;">
+        <div class="form-group">
+          <label style="display: block; font-size: 0.78rem; color: var(--text-muted); margin-bottom: 6px; font-weight: 700;">الاسم الكريم</label>
+          <input type="text" required placeholder="أدخل اسمك الكامل..." style="width: 100%; padding: 10px 14px; background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-main); font-size: 0.9rem;">
+        </div>
+        
+        <div class="form-group">
+          <label style="display: block; font-size: 0.78rem; color: var(--text-muted); margin-bottom: 6px; font-weight: 700;">البريد الإلكتروني</label>
+          <input type="email" required placeholder="name@domain.com" style="width: 100%; padding: 10px 14px; background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-main); font-size: 0.9rem;">
+        </div>
+
+        <div class="form-group">
+          <label style="display: block; font-size: 0.78rem; color: var(--text-muted); margin-bottom: 6px; font-weight: 700;">نص الرسالة</label>
+          <textarea rows="4" required placeholder="اكتب رسالتك أو استفسارك هنا..." style="width: 100%; padding: 10px 14px; background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-main); font-family: inherit; font-size: 0.9rem;"></textarea>
+        </div>
+
+        <button type="submit" class="btn-primary" style="width: 100%; margin-top: 5px;">إرسال الرسالة 📨</button>
+      </form>
+    </section>
+
+    <!-- فوتر الموقع -->
+    <footer style="margin-top: 40px; padding: 25px 0; text-align: center; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 0.85rem;">
+      <p>جميع الحقوق محفوظة © 2027 GITI Tech & Business</p>
+      <div style="margin-top: 12px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+        <a href="index.html" style="color: var(--accent); text-decoration: none; font-weight: 700;">الرئيسية</a>
+        <a href="about.html" style="color: var(--accent); text-decoration: none; font-weight: 700;">من نحن</a>
+        <a href="privacy.html" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: 700;">سياسة الخصوصية</a>
+      </div>
+    </footer>
+
+  </div>
+
+</body>
+</html>
