@@ -1,7 +1,7 @@
-// GITI Tech & Business Blog - Advanced Main JavaScript
+// GITI Tech & Business Blog - Sidebar & Filtering Engine
 
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. إدارة المظاهر (الثيمات: داكن / فاتح)
+  // 1. إدارة المظاهر (الثيمات الداكنة والفاتحة)
   const savedTheme = localStorage.getItem('app_theme') || 'dark';
   document.documentElement.setAttribute('data-theme', savedTheme);
 
@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 2. شريط التقدم أثناء التصفح والقراءة (Scroll Progress Bar)
+  // 2. شريط التقدم أثناء التصفح
   window.addEventListener('scroll', () => {
     const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
     const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -26,24 +26,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 3. حساب وقت القراءة التلقائي لكل مقال وإضافة أزرار المشاركة الاجتماعية
+  // 3. إضافة أزرار المشاركة الاجتماعية التلقائية أسفل المقالات
   const articles = document.querySelectorAll('.article-item');
   articles.forEach(article => {
-    const bodyText = article.querySelector('.article-body') ? article.querySelector('.article-body').textContent : '';
-    const wordCount = bodyText.trim().split(/\s+/).length;
-    const readTimeMinutes = Math.ceil(wordCount / 180); // معدل القراءة الطبيعي 180 كلمة بالدقيقة
-    
-    const timeTag = article.querySelector('.reading-time');
-    if (timeTag) {
-      timeTag.textContent = `⏱️ وقت القراءة: ${readTimeMinutes} دقيقة`;
-    }
-
-    // إضافة أزرار المشاركة أسفل كل مقال
     const titleEl = article.querySelector('h2');
     if (titleEl && !article.querySelector('.share-box')) {
       const shareBox = document.createElement('div');
       shareBox.className = 'share-box';
-      shareBox.style.cssText = 'margin-top: 15px; padding-top: 10px; border-top: 1px dashed var(--border-color); display: flex; gap: 8px; align-items: center; flex-wrap: wrap;';
+      shareBox.style.cssText = 'margin-top: 15px; padding-top: 12px; border-top: 1px dashed var(--border-color); display: flex; gap: 8px; align-items: center; flex-wrap: wrap;';
       
       const articleTitle = encodeURIComponent(titleEl.textContent);
       const pageUrl = encodeURIComponent(window.location.href);
@@ -74,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 5. تفعيل إعلانات أدسنس أوتوماتيكياً بأمان
+  // 5. تفعيل إعلانات أدسنس أوتوماتيكياً
   setTimeout(() => {
     try {
       const adElements = document.querySelectorAll('.adsbygoogle');
@@ -88,10 +78,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }, 400);
 
-  console.log("✅ GITI Tech Blog fully loaded with advanced features.");
+  console.log("✅ GITI Tech Sidebar & Blog engine initialized successfully.");
 });
 
-// دالة تصنيف المقالات
+// دالة تصنيف وفلترة المقالات عبر الشريط الجانبي
 window.filterCategory = function(category) {
   const articles = document.querySelectorAll('.article-item');
   articles.forEach(article => {
@@ -99,6 +89,16 @@ window.filterCategory = function(category) {
       article.style.display = 'block';
     } else {
       article.style.display = 'none';
+    }
+  });
+
+  // تحديث حالة الأزرار في الشريط الجانبي
+  const catButtons = document.querySelectorAll('.cat-btn');
+  catButtons.forEach(btn => {
+    if (btn.getAttribute('data-cat') === category) {
+      btn.classList.add('active');
+    } else {
+      btn.classList.remove('active');
     }
   });
 };
