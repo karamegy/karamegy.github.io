@@ -2,7 +2,8 @@
 <html lang="ar" dir="rtl" data-theme="dark">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#090d16">
   <title>من نحن | GITI Tech & Business</title>
   <meta name="description" content="تعرّف على منصة GITI Tech، رؤيتنا في نشر المعرفة التقنية، تطوير أنظمة الإدارة الحديثة، وحلول التحول الرقمي." />
   
@@ -11,34 +12,36 @@
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   
   <link rel="icon" type="image/png" href="logo.png">
+  <link rel="apple-touch-icon" href="logo.png">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- هيدر الموقع -->
+  <!-- هيدر الموقع الاحترافي -->
   <header class="app-header glass-nav">
     <div class="brand-container">
       <img src="logo.png" alt="GITI Logo" class="giti-header-logo">
       <div>
-        <h1 style="font-size: 1.3rem; color: var(--accent);">GITI Tech & Business</h1>
+        <h1 style="font-size: 1.25rem; color: var(--accent); font-weight: 900;">GITI Tech & Business</h1>
         <p class="subtitle">الموسوعة التقنية لإدارة الأعمال والتحول الرقمي</p>
       </div>
     </div>
-    <nav style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
-      <a href="index.html" class="btn-ghost" style="text-decoration: none; font-weight: 700;">الرئيسية</a>
-      <a href="about.html" class="btn-primary" style="text-decoration: none; font-weight: 700; padding: 6px 12px; border-radius: 8px;">من نحن</a>
-      <a href="contact.html" class="btn-ghost" style="text-decoration: none; font-weight: 700;">اتصل بنا</a>
-      <a href="privacy.html" class="btn-ghost" style="text-decoration: none; font-weight: 700;">سياسة الخصوصية</a>
+    
+    <nav class="header-nav-links">
+      <a href="index.html" class="nav-link">الرئيسية</a>
+      <a href="about.html" class="nav-link active">من نحن</a>
+      <a href="contact.html" class="nav-link">اتصل بنا</a>
+      <a href="privacy.html" target="_blank" class="nav-link">سياسة الخصوصية</a>
     </nav>
   </header>
 
-  <div id="main-app" style="max-width: 900px; margin: 25px auto; padding: 0 15px;">
+  <div id="main-app" style="max-width: 900px; margin: 20px auto; padding: 0 15px;">
     
     <section class="card" style="padding: 30px;">
-      <span class="badge badge-paid" style="margin-bottom: 10px; display: inline-block;">عن المنصة</span>
+      <span class="badge badge-paid" style="margin-bottom: 12px; display: inline-block;">عن المنصة</span>
       <h2 style="font-size: 1.6rem; margin-bottom: 15px; color: var(--accent);">من نحن ورؤيتنا المستقبلية</h2>
       
-      <p style="line-height: 1.9; font-size: 0.98rem; margin-bottom: 16px; color: var(--text-main);">
+      <p style="line-height: 1.9; font-size: 0.95rem; margin-bottom: 16px; color: var(--text-main);">
         مرحباً بكم في منصة <strong>GITI Tech & Business</strong>، وجهتكم الأولى لاكتشاف أحدث أساليب التحول الرقمي، تطوير البرمجيات المتقدمة، وأنظمة تخطيط موارد المؤسسات (ERP). نحن نؤمن بأن التكنولوجيا الحديثة وأتمتة العمليات هي المفتاح الأساسي لنمو واستدامة الشركات والمشاريع في العصر الرقمي لعام 2027 وما بعده.
       </p>
 
@@ -50,14 +53,19 @@
       </ul>
 
       <h3 style="font-size: 1.2rem; margin: 20px 0 10px; color: var(--text-main);">فريق العمل:</h3>
-      <p style="line-height: 1.9; font-size: 0.98rem; color: var(--text-main);">
+      <p style="line-height: 1.9; font-size: 0.95rem; color: var(--text-main);">
         يدير هذه المنصة نخبة من المهندسين والمطورين المتخصصين في هندسة برمجيات الويب وأنظمة قواعد البيانات، الذين يسعون دائماً لتقديم محتوى موثوق وعالي الجودة يلبي تطلعات القارئ العربي.
       </p>
     </section>
 
     <!-- فوتر الموقع -->
-    <footer style="margin-top: 30px; padding: 20px 0; text-align: center; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 0.85rem;">
+    <footer style="margin-top: 40px; padding: 25px 0; text-align: center; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 0.85rem;">
       <p>جميع الحقوق محفوظة © 2027 GITI Tech & Business</p>
+      <div style="margin-top: 12px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+        <a href="index.html" style="color: var(--accent); text-decoration: none; font-weight: 700;">الرئيسية</a>
+        <a href="contact.html" style="color: var(--accent); text-decoration: none; font-weight: 700;">اتصل بنا</a>
+        <a href="privacy.html" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: 700;">سياسة الخصوصية</a>
+      </div>
     </footer>
 
   </div>
