@@ -1,24 +1,48 @@
-const CACHE_NAME = 'giti-tech-blog-v1';
+const CACHE_NAME = 'giti-tech-blog-v2';
 const urlsToCache = [
   './index.html',
   './about.html',
   './contact.html',
   './privacy.html',
+  './tork.html',
+  './manifest.json',
   './style.css',
   './app.js',
   './logo.png'
 ];
 
+// تثبيت الخدمة وتخزين الملفات الجديدة في الكاش
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(urlsToCache))
+      .then(cache => {
+        return cache.addAll(urlsToCache);
+      })
+      .then(() => self.skipWaiting())
   );
 });
 
+// تفعيل الخدمة وحذف النسخ القديمة للكاش تلقائياً
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(cacheName => {
+          if (cacheName !== CACHE_NAME) {
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    }).then(() => self.clients.claim())
+  );
+});
+
+// جلب الموارد من الكاش أو الإنترنت
 self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request)
-      .then(response => response || fetch(event.request))
+      .then(response => {
+        return response || fetch(event.request);
+      })
   );
 });
