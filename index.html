@@ -32,6 +32,34 @@
   
   <!-- أكواد إعلانات جوجل أدسنس الرسمية -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6651309355082807" crossorigin="anonymous"></script>
+
+  <!-- سكربتات Firebase الأساسية للربط السحابي والمزامنة -->
+  <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+      import { getFirestore, collection, getDocs, doc, setDoc, updateDoc, deleteDoc, onSnapshot, query, where, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+      import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+      const firebaseConfig = {
+          apiKey: "AIzaSyDTIxdIHfDaEH2wn7dEE9qMnsOlXtlSCI0",
+          authDomain: "omda-a750f.firebaseapp.com",
+          projectId: "omda-a750f",
+          storageBucket: "omda-a750f.firebasestorage.app",
+          messagingSenderId: "1078714497381",
+          appId: "1:1078714497381:web:074cbcf0d66c72a746898c",
+          measurementId: "G-P763CFS7GG"
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+      const auth = getAuth(app);
+      const googleProvider = new GoogleAuthProvider();
+
+      window.db = db;
+      window.auth = auth;
+      window.firebaseModules = { collection, getDocs, doc, setDoc, updateDoc, deleteDoc, onSnapshot, query, where, getDoc };
+
+      console.log("🔥 تم ربط المدونة الرئيسية بنجاح مع سحابة Firebase وقواعد البيانات المركزية!");
+  </script>
 </head>
 <body>
 
@@ -51,6 +79,7 @@
     <nav class="header-nav-links">
       <a href="index.html" class="nav-link active">الرئيسية</a>
       <a href="#tools-section" class="nav-link">الأدوات الحاسبة</a>
+      <a href="admin.html" class="nav-link" style="color: var(--admin-gold, #fde047); font-weight: bold;"><i class="fa-solid fa-shield-halved"></i> لوحة التحكم 👑</a>
       <a href="tork.html" class="nav-link" style="color: var(--accent); font-weight: bold;">🔒 أمان وتطبيقات المنصة</a>
       <a href="about.html" class="nav-link">من نحن</a>
       <a href="contact.html" class="nav-link">اتصل بنا</a>
@@ -196,7 +225,7 @@
           <article class="card article-item" data-category="security" data-id="3">
             <div class="article-meta-header">
               <span class="badge badge-partial">أمن البيانات</span>
-              <span class="reading-time">⏱️️ وقت القراءة: 3 دقائق</span>
+              <span class="reading-time">⏱ وقت القراءة: 3 دقائق</span>
             </div>
             <h2>كيف تحمي بيانات عملك في السحابة وقواعد البيانات الموزعة؟</h2>
             <p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 12px;">نشر بتاريخ: 25 سبتمبر 2026 • بواسطة مهندس أمن المعلومات</p>
@@ -293,6 +322,7 @@
     <footer style="margin-top: 40px; padding: 25px 0; text-align: center; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 0.85rem;">
       <p>جميع الحقوق محفوظة © 2027 GITI Tech & Business OS</p>
       <div style="margin-top: 12px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+        <a href="admin.html" style="color: var(--admin-gold, #fde047); text-decoration: none; font-weight: 700;">لوحة التحكم 👑</a>
         <a href="tork.html" style="color: var(--accent); text-decoration: none; font-weight: 700;">🔒 أمان وتطبيقات المنصة</a>
         <a href="about.html" style="color: var(--accent); text-decoration: none; font-weight: 700;">من نحن</a>
         <a href="contact.html" style="color: var(--accent); text-decoration: none; font-weight: 700;">اتصل بنا</a>
