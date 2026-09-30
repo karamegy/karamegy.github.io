@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <link rel="icon" type="image/png" href="logo.png">
   <link rel="apple-touch-icon" href="logo.png">
@@ -18,9 +19,33 @@
   <!-- أكواد إعلانات جوجل أدسنس الرسمية -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6651309355082807" crossorigin="anonymous"></script>
 
-  <!-- سكربتات Firebase الأساسية للربط السحابي -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <!-- سكربتات Firebase الأساسية للربط السحابي ومزامنة البيانات -->
+  <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+      import { getFirestore, collection, getDocs, doc, setDoc, updateDoc, deleteDoc, onSnapshot, query, where, getDoc, addDoc, serverTimestamp, runTransaction } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+      import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+      const firebaseConfig = {
+          apiKey: "AIzaSyDTIxdIHfDaEH2wn7dEE9qMnsOlXtlSCI0",
+          authDomain: "omda-a750f.firebaseapp.com",
+          projectId: "omda-a750f",
+          storageBucket: "omda-a750f.firebasestorage.app",
+          messagingSenderId: "1078714497381",
+          appId: "1:1078714497381:web:074cbcf0d66c72a746898c",
+          measurementId: "G-P763CFS7GG"
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+      const auth = getAuth(app);
+      const googleProvider = new GoogleAuthProvider();
+
+      window.db = db;
+      window.auth = auth;
+      window.firebaseModules = { collection, getDocs, doc, setDoc, updateDoc, deleteDoc, onSnapshot, query, where, getDoc, addDoc, serverTimestamp, runTransaction };
+
+      console.log("🔥 تم ربط صفحة الأمان والتطبيقات بنجاح مع سحابة Firebase وقواعد البيانات المركزية!");
+  </script>
 </head>
 <body>
 
@@ -106,7 +131,7 @@
       </div>
       <div class="card" style="text-align: center; padding: 25px; border: 1px solid var(--accent);">
         <span style="font-size: 0.95rem; color: var(--text-main);">🟢 حالة الخوادم السحابية:</span>
-        <span style="font-size: 1.3rem; font-weight: bold; color: var(--success); display: block; margin-top: 10px;">تشغيل مستقر (99.9%)</span>
+        <span style="font-size: 1.3rem; font-weight: bold; color: #22c55e; display: block; margin-top: 10px;">تشغيل مستقر (99.9%)</span>
       </div>
     </div>
 
@@ -126,7 +151,7 @@
       <h3 style="color: var(--accent); font-size: 1.5rem; margin-bottom: 15px; border-right: 4px solid var(--accent); padding-right: 12px;">🛡️ أداة تفاعلية: فحص قوة تشفير كلمات المرور</h3>
       <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 15px;">اختبر مدى قوة كلمة المرور الخاصة بحسابات شركتك لضمان عدم اختراقها:</p>
       <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 12px;">
-        <input type="text" id="pwd-input" placeholder="اكتب كلمة مرور للاختبار..." oninput="checkPasswordStrength(this.value)" style="flex: 1; min-width: 250px;">
+        <input type="text" id="pwd-input" placeholder="اكتب كلمة مرور للاختبار..." oninput="checkPasswordStrength(this.value)" style="flex: 1; min-width: 250px; padding: 10px; background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-main); outline: none;">
       </div>
       <div id="pwd-result" style="font-size: 0.9rem; font-weight: bold; color: var(--text-muted); padding: 10px; background: var(--input-bg); border-radius: 8px; border: 1px solid var(--border-color);">
         أدخل كلمة مرور أعلاه لمعرفة تقييم أمانها...
@@ -213,11 +238,11 @@
       <form id="inquiry-form" onsubmit="submitInquiryToFirebase(event)" style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 25px;">
         <div>
           <label style="display: block; margin-bottom: 5px; font-weight: bold; font-size: 0.9rem;">اسمك أو اسم الشركة:</label>
-          <input type="text" id="inq-name" required maxlength="50" placeholder="اكتب اسمك أو اسم شركتك...">
+          <input type="text" id="inq-name" required maxlength="50" placeholder="اكتب اسمك أو اسم شركتك..." style="width: 100%; padding: 11px 14px; background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-main); font-size: 0.9rem; outline: none;">
         </div>
         <div>
           <label style="display: block; margin-bottom: 5px; font-weight: bold; font-size: 0.9rem;">الاستفسار التقني أو المقترح:</label>
-          <textarea id="inq-text" required maxlength="400" placeholder="اكتب استفسارك حول أنظمة GITI أو EIDCO..." rows="3" oninput="document.getElementById('char-counter').innerText = this.value.length;"></textarea>
+          <textarea id="inq-text" required maxlength="400" placeholder="اكتب استفسارك حول أنظمة GITI أو EIDCO..." rows="3" oninput="document.getElementById('char-counter').innerText = this.value.length;" style="width: 100%; padding: 11px 14px; background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-main); font-family: inherit; font-size: 0.9rem; outline: none;"></textarea>
           <div style="text-align: left; font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;"><span id="char-counter">0</span> / 400 حرف</div>
         </div>
         <button type="submit" id="submit-btn" class="btn-primary" style="padding: 12px; font-weight: bold;">إرسال الاستفسار سحابياً بأمان</button>
@@ -226,7 +251,7 @@
 
       <!-- حقل البحث الفوري في الاستفسارات -->
       <div style="margin-bottom: 20px;">
-        <input type="text" id="inquiry-search" placeholder="🔍 ابحث في الاستفسارات والردود التقنية..." oninput="filterInquiries()">
+        <input type="text" id="inquiry-search" placeholder="🔍 ابحث في الاستفسارات والردود التقنية..." oninput="filterInquiries()" style="width: 100%; padding: 10px; background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-main); outline: none;">
       </div>
 
       <div id="firebase-inquiries-list" style="display: flex; flex-direction: column; gap: 12px;">
@@ -248,21 +273,6 @@
 
   <script src="app.js"></script>
   <script>
-    // إعدادات Firebase الخاصة بمشروعك
-    const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_AUTH_DOMAIN",
-      projectId: "YOUR_PROJECT_ID",
-      storageBucket: "YOUR_STORAGE_BUCKET",
-      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-      appId: "YOUR_APP_ID"
-    };
-
-    if (!firebase.apps.length) {
-      firebase.initializeApp(firebaseConfig);
-    }
-    const db = firebase.firestore();
-
     let globalInquiriesData = [];
     let lastSubmissionTime = 0;
 
@@ -288,25 +298,32 @@
 
       if (score <= 2) {
         resultEl.innerHTML = "🔴 ضعيفة: يفضل إضافة رموز وأرقام وحروف كبيرة لزيادة التشفير.";
-        resultEl.style.color = "var(--danger)";
+        resultEl.style.color = "#dc2626";
       } else if (score === 3) {
         resultEl.innerHTML = "🟡 متوسطة: كلمة المرور مقبولة ولكن يمكن تحسينها.";
-        resultEl.style.color = "var(--warning)";
+        resultEl.style.color = "#d97706";
       } else {
         resultEl.innerHTML = "🟢 قوية وممتازة: كلمة المرور مؤمنة ضد الاختراق والتشفير قوي جداً!";
-        resultEl.style.color = "var(--success)";
+        resultEl.style.color = "#22c55e";
       }
     }
 
     async function incrementAndFetchPageReads() {
       const pageReadsEl = document.getElementById('pageReadsCounter');
+      if (!window.db) {
+        pageReadsEl.innerText = "4,120+";
+        return;
+      }
+
       try {
-        const statsRef = db.collection('site_metrics').doc('apps_page_views');
-        await db.runTransaction(async (transaction) => {
-          const doc = await transaction.get(statsRef);
+        const { doc, runTransaction } = window.firebaseModules;
+        const statsRef = doc(window.db, 'site_metrics', 'apps_page_views');
+        
+        await runTransaction(window.db, async (transaction) => {
+          const docSnap = await transaction.get(statsRef);
           let newViews = 4120;
-          if (doc.exists) {
-            newViews = (doc.data().views || 4120) + 1;
+          if (docSnap.exists()) {
+            newViews = (docSnap.data().views || 4120) + 1;
             transaction.update(statsRef, { views: newViews });
           } else {
             transaction.set(statsRef, { views: newViews });
@@ -329,6 +346,11 @@
 
     async function submitInquiryToFirebase(e) {
       e.preventDefault();
+      if (!window.db) {
+        alert('قاعدة البيانات غير متصلة حالياً.');
+        return;
+      }
+
       const now = Date.now();
       if (now - lastSubmissionTime < 15000) {
         showAlert('⚠️ يرجى الانتظار قليلاً قبل إرسال استفسار جديد لمنع الضغط على السحابة.', '#d97706', '#fef3c7');
@@ -351,10 +373,11 @@
       submitBtn.innerText = "جاري الحفظ الآمن بالسحابة...";
 
       try {
-        await db.collection('app_inquiries').add({
+        const { collection, addDoc, serverTimestamp } = window.firebaseModules;
+        await addDoc(collection(window.db, 'app_inquiries'), {
           name: nameCheck.cleaned,
           text: textCheck.cleaned,
-          timestamp: firebase.firestore.FieldValue.serverTimestamp()
+          timestamp: serverTimestamp()
         });
 
         document.getElementById('inquiry-form').reset();
@@ -381,8 +404,16 @@
 
     async function fetchFirebaseInquiries() {
       const listContainer = document.getElementById('firebase-inquiries-list');
+      if (!window.db) {
+        listContainer.innerHTML = '<p style="color: var(--text-muted); text-align: center;">قاعدة البيانات غير متصلة.</p>';
+        return;
+      }
+
       try {
-        const snapshot = await db.collection('app_inquiries').orderBy('timestamp', 'desc').get();
+        const { collection, getDocs, query, orderBy } = window.firebaseModules;
+        const q = query(collection(window.db, 'app_inquiries'));
+        const snapshot = await getDocs(q);
+
         if (snapshot.empty) {
           listContainer.innerHTML = '<p style="color: var(--text-muted); text-align: center;">لا توجد استفسارات حالياً. كن أول من يطرح استفساراً تقنياً!</p>';
           globalInquiriesData = [];
@@ -424,10 +455,10 @@
     }
 
     function filterInquiries() {
-      const query = document.getElementById('inquiry-search').value.toLowerCase();
+      const queryStr = document.getElementById('inquiry-search').value.toLowerCase();
       const filtered = globalInquiriesData.filter(i => 
-        (i.name && i.name.toLowerCase().includes(query)) || 
-        (i.text && i.text.toLowerCase().includes(query))
+        (i.name && i.name.toLowerCase().includes(queryStr)) || 
+        (i.text && i.text.toLowerCase().includes(queryStr))
       );
       renderInquiriesList(filtered);
     }
