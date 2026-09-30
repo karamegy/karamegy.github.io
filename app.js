@@ -1,6 +1,5 @@
-// GITI Tech & Business Blog - Advanced Engine for AdSense Compliance
+// GITI Tech & Business Blog - Advanced Enhanced Engine
 
-// قاعدة بيانات المقالات الكاملة لعرضها في النافذة المنبثقة
 const articlesDatabase = {
   "1": {
     title: "أهمية أنظمة تخطيط موارد المؤسسات (ERP) في إدارة المتاجر والشركات الناشئة",
@@ -99,9 +98,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
       shareBox.innerHTML = `
         <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: bold;">مشاركة المقال:</span>
-        <a href="https://api.whatsapp.com/send?text=${articleTitle}%20-%20${pageUrl}" target="_blank" class="btn-sm" style="background: #22c55e; color: #fff; text-decoration: none;">واتساب 💬</a>
-        <a href="https://twitter.com/intent/tweet?text=${articleTitle}&url=${pageUrl}" target="_blank" class="btn-sm" style="background: #0284c7; color: #fff; text-decoration: none;">تويتر/X 🐦</a>
-        <a href="https://www.linkedin.com/sharing/share-offsite/?url=${pageUrl}" target="_blank" class="btn-sm" style="background: #4f46e5; color: #fff; text-decoration: none;">لينكد إن 🔗</a>
+        <a href="https://api.whatsapp.com/send?text=${articleTitle}%20-%20${pageUrl}" target="_blank" class="btn-sm" style="background: #22c55e; color: #fff; text-decoration: none; padding: 4px 8px; border-radius: 6px; font-size: 0.75rem;">واتساب 💬</a>
+        <a href="https://twitter.com/intent/tweet?text=${articleTitle}&url=${pageUrl}" target="_blank" class="btn-sm" style="background: #0284c7; color: #fff; text-decoration: none; padding: 4px 8px; border-radius: 6px; font-size: 0.75rem;">تويتر/X 🐦</a>
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=${pageUrl}" target="_blank" class="btn-sm" style="background: #4f46e5; color: #fff; text-decoration: none; padding: 4px 8px; border-radius: 6px; font-size: 0.75rem;">لينكد إن 🔗</a>
       `;
       article.appendChild(shareBox);
     }
@@ -123,10 +122,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 5. تحميل المقالات المحفوظة مسبقاً
   renderBookmarks();
 
-  // 6. تفعيل إعلانات أدسنس أوتوماتيكياً
+  // تفعيل إعلانات أدسنس أوتوماتيكياً
   setTimeout(() => {
     try {
       const adElements = document.querySelectorAll('.adsbygoogle');
@@ -140,10 +138,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }, 400);
 
-  console.log("✅ GITI Tech Blog engine initialized successfully.");
+  console.log("✅ GITI Tech Advanced engine initialized successfully.");
 });
 
-// دالة تصنيف وفلترة المقالات عبر الشريط الجانبي
+// فلترة المقالات حسب الأقسام
 window.filterCategory = function(category) {
   const articles = document.querySelectorAll('.article-item');
   articles.forEach(article => {
@@ -164,7 +162,7 @@ window.filterCategory = function(category) {
   });
 };
 
-// دالة الحاسبة التذكية الذكية (تحسن تقييم الجودة لدى جوجل)
+// حاسبة الـ ERP الذكية
 window.calculateERPValue = function() {
   const inputVal = document.getElementById('calc-input').value;
   const resultDiv = document.getElementById('calc-result');
@@ -177,7 +175,7 @@ window.calculateERPValue = function() {
   resultDiv.innerHTML = `✨ النتائج التقديرية: يوفر نظام الـ ERP حوالي <span style="color:#22c55e;">${savedHours} ساعة</span> عمل شهرياً، ويقلل الهدر بنحو <span style="color:#22c55e;">$${savedMoney}</span> شهرياً!`;
 };
 
-// نافذة قراءة المقال كاملاً
+// فتح نافذة المقال كاملاً
 window.openFullArticle = function(id) {
   const modal = document.getElementById('article-modal');
   const area = document.getElementById('modal-content-area');
@@ -193,6 +191,7 @@ window.openFullArticle = function(id) {
       </div>
     `;
     modal.style.display = 'block';
+    document.getElementById('rating-feedback').innerText = '';
     renderComments(id);
   }
 };
@@ -201,7 +200,14 @@ window.closeFullArticle = function() {
   document.getElementById('article-modal').style.display = 'none';
 };
 
-// إدارة حفظ المقالات (Bookmarks)
+// نظام تقييم المقال التفاعلي
+window.rateArticle = function(stars) {
+  const feedback = document.getElementById('rating-feedback');
+  feedback.innerHTML = `✅ شكراً لك! تم تسجيل تقييمك (${stars} نجوم) بنجاح.`;
+  feedback.style.color = '#22c55e';
+};
+
+// حفظ المقالات (Bookmarks)
 window.toggleBookmark = function(id) {
   let bookmarks = JSON.parse(localStorage.getItem('giti_bookmarks')) || [];
   if (bookmarks.includes(id)) {
@@ -235,7 +241,7 @@ function renderBookmarks() {
   listEl.innerHTML = html;
 }
 
-// نظام التعليقات الحية داخل المقالات
+// نظام التعليقات الحية
 window.addComment = function(e) {
   e.preventDefault();
   const author = document.getElementById('comment-author').value;
