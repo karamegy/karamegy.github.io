@@ -54,7 +54,7 @@ body {
   display: flex; justify-content: space-between; align-items: center;
   padding: 12px 18px; background: var(--card-bg);
   border: 1px solid var(--card-border); border-radius: var(--radius);
-  margin-bottom: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.15);
   flex-wrap: wrap; gap: 10px;
 }
 
@@ -62,10 +62,11 @@ body {
 .giti-header-logo { width: 42px; height: 42px; border-radius: 12px; object-fit: cover; box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3); }
 .subtitle { color: var(--text-muted); font-size: 0.75rem; font-weight: 600; margin-top: -2px; }
 
-/* Global Components */
+/* Global Components & Cards */
 .card {
-  background: var(--card-bg); border-radius: var(--radius); padding: 18px;
+  background: var(--card-bg); border-radius: var(--radius); padding: 22px;
   border: 1px solid var(--card-border); box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .badge { padding: 4px 10px; border-radius: 8px; font-size: 0.75rem; font-weight: 700; display: inline-block; }
@@ -73,18 +74,36 @@ body {
 .badge-partial { background: rgba(245, 158, 11, 0.15); color: var(--warning); border: 1px solid rgba(245, 158, 11, 0.3); }
 .badge-success { background: rgba(16, 185, 129, 0.15); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.3); }
 
+/* Form Elements & Inputs (لصفحات الاتصال والبحث والحاسبات) */
+input, select, textarea {
+  width: 100%;
+  padding: 11px 14px;
+  background: var(--input-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  color: var(--text-main);
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+/* Buttons Styling */
 button {
   padding: 10px 16px; border-radius: 10px; border: none; font-weight: 700;
-  cursor: pointer; font-size: 0.85rem; transition: background-color 0.2s ease;
+  cursor: pointer; font-size: 0.85rem; transition: background-color 0.2s ease, transform 0.1s ease;
 }
+button:active { transform: scale(0.98); }
 .btn-primary { background: var(--accent); color: #ffffff; }
 .btn-primary:hover { background: var(--accent-hover); }
 .btn-sm { padding: 6px 12px; font-size: 0.75rem; border-radius: 8px; }
-.btn-icon { background: rgba(128,128,128,0.1); color: var(--text-main); padding: 6px 10px; }
+.btn-icon { background: rgba(128,128,128,0.1); color: var(--text-main); padding: 6px 10px; border-radius: 8px; }
 
-/* -------------------------------------
-   New Blog Grid & Sidebar Styles
--------------------------------------- */
+/* Blog Grid & Sidebar Styles */
 .blog-grid-layout {
   display: grid;
   grid-template-columns: 1fr;
@@ -93,7 +112,7 @@ button {
 
 @media (min-width: 900px) {
   .blog-grid-layout {
-    grid-template-columns: 280px 1fr; /* الشريط الجانبي مساحته 280px والباقي للمقالات */
+    grid-template-columns: 280px 1fr;
     align-items: start;
   }
   .sidebar-categories {
@@ -148,42 +167,6 @@ button {
   box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
 }
 
-.popular-posts-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.popular-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  text-decoration: none;
-  padding: 8px;
-  border-radius: 10px;
-  transition: background 0.2s ease;
-}
-
-.popular-item:hover {
-  background: rgba(99, 102, 241, 0.08);
-}
-
-.pop-num {
-  font-size: 0.9rem;
-  font-weight: 900;
-  color: var(--accent);
-  background: rgba(99, 102, 241, 0.15);
-  padding: 4px 8px;
-  border-radius: 8px;
-}
-
-.popular-item p {
-  font-size: 0.82rem;
-  color: var(--text-main);
-  font-weight: 700;
-  line-height: 1.5;
-}
-
 .article-meta-header {
   display: flex;
   justify-content: space-between;
@@ -231,6 +214,11 @@ button {
   color: var(--text-main);
   background: rgba(99, 102, 241, 0.1);
 }
+
+/* تنسيقات عامة للجداول والنصوص داخل المقالات والصفحات الفرعية */
+p { margin-bottom: 12px; }
+ul, ol { padding-right: 20px; margin-bottom: 12px; }
+li { margin-bottom: 6px; }
 
 /* AdSense wrapper */
 .giti-ad-wrapper { display: none !important; }
