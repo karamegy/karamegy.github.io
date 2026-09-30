@@ -47,7 +47,7 @@
     </nav>
   </header>
 
-  <div id="main-app" style="max-width: 1000px; margin: 90px auto 40px auto; padding: 0 20px;">
+  <div id="main-app" style="max-width: 1000px; margin: 30px auto; padding: 0 15px;">
 
     <!-- إعلان علوي معتمد -->
     <div class="giti-ad-wrapper" style="margin-bottom: 25px;">
@@ -83,29 +83,30 @@
       </p>
     </section>
 
-    <!-- شريط التنقل السريع الداخلي المحدث -->
-    <div class="card" style="margin-bottom: 30px; padding: 15px; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
-      <a href="#security" class="btn-primary" style="font-size: 0.85rem; padding: 6px 12px; text-decoration: none;">🔒 معايير الأمان</a>
-      <a href="#app-giti" class="btn-primary" style="font-size: 0.85rem; padding: 6px 12px; text-decoration: none;">📦 GITI-فواتير</a>
-      <a href="#app-eidco" class="btn-primary" style="font-size: 0.85rem; padding: 6px 12px; text-decoration: none;">💼 EIDCO OS</a>
-      <a href="#comparison" class="btn-primary" style="font-size: 0.85rem; padding: 6px 12px; text-decoration: none;">📊 مقارنة الأنظمة</a>
-      <a href="#faq" class="btn-primary" style="font-size: 0.85rem; padding: 6px 12px; text-decoration: none;">❓ الأسئلة الشائعة</a>
-      <a href="#inquiries" class="btn-primary" style="font-size: 0.85rem; padding: 6px 12px; text-decoration: none;">💬 الدعم</a>
+    <!-- شريط التنقل السريع الداخلي -->
+    <div class="card" style="margin-bottom: 30px; padding: 15px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
+      <a href="#security" class="btn-primary" style="font-size: 0.85rem; padding: 6px 14px; text-decoration: none;">🔒 معايير الأمان</a>
+      <a href="#password-tester" class="btn-primary" style="font-size: 0.85rem; padding: 6px 14px; text-decoration: none;">🛡️ فاحص الأمان</a>
+      <a href="#app-giti" class="btn-primary" style="font-size: 0.85rem; padding: 6px 14px; text-decoration: none;">📦 GITI-فواتير</a>
+      <a href="#app-eidco" class="btn-primary" style="font-size: 0.85rem; padding: 6px 14px; text-decoration: none;">💼 EIDCO OS</a>
+      <a href="#comparison" class="btn-primary" style="font-size: 0.85rem; padding: 6px 14px; text-decoration: none;">📊 مقارنة الأنظمة</a>
+      <a href="#faq" class="btn-primary" style="font-size: 0.85rem; padding: 6px 14px; text-decoration: none;">❓ الأسئلة الشائعة</a>
+      <a href="#inquiries" class="btn-primary" style="font-size: 0.85rem; padding: 6px 14px; text-decoration: none;">💬 الدعم</a>
     </div>
 
-    <!-- إحصائيات النظام وموفر القراءات السحابي + مؤشر حالة السيرفرات -->
+    <!-- إحصائيات النظام ومؤشر حالة السيرفرات -->
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-bottom: 30px;">
-      <div class="card counter-box" style="background: linear-gradient(135deg, var(--card-bg), var(--input-bg)); text-align: center; padding: 25px; border: 1px solid var(--accent); margin: 0;">
+      <div class="card" style="text-align: center; padding: 25px; border: 1px solid var(--accent);">
         <span style="font-size: 0.95rem; color: var(--text-main);">العمليات المؤمنة سحابياً:</span>
-        <span class="counter-number" id="secureOpsCounter" style="font-size: 2rem; font-weight: bold; color: var(--accent); display: block; margin-top: 5px;">+25,400</span>
+        <span id="secureOpsCounter" style="font-size: 2rem; font-weight: bold; color: var(--accent); display: block; margin-top: 5px;">+25,400</span>
       </div>
-      <div class="card counter-box" style="background: linear-gradient(135deg, var(--card-bg), var(--input-bg)); text-align: center; padding: 25px; border: 1px solid var(--accent); margin: 0;">
+      <div class="card" style="text-align: center; padding: 25px; border: 1px solid var(--accent);">
         <span style="font-size: 0.95rem; color: var(--text-main);">👁️ إجمالي زيارات المنصة:</span>
-        <span class="counter-number" id="pageReadsCounter" style="font-size: 2rem; font-weight: bold; color: var(--accent); display: block; margin-top: 5px;">جاري التحديث...</span>
+        <span id="pageReadsCounter" style="font-size: 2rem; font-weight: bold; color: var(--accent); display: block; margin-top: 5px;">جاري التحديث...</span>
       </div>
-      <div class="card counter-box" style="background: linear-gradient(135deg, var(--card-bg), var(--input-bg)); text-align: center; padding: 25px; border: 1px solid var(--accent); margin: 0;">
+      <div class="card" style="text-align: center; padding: 25px; border: 1px solid var(--accent);">
         <span style="font-size: 0.95rem; color: var(--text-main);">🟢 حالة الخوادم السحابية:</span>
-        <span style="font-size: 1.3rem; font-weight: bold; color: #2b8a3e; display: block; margin-top: 10px;">تشغيل مستقر (99.9%)</span>
+        <span style="font-size: 1.3rem; font-weight: bold; color: var(--success); display: block; margin-top: 10px;">تشغيل مستقر (99.9%)</span>
       </div>
     </div>
 
@@ -117,6 +118,18 @@
       </p>
       <div style="background: var(--input-bg); border-right: 5px solid var(--accent); padding: 15px; font-style: italic; color: var(--text-muted); border-radius: 4px;">
         "الأمان ليس ميزة إضافية، بل هو الأساس المعماري لكل سطر برمجي في تطبيقاتنا."
+      </div>
+    </section>
+
+    <!-- ميزة متطورة جديدة: أداة فحص قوة وتشفير كلمات المرور للزوار -->
+    <section id="password-tester" class="card" style="margin-bottom: 30px; padding: 30px; border: 1px solid var(--accent);">
+      <h3 style="color: var(--accent); font-size: 1.5rem; margin-bottom: 15px; border-right: 4px solid var(--accent); padding-right: 12px;">🛡️ أداة تفاعلية: فحص قوة تشفير كلمات المرور</h3>
+      <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 15px;">اختبر مدى قوة كلمة المرور الخاصة بحسابات شركتك لضمان عدم اختراقها:</p>
+      <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 12px;">
+        <input type="text" id="pwd-input" placeholder="اكتب كلمة مرور للاختبار..." oninput="checkPasswordStrength(this.value)" style="flex: 1; min-width: 250px;">
+      </div>
+      <div id="pwd-result" style="font-size: 0.9rem; font-weight: bold; color: var(--text-muted); padding: 10px; background: var(--input-bg); border-radius: 8px; border: 1px solid var(--border-color);">
+        أدخل كلمة مرور أعلاه لمعرفة تقييم أمانها...
       </div>
     </section>
 
@@ -142,7 +155,7 @@
       </div>
     </section>
 
-    <!-- 1. قسم جديد: جدول مقارنة سريعة بين التطبيقين -->
+    <!-- جدول مقارنة سريعة بين التطبيقين -->
     <section id="comparison" class="card" style="margin-bottom: 30px; padding: 30px;">
       <h3 style="color: var(--accent); font-size: 1.5rem; margin-bottom: 20px; border-right: 4px solid var(--accent); padding-right: 12px;">📊 مقارنة سريعة بين أنظمة المنصة</h3>
       <div style="overflow-x: auto;">
@@ -175,7 +188,7 @@
       </div>
     </section>
 
-    <!-- 2. قسم جديد: الأسئلة الشائعة (FAQ) -->
+    <!-- الأسئلة الشائعة (FAQ) -->
     <section id="faq" class="card" style="margin-bottom: 30px; padding: 30px;">
       <h3 style="color: var(--accent); font-size: 1.5rem; margin-bottom: 20px; border-right: 4px solid var(--accent); padding-right: 12px;">❓ الأسئلة الشائعة التقنية</h3>
       
@@ -200,11 +213,12 @@
       <form id="inquiry-form" onsubmit="submitInquiryToFirebase(event)" style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 25px;">
         <div>
           <label style="display: block; margin-bottom: 5px; font-weight: bold; font-size: 0.9rem;">اسمك أو اسم الشركة:</label>
-          <input type="text" id="inq-name" required maxlength="50" placeholder="اكتب اسمك أو اسم شركتك..." style="width: 100%; padding: 12px; background: var(--input-bg); border: 1px solid var(--border-color); color: var(--text-main); border-radius: 8px; outline: none;">
+          <input type="text" id="inq-name" required maxlength="50" placeholder="اكتب اسمك أو اسم شركتك...">
         </div>
         <div>
           <label style="display: block; margin-bottom: 5px; font-weight: bold; font-size: 0.9rem;">الاستفسار التقني أو المقترح:</label>
-          <textarea id="inq-text" required maxlength="400" placeholder="اكتب استفسارك حول أنظمة GITI أو EIDCO..." rows="3" style="width: 100%; padding: 12px; background: var(--input-bg); border: 1px solid var(--border-color); color: var(--text-main); border-radius: 8px; outline: none;"></textarea>
+          <textarea id="inq-text" required maxlength="400" placeholder="اكتب استفسارك حول أنظمة GITI أو EIDCO..." rows="3" oninput="document.getElementById('char-counter').innerText = this.value.length;"></textarea>
+          <div style="text-align: left; font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;"><span id="char-counter">0</span> / 400 حرف</div>
         </div>
         <button type="submit" id="submit-btn" class="btn-primary" style="padding: 12px; font-weight: bold;">إرسال الاستفسار سحابياً بأمان</button>
         <div id="form-alert" style="padding: 10px; border-radius: 6px; text-align: center; display: none; font-weight: bold;"></div>
@@ -212,7 +226,7 @@
 
       <!-- حقل البحث الفوري في الاستفسارات -->
       <div style="margin-bottom: 20px;">
-        <input type="text" id="inquiry-search" placeholder="🔍 ابحث في الاستفسارات والردود التقنية..." oninput="filterInquiries()" style="width: 100%; padding: 10px; background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-main); outline: none; font-size: 0.9rem;">
+        <input type="text" id="inquiry-search" placeholder="🔍 ابحث في الاستفسارات والردود التقنية..." oninput="filterInquiries()">
       </div>
 
       <div id="firebase-inquiries-list" style="display: flex; flex-direction: column; gap: 12px;">
@@ -232,7 +246,6 @@
 
   </div>
 
-  <!-- سكربت إدارة المشروع والربط مع Firebase مع نظام التأمين الشامل -->
   <script src="app.js"></script>
   <script>
     // إعدادات Firebase الخاصة بمشروعك
@@ -245,21 +258,46 @@
       appId: "YOUR_APP_ID"
     };
 
-    // التحقق من تهيئة Firebase لمنع التكرار
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
     }
     const db = firebase.firestore();
 
     let globalInquiriesData = [];
-    let lastSubmissionTime = 0; // نظام مكافحة السبام (Rate Limiting)
+    let lastSubmissionTime = 0;
 
     window.addEventListener('DOMContentLoaded', () => {
       incrementAndFetchPageReads();
       fetchFirebaseInquiries();
     });
 
-    // 1. نظام حاسب القراءات والزيارات الآمن (Atomic Transaction Counter)
+    // أداة فحص قوة كلمة المرور المتطورة
+    function checkPasswordStrength(pwd) {
+      const resultEl = document.getElementById('pwd-result');
+      if (!pwd) {
+        resultEl.innerHTML = "أدخل كلمة مرور أعلاه لمعرفة تقييم أمانها...";
+        resultEl.style.color = "var(--text-muted)";
+        return;
+      }
+      
+      let score = 0;
+      if (pwd.length >= 8) score++;
+      if (/[A-Z]/.test(pwd)) score++;
+      if (/[0-9]/.test(pwd)) score++;
+      if (/[^A-Za-z0-9]/.test(pwd)) score++;
+
+      if (score <= 2) {
+        resultEl.innerHTML = "🔴 ضعيفة: يفضل إضافة رموز وأرقام وحروف كبيرة لزيادة التشفير.";
+        resultEl.style.color = "var(--danger)";
+      } else if (score === 3) {
+        resultEl.innerHTML = "🟡 متوسطة: كلمة المرور مقبولة ولكن يمكن تحسينها.";
+        resultEl.style.color = "var(--warning)";
+      } else {
+        resultEl.innerHTML = "🟢 قوية وممتازة: كلمة المرور مؤمنة ضد الاختراق والتشفير قوي جداً!";
+        resultEl.style.color = "var(--success)";
+      }
+    }
+
     async function incrementAndFetchPageReads() {
       const pageReadsEl = document.getElementById('pageReadsCounter');
       try {
@@ -280,27 +318,17 @@
       }
     }
 
-    // 2. فلتر أمني شامل وذكي لتنقية المدخلات ومنع الحقن والكلمات المسيئة
     function sanitizeAndValidate(text) {
       if (!text || typeof text !== 'string') return '';
-      
       const cleaned = text.trim().replace(/<[^>]*>?/gm, '');
-      
-      const bannedKeywords = [
-        'عنف', 'قتل', 'إرهاب', 'سلاح', 'تفجير', 'كراهية', 'حرب', 'دمار', 
-        'تحريض', 'شتم', 'سب', 'اختراق ضار', 'تخريب', 'إبادة', 'script', 'onerror', 'onload'
-      ];
-      
+      const bannedKeywords = ['عنف', 'قتل', 'إرهاب', 'سلاح', 'تفجير', 'كراهية', 'حرب', 'دمار', 'تحريض', 'شتم', 'سب', 'script', 'onerror', 'onload'];
       const lowerText = cleaned.toLowerCase();
       const hasBanned = bannedKeywords.some(word => lowerText.includes(word));
-      
       return { cleaned, hasBanned };
     }
 
-    // 3. إرسال الاستفسار بـ أمان كامل (Anti-Spam & Validation)
     async function submitInquiryToFirebase(e) {
       e.preventDefault();
-      
       const now = Date.now();
       if (now - lastSubmissionTime < 15000) {
         showAlert('⚠️ يرجى الانتظار قليلاً قبل إرسال استفسار جديد لمنع الضغط على السحابة.', '#d97706', '#fef3c7');
@@ -330,6 +358,7 @@
         });
 
         document.getElementById('inquiry-form').reset();
+        document.getElementById('char-counter').innerText = '0';
         lastSubmissionTime = Date.now();
         fetchFirebaseInquiries();
         showAlert('✅ تم إرسال استفسارك التقني وحفظه بأمان تشفير تام في السحابة!', '#2b8a3e', '#ebfbee');
@@ -350,7 +379,6 @@
       setTimeout(() => { alertBox.style.display = 'none'; }, 6000);
     }
 
-    // 4. جلب الاستفسارات وعرضها بأمان تام مع الهروب البرمجي (XSS Safe)
     async function fetchFirebaseInquiries() {
       const listContainer = document.getElementById('firebase-inquiries-list');
       try {
