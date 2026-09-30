@@ -180,7 +180,7 @@
       </div>
     </section>
 
-    <!-- جدول مقارنة سريعة بين التطبيقين -->
+    <!-- جدول مقارنة سريعة بين التطبيقين (مصحح الوصف بدقة) -->
     <section id="comparison" class="card" style="margin-bottom: 30px; padding: 30px;">
       <h3 style="color: var(--accent); font-size: 1.5rem; margin-bottom: 20px; border-right: 4px solid var(--accent); padding-right: 12px;">📊 مقارنة سريعة بين أنظمة المنصة</h3>
       <div style="overflow-x: auto;">
@@ -195,8 +195,8 @@
           <tbody>
             <tr style="border-bottom: 1px solid var(--border-color);">
               <td style="padding: 12px; font-weight: bold;">الاستخدام الرئيسي</td>
-              <td style="padding: 12px;">إدارة الفواتير واللوجستيات وأساطيل النقل</td>
               <td style="padding: 12px;">إدارة المخازن، الخزنة، وحسابات العملاء</td>
+              <td style="padding: 12px;">إدارة الفواتير واللوجستيات وأساطيل النقل</td>
             </tr>
             <tr style="border-bottom: 1px solid var(--border-color);">
               <td style="padding: 12px; font-weight: bold;">التشفير والأمان</td>
@@ -353,7 +353,7 @@
 
       const now = Date.now();
       if (now - lastSubmissionTime < 15000) {
-        showAlert('⚠️ يرجى الانتظار قليلاً قبل إرسال استفسار جديد لمنع الضغط على السحابة.', '#d97706', '#fef3c7');
+        showAlert('⚠️️ يرجى الانتظار قليلاً قبل إرسال استفسار جديد لمنع الضغط على السحابة.', '#d97706', '#fef3c7');
         return;
       }
 
@@ -410,7 +410,7 @@
       }
 
       try {
-        const { collection, getDocs, query, orderBy } = window.firebaseModules;
+        const { collection, getDocs, query } = window.firebaseModules;
         const q = query(collection(window.db, 'app_inquiries'));
         const snapshot = await getDocs(q);
 
