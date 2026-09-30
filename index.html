@@ -51,7 +51,6 @@
     <nav class="header-nav-links">
       <a href="index.html" class="nav-link active">الرئيسية</a>
       <a href="#tools-section" class="nav-link">الأدوات الحاسبة</a>
-      <!-- تم تحديث اسم الزر ورابطه ليعبر عن أمان وتطبيقات المنصة -->
       <a href="tork.html" class="nav-link" style="color: var(--accent); font-weight: bold;">🔒 أمان وتطبيقات المنصة</a>
       <a href="about.html" class="nav-link">من نحن</a>
       <a href="contact.html" class="nav-link">اتصل بنا</a>
@@ -75,7 +74,7 @@
       </script>
     </div>
 
-    <!-- التخطيط الرئيسي للمدونة (شريط جانبي للأقسام + المحتوى) -->
+    <!-- التخطيط الرئيسي للمدونة -->
     <div class="blog-grid-layout">
       
       <!-- الشريط الجانبي للأقسام والتصفح (Sidebar) -->
@@ -129,7 +128,7 @@
           </p>
         </section>
 
-        <!-- حاسبة تفاعلية متطورة (أداة ترفع تقييم الجودة لدى جوجل أدسنس) -->
+        <!-- حاسبة تفاعلية متطورة -->
         <section id="tools-section" class="card" style="margin-bottom: 20px; padding: 20px; border: 1px solid var(--accent);">
           <h3 style="font-size: 1.1rem; color: var(--accent); margin-bottom: 10px;">🧮 الحاسبة الذكية: تقدير توفير نظام ERP لشركتك</h3>
           <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">أدخل عدد المعاملات الشهرية لمتجرك أو شركتك لتقدير نسبة تقليل الهدر المالي والوقتي:</p>
@@ -145,7 +144,7 @@
           <input type="text" id="article-search" placeholder="🔍 ابحث في مئات المقالات والأدوات التقنية..." style="width: 100%; padding: 10px; background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-main); outline: none;">
         </div>
 
-        <!-- قائمة المقالات -->
+        <!-- قائمة المقالات الموسعة (تضمن المحتوى الغني لمراجعة أدسنس) -->
         <div id="articles-container" style="display: flex; flex-direction: column; gap: 20px;">
           
           <!-- المقال الأول -->
@@ -169,7 +168,7 @@
           <article class="card article-item" data-category="logistics" data-id="2">
             <div class="article-meta-header">
               <span class="badge badge-success">أنظمة لوجستية</span>
-              <span class="reading-time">⏱️ وقت القراءة: 5 دقائق</span>
+              <span class="reading-time">⏱️️ وقت القراءة: 5 دقائق</span>
             </div>
             <h2>كيف تطور نظام إدارة أساطيل الشحن وتتبع الشحنات الفوري (GPS Tracking)؟</h2>
             <p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 12px;">نشر بتاريخ: 27 سبتمبر 2026 • بواسطة خبير الأنظمة اللوجستية</p>
@@ -196,6 +195,40 @@
             <div style="margin-top: 15px; display: flex; gap: 10px; align-items: center;">
               <button onclick="openFullArticle('3')" class="btn-primary" style="font-size: 0.85rem; padding: 6px 14px;">📖 قراءة المقال كاملاً</button>
               <button onclick="toggleBookmark('3')" style="background: var(--input-bg); border: 1px solid var(--border-color); padding: 6px 10px; border-radius: 8px; cursor: pointer; color: var(--text-main);" title="حفظ المقال">🔖 حفظ</button>
+            </div>
+          </article>
+
+          <!-- المقال الرابع (مضاف حديثاً لتعزيز المحتوى) -->
+          <article class="card article-item" data-category="ai" data-id="4">
+            <div class="article-meta-header">
+              <span class="badge badge-paid">الذكاء الاصطناعي</span>
+              <span class="reading-time">⏱️ وقت القراءة: 4 دقائق</span>
+            </div>
+            <h2>دور الذكاء الاصطناعي في أتمتة قراءة المستندات والفواتير عبر OCR</h2>
+            <p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 12px;">نشر بتاريخ: 24 سبتمبر 2026 • بواسطة خبير الذكاء الاصطناعي</p>
+            <div class="article-body" style="font-size: 0.9rem; line-height: 1.8; color: var(--text-main);">
+              <p>تشهد الأنظمة الحديثة اعتماداً متزايداً على تقنيات التعرف الضوئي على الحروف (OCR) المدعومة بالذكاء الاصطناعي لاستخراج البيانات من الفواتير وتذاكر الوزن والمستندات الورقية بدقة فائقة، مما يوفر ساعات طويلة من الإدخال اليدوي ويمنع الأخطاء البشرية...</p>
+            </div>
+            <div style="margin-top: 15px; display: flex; gap: 10px; align-items: center;">
+              <button onclick="openFullArticle('4')" class="btn-primary" style="font-size: 0.85rem; padding: 6px 14px;">📖 قراءة المقال كاملاً</button>
+              <button onclick="toggleBookmark('4')" style="background: var(--input-bg); border: 1px solid var(--border-color); padding: 6px 10px; border-radius: 8px; cursor: pointer; color: var(--text-main);" title="حفظ المقال">🔖 حفظ</button>
+            </div>
+          </article>
+
+          <!-- المقال الخامس (مضاف حديثاً لتعزيز المحتوى) -->
+          <article class="card article-item" data-category="web" data-id="5">
+            <div class="article-meta-header">
+              <span class="badge badge-success">تطوير الويب</span>
+              <span class="reading-time">⏱️ وقت القراءة: 6 دقائق</span>
+            </div>
+            <h2>لماذا تتفوق تطبيقات الويب التقدمية (PWAs) على التطبيقات التقليدية في قطاع الأعمال؟</h2>
+            <p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 12px;">نشر بتاريخ: 22 سبتمبر 2026 • بواسطة مهندس الواجهات الأمامية</p>
+            <div class="article-body" style="font-size: 0.9rem; line-height: 1.8; color: var(--text-main);">
+              <p>تتيح تطبيقات الويب التقدمية (PWA) للمستخدمين تجربة شبيهة بالتطبيقات الأصلية مع ميزات العمل بدون إنترنت (Offline Mode)، وسرعة التحميل الفائقة، وإمكانية التثبيت مباشرة على سطح المكتب أو الهواتف الذكية دون الحاجة للمتاجر الكبرى...</p>
+            </div>
+            <div style="margin-top: 15px; display: flex; gap: 10px; align-items: center;">
+              <button onclick="openFullArticle('5')" class="btn-primary" style="font-size: 0.85rem; padding: 6px 14px;">📖 قراءة المقال كاملاً</button>
+              <button onclick="toggleBookmark('5')" style="background: var(--input-bg); border: 1px solid var(--border-color); padding: 6px 10px; border-radius: 8px; cursor: pointer; color: var(--text-main);" title="حفظ المقال">🔖 حفظ</button>
             </div>
           </article>
 
@@ -227,7 +260,6 @@
     <footer style="margin-top: 40px; padding: 25px 0; text-align: center; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 0.85rem;">
       <p>جميع الحقوق محفوظة © 2027 GITI Tech & Business OS</p>
       <div style="margin-top: 12px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
-        <!-- تم تحديث رابط الفوتر أيضاً ليتطابق مع المحتوى التقني الجديد -->
         <a href="tork.html" style="color: var(--accent); text-decoration: none; font-weight: 700;">🔒 أمان وتطبيقات المنصة</a>
         <a href="about.html" style="color: var(--accent); text-decoration: none; font-weight: 700;">من نحن</a>
         <a href="contact.html" style="color: var(--accent); text-decoration: none; font-weight: 700;">اتصل بنا</a>
