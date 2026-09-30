@@ -1,4 +1,4 @@
-// GITI Tech & Business Blog - Advanced Enhanced Engine
+// GITI Tech & Business Blog - Advanced Enhanced Engine with Firebase Cloud Integration
 
 const articlesDatabase = {
   "1": {
@@ -57,6 +57,8 @@ const articlesDatabase = {
     `
   }
 };
+
+let currentActiveArticleId = null;
 
 document.addEventListener('DOMContentLoaded', () => {
   // 1. إدارة المظاهر (الثيمات الداكنة والفاتحة)
@@ -175,8 +177,9 @@ window.calculateERPValue = function() {
   resultDiv.innerHTML = `✨ النتائج التقديرية: يوفر نظام الـ ERP حوالي <span style="color:#22c55e;">${savedHours} ساعة</span> عمل شهرياً، ويقلل الهدر بنحو <span style="color:#22c55e;">$${savedMoney}</span> شهرياً!`;
 };
 
-// فتح نافذة المقال كاملاً
+// فتح نافذة المقال كاملاً مع ربط التعليقات بـ Firebase
 window.openFullArticle = function(id) {
+  currentActiveArticleId = id;
   const modal = document.getElementById('article-modal');
   const area = document.getElementById('modal-content-area');
   const articleData = articlesDatabase[id];
@@ -192,12 +195,13 @@ window.openFullArticle = function(id) {
     `;
     modal.style.display = 'block';
     document.getElementById('rating-feedback').innerText = '';
-    renderComments(id);
+    loadFirebaseComments(id);
   }
 };
 
 window.closeFullArticle = function() {
   document.getElementById('article-modal').style.display = 'none';
+  currentActiveArticleId = null;
 };
 
 // نظام تقييم المقال التفاعلي
@@ -241,28 +245,73 @@ function renderBookmarks() {
   listEl.innerHTML = html;
 }
 
-// نظام التعليقات الحية
-window.addComment = function(e) {
+// إضافة التعليقات سحابياً عبر Firebase Firestore
+window.addCommentToFirebase = async function(e) {
   e.preventDefault();
-  const author = document.getElementById('comment-author').value;
-  const text = document.getElementById('comment-text').value;
+  if (!window.db || !currentActiveArticleId) return;
+
+  const author = document.getElementById('comment-author').value.trim();
+  const text = document.getElementById('comment-text').value.trim();
   
-  const commentsList = document.getElementById('comments-list');
-  const newComment = document.createElement('div');
-  newComment.style.cssText = 'background: var(--input-bg); padding: 10px; border-radius: 8px; margin-bottom: 8px; border: 1px solid var(--border-color);';
-  newComment.innerHTML = `<strong>${author}</strong>: <p style="margin-top: 4px; color: var(--text-main);">${text}</p>`;
-  commentsList.prepend(newComment);
-  
-  document.getElementById('comment-author').value = '';
-  document.getElementById('comment-text').value = '';
-  alert('✅ تمت إضافة تعليقك بنجاح!');
+  if (!author || !text) return;
+
+  try {
+    const { collection, addDoc, serverTimestamp } = window.firebaseModules;
+    await addDoc(collection(window.db, "article_comments"), {
+      articleId: currentActiveArticleId,
+      author: author,
+      text: text,
+      timestamp: serverTimestamp()
+    });
+
+    document.getElementById('comment-author').value = '';
+    document.getElementById('comment-text').value = '';
+    alert('✅ تم نشر تعليقك بنجاح في سحابة المنصة!');
+  } catch (err) {
+    alert('❌ حدث خطأ أثناء إرسال التعليق: ' + err.message);
+  }
 };
 
-function renderComments(articleId) {
+// جلب التعليقات الحية للمقال من Firebase
+function loadFirebaseComments(articleId) {
   const commentsList = document.getElementById('comments-list');
-  commentsList.innerHTML = `
-    <div style="background: var(--input-bg); padding: 10px; border-radius: 8px; border: 1px solid var(--border-color);">
-      <strong>مهندس التقنية</strong>: <p style="margin-top: 4px; color: var(--text-main);">مقال ممتاز جداً ويطرح رؤية عملية واضحة للتحول الرقمي.</p>
-    </div>
-  `;
+  if (!window.db) {
+    commentsList.innerHTML = '<p>قاعدة البيانات غير متصلة حالياً.</p>';
+    return;
+  }
+
+  try {
+    const { collection, query, where, onSnapshot } = window.firebaseModules;
+    const q = query(collection(window.db, "article_comments"), where("articleId", "==", articleId));
+    
+    onSnapshot(q, (snapshot) => {
+      if (snapshot.empty) {
+        commentsList.innerHTML = '<p style="color: var(--text-muted);">لا توجد تعليقات بعد. كن أول المشاركين!</p>';
+        return;
+      }
+
+      let html = '';
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        html += `
+          <div style="background: var(--input-bg); padding: 10px; border-radius: 8px; margin-bottom: 8px; border: 1px solid var(--border-color);">
+            <strong>${escapeHtml(data.author || 'زائر')}</strong>: 
+            <p style="margin-top: 4px; color: var(--text-main);">${escapeHtml(data.text || '')}</p>
+          </div>
+        `;
+      });
+      commentsList.innerHTML = html;
+    });
+  } catch (e) {
+    commentsList.innerHTML = '<p>تعسّر تحميل التعليقات.</p>';
+  }
+}
+
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }
