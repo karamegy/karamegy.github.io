@@ -19,8 +19,8 @@
   <!-- سكربتات Firebase الأساسية للربط السحابي ومزامنة البيانات -->
   <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-      import { getFirestore, collection, getDocs, doc, setDoc, updateDoc, deleteDoc, onSnapshot, query, where, getDoc, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-      import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+      import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+      import { getAuth, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
       const firebaseConfig = {
           apiKey: "AIzaSyDTIxdIHfDaEH2wn7dEE9qMnsOlXtlSCI0",
@@ -35,11 +35,10 @@
       const app = initializeApp(firebaseConfig);
       const db = getFirestore(app);
       const auth = getAuth(app);
-      const googleProvider = new GoogleAuthProvider();
 
       window.db = db;
       window.auth = auth;
-      window.firebaseModules = { collection, getDocs, doc, setDoc, updateDoc, deleteDoc, onSnapshot, query, where, getDoc, addDoc, serverTimestamp };
+      window.firebaseModules = { collection, addDoc, serverTimestamp };
 
       console.log("🔥 تم ربط صفحة 'اتصل بنا' بنجاح مع سحابة Firebase وقواعد البيانات المركزية!");
   </script>
@@ -101,24 +100,22 @@
 
       </div>
 
-      <!-- نموذج إرسال الرسائل المطور -->
-      <form onsubmit="event.preventDefault(); alert('✅ شكراً لك! تم إرسال رسالتك بنجاح وسيقوم فريق الدعم بمراجعتها والرد قريباً.'); this.reset(); document.getElementById('char-count').innerText='0'; " style="display: flex; flex-direction: column; gap: 16px;">
+      <!-- نموذج إرسال الرسائل المطور والمربوط بسحابة Firebase (مصحح ليمنع التداخل) -->
+      <form id="contact-form" onsubmit="submitContactForm(event)" style="display: flex; flex-direction: column; gap: 16px;">
         
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; flex-wrap: wrap;">
-          <div class="form-group" style="flex: 1; min-width: 250px;">
-            <label style="display: block; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 6px; font-weight: 700;">الاسم الكريم</label>
-            <input type="text" required placeholder="أدخل اسمك الكامل..." style="width: 100%; padding: 11px 14px; background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-main); font-size: 0.9rem; outline: none;">
-          </div>
-          
-          <div class="form-group" style="flex: 1; min-width: 250px;">
-            <label style="display: block; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 6px; font-weight: 700;">البريد الإلكتروني</label>
-            <input type="email" required placeholder="name@domain.com" style="width: 100%; padding: 11px 14px; background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-main); font-size: 0.9rem; outline: none;">
-          </div>
+        <div class="form-group">
+          <label style="display: block; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 6px; font-weight: 700;">الاسم الكريم</label>
+          <input type="text" id="contact-name" required placeholder="أدخل اسمك الكامل..." style="width: 100%; padding: 11px 14px; background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-main); font-size: 0.9rem; outline: none; box-sizing: border-box;">
+        </div>
+        
+        <div class="form-group">
+          <label style="display: block; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 6px; font-weight: 700;">البريد الإلكتروني</label>
+          <input type="email" id="contact-email" required placeholder="name@domain.com" style="width: 100%; padding: 11px 14px; background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-main); font-size: 0.9rem; outline: none; box-sizing: border-box;">
         </div>
 
         <div class="form-group">
           <label style="display: block; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 6px; font-weight: 700;">موضوع الاستفسار</label>
-          <select required style="width: 100%; padding: 11px 14px; background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-main); font-size: 0.9rem; outline: none;">
+          <select id="contact-subject" required style="width: 100%; padding: 11px 14px; background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-main); font-size: 0.9rem; outline: none; box-sizing: border-box;">
             <option value="" disabled selected>اختر موضوع الرسالة...</option>
             <option value="tech-support">دعم فني واستفسار عن نظام ERP</option>
             <option value="content-suggestion">اقتراح مقال أو مشاركة تقنية</option>
@@ -129,11 +126,12 @@
 
         <div class="form-group">
           <label style="display: block; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 6px; font-weight: 700;">نص الرسالة</label>
-          <textarea rows="5" id="msg-box" oninput="document.getElementById('char-count').innerText = this.value.length;" required placeholder="اكتب تفاصيل استفسارك أو مقترحك هنا بوضوح..." style="width: 100%; padding: 11px 14px; background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-main); font-family: inherit; font-size: 0.9rem; outline: none;"></textarea>
+          <textarea rows="5" id="contact-msg" oninput="document.getElementById('char-count').innerText = this.value.length;" required placeholder="اكتب تفاصيل استفسارك أو مقترحك هنا بوضوح..." style="width: 100%; padding: 11px 14px; background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-main); font-family: inherit; font-size: 0.9rem; outline: none; box-sizing: border-box;"></textarea>
           <div style="text-align: left; font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">عدد الحروف: <span id="char-count">0</span> حرف</div>
         </div>
 
-        <button type="submit" class="btn-primary" style="width: 100%; padding: 12px; font-size: 1rem; margin-top: 5px;">إرسال الرسالة إلى فريق الدعم 📨</button>
+        <button type="submit" id="submit-contact-btn" class="btn-primary" style="width: 100%; padding: 12px; font-size: 1rem; margin-top: 5px;">إرسال الرسالة إلى فريق الدعم 📨</button>
+        <div id="contact-alert" style="padding: 10px; border-radius: 6px; text-align: center; display: none; font-weight: bold;"></div>
       </form>
     </section>
 
@@ -150,5 +148,53 @@
 
   </div>
 
+  <script>
+    async function submitContactForm(e) {
+      e.preventDefault();
+      if (!window.db) {
+        alert('قاعدة البيانات غير متصلة حالياً.');
+        return;
+      }
+
+      const name = document.getElementById('contact-name').value.trim();
+      const email = document.getElementById('contact-email').value.trim();
+      const subject = document.getElementById('contact-subject').value;
+      const message = document.getElementById('contact-msg').value.trim();
+
+      const btn = document.getElementById('submit-contact-btn');
+      btn.disabled = true;
+      btn.innerText = "جاري إرسال الرسالة سحابياً...";
+
+      try {
+        const { collection, addDoc, serverTimestamp } = window.firebaseModules;
+        await addDoc(collection(window.db, 'contact_messages'), {
+          name: name,
+          email: email,
+          subject: subject,
+          message: message,
+          timestamp: serverTimestamp()
+        });
+
+        document.getElementById('contact-form').reset();
+        document.getElementById('char-count').innerText = '0';
+        showContactAlert('✅ شكراً لك! تم إرسال رسالتك بنجاح وحفظها في السحابة.', '#2b8a3e', '#ebfbee');
+      } catch (err) {
+        console.error("Contact Error:", err);
+        showContactAlert('❌ حدث خطأ أثناء الإرسال. تأكد من اتصالك بالإنترنت.', '#dc2626', '#fee2e2');
+      } finally {
+        btn.disabled = false;
+        btn.innerText = "إرسال الرسالة إلى فريق الدعم 📨";
+      }
+    }
+
+    function showContactAlert(msg, textColor, bgColor) {
+      const alertBox = document.getElementById('contact-alert');
+      alertBox.innerText = msg;
+      alertBox.style.color = textColor;
+      alertBox.style.background = bgColor;
+      alertBox.style.display = 'block';
+      setTimeout(() => { alertBox.style.display = 'none'; }, 6000);
+    }
+  </script>
 </body>
 </html>
