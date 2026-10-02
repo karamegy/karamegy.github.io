@@ -14,9 +14,9 @@
 
     <style>
         :root {
-            --gov-blue-dark: #0f2b48;
-            --gov-blue-light: #1b4b7a;
-            --gov-gold: #c59b27;
+            --gov-blue-dark: #0b2238;
+            --gov-blue-light: #18446e;
+            --gov-gold: #d4af37;
             --primary-red: #c0392b;
             --bg-light: #f8fafc;
             --text-dark: #1e293b;
@@ -72,13 +72,13 @@
 
         /* شريط الأخبار العاجلة المتحرك */
         .news-ticker-container {
-            background: #14355a;
+            background: #123354;
             color: #fff;
             display: flex;
             align-items: center;
             overflow: hidden;
             font-size: 0.85rem;
-            border-bottom: 1px solid rgba(197, 155, 39, 0.3);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.4);
         }
 
         .ticker-title {
@@ -165,22 +165,27 @@
             font-weight: 900;
         }
 
-        /* Hero Section */
+        /* Hero Section - مع صورة خلفية المنتدى المباشرة المعتمدة */
         .gov-hero-section {
-            background: linear-gradient(180deg, #1b4b7a 0%, #0a1e34 100%), 
-                        url('https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=1350&q=80') center/cover;
-            background-blend-mode: overlay;
+            background: linear-gradient(180deg, rgba(11, 34, 56, 0.82) 0%, rgba(11, 34, 56, 0.92) 100%),
+                        url('https://sis.gov.eg/media/833992/%D9%85%D9%86%D8%AA%D8%AF%D9%89-%D9%85%D8%B5%D8%B1-2026.jpg') center/cover no-repeat;
             color: #ffffff;
-            padding: 60px 20px 80px;
+            padding: 50px 20px 70px;
             text-align: center;
             position: relative;
+            overflow: hidden;
         }
 
         .president-avatar-container {
             position: relative;
-            width: 150px;
-            height: 150px;
-            margin: 0 auto 25px;
+            width: 160px;
+            height: 160px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            background: #0b2238;
+            padding: 4px;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.6), 0 0 10px rgba(0,0,0,0.5);
+            border: 3px solid var(--gov-gold);
         }
 
         .president-avatar {
@@ -188,8 +193,7 @@
             height: 100%;
             border-radius: 50%;
             object-fit: cover;
-            border: 4px solid var(--gov-gold);
-            box-shadow: 0 0 25px rgba(197, 155, 39, 0.4);
+            display: block;
         }
 
         .hero-title-badge {
@@ -204,7 +208,7 @@
         .hero-title-badge::after {
             content: '';
             display: block;
-            width: 60px;
+            width: 70px;
             height: 3px;
             background: var(--gov-gold);
             margin: 8px auto 0;
@@ -213,19 +217,20 @@
         .president-speech {
             max-width: 850px;
             margin: 0 auto 35px;
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             line-height: 2;
-            color: #e2e8f0;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(8px);
+            color: #f1f5f9;
+            background: rgba(11, 34, 56, 0.75);
+            backdrop-filter: blur(10px);
             padding: 30px;
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
         .president-speech i.quote-icon {
             color: var(--gov-gold);
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             margin: 0 8px;
         }
 
@@ -250,10 +255,10 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            background: rgba(15, 43, 72, 0.6);
+            background: rgba(11, 34, 56, 0.85);
             padding: 8px 18px;
             border-radius: 20px;
-            border: 1px solid rgba(197, 155, 39, 0.3);
+            border: 1px solid rgba(212, 175, 55, 0.4);
         }
 
         .event-info-item i {
@@ -261,7 +266,7 @@
         }
 
         .cal-btn {
-            background: rgba(197, 155, 39, 0.2);
+            background: rgba(212, 175, 55, 0.2);
             color: var(--gov-gold);
             border: 1px solid var(--gov-gold);
             padding: 8px 16px;
@@ -352,7 +357,7 @@
             font-weight: 600;
         }
 
-        /* Agenda / Timeline Section */
+        /* Agenda Section */
         .agenda-section {
             padding: 60px 20px;
             max-width: 1100px;
@@ -417,7 +422,7 @@
         }
 
         .time-badge {
-            background: rgba(197, 155, 39, 0.15);
+            background: rgba(212, 175, 55, 0.15);
             color: var(--gov-blue-dark);
             font-weight: 800;
             padding: 6px 12px;
@@ -465,7 +470,7 @@
         .step-icon {
             width: 50px;
             height: 50px;
-            background: rgba(197, 155, 39, 0.15);
+            background: rgba(212, 175, 55, 0.15);
             color: var(--gov-gold);
             border-radius: 50%;
             display: flex;
@@ -476,7 +481,7 @@
             font-weight: 800;
         }
 
-        /* FAQ Section (الأسئلة الشائعة) */
+        /* FAQ Section */
         .faq-section {
             padding: 60px 20px;
             max-width: 900px;
@@ -663,7 +668,7 @@
     <header>
         <div class="nav-container">
             <div class="gov-branding">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Coat_of_arms_of_Egypt_%2(official%29.svg" alt="شعار جمهورية مصر العربية" class="eagle-emblem" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Coat_of_arms_of_Egypt_%28official%29.svg/250px-Coat_of_arms_of_Egypt_%28official%29.svg.png'">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Coat_of_arms_of_Egypt_%28official%29.svg/250px-Coat_of_arms_of_Egypt_%28official%29.svg.png" alt="شعار جمهورية مصر العربية" class="eagle-emblem">
                 <div class="brand-text-box">
                     <h2>جمهورية مصر العربية</h2>
                     <p>رئاسة مجلس الوزراء</p>
@@ -676,10 +681,13 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
+    <!-- Hero Section مع صورة خلفية المنتدى وصورة فخامة الرئيس المؤكدة -->
     <section class="gov-hero-section">
         <div class="president-avatar-container">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Barack_Obama_and_Abdel_Fattah_el-Sisi_2014.jpg/800px-Barack_Obama_and_Abdel_Fattah_el-Sisi_2014.jpg" alt="فخامة رئيس الجمهورية" class="president-avatar">
+            <img src="https://static.srpcdigital.com/styles/1037xauto/public/2024-09/799459_0.jpeg.webp" 
+                 alt="فخامة رئيس الجمهورية عبد الفتاح السيسي" 
+                 class="president-avatar"
+                 onerror="this.src='https://vid.alarabiya.net/images/2022/12/28/1a7507ad-855c-45a3-a77a-98cb41d01638/1a7507ad-855c-45a3-a77a-98cb41d01638.JPG?crop=1:1&width=1000'">
         </div>
 
         <div class="hero-title-badge">منتدى مصر 2026</div>
