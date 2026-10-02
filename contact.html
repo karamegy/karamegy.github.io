@@ -1,22 +1,22 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" data-theme="dark">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <meta name="theme-color" content="#090d16">
   <title>اتصل بنا والدعم التقني | GITI Tech & Business OS</title>
   <meta name="description" content="تواصل مع فريق الدعم والتحرير في منصة GITI Tech لأي استفسارات تقنية، مقترحات تعاون، أو استفسارات حول حلول الـ ERP." />
   
+  <!-- Google Fonts & Font Awesome -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <link rel="icon" type="image/png" href="logo.png">
   <link rel="apple-touch-icon" href="logo.png">
   <link rel="stylesheet" href="style.css">
 
-  <!-- سكربتات Firebase الأساسية للربط السحابي ومزامنة البيانات -->
+  <!-- سكربتات Firebase الأساسية -->
   <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
       import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
@@ -39,83 +39,138 @@
       window.db = db;
       window.auth = auth;
       window.firebaseModules = { collection, addDoc, serverTimestamp };
-
-      console.log("🔥 تم ربط صفحة 'اتصل بنا' بنجاح مع سحابة Firebase وقواعد البيانات المركزية!");
   </script>
 </head>
 <body>
 
-  <!-- هيدر الموقع الاحترافي -->
-  <header class="app-header glass-nav">
-    <div class="brand-container">
-      <img src="logo.png" alt="GITI Logo" class="giti-header-logo">
-      <div>
-        <h1 style="font-size: 1.25rem; color: var(--accent); font-weight: 900;">GITI Tech & Business OS</h1>
-        <p class="subtitle">الموسوعة التقنية لإدارة الأعمال والتحول الرقمي</p>
+  <!-- شريط الإخلاء القانوني -->
+  <div class="legal-disclaimer-bar">
+      ℹ <strong>تنويه إعلامي:</strong> هذه المنصة مبادرة إعلامية وتقنية مستقلة صدارة عن <strong>شبكة مدونة GITI</strong> لتقديم الحلول والأنظمة البرمجية.
+  </div>
+
+  <!-- Top Bar العلوي -->
+  <div class="top-gov-bar">
+      <div class="social-icons">
+          <a href="https://facebook.com/smaregy" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://instagram.com" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://youtube.com" target="_blank"><i class="fa-brands fa-youtube"></i></a>
       </div>
-    </div>
-    
-    <nav class="header-nav-links">
-      <a href="index.html" class="nav-link">الرئيسية</a>
-      <a href="about.html" class="nav-link">من نحن</a>
-      <a href="tork.html" class="nav-link" style="color: var(--accent); font-weight: bold;">🔒 أمان وتطبيقات المنصة</a>
-      <a href="contact.html" class="nav-link active">اتصل بنا</a>
-      <a href="privacy.html" target="_blank" class="nav-link">سياسة الخصوصية</a>
-    </nav>
+      <div>
+          <a href="contact.html" class="contact-top-btn"><i class="fa-solid fa-envelope"></i> تواصل معنا</a>
+      </div>
+  </div>
+
+  <!-- شريط الأخبار المتحرك -->
+  <div class="news-ticker-container">
+      <div class="ticker-title">
+          <i class="fa-solid fa-bullhorn"></i> الدعم والاتصال
+      </div>
+      <div class="ticker-wrapper">
+          <div class="ticker-text">
+              📩 أهلاً بك في مركز الدعم والاستفسارات لمنصة GITI Tech & Business OS • يسعدنا تلقي مقترحاتكم واستفساراتكم التقنية على مدار الساعة.
+          </div>
+      </div>
+  </div>
+
+  <!-- الهيدر الرئيسي بشعار GITI فقط -->
+  <header>
+      <div class="nav-container">
+          <div class="gov-branding">
+              <img src="logo.png" alt="GITI Logo" class="eagle-emblem-img">
+              <div class="brand-text-box">
+                  <h2>GITI Tech & Business OS</h2>
+                  <p>الموسوعة التقنية وأدوات إدارة الأعمال الذكية</p>
+              </div>
+          </div>
+
+          <button class="menu-toggle-btn" onclick="toggleSidebar()">
+              <i class="fa-solid fa-bars"></i> القائمة الرئيسية
+          </button>
+      </div>
   </header>
 
-  <div id="main-app" style="max-width: 850px; margin: 30px auto; padding: 0 15px;">
-    
-    <section class="card" style="padding: 35px;">
-      <span class="badge badge-success" style="margin-bottom: 12px; display: inline-block;">الدعم والتواصل المباشر</span>
-      <h2 style="font-size: 1.7rem; margin-bottom: 15px; color: var(--accent);">تواصل مع فريق الدعم والتحرير</h2>
+  <!-- القائمة الجانبية (Sidebar Drawer) -->
+  <div id="sidebarOverlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
+  <div id="sideDrawer" class="sidebar-drawer">
+      <div class="sidebar-header">
+          <h3><i class="fa-solid fa-cube"></i> أقسام شبكة GITI</h3>
+          <button class="close-sidebar-btn" onclick="toggleSidebar()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="sidebar-links">
+          <a href="index.html"><i class="fa-solid fa-house"></i> الرئيسية والمدونة</a>
+          <a href="montda.html"><i class="fa-solid fa-landmark"></i> 🇪🇬 منتدى مصر 2026</a>
+          <a href="index.html#tools-section"><i class="fa-solid fa-calculator"></i> الحاسبة والأدوات</a>
+          <a href="tork.html"><i class="fa-solid fa-shield-halved"></i> أمان وتطبيقات المنصة</a>
+          <a href="about.html"><i class="fa-solid fa-circle-info"></i> من نحن</a>
+          <a href="contact.html" class="active"><i class="fa-solid fa-envelope"></i> اتصل بنا</a>
+          <a href="privacy.html" target="_blank"><i class="fa-solid fa-lock"></i> سياسة الخصوصية</a>
+      </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="gov-hero-section">
+      <div class="hero-title-badge">مركز الدعم والتواصل المباشر</div>
       
-      <p style="line-height: 1.9; font-size: 0.95rem; margin-bottom: 25px; color: var(--text-muted);">
+      <div class="president-speech">
+          <i class="fa-solid fa-quote-right quote-icon"></i>
+          نحن هنا للإجابة على جميع استفساراتك حول حلول البرمجيات، أتمتة الأعمال، ونظام ERP. يسعدنا تواصلك معنا دائماً.
+          <i class="fa-solid fa-quote-left quote-icon"></i>
+          <div class="speech-author">فريق دعم GITI Tech</div>
+      </div>
+  </section>
+
+  <!-- محتوى الصفحة الرئيسي -->
+  <div style="max-width: 850px; margin: 40px auto; padding: 0 20px;">
+    
+    <section class="card" style="padding: 35px; border-top: 5px solid var(--gov-gold);">
+      <span class="badge badge-success" style="margin-bottom: 15px;">الدعم والتواصل المباشر</span>
+      <h2 style="font-size: 1.6rem; margin-bottom: 15px; color: var(--gov-blue-dark); font-weight: 800;">
+          <i class="fa-solid fa-headset" style="color: var(--gov-gold);"></i> تواصل مع فريق الدعم والتحرير
+      </h2>
+      
+      <p style="line-height: 1.9; font-size: 0.95rem; margin-bottom: 25px; color: #64748b;">
         نحن نحرص دائماً على سماع آرائكم واستفساراتكم التقنية. يمكنك التواصل معنا عبر القنوات الرسمية أدناه أو ملء نموذج الرسائل وسيقوم فريق الهندسة بالرد عليك خلال 24 ساعة عمل.
       </p>
 
       <!-- بطاقات وسائل التواصل المباشر -->
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px; margin-bottom: 30px;">
         
-        <!-- البريد الإلكتروني -->
-        <div style="background: var(--input-bg); padding: 18px; border-radius: 12px; border: 1px solid var(--border-color); text-align: center;">
-          <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 6px;">البريد الإلكتروني الرسمي:</span>
-          <a href="mailto:eelkady188@gmail.com" style="font-size: 0.9rem; color: var(--accent); text-decoration: none; font-weight: 700;">eelkady188@gmail.com</a>
-          <button onclick="navigator.clipboard.writeText('eelkady188@gmail.com'); alert('📋 تم نسخ البريد الإلكتروني بنجاح!');" style="display: block; margin: 8px auto 0; background: none; border: 1px solid var(--border-color); color: var(--text-muted); padding: 4px 10px; border-radius: 6px; cursor: pointer; font-size: 0.75rem;">نسخ البريد</button>
+        <div style="background: #f8fafc; padding: 18px; border-radius: 8px; border: 1px solid var(--border-color); text-align: center;">
+          <span style="font-size: 0.8rem; color: #64748b; display: block; margin-bottom: 6px;">البريد الإلكتروني الرسمي:</span>
+          <a href="mailto:eelkady188@gmail.com" style="font-size: 0.9rem; color: var(--gov-blue-dark); text-decoration: none; font-weight: 800;">eelkady188@gmail.com</a>
+          <button onclick="navigator.clipboard.writeText('eelkady188@gmail.com'); alert('📋 تم نسخ البريد الإلكتروني بنجاح!');" style="display: block; margin: 8px auto 0; background: #fff; border: 1px solid var(--border-color); color: #64748b; padding: 4px 10px; border-radius: 6px; cursor: pointer; font-size: 0.75rem;">نسخ البريد</button>
         </div>
 
-        <!-- الهاتف / واتساب -->
-        <div style="background: var(--input-bg); padding: 18px; border-radius: 12px; border: 1px solid var(--border-color); text-align: center;">
-          <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 6px;">الهاتف / واتساب:</span>
-          <a href="https://wa.me/201114099799" target="_blank" style="font-size: 0.95rem; color: #22c55e; text-decoration: none; font-weight: 700;">+201114099799 💬</a>
-          <span style="display: block; margin-top: 8px; font-size: 0.75rem; color: var(--text-muted);">متاح للرد السريع</span>
+        <div style="background: #f8fafc; padding: 18px; border-radius: 8px; border: 1px solid var(--border-color); text-align: center;">
+          <span style="font-size: 0.8rem; color: #64748b; display: block; margin-bottom: 6px;">الهاتف / واتساب:</span>
+          <a href="https://wa.me/201114099799" target="_blank" style="font-size: 0.95rem; color: #15803d; text-decoration: none; font-weight: 800;">+201114099799 💬</a>
+          <span style="display: block; margin-top: 8px; font-size: 0.75rem; color: #64748b;">متاح للرد السريع</span>
         </div>
 
-        <!-- فيسبوك -->
-        <div style="background: var(--input-bg); padding: 18px; border-radius: 12px; border: 1px solid var(--border-color); text-align: center;">
-          <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 6px;">مجتمع فيسبوك:</span>
-          <a href="https://facebook.com/smaregy" target="_blank" style="font-size: 0.95rem; color: var(--accent); text-decoration: none; font-weight: 700;">/smaregy 🌐</a>
-          <span style="display: block; margin-top: 8px; font-size: 0.75rem; color: var(--text-muted);">تابع أحدث المقالات</span>
+        <div style="background: #f8fafc; padding: 18px; border-radius: 8px; border: 1px solid var(--border-color); text-align: center;">
+          <span style="font-size: 0.8rem; color: #64748b; display: block; margin-bottom: 6px;">مجتمع فيسبوك:</span>
+          <a href="https://facebook.com/smaregy" target="_blank" style="font-size: 0.95rem; color: var(--gov-blue-dark); text-decoration: none; font-weight: 800;">/smaregy 🌐</a>
+          <span style="display: block; margin-top: 8px; font-size: 0.75rem; color: #64748b;">تابع أحدث المقالات</span>
         </div>
 
       </div>
 
-      <!-- نموذج إرسال الرسائل المطور والمربوط بسحابة Firebase (مصحح ليمنع التداخل) -->
+      <!-- نموذج إرسال الرسائل المطور -->
       <form id="contact-form" onsubmit="submitContactForm(event)" style="display: flex; flex-direction: column; gap: 16px;">
         
         <div class="form-group">
-          <label style="display: block; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 6px; font-weight: 700;">الاسم الكريم</label>
-          <input type="text" id="contact-name" required placeholder="أدخل اسمك الكامل..." style="width: 100%; padding: 11px 14px; background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-main); font-size: 0.9rem; outline: none; box-sizing: border-box;">
+          <label style="display: block; font-size: 0.88rem; color: var(--gov-blue-dark); margin-bottom: 6px; font-weight: 700;">الاسم الكريم *</label>
+          <input type="text" id="contact-name" required placeholder="أدخل اسمك الكامل..." style="width: 100%; padding: 11px 14px; background: #fff; border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-dark); font-size: 0.9rem; outline: none; box-sizing: border-box;">
         </div>
         
         <div class="form-group">
-          <label style="display: block; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 6px; font-weight: 700;">البريد الإلكتروني</label>
-          <input type="email" id="contact-email" required placeholder="name@domain.com" style="width: 100%; padding: 11px 14px; background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-main); font-size: 0.9rem; outline: none; box-sizing: border-box;">
+          <label style="display: block; font-size: 0.88rem; color: var(--gov-blue-dark); margin-bottom: 6px; font-weight: 700;">البريد الإلكتروني *</label>
+          <input type="email" id="contact-email" required placeholder="name@domain.com" style="width: 100%; padding: 11px 14px; background: #fff; border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-dark); font-size: 0.9rem; outline: none; box-sizing: border-box;">
         </div>
 
         <div class="form-group">
-          <label style="display: block; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 6px; font-weight: 700;">موضوع الاستفسار</label>
-          <select id="contact-subject" required style="width: 100%; padding: 11px 14px; background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-main); font-size: 0.9rem; outline: none; box-sizing: border-box;">
+          <label style="display: block; font-size: 0.88rem; color: var(--gov-blue-dark); margin-bottom: 6px; font-weight: 700;">موضوع الاستفسار *</label>
+          <select id="contact-subject" required style="width: 100%; padding: 11px 14px; background: #fff; border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-dark); font-size: 0.9rem; outline: none; box-sizing: border-box;">
             <option value="" disabled selected>اختر موضوع الرسالة...</option>
             <option value="tech-support">دعم فني واستفسار عن نظام ERP</option>
             <option value="content-suggestion">اقتراح مقال أو مشاركة تقنية</option>
@@ -125,29 +180,23 @@
         </div>
 
         <div class="form-group">
-          <label style="display: block; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 6px; font-weight: 700;">نص الرسالة</label>
-          <textarea rows="5" id="contact-msg" oninput="document.getElementById('char-count').innerText = this.value.length;" required placeholder="اكتب تفاصيل استفسارك أو مقترحك هنا بوضوح..." style="width: 100%; padding: 11px 14px; background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-main); font-family: inherit; font-size: 0.9rem; outline: none; box-sizing: border-box;"></textarea>
-          <div style="text-align: left; font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">عدد الحروف: <span id="char-count">0</span> حرف</div>
+          <label style="display: block; font-size: 0.88rem; color: var(--gov-blue-dark); margin-bottom: 6px; font-weight: 700;">نص الرسالة *</label>
+          <textarea rows="5" id="contact-msg" oninput="document.getElementById('char-count').innerText = this.value.length;" required placeholder="اكتب تفاصيل استفسارك أو مقترحك هنا بوضوح..." style="width: 100%; padding: 11px 14px; background: #fff; border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-dark); font-family: inherit; font-size: 0.9rem; outline: none; box-sizing: border-box;"></textarea>
+          <div style="text-align: left; font-size: 0.75rem; color: #64748b; margin-top: 4px;">عدد الحروف: <span id="char-count">0</span> حرف</div>
         </div>
 
-        <button type="submit" id="submit-contact-btn" class="btn-primary" style="width: 100%; padding: 12px; font-size: 1rem; margin-top: 5px;">إرسال الرسالة إلى فريق الدعم 📨</button>
-        <div id="contact-alert" style="padding: 10px; border-radius: 6px; text-align: center; display: none; font-weight: bold;"></div>
+        <button type="submit" id="submit-contact-btn" class="submit-btn" style="padding: 12px; font-size: 1rem; margin-top: 5px;">إرسال الرسالة إلى فريق الدعم 📨</button>
+        <div id="contact-alert" style="padding: 12px; border-radius: 6px; text-align: center; display: none; font-weight: bold; margin-top: 10px;"></div>
       </form>
     </section>
-
-    <!-- فوتر الموقع -->
-    <footer style="margin-top: 40px; padding: 25px 0; text-align: center; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 0.85rem;">
-      <p>جميع الحقوق محفوظة © 2027 GITI Tech & Business OS</p>
-      <div style="margin-top: 12px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
-        <a href="index.html" style="color: var(--accent); text-decoration: none; font-weight: 700;">الرئيسية</a>
-        <a href="about.html" style="color: var(--accent); text-decoration: none; font-weight: 700;">من نحن</a>
-        <a href="tork.html" style="color: var(--accent); text-decoration: none; font-weight: 700;">🔒 أمان وتطبيقات المنصة</a>
-        <a href="privacy.html" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: 700;">سياسة الخصوصية</a>
-      </div>
-    </footer>
-
   </div>
 
+  <!-- Footer -->
+  <footer>
+      <p>جميع الحقوق محفوظة &copy; 2027 — GITI Tech & Business OS | <a href="index.html">الرئيسية</a></p>
+  </footer>
+
+  <script src="app.js"></script>
   <script>
     async function submitContactForm(e) {
       e.preventDefault();
@@ -177,10 +226,10 @@
 
         document.getElementById('contact-form').reset();
         document.getElementById('char-count').innerText = '0';
-        showContactAlert('✅ شكراً لك! تم إرسال رسالتك بنجاح وحفظها في السحابة.', '#2b8a3e', '#ebfbee');
+        showContactAlert('✅ شكراً لك! تم إرسال رسالتك بنجاح وحفظها في السحابة.', '#15803d', '#dcfce7');
       } catch (err) {
         console.error("Contact Error:", err);
-        showContactAlert('❌ حدث خطأ أثناء الإرسال. تأكد من اتصالك بالإنترنت.', '#dc2626', '#fee2e2');
+        showContactAlert('❌ حدث خطأ أثناء الإرسال. تأكد من اتصالك بالإنترنت.', '#b91c1c', '#fee2e2');
       } finally {
         btn.disabled = false;
         btn.innerText = "إرسال الرسالة إلى فريق الدعم 📨";
