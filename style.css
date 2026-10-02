@@ -138,10 +138,13 @@ header {
     gap: 12px;
 }
 
+/* --- SIRREEFFAMA LOGO (FIXED) --- */
 .eagle-emblem-img {
     height: 48px;
     width: auto;
+    max-width: 120px;
     object-fit: contain;
+    display: block;
 }
 
 .brand-text-box h2 {
@@ -491,4 +494,21 @@ footer {
 footer a {
     color: var(--gov-gold);
     text-decoration: none;
+}
+
+/* --- DABALATAAN: RESPONSIVE DESIGN MOOBAAYILAAF --- */
+@media (max-width: 768px) {
+    .nav-container {
+        padding: 0.5rem 1rem;
+    }
+    .eagle-emblem-img {
+        height: 38px !important;
+        max-width: 90px !important;
+    }
+    .brand-text-box h2 {
+        font-size: 0.85rem;
+    }
+    .brand-text-box p {
+        font-size: 0.6rem;
+    }
 }
