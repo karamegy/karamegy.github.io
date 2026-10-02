@@ -1,4 +1,13 @@
-// GITI Tech & Business Blog - Advanced Enhanced Engine with Firebase Cloud Integration
+// GITI Tech Engine - Integrated with Forum Layout & Firebase
+
+function toggleSidebar() {
+    const drawer = document.getElementById('sideDrawer');
+    const overlay = document.getElementById('sidebarOverlay');
+    if (drawer && overlay) {
+        drawer.classList.toggle('open');
+        overlay.classList.toggle('active');
+    }
+}
 
 const articlesDatabase = {
   "1": {
@@ -6,14 +15,9 @@ const articlesDatabase = {
     category: "تكنولوجيا الشركات",
     date: "28 سبتمبر 2026",
     content: `
-      <p>تعتبر أنظمة تخطيط موارد المؤسسات المعروفة اختصاراً بـ (ERP) العصب الرئيسي لأي نشاط تجاري حديث يسعى نحو النمو والاستدامة. في الماضي كانت هذه الأنظمة حكراً على الشركات الكبرى والعملاقة نظراً لتكلفتها العالية وتعقيد برمجياتها.</p>
-      <h3 style="color: var(--accent); margin-top: 15px;">لماذا تحتاج الشركات الناشئة لنظام ERP سحابي؟</h3>
+      <p>تعتبر أنظمة تخطيط موارد المؤسسات المعروفة اختصاراً بـ (ERP) العصب الرئيسي لأي نشاط تجاري حديث يسعى نحو النمو والاستدامة.</p>
+      <h3 style="color: var(--gov-blue-dark); margin-top: 15px;">لماذا تحتاج الشركات الناشئة لنظام ERP سحابي؟</h3>
       <p>مع تطور الأسواق، أصبحت الإدارة اليدوية للجرد والحسابات سبباً رئيسياً في ضياع الأرباح وحدوث عجز في المخزون. يتيح نظام الـ ERP ربط المبيعات بالمخازن والحسابات البنكية لحظياً.</p>
-      <ul style="margin: 10px 20px; line-height: 1.8;">
-        <li>تحديث المخزون بشكل فوري عند كل عملية بيع.</li>
-        <li>إصدار التقارير المالية والضريبية بدقة بضغطة زر واحدة.</li>
-        <li>تقليل الهدر المالي وتحسين كفاءة خدمة العملاء.</li>
-      </ul>
     `
   },
   "2": {
@@ -22,8 +26,6 @@ const articlesDatabase = {
     date: "27 سبتمبر 2026",
     content: `
       <p>تعتبر عمليات النقل وإدارة الأساطيل التحدي الأكبر لشركات التوزيع والتجارة الإلكترونية. يتيح دمج تقنيات التتبع الجغرافي اللحظي مع قواعد البيانات الموزعة مراقبة خطوط السير واستهلاك الوقود بدقة.</p>
-      <h3 style="color: var(--accent); margin-top: 15px;">مزايا الأتمتة اللوجستية الحديثة</h3>
-      <p>من خلال تتبع خطوط السير، تستطيع الشركات توفير ما يصل إلى 30% من تكاليف الوقود والصيانة، فضلاً عن رفع مستوى رضا العملاء عبر تقديم مواعيد تسليم دقيقة للغاية.</p>
     `
   },
   "3": {
@@ -31,29 +33,7 @@ const articlesDatabase = {
     category: "أمن البيانات",
     date: "25 سبتمبر 2026",
     content: `
-      <p>مع الاعتماد المتزايد على التخزين السحابي وقواعد البيانات مثل Firebase، أصبح تأمين قواعد البيانات وتفعيل قواعد الصلاحيات الصارمة (Security Rules) أمراً لا غنى عنه.</p>
-      <h3 style="color: var(--accent); margin-top: 15px;">أفضل ممارسات الأمان السحابي</h3>
-      <p>1. تشفير كافة البيانات الحساسة أثناء النقل والتخزين.<br>2. تطبيق التحقق الثنائي (2FA) لجميع مسؤولي النظام.<br>3. مراجعة صلاحيات الوصول بانتظام.</p>
-    `
-  },
-  "4": {
-    title: "دور الذكاء الاصطناعي في أتمتة قراءة المستندات والفواتير عبر OCR",
-    category: "الذكاء الاصطناعي",
-    date: "24 سبتمبر 2026",
-    content: `
-      <p>تشهد الأنظمة الحديثة اعتماداً متزايداً على تقنيات التعرف الضوئي على الحروف (OCR) المدعومة بالذكاء الاصطناعي لاستخراج البيانات من الفواتير وتذاكر الوزن والمستندات الورقية بدقة فائقة.</p>
-      <h3 style="color: var(--accent); margin-top: 15px;">توفير الوقت والجهد البشري</h3>
-      <p>تستطيع الخوارزميات الذكية قراءة النصوص المعقدة في ثوانٍ معدودة وترحيلها مباشرة إلى قواعد بيانات النظام، مما يلغي الأخطاء البشرية تماماً.</p>
-    `
-  },
-  "5": {
-    title: "لماذا تتفوق تطبيقات الويب التقدمية (PWAs) على التطبيقات التقليدية في قطاع الأعمال؟",
-    category: "تطوير الويب",
-    date: "22 سبتمبر 2026",
-    content: `
-      <p>تتيح تطبيقات الويب التقدمية (PWA) للمستخدمين تجربة شبيهة بالتطبيقات الأصلية مع ميزات العمل بدون إنترنت (Offline Mode)، وسرعة التحميل الفائقة.</p>
-      <h3 style="color: var(--accent); margin-top: 15px;">المزايا التنافسية للـ PWA</h3>
-      <p>لا تتطلب مساحة تخزين ضخمة على هواتف المستخدمين، ويتم تحديثها تلقائياً من السحابة دون الحاجة لمرورها بعمليات المراجعة الطويلة في متاجر التطبيقات.</p>
+      <p>مع الاعتماد المتزايد على التخزين السحابي وقواعد البيانات مثل Firebase، أصبح تأمين قواعد البيانات وتفعيل قواعد الصلاحيات الصارمة أمراً لا غنى عنه.</p>
     `
   }
 };
@@ -61,257 +41,178 @@ const articlesDatabase = {
 let currentActiveArticleId = null;
 
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. إدارة المظاهر (الثيمات الداكنة والفاتحة)
-  const savedTheme = localStorage.getItem('app_theme') || 'dark';
-  document.documentElement.setAttribute('data-theme', savedTheme);
-
-  const themeToggleBtn = document.getElementById('theme-toggle-btn');
-  if (themeToggleBtn) {
-    themeToggleBtn.addEventListener('click', () => {
-      const currentTheme = document.documentElement.getAttribute('data-theme');
-      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-      document.documentElement.setAttribute('data-theme', newTheme);
-      localStorage.setItem('app_theme', newTheme);
-    });
-  }
-
-  // 2. شريط التقدم أثناء التصفح
-  window.addEventListener('scroll', () => {
-    const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
-    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    const scrolled = (winScroll / height) * 100;
-    const progressBar = document.getElementById('reading-progress');
-    if (progressBar) {
-      progressBar.style.width = scrolled + '%';
+    // تفعيل البحث
+    const searchInput = document.getElementById('article-search');
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase().trim();
+            const articles = document.querySelectorAll('.article-item');
+            articles.forEach(article => {
+                const text = article.textContent.toLowerCase();
+                article.style.display = text.includes(term) ? 'block' : 'none';
+            });
+        });
     }
-  });
 
-  // 3. إضافة أزرار المشاركة الاجتماعية التلقائية أسفل المقالات
-  const articles = document.querySelectorAll('.article-item');
-  articles.forEach(article => {
-    const titleEl = article.querySelector('h2');
-    if (titleEl && !article.querySelector('.share-box')) {
-      const shareBox = document.createElement('div');
-      shareBox.className = 'share-box';
-      shareBox.style.cssText = 'margin-top: 15px; padding-top: 12px; border-top: 1px dashed var(--border-color); display: flex; gap: 8px; align-items: center; flex-wrap: wrap;';
-      
-      const articleTitle = encodeURIComponent(titleEl.textContent);
-      const pageUrl = encodeURIComponent(window.location.href);
-
-      shareBox.innerHTML = `
-        <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: bold;">مشاركة المقال:</span>
-        <a href="https://api.whatsapp.com/send?text=${articleTitle}%20-%20${pageUrl}" target="_blank" class="btn-sm" style="background: #22c55e; color: #fff; text-decoration: none; padding: 4px 8px; border-radius: 6px; font-size: 0.75rem;">واتساب 💬</a>
-        <a href="https://twitter.com/intent/tweet?text=${articleTitle}&url=${pageUrl}" target="_blank" class="btn-sm" style="background: #0284c7; color: #fff; text-decoration: none; padding: 4px 8px; border-radius: 6px; font-size: 0.75rem;">تويتر/X 🐦</a>
-        <a href="https://www.linkedin.com/sharing/share-offsite/?url=${pageUrl}" target="_blank" class="btn-sm" style="background: #4f46e5; color: #fff; text-decoration: none; padding: 4px 8px; border-radius: 6px; font-size: 0.75rem;">لينكد إن 🔗</a>
-      `;
-      article.appendChild(shareBox);
-    }
-  });
-
-  // 4. ميزة البحث الفوري في المقالات
-  const searchInput = document.getElementById('article-search');
-  if (searchInput) {
-    searchInput.addEventListener('input', (e) => {
-      const term = e.target.value.toLowerCase().trim();
-      articles.forEach(article => {
-        const text = article.textContent.toLowerCase();
-        if (text.includes(term)) {
-          article.style.display = 'block';
-        } else {
-          article.style.display = 'none';
-        }
-      });
-    });
-  }
-
-  renderBookmarks();
-
-  // تفعيل إعلانات أدسنس أوتوماتيكياً
-  setTimeout(() => {
-    try {
-      const adElements = document.querySelectorAll('.adsbygoogle');
-      adElements.forEach(ad => {
-        if (!ad.getAttribute('data-adsbygoogle-status')) {
-          (window.adsbygoogle = window.adsbygoogle || []).push({});
-        }
-      });
-    } catch (e) {
-      console.warn("AdSense Trigger Warning:", e);
-    }
-  }, 400);
-
-  console.log("✅ GITI Tech Advanced engine initialized successfully.");
+    renderBookmarks();
 });
 
-// فلترة المقالات حسب الأقسام
+// فلترة المقالات
 window.filterCategory = function(category) {
-  const articles = document.querySelectorAll('.article-item');
-  articles.forEach(article => {
-    if (category === 'all' || article.getAttribute('data-category') === category) {
-      article.style.display = 'block';
-    } else {
-      article.style.display = 'none';
-    }
-  });
+    const articles = document.querySelectorAll('.article-item');
+    articles.forEach(article => {
+        if (category === 'all' || article.getAttribute('data-category') === category) {
+            article.style.display = 'block';
+        } else {
+            article.style.display = 'none';
+        }
+    });
 
-  const catButtons = document.querySelectorAll('.cat-btn');
-  catButtons.forEach(btn => {
-    if (btn.getAttribute('data-cat') === category) {
-      btn.classList.add('active');
-    } else {
-      btn.classList.remove('active');
-    }
-  });
+    const catButtons = document.querySelectorAll('.cat-btn');
+    catButtons.forEach(btn => {
+        if (btn.getAttribute('data-cat') === category) {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
+        }
+    });
 };
 
-// حاسبة الـ ERP الذكية
+// حاسبة ERP
 window.calculateERPValue = function() {
-  const inputVal = document.getElementById('calc-input').value;
-  const resultDiv = document.getElementById('calc-result');
-  if (!inputVal || inputVal <= 0) {
-    resultDiv.innerHTML = "⚠️ الرجاء إدخال عدد صحيح للمعاملات الشهرية.";
-    return;
-  }
-  const savedHours = Math.round(inputVal * 0.15);
-  const savedMoney = Math.round(inputVal * 1.8);
-  resultDiv.innerHTML = `✨ النتائج التقديرية: يوفر نظام الـ ERP حوالي <span style="color:#22c55e;">${savedHours} ساعة</span> عمل شهرياً، ويقلل الهدر بنحو <span style="color:#22c55e;">$${savedMoney}</span> شهرياً!`;
+    const inputVal = document.getElementById('calc-input').value;
+    const resultDiv = document.getElementById('calc-result');
+    if (!inputVal || inputVal <= 0) {
+        resultDiv.innerHTML = "⚠️ الرجاء إدخال عدد صحيح للمعاملات الشهرية.";
+        return;
+    }
+    const savedHours = Math.round(inputVal * 0.15);
+    const savedMoney = Math.round(inputVal * 1.8);
+    resultDiv.innerHTML = `✨ النتائج التقديرية: يوفر النظام حوالي <span style="color:#15803d;">${savedHours} ساعة</span> عمل شهرياً، ويقلل الهدر بنحو <span style="color:#15803d;">$${savedMoney}</span>!`;
 };
 
-// فتح نافذة المقال كاملاً مع ربط التعليقات بـ Firebase
+// قراءة مقال كامل
 window.openFullArticle = function(id) {
-  currentActiveArticleId = id;
-  const modal = document.getElementById('article-modal');
-  const area = document.getElementById('modal-content-area');
-  const articleData = articlesDatabase[id];
+    currentActiveArticleId = id;
+    const modal = document.getElementById('article-modal');
+    const area = document.getElementById('modal-content-area');
+    const articleData = articlesDatabase[id];
 
-  if (articleData) {
-    area.innerHTML = `
-      <span class="badge badge-paid" style="margin-bottom: 10px; display:inline-block;">${articleData.category}</span>
-      <h2 style="font-size: 1.4rem; color: var(--accent); margin-bottom: 8px;">${articleData.title}</h2>
-      <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 20px;">تاريخ النشر: ${articleData.date}</p>
-      <div style="font-size: 0.95rem; line-height: 1.9; color: var(--text-main);">
-        ${articleData.content}
-      </div>
-    `;
-    modal.style.display = 'block';
-    document.getElementById('rating-feedback').innerText = '';
-    loadFirebaseComments(id);
-  }
+    if (articleData) {
+        area.innerHTML = `
+            <span class="badge badge-paid" style="margin-bottom: 10px;">${articleData.category}</span>
+            <h2 style="font-size: 1.3rem; color: var(--gov-blue-dark); margin-bottom: 8px;">${articleData.title}</h2>
+            <p style="font-size: 0.8rem; color: #64748b; margin-bottom: 20px;">تاريخ النشر: ${articleData.date}</p>
+            <div style="font-size: 0.95rem; line-height: 1.9;">
+                ${articleData.content}
+            </div>
+        `;
+        modal.style.display = 'block';
+        loadFirebaseComments(id);
+    }
 };
 
 window.closeFullArticle = function() {
-  document.getElementById('article-modal').style.display = 'none';
-  currentActiveArticleId = null;
+    document.getElementById('article-modal').style.display = 'none';
+    currentActiveArticleId = null;
 };
 
-// نظام تقييم المقال التفاعلي
-window.rateArticle = function(stars) {
-  const feedback = document.getElementById('rating-feedback');
-  feedback.innerHTML = `✅ شكراً لك! تم تسجيل تقييمك (${stars} نجوم) بنجاح.`;
-  feedback.style.color = '#22c55e';
-};
-
-// حفظ المقالات (Bookmarks)
+// حفظ المقالات
 window.toggleBookmark = function(id) {
-  let bookmarks = JSON.parse(localStorage.getItem('giti_bookmarks')) || [];
-  if (bookmarks.includes(id)) {
-    bookmarks = bookmarks.filter(b => b !== id);
-    alert('📌 تم إزالة المقال من المحفوظات.');
-  } else {
-    bookmarks.push(id);
-    alert('🔖 تم حفظ المقال بنجاح في القائمة الخاصة بك!');
-  }
-  localStorage.setItem('giti_bookmarks', JSON.stringify(bookmarks));
-  renderBookmarks();
+    let bookmarks = JSON.parse(localStorage.getItem('giti_bookmarks')) || [];
+    if (bookmarks.includes(id)) {
+        bookmarks = bookmarks.filter(b => b !== id);
+        alert('📌 تم إزالة المقال من المحفوظات.');
+    } else {
+        bookmarks.push(id);
+        alert('🔖 تم حفظ المقال بنجاح!');
+    }
+    localStorage.setItem('giti_bookmarks', JSON.stringify(bookmarks));
+    renderBookmarks();
 };
 
 function renderBookmarks() {
-  const listEl = document.getElementById('saved-bookmarks-list');
-  if (!listEl) return;
-  const bookmarks = JSON.parse(localStorage.getItem('giti_bookmarks')) || [];
-  
-  if (bookmarks.length === 0) {
-    listEl.innerHTML = `<p>لا توجد مقالات محفوظة حالياً.</p>`;
-    return;
-  }
-
-  let html = '<ul style="padding-right: 15px; display: flex; flex-direction: column; gap: 6px;">';
-  bookmarks.forEach(id => {
-    if (articlesDatabase[id]) {
-      html += `<li><a href="#" onclick="openFullArticle('${id}'); return false;" style="color: var(--accent); text-decoration: none;">${articlesDatabase[id].title}</a></li>`;
+    const listEl = document.getElementById('saved-bookmarks-list');
+    if (!listEl) return;
+    const bookmarks = JSON.parse(localStorage.getItem('giti_bookmarks')) || [];
+    
+    if (bookmarks.length === 0) {
+        listEl.innerHTML = `<p>لا توجد مقالات محفوظة حالياً.</p>`;
+        return;
     }
-  });
-  html += '</ul>';
-  listEl.innerHTML = html;
+
+    let html = '<ul style="padding-right: 15px; display: flex; flex-direction: column; gap: 6px;">';
+    bookmarks.forEach(id => {
+        if (articlesDatabase[id]) {
+            html += `<li><a href="#" onclick="openFullArticle('${id}'); return false;" style="color: var(--gov-blue-dark); font-weight:700; text-decoration: none;">${articlesDatabase[id].title}</a></li>`;
+        }
+    });
+    html += '</ul>';
+    listEl.innerHTML = html;
 }
 
-// إضافة التعليقات سحابياً عبر Firebase Firestore
-window.addCommentToFirebase = async function(e) {
-  e.preventDefault();
-  if (!window.db || !currentActiveArticleId) return;
-
-  const author = document.getElementById('comment-author').value.trim();
-  const text = document.getElementById('comment-text').value.trim();
-  
-  if (!author || !text) return;
-
-  try {
-    const { collection, addDoc, serverTimestamp } = window.firebaseModules;
-    await addDoc(collection(window.db, "article_comments"), {
-      articleId: currentActiveArticleId,
-      author: author,
-      text: text,
-      timestamp: serverTimestamp()
-    });
-
-    document.getElementById('comment-author').value = '';
-    document.getElementById('comment-text').value = '';
-    alert('✅ تم نشر تعليقك بنجاح في سحابة المنصة!');
-  } catch (err) {
-    alert('❌ حدث خطأ أثناء إرسال التعليق: ' + err.message);
-  }
+// تقييم المقالات
+window.rateArticle = function(stars) {
+    const feedback = document.getElementById('rating-feedback');
+    feedback.innerHTML = `✅ شكراً لك! تم تسجيل تقييمك (${stars} نجوم) بنجاح.`;
+    feedback.style.color = '#15803d';
 };
 
-// جلب التعليقات الحية للمقال من Firebase
+// حفظ التعليق سحابياً
+window.addCommentToFirebase = async function(e) {
+    e.preventDefault();
+    if (!window.db || !currentActiveArticleId) return;
+
+    const author = document.getElementById('comment-author').value.trim();
+    const text = document.getElementById('comment-text').value.trim();
+
+    try {
+        const { collection, addDoc, serverTimestamp } = window.firebaseModules;
+        await addDoc(collection(window.db, "article_comments"), {
+            articleId: currentActiveArticleId,
+            author: author,
+            text: text,
+            timestamp: serverTimestamp()
+        });
+
+        document.getElementById('comment-author').value = '';
+        document.getElementById('comment-text').value = '';
+        alert('✅ تم إرسال تعليقك بنجاح!');
+    } catch (err) {
+        alert('❌ حدث خطأ أثناء إرسال التعليق: ' + err.message);
+    }
+};
+
 function loadFirebaseComments(articleId) {
-  const commentsList = document.getElementById('comments-list');
-  if (!window.db) {
-    commentsList.innerHTML = '<p>قاعدة البيانات غير متصلة حالياً.</p>';
-    return;
-  }
-
-  try {
-    const { collection, query, where, onSnapshot } = window.firebaseModules;
-    const q = query(collection(window.db, "article_comments"), where("articleId", "==", articleId));
-    
-    onSnapshot(q, (snapshot) => {
-      if (snapshot.empty) {
-        commentsList.innerHTML = '<p style="color: var(--text-muted);">لا توجد تعليقات بعد. كن أول المشاركين!</p>';
+    const commentsList = document.getElementById('comments-list');
+    if (!window.db) {
+        commentsList.innerHTML = '<p>قاعدة البيانات غير متصلة حالياً.</p>';
         return;
-      }
+    }
 
-      let html = '';
-      snapshot.forEach(doc => {
-        const data = doc.data();
-        html += `
-          <div style="background: var(--input-bg); padding: 10px; border-radius: 8px; margin-bottom: 8px; border: 1px solid var(--border-color);">
-            <strong>${escapeHtml(data.author || 'زائر')}</strong>: 
-            <p style="margin-top: 4px; color: var(--text-main);">${escapeHtml(data.text || '')}</p>
-          </div>
-        `;
-      });
-      commentsList.innerHTML = html;
-    });
-  } catch (e) {
-    commentsList.innerHTML = '<p>تعسّر تحميل التعليقات.</p>';
-  }
-}
+    try {
+        const { collection, query, where, onSnapshot } = window.firebaseModules;
+        const q = query(collection(window.db, "article_comments"), where("articleId", "==", articleId));
+        
+        onSnapshot(q, (snapshot) => {
+            if (snapshot.empty) {
+                commentsList.innerHTML = '<p style="color: #64748b;">لا توجد تعليقات بعد.</p>';
+                return;
+            }
 
-function escapeHtml(str) {
-  return String(str)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+            let html = '';
+            snapshot.forEach(doc => {
+                const data = doc.data();
+                html += `
+                    <div style="background: #f8fafc; padding: 10px; border-radius: 6px; margin-bottom: 8px; border: 1px solid #e2e8f0;">
+                        <strong>${data.author || 'زائر'}</strong>: 
+                        <p style="margin-top: 4px; color: #1e293b;">${data.text || ''}</p>
+                    </div>
+                `;
+            });
+            commentsList.innerHTML = html;
+        });
+    } catch (e) {
+        commentsList.innerHTML = '<p>تعسّر تحميل التعليقات.</p>';
+    }
 }
