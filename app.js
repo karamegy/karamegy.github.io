@@ -1,4 +1,4 @@
-// GITI Tech Engine - Integrated with Forum Layout, Firebase Auth & Member Profiles
+// GITI Tech Engine - Dynamic Firestore Articles Integration
 
 function toggleSidebar() {
     const drawer = document.getElementById('sideDrawer');
@@ -9,38 +9,13 @@ function toggleSidebar() {
     }
 }
 
-const articlesDatabase = {
-  "1": {
-    title: "أهمية أنظمة تخطيط موارد المؤسسات (ERP) في إدارة المتاجر والشركات الناشئة",
-    category: "تكنولوجيا الشركات",
-    date: "28 سبتمبر 2026",
-    content: `
-      <p>تعتبر أنظمة تخطيط موارد المؤسسات المعروفة اختصاراً بـ (ERP) العصب الرئيسي لأي نشاط تجاري حديث يسعى نحو النمو والاستدامة.</p>
-      <h3 style="color: var(--gov-blue-dark); margin-top: 15px;">لماذا تحتاج الشركات الناشئة لنظام ERP سحابي؟</h3>
-      <p>مع تطور الأسواق، أصبحت الإدارة اليدوية للجرد والحسابات سبباً رئيسياً في ضياع الأرباح وحدوث عجز في المخزون. يتيح نظام الـ ERP ربط المبيعات بالمخازن والحسابات البنكية لحظياً.</p>
-    `
-  },
-  "2": {
-    title: "كيف تطور نظام إدارة أساطيل الشحن وتتبع الشحنات الفوري (GPS Tracking)؟",
-    category: "أنظمة لوجستية",
-    date: "27 سبتمبر 2026",
-    content: `
-      <p>تعتبر عمليات النقل وإدارة الأساطيل التحدي الأكبر لشركات التوزيع والتجارة الإلكترونية. يتيح دمج تقنيات التتبع الجغرافي اللحظي مع قواعد البيانات الموزعة مراقبة خطوط السير واستهلاك الوقود بدقة.</p>
-    `
-  },
-  "3": {
-    title: "كيف تحمي بيانات عملك في السحابة وقواعد البيانات الموزعة؟",
-    category: "أمن البيانات",
-    date: "25 سبتمبر 2026",
-    content: `
-      <p>مع الاعتماد المتزايد على التخزين السحابي وقواعد البيانات مثل Firebase، أصبح تأمين قواعد البيانات وتفعيل قواعد الصلاحيات الصارمة أمراً لا غنى عنه.</p>
-    `
-  }
-};
-
+let articlesDatabase = {};
 let currentActiveArticleId = null;
 
 document.addEventListener('DOMContentLoaded', () => {
+    // الانتظار حتى يتم تهيئة قاعدة البيانات ثم جلب المقالات
+    initDynamicArticles();
+
     // تفعيل البحث
     const searchInput = document.getElementById('article-search');
     if (searchInput) {
@@ -54,11 +29,77 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    renderBookmarks();
     injectProfileModalHTML();
 });
 
-// فلترة المقالات
+// دالة جلب المقالات ديناميكياً من سحابة Firebase
+async function initDynamicArticles() {
+    const container = document.getElementById('articles-container');
+    if (!container) return;
+
+    // التحقق من اتصال قاعدة البيانات
+    if (!window.db) {
+        setTimeout(initDynamicArticles, 500);
+        return;
+    }
+
+    try {
+        const { collection, getDocs } = window.firebaseModules || window.firebase;
+        const querySnapshot = await getDocs(collection(window.db, "articles"));
+        
+        let html = "";
+        articlesDatabase = {};
+
+        if (querySnapshot.empty) {
+            container.innerHTML = "<p style='text-align:center; color:#64748b; padding:30px; background:#fff; border-radius:8px;'>لا توجد مقالات منشورة حالياً. استخدم لوحة التحكم لإضافة مقالاتك الأولى!</p>";
+            return;
+        }
+
+        querySnapshot.forEach((docSnap) => {
+            const data = docSnap.data();
+            const id = docSnap.id;
+            
+            // تخزين بيانات المقال في القاموس للرجوع إليها عند القراءة أو الحفظ
+            articlesDatabase[id] = {
+                title: data.title,
+                category: data.category,
+                date: data.createdAt ? new Date(data.createdAt.seconds * 1000).toLocaleDateString('ar-EG') : "حديثاً",
+                content: data.content,
+                imageUrl: data.imageUrl || ""
+            };
+
+            html += `
+                <article class="card article-item" data-category="${data.category}" data-id="${id}" style="margin-bottom: 20px; padding: 20px;">
+                    ${data.imageUrl ? `<img src="${data.imageUrl}" style="width: 100%; height: 180px; border-radius: 8px; object-fit: cover; margin-bottom: 12px; border: 1px solid var(--border-color);">` : ''}
+                    <div class="article-meta-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <span class="badge badge-paid">${data.category}</span>
+                        <span class="reading-time" style="font-size: 0.8rem; color: #64748b;"><i class="fa-regular fa-clock"></i> 3 دقائق</span>
+                    </div>
+                    <h2 style="font-size: 1.25rem; color: var(--gov-blue-dark); margin: 8px 0; font-weight: 800;">${data.title}</h2>
+                    <p style="color: #64748b; font-size: 0.8rem; margin-bottom: 12px;">نشر سحابياً عبر GITI CMS</p>
+                    <div class="article-body" style="font-size: 0.92rem; line-height: 1.8; color: var(--text-dark);">
+                        <p>${data.content ? data.content.substring(0, 160) + '...' : ''}</p>
+                    </div>
+                    <div style="margin-top: 15px; display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap; border-top: 1px dashed #e2e8f0; padding-top: 12px;">
+                        <div style="display: flex; gap: 10px;">
+                            <button onclick="openFullArticle('${id}')" class="submit-btn" style="width: auto; padding: 8px 18px; font-size: 0.85rem;">قراءة المقال كاملاً</button>
+                            <button onclick="toggleBookmark('${id}')" style="background: #f1f5f9; border: 1px solid #cbd5e1; padding: 8px 12px; border-radius: 6px; cursor: pointer;" title="حفظ المقال">🔖 حفظ</button>
+                        </div>
+                        <span style="font-size: 0.8rem; color: var(--gov-gold); font-weight: 700;">⭐ 4.8 / 5</span>
+                    </div>
+                </article>
+            `;
+        });
+
+        container.innerHTML = html;
+        renderBookmarks();
+    } catch (err) {
+        console.error("Error loading articles from Firestore:", err);
+        container.innerHTML = "<p style='color: red; text-align: center;'>تعسّر تحميل المقالات السحابية.</p>";
+    }
+}
+
+// فلترة المقالات حسب القسم
 window.filterCategory = function(category) {
     const articles = document.querySelectorAll('.article-item');
     articles.forEach(article => {
@@ -79,7 +120,7 @@ window.filterCategory = function(category) {
     });
 };
 
-// حاسبة ERP
+// حاسبة ERP الذكية
 window.calculateERPValue = function() {
     const inputVal = document.getElementById('calc-input').value;
     const resultDiv = document.getElementById('calc-result');
@@ -92,7 +133,7 @@ window.calculateERPValue = function() {
     resultDiv.innerHTML = `✨ النتائج التقديرية: يوفر النظام حوالي <span style="color:#15803d;">${savedHours} ساعة</span> عمل شهرياً، ويقلل الهدر بنحو <span style="color:#15803d;">$${savedMoney}</span>!`;
 };
 
-// قراءة مقال كامل
+// قراءة المقال كاملاً في النافذة المنبثقة
 window.openFullArticle = function(id) {
     currentActiveArticleId = id;
     const modal = document.getElementById('article-modal');
@@ -101,10 +142,11 @@ window.openFullArticle = function(id) {
 
     if (articleData) {
         area.innerHTML = `
-            <span class="badge badge-paid" style="margin-bottom: 10px;">${articleData.category}</span>
+            ${articleData.imageUrl ? `<img src="${articleData.imageUrl}" style="width: 100%; height: 240px; border-radius: 8px; object-fit: cover; margin-bottom: 15px; border: 1px solid var(--border-color);">` : ''}
+            <span class="badge badge-paid" style="margin-bottom: 10px; display: inline-block;">${articleData.category}</span>
             <h2 style="font-size: 1.3rem; color: var(--gov-blue-dark); margin-bottom: 8px;">${articleData.title}</h2>
             <p style="font-size: 0.8rem; color: #64748b; margin-bottom: 20px;">تاريخ النشر: ${articleData.date}</p>
-            <div style="font-size: 0.95rem; line-height: 1.9;">
+            <div style="font-size: 0.95rem; line-height: 1.9; color: var(--text-dark);">
                 ${articleData.content}
             </div>
         `;
@@ -118,7 +160,7 @@ window.closeFullArticle = function() {
     currentActiveArticleId = null;
 };
 
-// حفظ المقالات
+// حفظ المقالات في LocalStorage
 window.toggleBookmark = function(id) {
     let bookmarks = JSON.parse(localStorage.getItem('giti_bookmarks')) || [];
     if (bookmarks.includes(id)) {
@@ -159,7 +201,7 @@ window.rateArticle = function(stars) {
     feedback.style.color = '#15803d';
 };
 
-// حفظ التعليق سحابياً باستخدام حساب جوجل المسجل
+// حفظ وتعليقات سحابية عبر Firebase
 window.addCommentToFirebase = async function(e) {
     e.preventDefault();
     if (!window.db || !currentActiveArticleId) return;
@@ -174,7 +216,7 @@ window.addCommentToFirebase = async function(e) {
     if (!text) return;
 
     try {
-        const { collection, addDoc, serverTimestamp } = window.firebaseModules;
+        const { collection, addDoc, serverTimestamp } = window.firebaseModules || window.firebase;
         await addDoc(collection(window.db, "article_comments"), {
             articleId: currentActiveArticleId,
             uid: user.uid,
@@ -199,7 +241,7 @@ function loadFirebaseComments(articleId) {
     }
 
     try {
-        const { collection, query, where, onSnapshot } = window.firebaseModules;
+        const { collection, query, where, onSnapshot } = window.firebaseModules || window.firebase;
         const q = query(collection(window.db, "article_comments"), where("articleId", "==", articleId));
         
         onSnapshot(q, (snapshot) => {
@@ -269,7 +311,6 @@ window.openUserProfile = function() {
     document.getElementById('profile-name').innerText = user.displayName || 'عضو المنصة';
     document.getElementById('profile-email').innerText = user.email || '';
 
-    // عرض المقالات المحفوظة في البروفايل
     const bookmarks = JSON.parse(localStorage.getItem('giti_bookmarks')) || [];
     const bookmarksContainer = document.getElementById('profile-bookmarks-list');
     
