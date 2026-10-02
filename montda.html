@@ -825,7 +825,7 @@
         </div>
     </section>
 
-    <!-- قسم مولد كروت الدعوات الشخصية (مضاف حديثاً) -->
+    <!-- قسم مولد كروت الدعوات الشخصية (محدث بالصورة الرسمية ورابط الحكومة) -->
     <section class="registration-section" id="invitation-card-section" style="background: #ffffff; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0;">
         <div class="form-card" style="max-width: 700px;">
             <div class="section-heading" style="margin-bottom: 25px;">
@@ -1090,6 +1090,15 @@
         let userAvatarImg = new Image();
         let isAvatarLoaded = false;
 
+        let bgCardImg = new Image();
+        bgCardImg.crossOrigin = "anonymous";
+        bgCardImg.src = "https://sis.gov.eg/media/833992/%D9%85%D9%86%D8%AA%D8%AF%D9%89-%D9%85%D8%B5%D8%B1-2026.jpg";
+        let isBgLoaded = false;
+        bgCardImg.onload = function() {
+            isBgLoaded = true;
+            drawCard();
+        };
+
         function loadCardImage(event) {
             const file = event.target.files[0];
             if (file) {
@@ -1108,46 +1117,45 @@
         function drawCard() {
             cardCtx.clearRect(0, 0, cardCanvas.width, cardCanvas.height);
 
-            // 1. الخلفية التدرجية الملكية
-            let bgGradient = cardCtx.createLinearGradient(0, 0, cardCanvas.width, cardCanvas.height);
-            bgGradient.addColorStop(0, '#0b2238');
-            bgGradient.addColorStop(0.5, '#123354');
-            bgGradient.addColorStop(1, '#0b2238');
-            cardCtx.fillStyle = bgGradient;
-            cardCtx.fillRect(0, 0, cardCanvas.width, cardCanvas.height);
+            // 1. رسم خلفية المنتدى الرسمية أو بديل متدرج إذا لم تحمل
+            if (isBgLoaded) {
+                cardCtx.drawImage(bgCardImg, 0, 0, cardCanvas.width, cardCanvas.height);
+                // طبقة تعتيم شفافة داكنة لضمان بروز النصوص والوجه
+                cardCtx.fillStyle = 'rgba(11, 34, 56, 0.78)';
+                cardCtx.fillRect(0, 0, cardCanvas.width, cardCanvas.height);
+            } else {
+                cardCtx.fillStyle = '#0b2238';
+                cardCtx.fillRect(0, 0, cardCanvas.width, cardCanvas.height);
+            }
 
-            // إطار ذهبي خارجي وداخلي
+            // إطار ذهبي خارجي فاخر
             cardCtx.strokeStyle = '#d4af37';
             cardCtx.lineWidth = 8;
             cardCtx.strokeRect(20, 20, cardCanvas.width - 40, cardCanvas.height - 40);
 
-            cardCtx.strokeStyle = 'rgba(212, 175, 55, 0.4)';
-            cardCtx.lineWidth = 2;
-            cardCtx.strokeRect(32, 32, cardCanvas.width - 64, cardCanvas.height - 64);
-
             // 2. الهيدر والعنوان
             cardCtx.fillStyle = '#d4af37';
-            cardCtx.font = 'bold 36px Cairo, sans-serif';
+            cardCtx.font = 'bold 34px Cairo, sans-serif';
             cardCtx.textAlign = 'center';
             cardCtx.direction = 'rtl';
-            cardCtx.fillText('منتدى مصر 2026', cardCanvas.width / 2, 85);
+            cardCtx.fillText('منتدى مصر 2026', cardCanvas.width / 2, 75);
 
-            cardCtx.fillStyle = '#cbd5e1';
-            cardCtx.font = '20px Cairo, sans-serif';
-            cardCtx.fillText('نظرة لليوم .. رؤية للغد', cardCanvas.width / 2, 125);
+            cardCtx.fillStyle = '#e2e8f0';
+            cardCtx.font = '18px Cairo, sans-serif';
+            cardCtx.fillText('نظرة لليوم .. رؤية للغد', cardCanvas.width / 2, 110);
 
             // خط فاصل ذهبي
             cardCtx.strokeStyle = '#d4af37';
             cardCtx.lineWidth = 2;
             cardCtx.beginPath();
-            cardCtx.moveTo(cardCanvas.width / 2 - 150, 145);
-            cardCtx.lineTo(cardCanvas.width / 2 + 150, 145);
+            cardCtx.moveTo(cardCanvas.width / 2 - 140, 125);
+            cardCtx.lineTo(cardCanvas.width / 2 + 140, 125);
             cardCtx.stroke();
 
             // 3. صورة المستخدم الدائرية
             const centerX = cardCanvas.width / 2;
-            const centerY = 255;
-            const radius = 65;
+            const centerY = 230;
+            const radius = 58;
 
             cardCtx.save();
             cardCtx.beginPath();
@@ -1161,8 +1169,8 @@
                 cardCtx.fillStyle = '#1e293b';
                 cardCtx.fillRect(centerX - radius, centerY - radius, radius * 2, radius * 2);
                 cardCtx.fillStyle = '#d4af37';
-                cardCtx.font = 'bold 16px Cairo, sans-serif';
-                cardCtx.fillText('صورتك هنا', centerX, centerY + 6);
+                cardCtx.font = 'bold 15px Cairo, sans-serif';
+                cardCtx.fillText('صورتك', centerX, centerY + 5);
             }
             cardCtx.restore();
 
@@ -1179,18 +1187,23 @@
             const fullNameText = inputNameVal !== '' ? inputNameVal : 'اسم المشارك الكريم';
 
             cardCtx.fillStyle = '#ffffff';
-            cardCtx.font = 'bold 30px Cairo, sans-serif';
+            cardCtx.font = 'bold 28px Cairo, sans-serif';
             cardCtx.textAlign = 'center';
-            cardCtx.fillText(fullNameText, cardCanvas.width / 2, 380);
+            cardCtx.fillText(fullNameText, cardCanvas.width / 2, 335);
 
-            // وصف الدعوة
+            // صفة الدعوة
             cardCtx.fillStyle = '#d4af37';
-            cardCtx.font = 'bold 19px Cairo, sans-serif';
-            cardCtx.fillText('بطاقة دعوة رسمية — مشارك بفعاليات المنتدى', cardCanvas.width / 2, 420);
+            cardCtx.font = 'bold 17px Cairo, sans-serif';
+            cardCtx.fillText('دعوة رسمية لحضور فعاليات المنتدى', cardCanvas.width / 2, 372);
 
-            // 5. الفوتر
-            cardCtx.fillStyle = '#94a3b8';
-            cardCtx.font = '15px Cairo, sans-serif';
+            // 5. رابط الموقع الحكومي الرسمي في الكرت
+            cardCtx.fillStyle = '#93c5fd';
+            cardCtx.font = 'bold 16px Cairo, sans-serif';
+            cardCtx.fillText('بوابة التسجيل الرسمية: https://egyptforum.gov.eg', cardCanvas.width / 2, 420);
+
+            // 6. الفوتر والسفلية
+            cardCtx.fillStyle = '#cbd5e1';
+            cardCtx.font = '14px Cairo, sans-serif';
             cardCtx.fillText('تغطية شبكة GITI الشبابية | 19-24 أكتوبر 2026', cardCanvas.width / 2, 490);
         }
 
