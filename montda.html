@@ -3,23 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مبادرة رئيس الجمهورية - منتدى مصر للشباب</title>
+    <title>منتدى مصر 2026 - مبادرة رئيس الجمهورية</title>
     <!-- Font Awesome الأيقونات -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts - Cairo -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
     
-    <!-- كود إعلانات جوجل أدسنس الرسمية -->
+    <!-- كود إعلانات جوجل أدسنس التلقائية (Auto Ads) -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6651309355082807" crossorigin="anonymous"></script>
 
     <style>
         :root {
-            --primary-color: #c0392b; /* أحمر يعبر عن علم مصر */
-            --secondary-color: #1a252f; /* كحلي دافئ */
-            --accent-color: #f39c12; /* ذهبي للتفاصيل */
-            --bg-light: #f8f9fa;
-            --text-dark: #2c3e50;
-            --text-light: #ffffff;
+            --gov-blue-dark: #0f2b48;
+            --gov-blue-light: #1b4b7a;
+            --gov-gold: #c59b27;
+            --primary-red: #c0392b;
+            --bg-light: #f8fafc;
+            --text-dark: #1e293b;
         }
 
         * {
@@ -39,15 +39,87 @@
             line-height: 1.6;
         }
 
+        /* Top Bar - الشريطة الحكومية العليا */
+        .top-gov-bar {
+            background-color: var(--gov-blue-dark);
+            color: #fff;
+            padding: 8px 20px;
+            font-size: 0.85rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-gov-bar .social-icons a {
+            color: #fff;
+            margin-left: 12px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .top-gov-bar .social-icons a:hover {
+            color: var(--gov-gold);
+        }
+
+        .contact-top-btn {
+            background: var(--gov-gold);
+            color: var(--gov-blue-dark);
+            padding: 4px 15px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        /* شريط الأخبار العاجلة المتحرك */
+        .news-ticker-container {
+            background: #14355a;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            font-size: 0.85rem;
+            border-bottom: 1px solid rgba(197, 155, 39, 0.3);
+        }
+
+        .ticker-title {
+            background: var(--primary-red);
+            padding: 6px 15px;
+            font-weight: 800;
+            white-space: nowrap;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .ticker-wrapper {
+            flex: 1;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .ticker-text {
+            display: inline-block;
+            padding-right: 100%;
+            animation: ticker 30s linear infinite;
+            font-weight: 600;
+            color: #e2e8f0;
+        }
+
+        @keyframes ticker {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(100%, 0, 0); }
+        }
+
         /* Navbar Header */
         header {
-            background-color: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            position: fixed;
+            background-color: #ffffff;
+            position: sticky;
             top: 0;
             width: 100%;
             z-index: 1000;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border-bottom: 3px solid var(--gov-gold);
         }
 
         .nav-container {
@@ -56,384 +128,484 @@
             align-items: center;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 1rem 2rem;
+            padding: 0.8rem 1.5rem;
         }
 
-        .logo {
+        .gov-branding {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .eagle-emblem {
+            height: 45px;
+        }
+
+        .brand-text-box h2 {
+            font-size: 1.1rem;
+            color: var(--gov-blue-dark);
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .brand-text-box p {
+            font-size: 0.75rem;
+            color: #64748b;
+        }
+
+        .forum-logo-title {
+            text-align: left;
+            border-right: 2px solid #e2e8f0;
+            padding-right: 15px;
+        }
+
+        .forum-logo-title h1 {
+            font-size: 1.3rem;
+            color: var(--gov-blue-dark);
+            font-weight: 900;
+        }
+
+        /* Hero Section */
+        .gov-hero-section {
+            background: linear-gradient(180deg, #1b4b7a 0%, #0a1e34 100%), 
+                        url('https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=1350&q=80') center/cover;
+            background-blend-mode: overlay;
+            color: #ffffff;
+            padding: 60px 20px 80px;
+            text-align: center;
+            position: relative;
+        }
+
+        .president-avatar-container {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 25px;
+        }
+
+        .president-avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--gov-gold);
+            box-shadow: 0 0 25px rgba(197, 155, 39, 0.4);
+        }
+
+        .hero-title-badge {
+            display: inline-block;
+            color: var(--gov-gold);
             font-size: 1.4rem;
             font-weight: 800;
-            color: var(--primary-color);
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .hero-title-badge::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: var(--gov-gold);
+            margin: 8px auto 0;
+        }
+
+        .president-speech {
+            max-width: 850px;
+            margin: 0 auto 35px;
+            font-size: 1.15rem;
+            line-height: 2;
+            color: #e2e8f0;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(8px);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .president-speech i.quote-icon {
+            color: var(--gov-gold);
+            font-size: 1.5rem;
+            margin: 0 8px;
+        }
+
+        .speech-author {
+            margin-top: 15px;
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--gov-gold);
+        }
+
+        /* Info & Action Buttons Bar */
+        .event-info-bar {
             display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 35px;
+            font-size: 0.95rem;
+        }
+
+        .event-info-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(15, 43, 72, 0.6);
+            padding: 8px 18px;
+            border-radius: 20px;
+            border: 1px solid rgba(197, 155, 39, 0.3);
+        }
+
+        .event-info-item i {
+            color: var(--gov-gold);
+        }
+
+        .cal-btn {
+            background: rgba(197, 155, 39, 0.2);
+            color: var(--gov-gold);
+            border: 1px solid var(--gov-gold);
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+
+        .cal-btn:hover {
+            background: var(--gov-gold);
+            color: var(--gov-blue-dark);
+        }
+
+        .gov-actions-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn-gov-primary {
+            background-color: var(--gov-blue-dark);
+            color: #fff;
+            padding: 14px 35px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.1rem;
+            border: 2px solid var(--gov-gold);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            display: inline-flex;
             align-items: center;
             gap: 10px;
-            text-decoration: none;
         }
 
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 20px;
-            align-items: center;
+        .btn-gov-primary:hover {
+            background-color: var(--gov-gold);
+            color: var(--gov-blue-dark);
+            transform: translateY(-2px);
         }
 
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-dark);
-            font-weight: 600;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary-color);
-        }
-
-        /* AdSense Container Style */
-        .ad-container-wrapper {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 0 20px;
-            text-align: center;
-            overflow: hidden;
-        }
-
-        /* Hero Section مع خلفية صورة اللقاء الرئاسي */
-        .hero {
-            background: linear-gradient(135deg, rgba(26, 37, 47, 0.88), rgba(192, 57, 43, 0.82)), 
-                        url('https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Barack_Obama_and_Abdel_Fattah_el-Sisi_2014.jpg/1200px-Barack_Obama_and_Abdel_Fattah_el-Sisi_2014.jpg') center/cover no-repeat;
-            min-height: 90vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: var(--text-light);
-            padding: 120px 20px 60px;
-        }
-
-        .hero-content h1 {
-            font-size: 2.8rem;
-            font-weight: 800;
-            margin-bottom: 20px;
-            animation: fadeInDown 1s ease;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-        }
-
-        .hero-content p {
-            font-size: 1.25rem;
-            max-width: 750px;
-            margin: 0 auto 30px;
-            animation: fadeInUp 1s ease;
-            text-shadow: 0 1px 5px rgba(0,0,0,0.5);
-        }
-
-        .cta-btn {
-            display: inline-block;
-            background-color: var(--accent-color);
-            color: var(--text-dark);
-            padding: 15px 40px;
-            border-radius: 50px;
+        .btn-gov-secondary {
+            background-color: transparent;
+            color: #fff;
+            padding: 14px 35px;
+            border-radius: 8px;
             text-decoration: none;
             font-weight: 700;
             font-size: 1.1rem;
-            transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 4px 15px rgba(243, 156, 18, 0.4);
+            border: 2px solid rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
         }
 
-        .cta-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(243, 156, 18, 0.6);
-        }
-
-        /* Timer Section */
-        .timer-section {
-            background-color: var(--secondary-color);
-            color: var(--text-light);
-            padding: 40px 20px;
-            text-align: center;
-        }
-
-        .timer-container {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .time-box {
+        .btn-gov-secondary:hover {
+            border-color: #fff;
             background: rgba(255,255,255,0.1);
-            padding: 15px 25px;
-            border-radius: 10px;
-            min-width: 90px;
         }
 
-        .time-box span {
-            display: block;
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--accent-color);
-        }
-
-        /* Governmental Portal Section */
-        .gov-portal-section {
+        /* Animated Statistics Section */
+        .stats-section {
             background: #ffffff;
-            padding: 70px 20px;
+            padding: 40px 20px;
             border-bottom: 1px solid #e2e8f0;
         }
 
-        .gov-card {
-            max-width: 900px;
+        .stats-grid {
+            max-width: 1100px;
             margin: 0 auto;
-            background: linear-gradient(145deg, #ffffff, #f4f6f9);
-            border-top: 5px solid var(--primary-color);
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.07);
-            padding: 40px 30px;
-        }
-
-        .gov-header {
-            text-align: center;
-            margin-bottom: 35px;
-        }
-
-        .gov-badge {
-            background: rgba(192, 57, 43, 0.1);
-            color: var(--primary-color);
-            padding: 6px 18px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 700;
-            display: inline-block;
-            margin-bottom: 10px;
-        }
-
-        .gov-steps-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 20px;
-            margin-bottom: 35px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            text-align: center;
         }
 
-        .gov-step-item {
-            background: #fff;
-            padding: 20px;
-            border-radius: 12px;
-            border: 1px solid #edf2f7;
+        .stat-card h4 {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--gov-blue-dark);
+            margin-bottom: 4px;
+        }
+
+        .stat-card p {
+            font-size: 0.9rem;
+            color: #64748b;
+            font-weight: 600;
+        }
+
+        /* Agenda / Timeline Section */
+        .agenda-section {
+            padding: 60px 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .agenda-tabs {
             display: flex;
-            align-items: flex-start;
-            gap: 15px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.02);
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
         }
 
-        .step-number {
-            background: var(--secondary-color);
-            color: var(--accent-color);
-            width: 35px;
-            height: 35px;
+        .tab-btn {
+            background: #e2e8f0;
+            color: var(--gov-blue-dark);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            background: var(--gov-blue-dark);
+            color: var(--gov-gold);
+            box-shadow: 0 4px 12px rgba(15, 43, 72, 0.2);
+        }
+
+        .agenda-content {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid #cbd5e1;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+        }
+
+        .agenda-item {
+            display: none;
+        }
+
+        .agenda-item.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .timeline-event {
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            border-bottom: 1px dashed #cbd5e1;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .timeline-event:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .time-badge {
+            background: rgba(197, 155, 39, 0.15);
+            color: var(--gov-blue-dark);
+            font-weight: 800;
+            padding: 6px 12px;
+            border-radius: 6px;
+            white-space: nowrap;
+            font-size: 0.85rem;
+        }
+
+        /* Steps Section */
+        .steps-section {
+            padding: 60px 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-heading h3 {
+            font-size: 1.8rem;
+            color: var(--gov-blue-dark);
+            font-weight: 800;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+        }
+
+        .step-card {
+            background: var(--bg-light);
+            padding: 25px 20px;
+            border-radius: 12px;
+            border-top: 4px solid var(--gov-gold);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+            text-align: center;
+        }
+
+        .step-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(197, 155, 39, 0.15);
+            color: var(--gov-gold);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 1.3rem;
+            margin: 0 auto 15px;
             font-weight: 800;
-            font-size: 1.1rem;
-            flex-shrink: 0;
         }
 
-        .gov-link-box {
-            background: var(--secondary-color);
-            color: #fff;
-            padding: 25px;
-            border-radius: 15px;
-            text-align: center;
+        /* FAQ Section (الأسئلة الشائعة) */
+        .faq-section {
+            padding: 60px 20px;
+            max-width: 900px;
+            margin: 0 auto;
         }
 
-        .gov-link-btn {
-            display: inline-flex;
+        .faq-item {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            width: 100%;
+            text-align: right;
+            padding: 18px 20px;
+            background: none;
+            border: none;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--gov-blue-dark);
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 12px;
-            background: var(--primary-color);
-            color: #fff;
-            padding: 16px 35px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 800;
-            font-size: 1.15rem;
-            margin-top: 15px;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 20px rgba(192, 57, 43, 0.4);
+            cursor: pointer;
         }
 
-        .gov-link-btn:hover {
-            background: #e74c3c;
-            transform: scale(1.03);
+        .faq-answer {
+            padding: 0 20px 18px;
+            font-size: 0.9rem;
+            color: #475569;
+            display: none;
+            line-height: 1.8;
+            border-top: 1px solid #f1f5f9;
         }
 
-        /* Features Section */
-        .features {
-            padding: 80px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
+        /* Backup Registration Section */
+        .registration-section {
+            background: #f1f5f9;
+            padding: 60px 20px;
+            border-top: 1px solid #e2e8f0;
         }
 
-        .section-title {
-            text-align: center;
-            font-size: 2.2rem;
-            margin-bottom: 50px;
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 80px;
-            height: 4px;
-            background-color: var(--primary-color);
-            margin: 10px auto 0;
-            border-radius: 2px;
-        }
-
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .card {
+        .form-card {
             background: #fff;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-            text-align: center;
-            transition: transform 0.3s;
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-        }
-
-        .card i {
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            margin-bottom: 20px;
-        }
-
-        /* Registration Form Section */
-        .registration {
-            background: var(--bg-light);
-            padding: 80px 20px;
-        }
-
-        .form-container {
-            background: #fff;
-            max-width: 700px;
+            max-width: 650px;
             margin: 0 auto;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
+            margin-bottom: 6px;
+            font-weight: 700;
+            color: var(--gov-blue-dark);
+            font-size: 0.95rem;
         }
 
         .form-group input, 
         .form-group select, 
         .form-group textarea {
             width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 1rem;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 0.95rem;
             outline: none;
-            transition: border-color 0.3s;
-        }
-
-        .form-group input:focus, 
-        .form-group select:focus, 
-        .form-group textarea:focus {
-            border-color: var(--primary-color);
         }
 
         .submit-btn {
             width: 100%;
-            background-color: var(--primary-color);
+            background: var(--gov-blue-dark);
             color: #fff;
             border: none;
-            padding: 15px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            border-radius: 8px;
+            padding: 14px;
+            font-size: 1.05rem;
+            font-weight: 800;
+            border-radius: 6px;
             cursor: pointer;
             transition: background 0.3s;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
         }
 
         .submit-btn:hover {
-            background-color: #a93226;
-        }
-
-        .submit-btn:disabled {
-            background-color: #95a5a6;
-            cursor: not-allowed;
+            background: var(--gov-blue-light);
         }
 
         .success-box {
             display: none;
             text-align: center;
-            padding: 25px;
-            background: #e8f8f5;
-            color: #117a65;
-            border-radius: 12px;
-            border: 1px solid #a3e4d7;
-            font-weight: 700;
-            line-height: 1.8;
-        }
-
-        .error-box {
-            display: none;
-            text-align: center;
-            padding: 15px;
-            background: #fadbd8;
-            color: #78281f;
+            padding: 20px;
+            background: #dcfce7;
+            color: #15803d;
             border-radius: 8px;
-            border: 1px solid #f5b7b1;
-            font-weight: 600;
-            margin-top: 15px;
+            font-weight: 700;
         }
 
         /* Footer */
         footer {
-            background-color: var(--secondary-color);
-            color: #fff;
+            background: var(--gov-blue-dark);
+            color: #94a3b8;
             text-align: center;
-            padding: 30px 20px;
-            border-top: 3px solid var(--accent-color);
+            padding: 25px 20px;
+            font-size: 0.85rem;
+            border-top: 3px solid var(--gov-gold);
         }
 
-        /* Responsive Design */
+        footer a {
+            color: var(--gov-gold);
+            text-decoration: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         @media (max-width: 768px) {
-            .hero-content h1 { font-size: 2rem; }
-            .nav-links { display: none; }
-            .timer-container { gap: 10px; }
-            .time-box { min-width: 65px; padding: 10px; }
-            .time-box span { font-size: 1.5rem; }
-        }
-
-        /* Animations */
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+            .nav-container { flex-direction: column; gap: 10px; text-align: center; }
+            .forum-logo-title { border-right: none; padding-right: 0; }
+            .president-speech { font-size: 1rem; padding: 20px; }
+            .timeline-event { flex-direction: column; gap: 8px; }
         }
     </style>
 
@@ -455,184 +627,281 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // إتاحة أدوات الفايربيس للسكربت العام
         window.db = db;
         window.addDoc = addDoc;
         window.collection = collection;
         window.serverTimestamp = serverTimestamp;
-
-        console.log("🔥 تم ربط منتدى مصر بنجاح مع سحابة Firebase!");
     </script>
 </head>
 <body>
 
-    <!-- Header / Navbar -->
+    <!-- Top Bar الحكومي -->
+    <div class="top-gov-bar">
+        <div class="social-icons">
+            <a href="https://facebook.com" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="https://instagram.com" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://youtube.com" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+        <div>
+            <a href="contact.html" class="contact-top-btn"><i class="fa-solid fa-envelope"></i> تواصل معنا</a>
+        </div>
+    </div>
+
+    <!-- شريط الأخبار العاجلة المتحرك -->
+    <div class="news-ticker-container">
+        <div class="ticker-title">
+            <i class="fa-solid fa-bullhorn"></i> عاجل
+        </div>
+        <div class="ticker-wrapper">
+            <div class="ticker-text">
+                📢 إطلاق البوابة الرسمية لمنتدى مصر 2026 بدعوة كريمة من السيد رئيس الجمهورية • فتح باب التسجيل لحضور الجلسات التحضيرية ومناقشات الذكاء الاصطناعي • انعقاد المنتدى بالفترة من 19 إلى 24 أكتوبر بفندق سانت ريجيس بالعاصمة الجديدة.
+            </div>
+        </div>
+    </div>
+
+    <!-- Header Navigation -->
     <header>
         <div class="nav-container">
-            <a href="index.html" class="logo">
-                <i class="fa-solid fa-flag"></i> منتدى مصر للشباب
-            </a>
-            <ul class="nav-links">
-                <li><a href="index.html"><i class="fa-solid fa-house"></i> العودة للمدونة</a></li>
-                <li><a href="#about">عن المبادرة</a></li>
-                <li><a href="#gov-portal">المنصة الرسمية</a></li>
-                <li><a href="#goals">الأهداف</a></li>
-                <li><a href="#register">سجل الآن</a></li>
-            </ul>
+            <div class="gov-branding">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Coat_of_arms_of_Egypt_%2(official%29.svg" alt="شعار جمهورية مصر العربية" class="eagle-emblem" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Coat_of_arms_of_Egypt_%28official%29.svg/250px-Coat_of_arms_of_Egypt_%28official%29.svg.png'">
+                <div class="brand-text-box">
+                    <h2>جمهورية مصر العربية</h2>
+                    <p>رئاسة مجلس الوزراء</p>
+                </div>
+            </div>
+
+            <div class="forum-logo-title">
+                <h1>منتدى مصر — 2026</h1>
+            </div>
         </div>
     </header>
 
-    <!-- Hero Section مع صورة اللقاء الرئاسي -->
-    <section class="hero" id="about">
-        <div class="hero-content">
-            <h1>مبادرة رئيس الجمهورية لتمكين الشباب</h1>
-            <p>شارك بصوتك وأفكارك في صياغة مستقبل أفضل لمصر. منتدى مصر هو المنصة الرسمية للحوار والتنمية والابتكار.</p>
-            <a href="#gov-portal" class="cta-btn">سجل للمشاركة الآن</a>
+    <!-- Hero Section -->
+    <section class="gov-hero-section">
+        <div class="president-avatar-container">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Barack_Obama_and_Abdel_Fattah_el-Sisi_2014.jpg/800px-Barack_Obama_and_Abdel_Fattah_el-Sisi_2014.jpg" alt="فخامة رئيس الجمهورية" class="president-avatar">
+        </div>
+
+        <div class="hero-title-badge">منتدى مصر 2026</div>
+
+        <div class="president-speech">
+            <i class="fa-solid fa-quote-right quote-icon"></i>
+            أعلن اليوم إطلاق الجلسات التحضيرية والموقع الإلكتروني الخاص بـ "منتدى مصر 2026"، لبدء تسجيل الحضور، وإجراء سلسلة من المناقشات والحوارات الأكاديمية والمجتمعية، تمهيداً لإنعقاد المنتدى خلال الفترة من 19 - 24 أكتوبر الجاري. وأدعو كافة مؤسسات الدولة والخبراء، وأبناء الشعب المصري، بمختلف الأطياف والتوجّهات، إلى التسجيل في الموقع الخاص بالمنتدى وإبداء الآراء وتسجيل المقترحات. "بالمشاركة والحوار، نبني معاً مستقبل وطننا".
+            <i class="fa-solid fa-quote-left quote-icon"></i>
+            <div class="speech-author">عبد الفتاح السيسي</div>
+        </div>
+
+        <div class="event-info-bar">
+            <div class="event-info-item">
+                <i class="fa-regular fa-calendar-days"></i>
+                <span>19 - 24 أكتوبر 2026</span>
+            </div>
+            <div class="event-info-item">
+                <i class="fa-solid fa-location-dot"></i>
+                <span>فندق سانت ريجيس — العاصمة الجديدة</span>
+            </div>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=%D9%85%D9%86%D8%AA%D8%AF%D9%89+%D9%85%D8%B5%D8%B1+2026&dates=20261019T090000Z/20261024T180000Z&details=%D9%81%D8%B9%D8%A7%D9%84%D9%8A%D8%A7%D8%AA+%D9%85%D9%86%D8%AA%D8%AF%D9%89+%D9%85%D8%B5%D8%B1+2026+%D8%A8%D8%AF%D8%B9%D9%88%D8%A9+%D9%85%D9%86+%D8%B1%D8%A3%D9%8A%D8%B3+%D8%A7%D9%84%D8%AC%D9%85%D9%87%D9%88%D8%B1%D9%8A%D8%A9&location=%D9%81%D9%86%D8%AF%D9%82+%D8%B3%D8%A7%D9%86%D8%AA+%D8%B1%D9%8A%D8%AC%D9%8A%D8%B3+%D8%A7%D9%84%D8%B9%D8%A7%D8%B5%D9%85%D8%A9+%D8%A7%D9%84%D8%AC%D8%AF%D9%8A%D8%AF%D8%A9" target="_blank" class="cal-btn">
+                <i class="fa-solid fa-calendar-plus"></i> حفظ في تقويم Google
+            </a>
+        </div>
+
+        <div class="gov-actions-container">
+            <a href="https://egyptforum.gov.eg/" target="_blank" class="btn-gov-primary">
+                <span>إنشاء حساب جديد</span>
+                <i class="fa-solid fa-chevron-left"></i>
+            </a>
+            <a href="#backup-register" class="btn-gov-secondary">التسجيل السريع بالمنصة</a>
         </div>
     </section>
 
-    <!-- وحدة إعلانية علوية بعد المقدمة -->
-    <div class="ad-container-wrapper">
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-6651309355082807"
-             data-ad-slot="1516733351"
-             data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    </div>
-
-    <!-- Timer Section -->
-    <section class="timer-section">
-        <h2>متبقي على انطلاق فعاليات المنتدى</h2>
-        <div class="timer-container">
-            <div class="time-box"><span id="days">30</span>يوم</div>
-            <div class="time-box"><span id="hours">12</span>ساعة</div>
-            <div class="time-box"><span id="minutes">45</span>دقيقة</div>
-            <div class="time-box"><span id="seconds">00</span>ثانية</div>
-        </div>
-    </section>
-
-    <!-- Governmental Registration Portal Section -->
-    <section class="gov-portal-section" id="gov-portal">
-        <div class="gov-card">
-            <div class="gov-header">
-                <span class="gov-badge"><i class="fa-solid fa-shield-halved"></i> بدعوة من الرئيس السيسي</span>
-                <h2 style="font-size: 2rem; color: var(--secondary-color); font-weight: 800;">خطوات التسجيل للمشاركة بمنتدى مصر 2026</h2>
-                <p style="color: #64748b; font-size: 0.95rem; margin-top: 5px;">يرجى اتباع الخطوات للتحويل والتسجيل بالرابط الحكومي المعتمد للمنتدى</p>
+    <!-- عداد الإحصائيات التفاعلي -->
+    <section class="stats-section">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h4>+50,000</h4>
+                <p>مشارك متوقع بالمنتدى</p>
             </div>
-
-            <div class="gov-steps-grid">
-                <div class="gov-step-item">
-                    <div class="step-number">1</div>
-                    <div>
-                        <h4 style="font-weight: 700; color: var(--secondary-color);">التحويل للرابط الحكومي</h4>
-                        <p style="font-size: 0.85rem; color: #64748b;">الانتقال لبوابة المنتدى الرسمية egyptforum.gov.eg</p>
-                    </div>
-                </div>
-
-                <div class="gov-step-item">
-                    <div class="step-number">2</div>
-                    <div>
-                        <h4 style="font-weight: 700; color: var(--secondary-color);">إدخال البيانات الأساسية</h4>
-                        <p style="font-size: 0.85rem; color: #64748b;">الاسم - الرقم القومي - رقم الهاتف - البريد الإلكتروني</p>
-                    </div>
-                </div>
-
-                <div class="gov-step-item">
-                    <div class="step-number">3</div>
-                    <div>
-                        <h4 style="font-weight: 700; color: var(--secondary-color);">الوظيفة والمسمى الوظيفي</h4>
-                        <p style="font-size: 0.85rem; color: #64748b;">إدخال كافة البيانات الوظيفية والقطاع التابع له</p>
-                    </div>
-                </div>
-
-                <div class="gov-step-item">
-                    <div class="step-number">4</div>
-                    <div>
-                        <h4 style="font-weight: 700; color: var(--secondary-color);">كلمة المرور وتأكيد الحساب</h4>
-                        <p style="font-size: 0.85rem; color: #64748b;">إنشاء كلمة مرور واجتياز التحقق (أنا لست روبوت)</p>
-                    </div>
-                </div>
+            <div class="stat-card">
+                <h4>27</h4>
+                <p>محافظة ممثلة للجلسات</p>
             </div>
-
-            <div class="gov-link-box">
-                <h3 style="color: var(--accent-color); font-size: 1.3rem; margin-bottom: 8px;">بوابة التسجيل الرسمية المباشرة</h3>
-                <p style="font-size: 0.9rem; color: #cbd5e1;">اضغط على الزر أدناه للتحويل المباشر إلى الموقع الحكومي والتسجيل الفوري</p>
-                <a href="https://egyptforum.gov.eg/" target="_blank" rel="noopener noreferrer" class="gov-link-btn">
-                    <span>الانتقال لموقع الحكومة والتسجيل الآن</span>
-                    <i class="fa-solid fa-arrow-left-long"></i>
-                </a>
+            <div class="stat-card">
+                <h4>100+</h4>
+                <p>ورشة عمل وجلسة حوارية</p>
+            </div>
+            <div class="stat-card">
+                <h4>100%</h4>
+                <p>دعم للمشروعات الواعدة</p>
             </div>
         </div>
     </section>
 
-    <!-- وحدة إعلانية وسطية -->
-    <div class="ad-container-wrapper">
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-6651309355082807"
-             data-ad-slot="1516733351"
-             data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    </div>
+    <!-- أجندة الفعاليات والجدول الزمني -->
+    <section class="agenda-section">
+        <div class="section-heading">
+            <h3>جدول أعمال الجلسات التحضيرية</h3>
+            <p style="color: #64748b; font-size: 0.9rem;">استعرض برنامج المحاور والفعاليات طوال أيام انعقاد المنتدى</p>
+        </div>
 
-    <!-- Features Section -->
-    <section class="features" id="goals">
-        <h2 class="section-title">محاور المبادرة الرئيسية</h2>
-        <div class="grid-3">
-            <div class="card">
-                <i class="fa-solid fa-lightbulb"></i>
-                <h3>الابتكار والريادة</h3>
-                <p>دعم أفكار الشباب والمشاريع الناشئة وتحويلها إلى واقع ملموس يخدم المجتمع.</p>
+        <div class="agenda-tabs">
+            <button class="tab-btn active" onclick="switchAgenda(0)">اليوم 1 (19 أكتوبر)</button>
+            <button class="tab-btn" onclick="switchAgenda(1)">اليوم 2 (20 أكتوبر)</button>
+            <button class="tab-btn" onclick="switchAgenda(2)">اليوم 3 (21 أكتوبر)</button>
+            <button class="tab-btn" onclick="switchAgenda(3)">اليوم 4 (22-24 أكتوبر)</button>
+        </div>
+
+        <div class="agenda-content">
+            <div class="agenda-item active">
+                <div class="timeline-event">
+                    <span class="time-badge">10:00 صباحاً</span>
+                    <div>
+                        <h4 style="color: var(--gov-blue-dark); font-weight: 800;">الجلسة الافتتاحية الكبرى</h4>
+                        <p style="font-size: 0.88rem; color: #64748b;">استعراض محاور رؤية مصر وافتتاح فعاليات المنتدى بحضور صناع القرار والخبراء.</p>
+                    </div>
+                </div>
+                <div class="timeline-event">
+                    <span class="time-badge">01:00 ظهراً</span>
+                    <div>
+                        <h4 style="color: var(--gov-blue-dark); font-weight: 800;">جلسة الحوار الوطني للشباب</h4>
+                        <p style="font-size: 0.88rem; color: #64748b;">مناقشة الرؤى الطلابية ومقترحات الشباب من مختلف محافظات الجمهورية.</p>
+                    </div>
+                </div>
             </div>
-            <div class="card">
-                <i class="fa-solid fa-comments"></i>
-                <h3>الحوار الوطني</h3>
-                <p>فتح قنوات تواصل مباشرة بين الشباب وصناع القرار لمناقشة مختلف القضايا.</p>
+
+            <div class="agenda-item">
+                <div class="timeline-event">
+                    <span class="time-badge">11:00 صباحاً</span>
+                    <div>
+                        <h4 style="color: var(--gov-blue-dark); font-weight: 800;">ورشة الذكاء الاصطناعي والتحول الرقمي</h4>
+                        <p style="font-size: 0.88rem; color: #64748b;">عروض أتمتة الأنظمة وتكنولوجيا الشركات الناشئة وحلول البرمجيات المستدامة.</p>
+                    </div>
+                </div>
             </div>
-            <div class="card">
-                <i class="fa-solid fa-graduation-cap"></i>
-                <h3>التأهيل والتدريب</h3>
-                <p>تقديم برامج تدريبية متخصصة لبناء قدرات القيادة والمهارات الحديثة لدى الشباب.</p>
+
+            <div class="agenda-item">
+                <div class="timeline-event">
+                    <span class="time-badge">10:30 صباحاً</span>
+                    <div>
+                        <h4 style="color: var(--gov-blue-dark); font-weight: 800;">منتدى الاقتصاد الأخضر والطاقة</h4>
+                        <p style="font-size: 0.88rem; color: #64748b;">طرح أفكار ومشروعات المبادرات الخضراء المستدامة ودعم رواد الأعمال.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="agenda-item">
+                <div class="timeline-event">
+                    <span class="time-badge">02:00 ظهراً</span>
+                    <div>
+                        <h4 style="color: var(--gov-blue-dark); font-weight: 800;">الجلسة الختامية وتكريم المشروعات الفائزة</h4>
+                        <p style="font-size: 0.88rem; color: #64748b;">إعلان التوصيات النهائية للمنتدى وتكريم أصحاب أفضل 10 أفكار ومقترحات.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Registration Section -->
-    <section class="registration" id="register">
-        <h2 class="section-title">استمارة التسجيل السريع (نسخة احتياطية)</h2>
-        <div class="form-container">
+    <!-- خطوات التسجيل -->
+    <section class="steps-section">
+        <div class="section-heading">
+            <h3>خطوات التسجيل للمشاركة بمنتدى مصر 2026</h3>
+            <p style="color: #64748b; font-size: 0.9rem;">بدعوة من السيد رئيس الجمهورية عبر البوابة الرسمية</p>
+        </div>
+
+        <div class="steps-grid">
+            <div class="step-card">
+                <div class="step-icon">1</div>
+                <h4 style="color: var(--gov-blue-dark); font-weight: 700; margin-bottom: 8px;">الدخول للرابط الرسمى</h4>
+                <p style="font-size: 0.85rem; color: #64748b;">الانتقال إلى رابط منتدى مصر egyptforum.gov.eg</p>
+            </div>
+
+            <div class="step-card">
+                <div class="step-icon">2</div>
+                <h4 style="color: var(--gov-blue-dark); font-weight: 700; margin-bottom: 8px;">بيانات الحساب</h4>
+                <p style="font-size: 0.85rem; color: #64748b;">الاسم - الرقم القومي - رقم الهاتف - البريد الإلكتروني</p>
+            </div>
+
+            <div class="step-card">
+                <div class="step-icon">3</div>
+                <h4 style="color: var(--gov-blue-dark); font-weight: 700; margin-bottom: 8px;">البيانات الوظيفية</h4>
+                <p style="font-size: 0.85rem; color: #64748b;">إدخال البيانات الوظيفية والمسمى الوظيفي الخاص بك</p>
+            </div>
+
+            <div class="step-card">
+                <div class="step-icon">4</div>
+                <h4 style="color: var(--gov-blue-dark); font-weight: 700; margin-bottom: 8px;">تأكيد التسجيل</h4>
+                <p style="font-size: 0.85rem; color: #64748b;">إدخال كلمة المرور والضغط على (أنا لست روبوت)</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم الأسئلة الشائعة FAQ -->
+    <section class="faq-section">
+        <div class="section-heading">
+            <h3>الأسئلة الشائعة حول المنتدى</h3>
+            <p style="color: #64748b; font-size: 0.9rem;">إجابات لأهم الاستفسارات الخاصة بالحضور والتسجيل</p>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+                <span>هل التسجيل وحضور المنتدى مجاني؟</span>
+                <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+                نعم، التسجيل والحضور مجاني بالكامل لكافة الشباب والخبراء وأبناء الوطن بدعوة كريمة من المبادرة الرئاسية.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+                <span>كيف أعرف أنه تم تأكيد تسجيلي وحضوري؟</span>
+                <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+                ستصلك رسالة تأكيد رسمية تحتوي على كود الدعوة وبطاقة الحضور الإلكترونية عبر البريد الإلكتروني المسجل بالموقع الحكومي.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+                <span>هل يمكنني تقديم ورقة عمل أو مشروع بالمنتدى؟</span>
+                <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+                بالتأكيد، يُمكنك إدخال ملخص رؤيتك أو مقترحك التنموي أثناء ملء بيانات التسجيل بالاستمارة المتاحة بالمنصة.
+            </div>
+        </div>
+    </section>
+
+    <!-- استمارة التسجيل السريع السحابية الاحتياطية -->
+    <section class="registration-section" id="backup-register">
+        <div class="form-card">
+            <h3 style="text-align: center; color: var(--gov-blue-dark); font-weight: 800; margin-bottom: 20px;">استمارة التسجيل المباشر السريعة</h3>
+            
             <form id="forumForm" onsubmit="handleFormSubmit(event)">
                 <div class="form-group">
-                    <label for="fullname">الاسم الرباعي</label>
-                    <input type="text" id="fullname" placeholder="أدخل اسمك كما هو بالمستندات الرسمية" required>
+                    <label>الاسم الرباعي *</label>
+                    <input type="text" id="fullname" required placeholder="أدخل اسمك كما بالرقم القومي">
                 </div>
 
                 <div class="form-group">
-                    <label for="nationalId">الرقم القومي</label>
-                    <input type="text" id="nationalId" maxlength="14" pattern="\d{14}" placeholder="أدخل 14 رقم" required>
+                    <label>الرقم القومي (14 رقم) *</label>
+                    <input type="text" id="nationalId" maxlength="14" pattern="\d{14}" required placeholder="29900000000000">
                 </div>
 
                 <div class="form-group">
-                    <label for="email">البريد الإلكتروني</label>
-                    <input type="email" id="email" placeholder="example@domain.com" required>
+                    <label>البريد الإلكتروني *</label>
+                    <input type="email" id="email" required placeholder="name@example.com">
                 </div>
 
                 <div class="form-group">
-                    <label for="phone">رقم الهاتف</label>
-                    <input type="tel" id="phone" placeholder="01xxxxxxxxx" required>
+                    <label>رقم الهاتف *</label>
+                    <input type="tel" id="phone" required placeholder="01000000000">
                 </div>
 
                 <div class="form-group">
-                    <label for="governorate">المحافظة</label>
+                    <label>المحافظة *</label>
                     <select id="governorate" required>
-                        <option value="">اختر المحافظة</option>
+                        <option value="">اختر المحافظة...</option>
                         <option value="القاهرة">القاهرة</option>
                         <option value="الإسكندرية">الإسكندرية</option>
                         <option value="الجيزة">الجيزة</option>
@@ -643,79 +912,59 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="proposal">فكرة أو مقترح ترغب في طرحه بالمنتدى</label>
-                    <textarea id="proposal" rows="4" placeholder="اكتب ملخص فكرتك هنا..."></textarea>
+                    <label>المقترح أو الرؤية التي ترغب بطرحها</label>
+                    <textarea id="proposal" rows="3" placeholder="اكتب ملخص مقترحك هنا..."></textarea>
                 </div>
 
-                <button type="submit" id="submitBtn" class="submit-btn">
-                    <span>إرسال الطلب سحابياً</span>
-                    <i class="fa-solid fa-paper-plane"></i>
-                </button>
+                <button type="submit" id="submitBtn" class="submit-btn">إرسال طلب التسجيل</button>
             </form>
 
-            <div id="errorBox" class="error-box"></div>
-
-            <div id="successBox" class="success-box">
-                <i class="fa-solid fa-circle-check" style="font-size: 2.5rem; margin-bottom: 10px; color: #27ae60;"></i><br>
-                تم استلام ورفع طلب تسجيلك سحابياً بنجاح!<br>
-                ستتواصل معك اللجنة التنظيمية للمنتدى عبر البريد الإلكتروني المرفق.
+            <div id="successBox" class="success-box" style="margin-top: 15px;">
+                ✅ تم حفظ تسجيلك بنجاح في السحابة! سيتم التواصل معك قريباً.
             </div>
         </div>
     </section>
 
-    <!-- وحدة إعلانية قبل الفوتر -->
-    <div class="ad-container-wrapper">
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-6651309355082807"
-             data-ad-slot="1516733351"
-             data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    </div>
-
     <!-- Footer -->
     <footer>
-        <p>جميع الحقوق محفوظة &copy; 2026 - مبادرة رئيس الجمهورية لتمكين الشباب - منتدى مصر</p>
+        <p>جميع الحقوق محفوظة &copy; 2026 — منتدى مصر | <a href="index.html">العودة للرئيسية</a></p>
     </footer>
 
-    <!-- JavaScript Logic -->
     <script>
-        // Countdown Timer Logic
-        const targetDate = new Date();
-        targetDate.setDate(targetDate.getDate() + 30);
+        // التبديل بين تبويبات أجندة الفعاليات
+        function switchAgenda(index) {
+            const tabs = document.querySelectorAll('.tab-btn');
+            const items = document.querySelectorAll('.agenda-item');
+            
+            tabs.forEach((tab, idx) => {
+                tab.classList.toggle('active', idx === index);
+            });
+            
+            items.forEach((item, idx) => {
+                item.classList.toggle('active', idx === index);
+            });
+        }
 
-        function updateTimer() {
-            const now = new Date().getTime();
-            const difference = targetDate - now;
+        // فتح وإغلاق إجابات الأسئلة الشائعة FAQ
+        function toggleFaq(btn) {
+            const answer = btn.nextElementSibling;
+            const icon = btn.querySelector('i');
+            const isOpen = answer.style.display === 'block';
 
-            if (difference > 0) {
-                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+            document.querySelectorAll('.faq-answer').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('.faq-question i').forEach(el => el.className = 'fa-solid fa-chevron-down');
 
-                document.getElementById('days').innerText = days < 10 ? '0' + days : days;
-                document.getElementById('hours').innerText = hours < 10 ? '0' + hours : hours;
-                document.getElementById('minutes').innerText = minutes < 10 ? '0' + minutes : minutes;
-                document.getElementById('seconds').innerText = seconds < 10 ? '0' + seconds : seconds;
+            if (!isOpen) {
+                answer.style.display = 'block';
+                icon.className = 'fa-solid fa-chevron-up';
             }
         }
 
-        setInterval(updateTimer, 1000);
-        updateTimer();
-
-        // حفظ البيانات في سحابة Firebase Firestore
+        // معالجة حفظ بيانات الاستمارة بسحابة Firebase
         async function handleFormSubmit(event) {
             event.preventDefault();
-            
             const submitBtn = document.getElementById('submitBtn');
-            const errorBox = document.getElementById('errorBox');
-            errorBox.style.display = 'none';
-
-            // تجميع البيانات من الاستمارة
+            
             const formData = {
                 fullname: document.getElementById('fullname').value.trim(),
                 nationalId: document.getElementById('nationalId').value.trim(),
@@ -727,27 +976,21 @@
             };
 
             try {
-                // تعطيل الزر أثناء الحفظ
                 submitBtn.disabled = true;
-                submitBtn.innerHTML = `<span>جاري الإرسال...</span> <i class="fa-solid fa-spinner fa-spin"></i>`;
+                submitBtn.innerText = "جاري الإرسال...";
 
-                // الحفظ في كولكشن forum_registrations في فايربيس
                 if (window.db && window.addDoc && window.collection) {
                     await window.addDoc(window.collection(window.db, "forum_registrations"), formData);
-                } else {
-                    throw new Error("لم يتم تحميل قاعدة بيانات Firebase بشكل صحيح.");
                 }
 
-                // إخفاء الاستمارة وإظهار نجاح الإرسال
                 document.getElementById('forumForm').style.display = 'none';
                 document.getElementById('successBox').style.display = 'block';
 
             } catch (error) {
-                console.error("خطأ أثناء حفظ البيانات:", error);
-                errorBox.innerText = "حدث خطأ أثناء إرسال البيانات. يرجى المحاولة مرة أخرى.";
-                errorBox.style.display = 'block';
+                console.error("Error saving registration:", error);
+                alert("حدث خطأ أثناء حفظ البيانات، يرجى المحاولة لاحقاً.");
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = `<span>إرسال الطلب سحابياً</span> <i class="fa-solid fa-paper-plane"></i>`;
+                submitBtn.innerText = "إرسال طلب التسجيل";
             }
         }
     </script>
