@@ -19,7 +19,7 @@
     <!-- إعلانات جوجل أدسنس -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6651309355082807" crossorigin="anonymous"></script>
 
-    <!-- ربط Firebase سحابياً مع المصادقة وتوجيه الأدمن -->
+    <!-- ربط Firebase سحابياً مع المصادقة وإظهار رابط الأدمن دون توجيه تلقائي -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
         import { getFirestore, collection, getDocs, doc, setDoc, updateDoc, deleteDoc, onSnapshot, query, where, getDoc, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
@@ -40,7 +40,7 @@
         const auth = getAuth(app);
 
         // بريد الأدمن المعتمد
-        const ADMIN_EMAILS = ["karamegy@gmail.com"]; 
+        const ADMIN_EMAILS = ["haretg@gmail.com", "karamegy@gmail.com"]; 
 
         window.db = db;
         window.auth = auth;
@@ -52,13 +52,7 @@
             const sidebarLinks = document.querySelector('.sidebar-links');
 
             if (user) {
-                const isAdmin = ADMIN_EMAILS.includes(user.email) || user.email.includes("karamegy");
-
-                // توجيه الأدمن تلقائياً لصفحة التحكم
-                if (isAdmin) {
-                    window.location.href = "admin.html";
-                    return;
-                }
+                const isAdmin = ADMIN_EMAILS.includes(user.email) || user.email.includes("haretg") || user.email.includes("karamegy");
 
                 if (authContainer) {
                     authContainer.innerHTML = `
@@ -70,7 +64,7 @@
                     `;
                 }
 
-                // إضافة رابط لوحة التحكم للقائمة الجانبية إذا كان أدمن
+                // إظهار رابط لوحة التحكم في القائمة الجانبية للأدمن فقط (بدون توجيه تلقائي)
                 if (isAdmin && sidebarLinks) {
                     if (!document.getElementById('admin-sidebar-link')) {
                         const adminLink = document.createElement('a');
@@ -83,11 +77,14 @@
             } else {
                 if (authContainer) {
                     authContainer.innerHTML = `
-                        <button onclick="loginWithGoogle()" style="background: #ffffff; color: var(--gov-blue-dark); padding: 3px 9px; border-radius: 4px; font-weight: 700; border: none; cursor: pointer; font-size: 0.78rem; display: inline-flex; align-items: center; gap: 4px; transition: 0.3s;">
+                        <button onclick="loginWithGoogle()" style="background: #ffffff; color: var(--gov-blue-dark); padding: 3px 9px; border-radius: 4px; font-weight: 700; border: none; cursor: pointer; font-size: 0.78rem; display: inline-flex; align-items: center; gap: 4px;">
                             <i class="fa-brands fa-google" style="color: #db4437;"></i> دخول بجوجل
                         </button>
                     `;
                 }
+                // إزالة رابط الأدمن من القائمة إذا تم تسجيل الخروج
+                const existingAdminLink = document.getElementById('admin-sidebar-link');
+                if (existingAdminLink) existingAdminLink.remove();
             }
         });
 
@@ -96,13 +93,7 @@
             try {
                 const result = await signInWithPopup(auth, provider);
                 const user = result.user;
-                
-                const isAdmin = ADMIN_EMAILS.includes(user.email) || user.email.includes("karamegy");
-                if (isAdmin) {
-                    window.location.href = "admin.html";
-                } else {
-                    alert("✅ أهلاً بك يا " + (user.displayName || 'عضو المنصة') + "، تم تسجيل الدخول بنجاح!");
-                }
+                alert("✅ أهلاً بك يا " + (user.displayName || 'عضو المنصة') + "، تم تسجيل الدخول بنجاح!");
             } catch (error) {
                 alert("❌ فشل تسجيل الدخول: " + error.message);
             }
