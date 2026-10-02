@@ -1,4 +1,4 @@
-// GITI Tech Engine - Integrated with Forum Layout & Firebase
+// GITI Tech Engine - Integrated with Forum Layout, Firebase Auth & Member Profiles
 
 function toggleSidebar() {
     const drawer = document.getElementById('sideDrawer');
@@ -55,6 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     renderBookmarks();
+    injectProfileModalHTML();
 });
 
 // فلترة المقالات
@@ -158,24 +159,31 @@ window.rateArticle = function(stars) {
     feedback.style.color = '#15803d';
 };
 
-// حفظ التعليق سحابياً
+// حفظ التعليق سحابياً باستخدام حساب جوجل المسجل
 window.addCommentToFirebase = async function(e) {
     e.preventDefault();
     if (!window.db || !currentActiveArticleId) return;
 
-    const author = document.getElementById('comment-author').value.trim();
+    const user = window.auth.currentUser;
+    if (!user) {
+        alert("⚠️ يجب تسجيل الدخول بحساب جوجل أولاً من أعلى الصفحة لإضافة تعليق!");
+        return;
+    }
+
     const text = document.getElementById('comment-text').value.trim();
+    if (!text) return;
 
     try {
         const { collection, addDoc, serverTimestamp } = window.firebaseModules;
         await addDoc(collection(window.db, "article_comments"), {
             articleId: currentActiveArticleId,
-            author: author,
+            uid: user.uid,
+            author: user.displayName || "عضو المنصة",
+            avatar: user.photoURL || "logo.png",
             text: text,
             timestamp: serverTimestamp()
         });
 
-        document.getElementById('comment-author').value = '';
         document.getElementById('comment-text').value = '';
         alert('✅ تم إرسال تعليقك بنجاح!');
     } catch (err) {
@@ -196,7 +204,7 @@ function loadFirebaseComments(articleId) {
         
         onSnapshot(q, (snapshot) => {
             if (snapshot.empty) {
-                commentsList.innerHTML = '<p style="color: #64748b;">لا توجد تعليقات بعد.</p>';
+                commentsList.innerHTML = '<p style="color: #64748b;">لا توجد تعليقات بعد. كن أول المعلقين!</p>';
                 return;
             }
 
@@ -204,9 +212,12 @@ function loadFirebaseComments(articleId) {
             snapshot.forEach(doc => {
                 const data = doc.data();
                 html += `
-                    <div style="background: #f8fafc; padding: 10px; border-radius: 6px; margin-bottom: 8px; border: 1px solid #e2e8f0;">
-                        <strong>${data.author || 'زائر'}</strong>: 
-                        <p style="margin-top: 4px; color: #1e293b;">${data.text || ''}</p>
+                    <div style="background: #f8fafc; padding: 10px; border-radius: 6px; margin-bottom: 8px; border: 1px solid #e2e8f0; display: flex; align-items: flex-start; gap: 10px;">
+                        <img src="${data.avatar || 'logo.png'}" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover;">
+                        <div style="flex: 1;">
+                            <strong style="color: var(--gov-blue-dark); font-size: 0.9rem;">${data.author || 'زائر'}</strong>
+                            <p style="margin-top: 2px; color: #1e293b; font-size: 0.88rem;">${data.text || ''}</p>
+                        </div>
                     </div>
                 `;
             });
@@ -216,3 +227,68 @@ function loadFirebaseComments(articleId) {
         commentsList.innerHTML = '<p>تعسّر تحميل التعليقات.</p>';
     }
 }
+
+// ==========================================
+// نظام البروفايل الشخصي للأعضاء
+// ==========================================
+
+function injectProfileModalHTML() {
+    if (document.getElementById('user-profile-modal')) return;
+    
+    const modalHTML = `
+        <div id="user-profile-modal" style="display: none; position: fixed; inset: 0; background: rgba(11, 34, 56, 0.85); backdrop-filter: blur(5px); z-index: 10000; overflow-y: auto; padding: 20px;">
+            <div class="card" style="max-width: 600px; margin: 50px auto; position: relative; padding: 30px; border-top: 5px solid var(--gov-gold); text-align: center;">
+                <button onclick="closeUserProfile()" style="position: absolute; top: 15px; left: 15px; background: var(--primary-red); color: #fff; border: none; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-weight: bold;">✕ إغلاق</button>
+                
+                <img id="profile-avatar" src="logo.png" style="width: 90px; height: 90px; border-radius: 50%; object-fit: cover; border: 3px solid var(--gov-gold); margin-bottom: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+                <h3 id="profile-name" style="color: var(--gov-blue-dark); font-size: 1.4rem; font-weight: 900; margin-bottom: 5px;">اسم العضو</h3>
+                <p id="profile-email" style="color: #64748b; font-size: 0.9rem; margin-bottom: 20px;">email@example.com</p>
+
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px; text-align: right; margin-bottom: 20px;">
+                    <h4 style="color: var(--gov-blue-dark); font-size: 1rem; font-weight: 800; margin-bottom: 10px;"><i class="fa-solid fa-bookmark"></i> مقالاتك المحفوظة:</h4>
+                    <div id="profile-bookmarks-list" style="font-size: 0.88rem; color: #475569;">لا توجد مقالات محفوظة.</div>
+                </div>
+
+                <div style="display: flex; gap: 10px; justify-content: center;">
+                    <button onclick="logoutUser()" class="submit-btn" style="background: var(--primary-red); width: auto; padding: 10px 25px;">تسجيل الخروج</button>
+                </div>
+            </div>
+        </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+}
+
+window.openUserProfile = function() {
+    const user = window.auth.currentUser;
+    if (!user) {
+        alert("⚠️ يرجى تسجيل الدخول أولاً لعرض الملف الشخصي.");
+        return;
+    }
+
+    document.getElementById('profile-avatar').src = user.photoURL || 'logo.png';
+    document.getElementById('profile-name').innerText = user.displayName || 'عضو المنصة';
+    document.getElementById('profile-email').innerText = user.email || '';
+
+    // عرض المقالات المحفوظة في البروفايل
+    const bookmarks = JSON.parse(localStorage.getItem('giti_bookmarks')) || [];
+    const bookmarksContainer = document.getElementById('profile-bookmarks-list');
+    
+    if (bookmarks.length === 0) {
+        bookmarksContainer.innerHTML = "لا توجد مقالات محفوظة في قائمتك.";
+    } else {
+        let bHtml = '<ul style="padding-right: 15px; display: flex; flex-direction: column; gap: 6px;">';
+        bookmarks.forEach(id => {
+            if (articlesDatabase[id]) {
+                bHtml += `<li><a href="#" onclick="closeUserProfile(); openFullArticle('${id}'); return false;" style="color: var(--gov-blue-dark); font-weight:700; text-decoration: none;">${articlesDatabase[id].title}</a></li>`;
+            }
+        });
+        bHtml += '</ul>';
+        bookmarksContainer.innerHTML = bHtml;
+    }
+
+    document.getElementById('user-profile-modal').style.display = 'block';
+};
+
+window.closeUserProfile = function() {
+    document.getElementById('user-profile-modal').style.display = 'none';
+};
