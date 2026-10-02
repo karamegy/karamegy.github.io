@@ -5,7 +5,7 @@
     --primary-red: #c0392b;
     --bg-light: #f1f5f9;
     --text-dark: #1e293b;
-    --card-bg: rgba(255, 255, 255, 0.92);
+    --card-bg: rgba(255, 255, 255, 0.96);
     --border-color: #cbd5e1;
 }
 
@@ -29,33 +29,38 @@ body {
 }
 
 /* =========================================================
-   1. طبقات التأثيرات الخلفية المتحركة والـ 3D (لوجو مائي + رعد + دخان)
+   تأثيرات الفضاء السحيق (نجوم متلألئة + رعد يضرب من السماء)
    ========================================================= */
 
-/* أ) لوجو المدونة المتحرك في الخلفية كعلامة مائية ثلاثية الأبعاد */
+/* نجوم متلألئة في الخلفية */
 body::before {
     content: '';
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(1);
-    width: 70vw;
-    height: 70vw;
-    max-width: 550px;
-    max-height: 550px;
-    background: url('logo.png') center/contain no-repeat;
-    opacity: 0.12;
-    pointer-events: none;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: 
+        radial-gradient(2px 2px at 25px 35px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 50px 80px, #d4af37, rgba(0,0,0,0)),
+        radial-gradient(1.5px 1.5px at 100px 50px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 180px 140px, #6366f1, rgba(0,0,0,0)),
+        radial-gradient(2.5px 2.5px at 220px 280px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(1.5px 1.5px at 320px 200px, #d4af37, rgba(0,0,0,0));
+    background-repeat: repeat;
+    background-size: 350px 350px;
+    opacity: 0.65;
     z-index: 0;
-    animation: logoFloat3D 12s infinite ease-in-out;
+    pointer-events: none;
+    animation: starTwinkle 4s infinite alternate;
 }
 
-@keyframes logoFloat3D {
-    0%, 100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.2)); }
-    50% { transform: translate(-50%, -50%) scale(1.06) rotate(2deg); filter: drop-shadow(0 0 30px rgba(99, 102, 241, 0.35)); }
+@keyframes starTwinkle {
+    0% { opacity: 0.4; transform: scale(1); }
+    100% { opacity: 0.9; transform: scale(1.02); }
 }
 
-/* ب) طبقة تأثير الرعد والإضاءة المتحركة عبر الشاشة بالكامل */
+/* رعد يضرب من السماء (Lightning Flash Storm) */
 body::after {
     content: '';
     position: fixed;
@@ -65,66 +70,75 @@ body::after {
     height: 100vh;
     pointer-events: none;
     z-index: 0;
-    background: radial-gradient(circle at 30% 30%, rgba(99, 102, 241, 0.1), transparent 60%),
-                radial-gradient(circle at 70% 70%, rgba(212, 175, 55, 0.08), transparent 60%);
-    animation: lightningStorm3D 8s infinite ease-in-out;
+    background: transparent;
+    animation: lightningStrike 6s infinite;
 }
 
-@keyframes lightningStorm3D {
-    0%, 85%, 100% { opacity: 0.4; transform: scale(1); }
-    88% { opacity: 0.95; background: radial-gradient(circle at 50% 20%, rgba(255, 255, 255, 0.2), transparent 70%); transform: scale(1.02); }
-    91% { opacity: 0.3; }
-    94% { opacity: 0.9; background: radial-gradient(circle at 80% 40%, rgba(212, 175, 55, 0.25), transparent 65%); }
+@keyframes lightningStrike {
+    0%, 86%, 90%, 94%, 100% { opacity: 0; background: transparent; }
+    88% { opacity: 0.85; background: radial-gradient(circle at 35% 10%, rgba(255, 255, 255, 0.95) 0%, rgba(99, 102, 241, 0.35) 40%, transparent 80%); }
+    92% { opacity: 0.95; background: radial-gradient(circle at 75% 5%, rgba(255, 255, 255, 1) 0%, rgba(212, 175, 55, 0.45) 50%, transparent 85%); }
 }
 
-/* ج) قسم الـ Hero (بدون صورة منتدى مصر وبخلفية تدرج أزرق مع تأثير الدخان المتحرك) */
+/* =========================================================
+   قسم الـ Hero (فضاء سحيق وكوكب متوهج متحرك)
+   ========================================================= */
 .gov-hero-section {
     position: relative;
     overflow: hidden;
-    background: linear-gradient(135deg, #0b2238 0%, #18446e 100%);
+    background: radial-gradient(circle at 50% 30%, #1e3a8a 0%, #0b2238 65%, #020617 100%);
     color: #ffffff;
-    padding: 50px 20px 60px;
+    padding: 60px 20px 70px;
     text-align: center;
     z-index: 1;
 }
 
+/* كوكب متوهج في الفضاء خلف الـ Hero */
 .gov-hero-section::before {
     content: '';
     position: absolute;
-    top: -100%;
-    left: -100%;
-    width: 300%;
-    height: 300%;
-    background: radial-gradient(circle, rgba(212, 175, 55, 0.12) 5%, rgba(99, 102, 241, 0.08) 30%, transparent 65%);
-    animation: smokeMotion3D 15s infinite linear;
+    top: -40px;
+    right: -40px;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle at 30% 30%, #d4af37, #7c3aed, #1e1b4b);
+    border-radius: 50%;
+    opacity: 0.4;
+    box-shadow: 0 0 60px rgba(212, 175, 55, 0.45);
+    animation: planetFloat 8s infinite ease-in-out alternate;
     pointer-events: none;
+    z-index: 0;
 }
 
-@keyframes smokeMotion3D {
-    0% { transform: rotate(0deg) translate(0, 0) scale(1); }
-    50% { transform: rotate(180deg) translate(40px, 25px) scale(1.1); }
-    100% { transform: rotate(360deg) translate(0, 0) scale(1); }
+@keyframes planetFloat {
+    0% { transform: translateY(0px) scale(1) rotate(0deg); }
+    100% { transform: translateY(18px) scale(1.06) rotate(5deg); }
 }
 
 /* =========================================================
-   2. الكروت والعناصر الأساسية
+   الكروت والعناصر الأساسية (مع إجبار لون النص الواضح)
    ========================================================= */
 .card {
-    background: var(--card-bg);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: var(--card-bg) !important;
+    color: var(--text-dark) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-radius: 12px;
-    padding: 20px;
+    padding: 22px;
     border: 1px solid var(--border-color);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     position: relative;
     z-index: 1;
 }
 
+.card h1, .card h2, .card h3, .card h4, .card p, .card strong, .card span {
+    color: var(--text-dark) !important;
+}
+
 .card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 10px 30px rgba(11, 34, 56, 0.12);
+    box-shadow: 0 14px 35px rgba(11, 34, 56, 0.2);
 }
 
 .eagle-emblem-img {
