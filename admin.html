@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم ونشر المقالات | GITI Tech</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- سكربت Firebase -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDTIxdIHfDaEH2wn7dEE9qMnsOlXtlSCI0",
+            authDomain: "omda-a750f.firebaseapp.com",
+            projectId: "omda-a750f",
+            storageBucket: "omda-a750f.firebasestorage.app",
+            messagingSenderId: "1078714497381",
+            appId: "1:1078714497381:web:074cbcf0d66c72a746898c",
+            measurementId: "G-P763CFS7GG"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        window.publishArticle = async function(e) {
+            e.preventDefault();
+            const title = document.getElementById('art-title').value;
+            const category = document.getElementById('art-cat').value;
+            const content = document.getElementById('art-content').value;
+            const btn = document.getElementById('pub-btn');
+
+            btn.disabled = true;
+            btn.innerText = "جاري النشر سحابياً...";
+
+            try {
+                await addDoc(collection(db, "articles"), {
+                    title,
+                    category,
+                    content,
+                    createdAt: serverTimestamp()
+                });
+                alert("✅ تم نشر المقال بنجاح وسيظهر في الرئيسية!");
+                document.getElementById('article-form').reset();
+            } catch (err) {
+                alert("❌ حدث خطأ أثناء النشر: " + err.message);
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "نشر المقال فوراً 🚀";
+            }
+        }
+    </script>
+</head>
+<body>
+    <div style="max-width: 700px; margin: 40px auto; padding: 20px;">
+        <div class="card" style="padding: 30px;">
+            <h2 style="color: var(--gov-blue-dark); margin-bottom: 20px; font-weight: 900;">
+                <i class="fa-solid fa-pen-nib"></i> لوحة تحكم المقالات (GITI CMS)
+            </h2>
+            <form id="article-form" onsubmit="publishArticle(event)" style="display: flex; flex-direction: column; gap: 15px;">
+                <div>
+                    <label style="font-weight: 700; display: block; margin-bottom: 5px;">عنوان المقال *</label>
+                    <input type="text" id="art-title" required placeholder="اكتب عنوان المقال هنا..." style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px;">
+                </div>
+                <div>
+                    <label style="font-weight: 700; display: block; margin-bottom: 5px;">القسم *</label>
+                    <select id="art-cat" style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px;">
+                        <option value="تكنولوجيا الأعمال">تكنولوجيا الأعمال</option>
+                        <option value="الأنظمة اللوجستية">الأنظمة اللوجستية</option>
+                        <option value="الذكاء الاصطناعي">الذكاء الاصطناعي</option>
+                    </select>
+                </div>
+                <div>
+                    <label style="font-weight: 700; display: block; margin-bottom: 5px; ">محتوى المقال *</label>
+                    <textarea id="art-content" required rows="6" placeholder="اكتب تفاصيل المقال..." style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px; font-family: inherit;"></textarea>
+                </div>
+                <button type="submit" id="pub-btn" class="submit-btn">نشر المقال فوراً 🚀</button>
+            </form>
+            <div style="margin-top: 20px; text-align: center;">
+                <a href="index.html" style="color: var(--gov-blue-light); font-weight: 700; text-decoration: none;">← العودة إلى الصفحة الرئيسية</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
