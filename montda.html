@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>منتدى ومجتمع GITI التقني وأنظمة الأعمال | GITI Tech & Business OS</title>
     
-    <!-- وسوم المعاينة الاجتماعية (Open Graph) لمشاركة الرابط -->
+    <!-- وسوم المعاينة الاجتماعية (Open Graph) -->
     <meta property="og:title" content="منتدى ومجتمع GITI التقني وأنظمة الأعمال | GITI Tech">
     <meta property="og:description" content="المنصة المجتمعية والتقنية الرسمية لأنظمة Na2la لإدارة الأساطيل، اللوجستيات، وحلول الأعمال المتكاملة.">
     <meta property="og:image" content="logo.png">
@@ -19,754 +19,17 @@
     
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="apple-touch-icon" href="logo.png">
+    
+    <!-- ربط ملف الـ CSS الخارجي -->
     <link rel="stylesheet" href="style.css">
     
-    <!-- كود إعلانات جوجل أدسنس التلقائية (Auto Ads) -->
+    <!-- إعلانات جوجل أدسنس -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6651309355082807" crossorigin="anonymous"></script>
 
-    <style>
-        :root {
-            --gov-blue-dark: #0b2238;
-            --gov-blue-light: #18446e;
-            --gov-gold: #d4af37;
-            --primary-red: #c0392b;
-            --bg-light: #f8fafc;
-            --text-dark: #1e293b;
-            --giti-purple: #4f46e5;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Cairo', sans-serif;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background-color: var(--bg-light);
-            color: var(--text-dark);
-            line-height: 1.6;
-            position: relative;
-            overflow-x: hidden;
-        }
-
-        /* شعار GITI متحرك كعلامة مائية ثلاثية الأبعاد في الخلفية */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(1);
-            width: 70vw;
-            height: 70vw;
-            max-width: 550px;
-            max-height: 550px;
-            background: url('logo.png') center/contain no-repeat;
-            opacity: 0.12;
-            pointer-events: none;
-            z-index: 0;
-            animation: logoFloat3D 12s infinite ease-in-out;
-        }
-
-        @keyframes logoFloat3D {
-            0%, 100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.2)); }
-            50% { transform: translate(-50%, -50%) scale(1.06) rotate(2deg); filter: drop-shadow(0 0 30px rgba(99, 102, 241, 0.35)); }
-        }
-
-        /* Legal Disclaimer Bar - إخلاء مسؤولية وحماية ملكية فكرية قانونية صريحة */
-        .legal-disclaimer-bar {
-            background: var(--gov-blue-dark);
-            color: #fef2f2;
-            padding: 8px 15px;
-            font-size: 0.78rem;
-            text-align: center;
-            border-bottom: 2px solid var(--gov-gold);
-            position: relative;
-            z-index: 10;
-        }
-
-        .legal-disclaimer-bar strong {
-            color: var(--gov-gold);
-        }
-
-        /* Top Bar - الشريطة العليا */
-        .top-gov-bar {
-            background-color: #08192a;
-            color: #fff;
-            padding: 8px 20px;
-            font-size: 0.85rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-            z-index: 10;
-        }
-
-        .top-gov-bar .social-icons a {
-            color: #fff;
-            margin-left: 12px;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .top-gov-bar .social-icons a:hover {
-            color: var(--gov-gold);
-        }
-
-        .contact-top-btn {
-            background: var(--gov-gold);
-            color: var(--gov-blue-dark);
-            padding: 4px 15px;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: 700;
-        }
-
-        /* شريط الأخبار المتحرك لأنظمة GITI */
-        .news-ticker-container {
-            background: #123354;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            overflow: hidden;
-            font-size: 0.85rem;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.4);
-            position: relative;
-            z-index: 10;
-        }
-
-        .ticker-title {
-            background: var(--giti-purple);
-            padding: 6px 15px;
-            font-weight: 800;
-            white-space: nowrap;
-            z-index: 2;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .ticker-wrapper {
-            flex: 1;
-            overflow: hidden;
-            white-space: nowrap;
-        }
-
-        .ticker-text {
-            display: inline-block;
-            padding-right: 100%;
-            animation: ticker 35s linear infinite;
-            font-weight: 600;
-            color: #e2e8f0;
-        }
-
-        @keyframes ticker {
-            0% { transform: translate3d(0, 0, 0); }
-            100% { transform: translate3d(100%, 0, 0); }
-        }
-
-        /* Navbar Header */
-        header {
-            background-color: #ffffff;
-            position: sticky;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-            border-bottom: 3px solid var(--gov-gold);
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0.8rem 1.5rem;
-        }
-
-        .gov-branding {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .eagle-emblem-img {
-            height: 48px;
-            width: auto;
-            object-fit: contain;
-            display: block;
-        }
-
-        .brand-text-box h2 {
-            font-size: 1rem;
-            color: var(--gov-blue-dark);
-            font-weight: 800;
-            line-height: 1.2;
-        }
-
-        .brand-text-box p {
-            font-size: 0.7rem;
-            color: #64748b;
-        }
-
-        /* زر القائمة الجانبية (Sidebar Menu Toggle) */
-        .menu-toggle-btn {
-            background: var(--gov-blue-dark);
-            color: var(--gov-gold);
-            border: 2px solid var(--gov-gold);
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-weight: 800;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.95rem;
-            transition: all 0.3s;
-        }
-
-        .menu-toggle-btn:hover {
-            background: var(--gov-gold);
-            color: var(--gov-blue-dark);
-        }
-
-        /* القائمة الجانبية المنسدلة (Sidebar Drawer) */
-        .sidebar-drawer {
-            position: fixed;
-            top: 0;
-            right: -320px;
-            width: 300px;
-            height: 100%;
-            background: #0b2238;
-            color: #fff;
-            z-index: 2000;
-            box-shadow: -5px 0 25px rgba(0,0,0,0.5);
-            transition: right 0.4s ease;
-            display: flex;
-            flex-direction: column;
-            border-left: 3px solid var(--gov-gold);
-        }
-
-        .sidebar-drawer.open {
-            right: 0;
-        }
-
-        .sidebar-header {
-            padding: 20px;
-            background: #123354;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-        }
-
-        .sidebar-header h3 {
-            color: var(--gov-gold);
-            font-size: 1.1rem;
-            font-weight: 900;
-        }
-
-        .close-sidebar-btn {
-            background: none;
-            border: none;
-            color: #fff;
-            font-size: 1.3rem;
-            cursor: pointer;
-        }
-
-        .sidebar-links {
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            overflow-y: auto;
-            flex: 1;
-        }
-
-        .sidebar-links a {
-            color: #cbd5e1;
-            text-decoration: none;
-            padding: 12px 15px;
-            border-radius: 8px;
-            background: rgba(255,255,255,0.05);
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            transition: all 0.3s;
-            border-right: 3px solid transparent;
-        }
-
-        .sidebar-links a:hover, .sidebar-links a.active {
-            background: rgba(212, 175, 55, 0.15);
-            color: var(--gov-gold);
-            border-right-color: var(--gov-gold);
-            transform: translateX(-4px);
-        }
-
-        .sidebar-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.6);
-            z-index: 1500;
-            display: none;
-            backdrop-filter: blur(3px);
-        }
-
-        .sidebar-overlay.active {
-            display: block;
-        }
-
-        /* Hero Section */
-        .gov-hero-section {
-            position: relative;
-            background: linear-gradient(135deg, var(--gov-blue-dark), #0f172a) !important;
-            color: #ffffff;
-            padding: 50px 20px 70px;
-            text-align: center;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .gov-hero-section::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background-image: url('logo.png');
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: 320px auto;
-            opacity: 0.08;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .gov-hero-section > * {
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-title-badge {
-            display: inline-block;
-            color: var(--gov-gold);
-            font-size: 1.4rem;
-            font-weight: 800;
-            margin-bottom: 20px;
-            position: relative;
-        }
-
-        .hero-title-badge::after {
-            content: '';
-            display: block;
-            width: 70px;
-            height: 3px;
-            background: var(--gov-gold);
-            margin: 8px auto 0;
-        }
-
-        .president-speech {
-            max-width: 850px;
-            margin: 0 auto 35px;
-            font-size: 1.1rem;
-            line-height: 2;
-            color: #f1f5f9;
-            background: rgba(11, 34, 56, 0.75);
-            backdrop-filter: blur(10px);
-            padding: 30px;
-            border-radius: 16px;
-            border: 1px solid rgba(212, 175, 55, 0.4);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-
-        .president-speech i.quote-icon {
-            color: var(--gov-gold);
-            font-size: 1.4rem;
-            margin: 0 8px;
-        }
-
-        .speech-author {
-            margin-top: 15px;
-            font-size: 1.2rem;
-            font-weight: 800;
-            color: var(--gov-gold);
-        }
-
-        /* Info & Action Buttons Bar */
-        .event-info-bar {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-bottom: 35px;
-            font-size: 0.95rem;
-        }
-
-        .event-info-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(11, 34, 56, 0.85);
-            padding: 8px 18px;
-            border-radius: 20px;
-            border: 1px solid rgba(212, 175, 55, 0.4);
-        }
-
-        .event-info-item i {
-            color: var(--gov-gold);
-        }
-
-        .gov-actions-container {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .btn-gov-primary {
-            background-color: var(--gov-gold);
-            color: var(--gov-blue-dark);
-            padding: 14px 35px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 800;
-            font-size: 1.1rem;
-            border: 2px solid var(--gov-gold);
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .btn-gov-primary:hover {
-            background-color: #fff;
-            transform: translateY(-2px);
-        }
-
-        .btn-gov-secondary {
-            background-color: transparent;
-            color: #fff;
-            padding: 14px 35px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1.1rem;
-            border: 2px solid rgba(255,255,255,0.3);
-            transition: all 0.3s ease;
-        }
-
-        .btn-gov-secondary:hover {
-            border-color: #fff;
-            background: rgba(255,255,255,0.1);
-        }
-
-        /* Stats Section */
-        .stats-section {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 40px 20px;
-            border-bottom: 1px solid #e2e8f0;
-            position: relative;
-            z-index: 1;
-        }
-
-        .stats-grid {
-            max-width: 1100px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 25px;
-            text-align: center;
-        }
-
-        .stat-card h4 {
-            font-size: 2.2rem;
-            font-weight: 900;
-            color: var(--gov-blue-dark);
-            margin-bottom: 4px;
-        }
-
-        .stat-card p {
-            font-size: 0.9rem;
-            color: #64748b;
-            font-weight: 600;
-        }
-
-        /* Modules / Tabs Section */
-        .agenda-section {
-            padding: 60px 20px;
-            max-width: 1100px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        .agenda-tabs {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-bottom: 30px;
-        }
-
-        .tab-btn {
-            background: #e2e8f0;
-            color: var(--gov-blue-dark);
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .tab-btn.active {
-            background: var(--gov-blue-dark);
-            color: var(--gov-gold);
-            box-shadow: 0 4px 12px rgba(15, 43, 72, 0.2);
-        }
-
-        .agenda-content {
-            background: rgba(255, 255, 255, 0.92);
-            padding: 30px;
-            border-radius: 12px;
-            border: 1px solid #cbd5e1;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.03);
-        }
-
-        .agenda-item {
-            display: none;
-        }
-
-        .agenda-item.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .timeline-event {
-            padding-bottom: 20px;
-            margin-bottom: 20px;
-            border-bottom: 1px dashed #cbd5e1;
-            display: flex;
-            gap: 20px;
-            align-items: flex-start;
-        }
-
-        .timeline-event:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-
-        .time-badge {
-            background: rgba(212, 175, 55, 0.15);
-            color: var(--gov-blue-dark);
-            font-weight: 800;
-            padding: 6px 12px;
-            border-radius: 6px;
-            white-space: nowrap;
-            font-size: 0.85rem;
-        }
-
-        /* Features / Steps Section */
-        .steps-section {
-            padding: 60px 20px;
-            max-width: 1100px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.92);
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.03);
-            position: relative;
-            z-index: 1;
-        }
-
-        .section-heading {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .section-heading h3 {
-            font-size: 1.8rem;
-            color: var(--gov-blue-dark);
-            font-weight: 800;
-        }
-
-        .steps-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 20px;
-        }
-
-        .step-card {
-            background: var(--bg-light);
-            padding: 25px 20px;
-            border-radius: 12px;
-            border-top: 4px solid var(--gov-gold);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.02);
-            text-align: center;
-        }
-
-        .step-icon {
-            width: 50px;
-            height: 50px;
-            background: rgba(212, 175, 55, 0.15);
-            color: var(--gov-gold);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-            margin: 0 auto 15px;
-            font-weight: 800;
-        }
-
-        /* FAQ Section */
-        .faq-section {
-            padding: 60px 20px;
-            max-width: 900px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        .faq-item {
-            background: rgba(255, 255, 255, 0.92);
-            border: 1px solid #cbd5e1;
-            border-radius: 8px;
-            margin-bottom: 12px;
-            overflow: hidden;
-        }
-
-        .faq-question {
-            width: 100%;
-            text-align: right;
-            padding: 18px 20px;
-            background: none;
-            border: none;
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--gov-blue-dark);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-        }
-
-        .faq-answer {
-            padding: 0 20px 18px;
-            font-size: 0.9rem;
-            color: #475569;
-            display: none;
-            line-height: 1.8;
-            border-top: 1px solid #f1f5f9;
-        }
-
-        /* Registration Form Section */
-        .registration-section {
-            background: rgba(241, 245, 249, 0.9);
-            padding: 60px 20px;
-            border-top: 1px solid #e2e8f0;
-            position: relative;
-            z-index: 1;
-        }
-
-        .form-card {
-            background: #fff;
-            max-width: 650px;
-            margin: 0 auto;
-            padding: 35px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-        }
-
-        .form-group {
-            margin-bottom: 18px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 6px;
-            font-weight: 700;
-            color: var(--gov-blue-dark);
-            font-size: 0.95rem;
-        }
-
-        .form-group input, 
-        .form-group select, 
-        .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #cbd5e1;
-            border-radius: 6px;
-            font-size: 0.95rem;
-            outline: none;
-        }
-
-        .submit-btn {
-            width: 100%;
-            background: var(--gov-blue-dark);
-            color: #fff;
-            border: none;
-            padding: 14px;
-            font-size: 1.05rem;
-            font-weight: 800;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .submit-btn:hover {
-            background: var(--gov-blue-light);
-        }
-
-        .success-box {
-            display: none;
-            text-align: center;
-            padding: 20px;
-            background: #dcfce7;
-            color: #15803d;
-            border-radius: 8px;
-            font-weight: 700;
-        }
-
-        /* Footer */
-        footer {
-            background: var(--gov-blue-dark);
-            color: #94a3b8;
-            text-align: center;
-            padding: 25px 20px;
-            font-size: 0.85rem;
-            border-top: 3px solid var(--gov-gold);
-            position: relative;
-            z-index: 10;
-        }
-
-        footer a {
-            color: var(--gov-gold);
-            text-decoration: none;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @media (max-width: 768px) {
-            .nav-container { flex-direction: column; gap: 12px; text-align: center; }
-        }
-    </style>
-
-    <!-- ربط مكتبات Firebase الأساسية والمصادقة -->
+    <!-- تهيئة Firebase والمصادقة -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, getDocs, query, where, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
         import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
         const firebaseConfig = {
@@ -783,33 +46,28 @@
         const db = getFirestore(app);
         const auth = getAuth(app);
 
-        const ADMIN_EMAILS = ["haretg@gmail.com", "karamegy@gmail.com"];
-
         window.db = db;
         window.auth = auth;
-        window.addDoc = addDoc;
-        window.collection = collection;
-        window.serverTimestamp = serverTimestamp;
+        window.firebaseModules = { collection, addDoc, getDocs, query, where, onSnapshot, serverTimestamp };
 
-        // مراقبة حالة تسجيل الدخول وتحديث واجهة المستخدم
+        const ADMIN_EMAILS_LIST = ["haretg@gmail.com", "karamegy@gmail.com"];
+
         onAuthStateChanged(auth, (user) => {
             const authContainer = document.getElementById('auth-container');
             const sidebarLinks = document.querySelector('.sidebar-links');
 
             if (user) {
-                const isAdmin = ADMIN_EMAILS.includes(user.email) || user.email.includes("haretg") || user.email.includes("karamegy");
+                const isAdmin = ADMIN_EMAILS_LIST.includes(user.email) || user.email.includes("haretg") || user.email.includes("karamegy");
 
                 if (authContainer) {
                     authContainer.innerHTML = `
-                        <div style="display: flex; align-items: center; gap: 6px; color: #fff; font-size: 0.8rem; cursor: pointer;" title="الملف الشخصي">
-                            <img src="${user.photoURL || 'logo.png'}" alt="Avatar" style="width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--gov-gold); object-fit: cover;">
+                        <div onclick="openUserProfile()" style="display: flex; align-items: center; gap: 6px; color: #fff; font-size: 0.8rem; cursor: pointer;" title="عرض الملف الشخصي">
+                            <img src="${user.photoURL || 'logo.png'}" alt="Avatar" style="width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--gov-gold); object-fit: cover;">
                             <span style="font-weight: 700;">${user.displayName ? user.displayName.split(' ')[0] : 'عضو'}</span>
-                            <button onclick="logoutUser(); event.stopPropagation();" style="background: var(--primary-red); color: #fff; border: none; padding: 2px 6px; border-radius: 4px; cursor: pointer; font-size: 0.7rem;">خروج</button>
                         </div>
                     `;
                 }
 
-                // إظهار رابط لوحة التحكم في القائمة الجانبية للأدمن فقط
                 if (isAdmin && sidebarLinks) {
                     if (!document.getElementById('admin-sidebar-link')) {
                         const adminLink = document.createElement('a');
@@ -835,9 +93,8 @@
         window.loginWithGoogle = async function() {
             const provider = new GoogleAuthProvider();
             try {
-                const result = await signInWithPopup(auth, provider);
-                const user = result.user;
-                alert("✅ أهلاً بك يا " + (user.displayName || 'عضو المنصة') + "، تم تسجيل الدخول بنجاح!");
+                await signInWithPopup(auth, provider);
+                alert("✅ تم تسجيل الدخول بنجاح!");
             } catch (error) {
                 alert("❌ فشل تسجيل الدخول: " + error.message);
             }
@@ -856,12 +113,12 @@
 </head>
 <body>
 
-    <!-- شريط إخلاء المسؤولية وحماية الملكية الفكرية القانونية -->
+    <!-- شريط الحماية القانونية -->
     <div class="legal-disclaimer-bar">
-        🔒 <strong>منصة رسمية محمية:</strong> هذه الصفحة ومحتواها مملوكتان بالكامل لشبكة <strong>GITI Tech & Business OS</strong> وتطبيقات اللوجستيات (Na2la)، وجميع الحقوق والبرمجيات مسجلة ومحمية قانونياً.
+        🔒 <strong>منصة رسمية محمية:</strong> هذه الصفحة ومحتواها مملوكتان بالكامل لشبكة <strong>GITI Tech & Business OS</strong> وتطبيقات اللوجستيات (Na2la).
     </div>
 
-    <!-- Top Bar العلوي مع زر تسجيل الدخول -->
+    <!-- الشريط العلوي -->
     <div class="top-gov-bar">
         <div class="social-icons">
             <a href="https://facebook.com/smaregy" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
@@ -869,28 +126,24 @@
             <a href="https://youtube.com" target="_blank"><i class="fa-brands fa-youtube"></i></a>
         </div>
         <div style="display: flex; align-items: center; gap: 8px;">
-            <div id="auth-container">
-                <button onclick="loginWithGoogle()" style="background: #ffffff; color: var(--gov-blue-dark); padding: 3px 9px; border-radius: 4px; font-weight: 700; border: none; cursor: pointer; font-size: 0.78rem; display: inline-flex; align-items: center; gap: 4px;">
-                    <i class="fa-brands fa-google" style="color: #db4437;"></i> دخول بجوجل
-                </button>
-            </div>
+            <div id="auth-container"></div>
             <a href="contact.html" class="contact-top-btn" style="padding: 3px 10px; font-size: 0.78rem;"><i class="fa-solid fa-envelope"></i> تواصل</a>
         </div>
     </div>
 
-    <!-- شريط الأخبار العاجلة المتحرك لأنظمة GITI -->
+    <!-- شريط الأخبار المتحرك -->
     <div class="news-ticker-container">
         <div class="ticker-title">
             <i class="fa-solid fa-bullhorn"></i> أخبار GITI
         </div>
         <div class="ticker-wrapper">
             <div class="ticker-text">
-                🚀 إطلاق التحديث الجديد لمنصة Na2la لإدارة الأساطيل وتتبع الشحنات • تفعيل المزامنة الفورية عبر قاعدة بيانات Firebase • انضم لمجتمع شركاء الأعمال والمطورين بقطاع اللوجستيات.
+                🚀 إطلاق التحديث الجديد لمنصة Na2la لإدارة الأساطيل وتتبع الشحنات • تفعيل المزامنة الفورية عبر قاعدة بيانات Firebase • انضم لمجتمع شركاء الأعمال والمطورين.
             </div>
         </div>
     </div>
 
-    <!-- Header Navigation -->
+    <!-- الهيدر الرئيسي -->
     <header>
         <div class="nav-container">
             <div class="gov-branding">
@@ -900,15 +153,13 @@
                     <p>منتدى المجتمع والحلول اللوجستية</p>
                 </div>
             </div>
-
-            <!-- زر فتح القائمة الجانبية للمدونة -->
             <button class="menu-toggle-btn" onclick="toggleSidebar()">
                 <i class="fa-solid fa-bars"></i> القائمة الرئيسية
             </button>
         </div>
     </header>
 
-    <!-- القائمة الجانبية المنسدلة (Sidebar Drawer) -->
+    <!-- القائمة الجانبية -->
     <div id="sidebarOverlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
     <div id="sideDrawer" class="sidebar-drawer">
         <div class="sidebar-header">
@@ -929,25 +180,12 @@
     <!-- Hero Section -->
     <section class="gov-hero-section">
         <div class="hero-title-badge">مجتمع GITI التقني وأنظمة الأعمال</div>
-
-        <div class="president-speech">
+        <div class="president-speech card">
             <i class="fa-solid fa-quote-right quote-icon"></i>
-            نرحب بك في المنتدى الرسمي لشبكة **GITI Tech & Business OS** وتطبيقاتنا المتكاملة لإدارة الأساطيل مثل **Na2la**. منصة مجتمعية مخصصة لتمكين السائقين، رواد الأعمال، والمطورين من استعراض حلول الأتمتة، متابعة حركة الشحنات، وتبادل الخبرات التشغيلية.
+            نرحب بك في المنتدى الرسمي لشبكة **GITI Tech & Business OS** وتطبيقاتنا المتكاملة لإدارة الأساطيل مثل **Na2la**. منصة مجتمعية مخصصة لتمكين السائقين، رواد الأعمال، والمطورين من استعراض حلول الأتمتة ومتابعة حركة الشحنات.
             <i class="fa-solid fa-quote-left quote-icon"></i>
             <div class="speech-author">إدارة تطوير الأنظمة — شبكة GITI</div>
         </div>
-
-        <div class="event-info-bar">
-            <div class="event-info-item">
-                <i class="fa-solid fa-cloud-arrow-up"></i>
-                <span>مزامنة سحابية حية (Firebase)</span>
-            </div>
-            <div class="event-info-item">
-                <i class="fa-solid fa-shield-halved"></i>
-                <span>حماية وأمان تام للبيانات</span>
-            </div>
-        </div>
-
         <div class="gov-actions-container">
             <a href="index.html#tools-section" class="btn-gov-primary">
                 <span>استكشف تطبيق Na2la والأدوات</span>
@@ -957,200 +195,112 @@
         </div>
     </section>
 
-    <!-- عداد الإحصائيات التفاعلي لأنظمة GITI -->
+    <!-- الإحصائيات -->
     <section class="stats-section">
         <div class="stats-grid">
-            <div class="stat-card">
-                <h4>+1,500</h4>
-                <p>عملية شحن وأسطول مدار</p>
-            </div>
-            <div class="stat-card">
-                <h4>100%</h4>
-                <p>استقرار وتزامن سحابي</p>
-            </div>
-            <div class="stat-card">
-                <h4>24/7</h4>
-                <p>دعم فني وتطوير مستمر</p>
-            </div>
-            <div class="stat-card">
-                <h4>+50</h4>
-                <p>شريك ومؤسسة تجارية</p>
-            </div>
+            <div class="stat-card card"><h4>+1,500</h4><p>عملية شحن وأسطول مدار</p></div>
+            <div class="stat-card card"><h4>100%</h4><p>استقرار وتزامن سحابي</p></div>
+            <div class="stat-card card"><h4>24/7</h4><p>دعم فني وتطوير مستمر</p></div>
+            <div class="stat-card card"><h4>+50</h4><p>شريك ومؤسسة تجارية</p></div>
         </div>
     </section>
 
-    <!-- قسم مولد بطاقة العضوية والاعتماد المهني لشريكة GITI -->
+    <!-- مولد بطاقة العضوية المهنية (Canvas) -->
     <section class="registration-section" id="invitation-card-section">
-        <div class="form-card" style="max-width: 700px;">
-            <div class="section-heading" style="margin-bottom: 25px;">
-                <h3 style="color: var(--gov-blue-dark); font-size: 1.8rem; font-weight: 800;">مولد بطاقة عضوية شبكة GITI</h3>
-                <p style="color: #64748b; font-size: 0.9rem;">أنشئ بطاقة العضوية الرقمية الخاصة بك كمطور، شريك، أو مدير أساطيل عبر منصتنا</p>
+        <div class="form-card" style="max-width: 700px; margin: 0 auto;">
+            <div class="section-heading" style="margin-bottom: 20px; text-align: center;">
+                <h3 style="color: var(--gov-blue-dark); font-size: 1.5rem; font-weight: 800;">مولد بطاقة عضوية شبكة GITI</h3>
+                <p style="color: #64748b; font-size: 0.85rem;">أنشئ بطاقتك الرقمية كمطور أو شريك معتمد</p>
             </div>
-
             <div class="form-group">
                 <label><i class="fa-solid fa-user"></i> اسم العضو / المؤسسة *</label>
                 <input type="text" id="cardUserName" placeholder="أدخل اسمك أو اسم شركتك هنا..." oninput="drawCard()">
             </div>
-
             <div class="form-group">
                 <label><i class="fa-solid fa-image"></i> صورتك الشخصية أو شعارك *</label>
                 <input type="file" id="cardUserImage" accept="image/*" onchange="loadCardImage(event)">
             </div>
-
-            <!-- معاينة الكرت التصميمي الواقعي -->
-            <div style="margin: 25px 0; text-align: center;">
-                <p style="font-weight: 700; color: var(--gov-blue-dark); margin-bottom: 10px; font-size: 0.95rem;">معاينة بطاقة العضوية المخصصة:</p>
-                <div style="position: relative; width: 100%; max-width: 600px; aspect-ratio: 16/9; margin: 0 auto; border-radius: 14px; overflow: hidden; box-shadow: 0 10px 30px rgba(11, 34, 56, 0.25); border: 3px solid var(--gov-gold); background: #0b2238;">
+            <div style="margin: 20px 0; text-align: center;">
+                <div style="position: relative; width: 100%; max-width: 550px; aspect-ratio: 16/9; margin: 0 auto; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 25px rgba(11,34,56,0.2); border: 3px solid var(--gov-gold); background: #0b2238;">
                     <canvas id="invitationCanvas" style="width: 100%; height: 100%; display: block;"></canvas>
                 </div>
             </div>
-
             <button type="button" class="submit-btn" onclick="downloadInvitationCard()" style="background: var(--gov-gold); color: var(--gov-blue-dark); font-weight: 900;">
                 <i class="fa-solid fa-download"></i> تحميل بطاقة العضوية (صورة PNG)
             </button>
         </div>
     </section>
 
-    <!-- أقسام ومحاور أنظمة GITI -->
-    <section class="agenda-section">
-        <div class="section-heading">
-            <h3>محاور وأقسام منصة GITI اللوجستية</h3>
-            <p style="color: #64748b; font-size: 0.9rem;">استعرض الخدمات التقنية الأساسية المدمجة في تطبيقاتنا</p>
-        </div>
-
-        <div class="agenda-tabs">
-            <button class="tab-btn active" onclick="switchAgenda(0)">نظام Na2la (الأساطيل)</button>
-            <button class="tab-btn" onclick="switchAgenda(1)">Business OS (إدارة المخازن)</button>
-            <button class="tab-btn" onclick="switchAgenda(2)">المزامنة السحابية (Firebase)</button>
-        </div>
-
-        <div class="agenda-content">
-            <div class="agenda-item active">
-                <div class="timeline-event">
-                    <span class="time-badge">تتبع مباشر</span>
-                    <div>
-                        <h4 style="color: var(--gov-blue-dark); font-weight: 800;">إدارة حركة الشاحنات والسائقين</h4>
-                        <p style="font-size: 0.88rem; color: #64748b;">متابعة خطوط سير النقل، تسجيل بوليصة الشحن، وإصدار الفواتير اللحظية بدقة عالية عبر تطبيق Na2la.</p>
+    <!-- محتوى المنتدى والمقالات القادمة من Firebase -->
+    <div style="max-width: 1200px; margin: 40px auto; padding: 0 20px;">
+        <div class="blog-grid-layout">
+            <aside>
+                <div class="card" style="margin-bottom: 20px;">
+                    <h3 class="sidebar-title">🔍 البحث في المنتدى</h3>
+                    <input type="text" id="article-search" placeholder="ابحث عن موضوع أو مقال..." style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; outline: none; font-size: 0.9rem;">
+                </div>
+                <div class="card" style="margin-bottom: 20px;">
+                    <h3 class="sidebar-title">📁 أقسام النقاشات</h3>
+                    <div class="category-list">
+                        <button class="cat-btn active" onclick="filterCategory('all')" data-cat="all">جميع الموضوعات</button>
+                        <button class="cat-btn" onclick="filterCategory('Na2la')" data-cat="Na2la">أخبار تطبيق Na2la</button>
+                        <button class="cat-btn" onclick="filterCategory('ERP')" data-cat="ERP">أنظمة Business OS</button>
+                        <button class="cat-btn" onclick="filterCategory('Updates')" data-cat="Updates">التحديثات السحابية</button>
                     </div>
                 </div>
-            </div>
-
-            <div class="agenda-item">
-                <div class="timeline-event">
-                    <span class="time-badge">إدارة الخزينة</span>
-                    <div>
-                        <h4 style="color: var(--gov-blue-dark); font-weight: 800;">حسابات العملاء والخزائن والمصروفات</h4>
-                        <p style="font-size: 0.88rem; color: #64748b;">نظام متكامل لتتبع الواردات، الصادرات، الأرباح، وحسابات العملاء والموردين عبر EIDCO Business OS.</p>
-                    </div>
+                <div class="card">
+                    <h3 class="sidebar-title">🔖 مقالاتك المحفوظة</h3>
+                    <div id="saved-bookmarks-list" style="font-size: 0.88rem; color: #475569;">لا توجد مقالات محفوظة حالياً.</div>
                 </div>
-            </div>
+            </aside>
 
-            <div class="agenda-item">
-                <div class="timeline-event">
-                    <span class="time-badge">قواعد البيانات</span>
-                    <div>
-                        <h4 style="color: var(--gov-blue-dark); font-weight: 800;">تخزين سحابي آمن وتوثيق مستندات</h4>
-                        <p style="font-size: 0.88rem; color: #64748b;">استخدام أحدث تقنيات Firestore وقواعد الأمان لضمان عدم ضياع أي بيانات عمل أو سجلات مالية.</p>
-                    </div>
+            <main id="articles-container">
+                <div style="text-align: center; padding: 40px; color: #64748b;">
+                    <i class="fa-solid fa-spinner fa-spin fa-2x"></i>
+                    <p style="margin-top: 10px;">جاري تحميل الموضوعات والمقالات من سحابة GITI...</p>
                 </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- نافذة قراءة المقال المفصل -->
+    <div id="article-modal" style="display: none; position: fixed; inset: 0; background: rgba(11, 34, 56, 0.8); backdrop-filter: blur(5px); z-index: 10000; overflow-y: auto; padding: 20px;">
+        <div class="card" style="max-width: 750px; margin: 40px auto; position: relative; padding: 30px;">
+            <button onclick="closeFullArticle()" style="position: absolute; top: 15px; left: 15px; background: var(--primary-red); color: #fff; border: none; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-weight: bold;">✕ إغلاق</button>
+            <div id="modal-content-area"></div>
+            
+            <div style="margin-top: 25px; padding-top: 15px; border-top: 1px solid #e2e8f0; text-align: center;">
+                <p style="font-weight: 700; margin-bottom: 8px; color: var(--gov-blue-dark);">قيم هذا المقال أو الموضوع:</p>
+                <div style="display: flex; justify-content: center; gap: 8px; font-size: 1.3rem; cursor: pointer; color: var(--gov-gold);">
+                    <i class="fa-solid fa-star" onclick="rateArticle(1)"></i>
+                    <i class="fa-solid fa-star" onclick="rateArticle(2)"></i>
+                    <i class="fa-solid fa-star" onclick="rateArticle(3)"></i>
+                    <i class="fa-solid fa-star" onclick="rateArticle(4)"></i>
+                    <i class="fa-solid fa-star" onclick="rateArticle(5)"></i>
+                </div>
+                <p id="rating-feedback" style="margin-top: 6px; font-size: 0.85rem;"></p>
+            </div>
+
+            <div style="margin-top: 30px; border-top: 2px dashed #cbd5e1; padding-top: 20px;">
+                <h3 style="font-size: 1.1rem; color: var(--gov-blue-dark); margin-bottom: 12px;"><i class="fa-solid fa-comments"></i> التعليقات والمناقشات</h3>
+                <div id="comments-list" style="margin-bottom: 20px; max-height: 250px; overflow-y: auto;"></div>
+                <form onsubmit="addCommentToFirebase(event)" style="display: flex; gap: 10px;">
+                    <input type="text" id="comment-text" placeholder="اكتب تعليقك هنا (يجب تسجيل الدخول)..." style="flex: 1; padding: 10px 14px; border: 1px solid var(--border-color); border-radius: 8px; outline: none; font-size: 0.9rem;" required>
+                    <button type="submit" class="submit-btn" style="width: auto; padding: 10px 20px;">إرسال التعليق</button>
+                </form>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- مميزات الاستخدام -->
-    <section class="steps-section">
-        <div class="section-heading">
-            <h3>لماذا تختار أنظمة GITI Tech؟</h3>
-            <p style="color: #64748b; font-size: 0.9rem;">مزايا برمجية مصممة خصيصاً لتطوير أعمالك اللوجستية</p>
-        </div>
-
-        <div class="steps-grid">
-            <div class="step-card">
-                <div class="step-icon">1</div>
-                <h4 style="color: var(--gov-blue-dark); font-weight: 700; margin-bottom: 8px;">سرعة الأداء</h4>
-                <p style="font-size: 0.85rem; color: #64748b;">واجهات مصممة بتقنيات PWA تعمل بكفاءة على كافة الأجهزة.</p>
-            </div>
-
-            <div class="step-card">
-                <div class="step-icon">2</div>
-                <h4 style="color: var(--gov-blue-dark); font-weight: 700; margin-bottom: 8px;">سهولة الإدارة</h4>
-                <p style="font-size: 0.85rem; color: #64748b;">لوحة تحكم مركزية متكاملة تتيح لك مراقبة كل تفاصيل عملك.</p>
-            </div>
-
-            <div class="step-card">
-                <div class="step-icon">3</div>
-                <h4 style="color: var(--gov-blue-dark); font-weight: 700; margin-bottom: 8px;">تحديثات مستمرة</h4>
-                <p style="font-size: 0.85rem; color: #64748b;">إضافات دورية ومميزات جديدة تدار مباشرة عبر سحابة فايربيس.</p>
-            </div>
-
-            <div class="step-card">
-                <div class="step-icon">4</div>
-                <h4 style="color: var(--gov-blue-dark); font-weight: 700; margin-bottom: 8px;">حماية البيانات</h4>
-                <p style="font-size: 0.85rem; color: #64748b;">صلاحيات وصول دقيقة وتشفير تام لكافة معاملاتك وحساباتك.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- الأسئلة الشائعة FAQ -->
-    <section class="faq-section">
-        <div class="section-heading">
-            <h3>الأسئلة الشائعة حول المنصة والخدمات</h3>
-            <p style="color: #64748b; font-size: 0.9rem;">إجابات لأهم الاستفسارات حول تطبيقات شبكة GITI</p>
-        </div>
-
-        <div class="faq-item">
-            <button class="faq-question" onclick="toggleFaq(this)">
-                <span>ما هي التطبيقات التي تشملها شبكة GITI Tech؟</span>
-                <i class="fa-solid fa-chevron-down"></i>
-            </button>
-            <div class="faq-answer">
-                تشمل شبكة GITI تطبيق Na2la لإدارة الأساطيل واللوجستيات، وأنظمة EIDCO Business OS لإدارة المخازن والمبيعات والحسابات.
-            </div>
-        </div>
-
-        <div class="faq-item">
-            <button class="faq-question" onclick="toggleFaq(this)">
-                <span>كيف يمكنني الانضمام أو طلب دعم فني؟</span>
-                <i class="fa-solid fa-chevron-down"></i>
-            </button>
-            <div class="faq-answer">
-                يمكنك التواصل معنا مباشرة عبر صفحة "اتصل بنا" أو إرسال استفسارك عبر الاستمارة أدناه وسيتم حفظ طلبك سحابياً في قاعدة البيانات.
-            </div>
-        </div>
-
-        <div class="faq-item">
-            <button class="faq-question" onclick="toggleFaq(this)">
-                <span>هل البيانات مسجلة بشكل آمن؟</span>
-                <i class="fa-solid fa-chevron-down"></i>
-            </button>
-            <div class="faq-answer">
-                نعم، نعتمد على بنية Firebase التحتية وقواعد أمان صارمة تضمن سرية تامة لكافة بيانات المستخدمين والشركات.
-            </div>
-        </div>
-    </section>
-
-    <!-- استمارة الاستفسارات والمقترحات المتصلة بقاعدة البيانات app_inquiries -->
-    <section class="registration-section" id="backup-register">
+    <!-- استمارة الاستفسارات (app_inquiries) -->
+    <section class="registration-section" id="backup-register" style="margin-top: 40px;">
         <div class="form-card">
             <h3 style="text-align: center; color: var(--gov-blue-dark); font-weight: 800; margin-bottom: 8px;">استمارة التواصل ومقترحات تطوير GITI</h3>
-            <p style="text-align: center; font-size: 0.85rem; color: #64748b; margin-bottom: 20px;">أرسل مقترحك أو استفسار التقني ليتم حفظه مباشرة في قاعدة بيانات المنصة</p>
-            
+            <p style="text-align: center; font-size: 0.85rem; color: #64748b; margin-bottom: 20px;">أرسل مقترحك أو استفسارك ليتم حفظه مباشرة في مجموعة app_inquiries بفايربيس</p>
             <form id="forumForm" onsubmit="handleFormSubmit(event)">
-                <div class="form-group">
-                    <label>الاسم الكامل *</label>
-                    <input type="text" id="fullname" required placeholder="أدخل اسمك الكريم">
-                </div>
-
-                <div class="form-group">
-                    <label>البريد الإلكتروني *</label>
-                    <input type="email" id="email" required placeholder="name@example.com">
-                </div>
-
-                <div class="form-group">
-                    <label>رقم الهاتف *</label>
-                    <input type="tel" id="phone" required placeholder="01000000000">
-                </div>
-
+                <div class="form-group"><label>الاسم الكامل *</label><input type="text" id="fullname" required placeholder="أدخل اسمك الكريم"></div>
+                <div class="form-group"><label>البريد الإلكتروني *</label><input type="email" id="email" required placeholder="name@example.com"></div>
+                <div class="form-group"><label>رقم الهاتف *</label><input type="tel" id="phone" required placeholder="01000000000"></div>
                 <div class="form-group">
                     <label>نوع الخدمة أو التطبيق المهتم به *</label>
                     <select id="governorate" required>
@@ -1161,23 +311,17 @@
                         <option value="استفسار عام أو اقتراح">استفسار عام أو اقتراح</option>
                     </select>
                 </div>
-
-                <div class="form-group">
-                    <label>نص الاستفسار أو المقترح التقني</label>
-                    <textarea id="proposal" rows="3" placeholder="اكتب تفاصيل مقترحك أو استفسارك هنا..."></textarea>
-                </div>
-
+                <div class="form-group"><label>نص الاستفسار أو المقترح التقني</label><textarea id="proposal" rows="3" placeholder="اكتب تفاصيل مقترحك أو استفسارك هنا..."></textarea></div>
                 <button type="submit" id="submitBtn" class="submit-btn">إرسال الطلب إلى فريق GITI</button>
             </form>
-
-            <div id="successBox" class="success-box" style="margin-top: 15px;">
+            <div id="successBox" class="success-box" style="margin-top: 15px; display: none; text-align: center; padding: 15px; background: #dcfce7; color: #15803d; border-radius: 8px; font-weight: 700;">
                 ✅ تم إرسال رسالتك بنجاح إلى قاعدة بيانات GITI وسيتم مراجعتها قريباً!
             </div>
         </div>
     </section>
 
-    <!-- زر العودة إلى الأعلى -->
-    <button id="backToTop" onclick="scrollToTop()" style="display: none; position: fixed; bottom: 20px; left: 20px; background: var(--gov-gold); color: var(--gov-blue-dark); border: none; width: 45px; height: 45px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; z-index: 999; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: 0.3s;">
+    <!-- زر العودة للأعلى -->
+    <button id="backToTop" onclick="scrollToTop()" style="display: none; position: fixed; bottom: 20px; left: 20px; background: var(--gov-gold); color: var(--gov-blue-dark); border: none; width: 45px; height: 45px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; z-index: 999; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
         <i class="fa-solid fa-arrow-up"></i>
     </button>
 
@@ -1186,219 +330,7 @@
         <p>جميع الحقوق محفوظة &copy; 2027 — GITI Tech & Business OS | <a href="index.html">العودة للرئيسية</a></p>
     </footer>
 
-    <script>
-        // دالة فتح وإغلاق القائمة الجانبية (Sidebar)
-        function toggleSidebar() {
-            const drawer = document.getElementById('sideDrawer');
-            const overlay = document.getElementById('sidebarOverlay');
-            drawer.classList.toggle('open');
-            overlay.classList.toggle('active');
-        }
-
-        // --- كود مولد بطاقة العضوية المهنية (Canvas Generator) ---
-        const cardCanvas = document.getElementById('invitationCanvas');
-        const cardCtx = cardCanvas.getContext('2d');
-        cardCanvas.width = 1000;
-        cardCanvas.height = 562;
-
-        let userAvatarImg = new Image();
-        let isAvatarLoaded = false;
-
-        function drawCard() {
-            cardCtx.clearRect(0, 0, cardCanvas.width, cardCanvas.height);
-
-            // 1. خلفية البطاقة الاحترافية
-            const grad = cardCtx.createLinearGradient(0, 0, cardCanvas.width, cardCanvas.height);
-            grad.addColorStop(0, '#0b2238');
-            grad.addColorStop(1, '#0f172a');
-            cardCtx.fillStyle = grad;
-            cardCtx.fillRect(0, 0, cardCanvas.width, cardCanvas.height);
-
-            // إطار ذهبي فاخر
-            cardCtx.strokeStyle = '#d4af37';
-            cardCtx.lineWidth = 8;
-            cardCtx.strokeRect(20, 20, cardCanvas.width - 40, cardCanvas.height - 40);
-
-            // 2. العنوان والهيدر
-            cardCtx.fillStyle = '#d4af37';
-            cardCtx.font = 'bold 32px Cairo, sans-serif';
-            cardCtx.textAlign = 'center';
-            cardCtx.direction = 'rtl';
-            cardCtx.fillText('GITI Tech & Business OS', cardCanvas.width / 2, 75);
-
-            cardCtx.fillStyle = '#e2e8f0';
-            cardCtx.font = '17px Cairo, sans-serif';
-            cardCtx.fillText('بطاقة عضوية وشريك معتمد في الشبكة', cardCanvas.width / 2, 110);
-
-            // خط فاصل ذهبي
-            cardCtx.strokeStyle = '#d4af37';
-            cardCtx.lineWidth = 2;
-            cardCtx.beginPath();
-            cardCtx.moveTo(cardCanvas.width / 2 - 140, 125);
-            cardCtx.lineTo(cardCanvas.width / 2 + 140, 125);
-            cardCtx.stroke();
-
-            // 3. صورة المستخدم الدائرية
-            const centerX = cardCanvas.width / 2;
-            const centerY = 230;
-            const radius = 58;
-
-            cardCtx.save();
-            cardCtx.beginPath();
-            cardCtx.arc(centerX, centerY, radius, 0, Math.PI * 2, true);
-            cardCtx.closePath();
-            cardCtx.clip();
-
-            if (isAvatarLoaded) {
-                cardCtx.drawImage(userAvatarImg, centerX - radius, centerY - radius, radius * 2, radius * 2);
-            } else {
-                cardCtx.fillStyle = '#1e293b';
-                cardCtx.fillRect(centerX - radius, centerY - radius, radius * 2, radius * 2);
-                cardCtx.fillStyle = '#d4af37';
-                cardCtx.font = 'bold 15px Cairo, sans-serif';
-                cardCtx.fillText('صورتك', centerX, centerY + 5);
-            }
-            cardCtx.restore();
-
-            // إطار الصورة الذهبي
-            cardCtx.strokeStyle = '#d4af37';
-            cardCtx.lineWidth = 4;
-            cardCtx.beginPath();
-            cardCtx.arc(centerX, centerY, radius, 0, Math.PI * 2, true);
-            cardCtx.closePath();
-            cardCtx.stroke();
-
-            // 4. اسم المستخدم أو الشركة
-            const inputNameVal = document.getElementById('cardUserName').value.trim();
-            const fullNameText = inputNameVal !== '' ? inputNameVal : 'اسم العضو الكريم';
-
-            cardCtx.fillStyle = '#ffffff';
-            cardCtx.font = 'bold 28px Cairo, sans-serif';
-            cardCtx.textAlign = 'center';
-            cardCtx.fillText(fullNameText, cardCanvas.width / 2, 335);
-
-            // صفة البطاقة
-            cardCtx.fillStyle = '#d4af37';
-            cardCtx.font = 'bold 17px Cairo, sans-serif';
-            cardCtx.fillText('عضو مشارك في أنظمة Na2la و Business OS', cardCanvas.width / 2, 372);
-
-            // 5. رابط المنصة الرسمي
-            cardCtx.fillStyle = '#93c5fd';
-            cardCtx.font = 'bold 15px Cairo, sans-serif';
-            cardCtx.fillText('الموقع الرسمي: https://karamegy.github.io', cardCanvas.width / 2, 420);
-
-            // 6. الفوتر
-            cardCtx.fillStyle = '#cbd5e1';
-            cardCtx.font = '14px Cairo, sans-serif';
-            cardCtx.fillText('شبكة GITI Tech | نظام إدارة الأساطيل والأعمال المتكامل', cardCanvas.width / 2, 490);
-        }
-
-        function loadCardImage(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    userAvatarImg.src = e.target.result;
-                    userAvatarImg.onload = function() {
-                        isAvatarLoaded = true;
-                        drawCard();
-                    }
-                }
-                reader.readAsDataURL(file);
-            }
-        }
-
-        window.addEventListener('DOMContentLoaded', () => {
-            drawCard();
-        });
-
-        function downloadInvitationCard() {
-            const link = document.createElement('a');
-            link.download = 'GITI_Member_Card.png';
-            link.href = cardCanvas.toDataURL('image/png');
-            link.click();
-        }
-
-        // التبديل بين تبويبات محاور GITI
-        function switchAgenda(index) {
-            const tabs = document.querySelectorAll('.tab-btn');
-            const items = document.querySelectorAll('.agenda-item');
-            
-            tabs.forEach((tab, idx) => {
-                tab.classList.toggle('active', idx === index);
-            });
-            
-            items.forEach((item, idx) => {
-                item.classList.toggle('active', idx === index);
-            });
-        }
-
-        // إجابات الأسئلة الشائعة FAQ
-        function toggleFaq(btn) {
-            const answer = btn.nextElementSibling;
-            const icon = btn.querySelector('i');
-            const isOpen = answer.style.display === 'block';
-
-            document.querySelectorAll('.faq-answer').forEach(el => el.style.display = 'none');
-            document.querySelectorAll('.faq-question i').forEach(el => el.className = 'fa-solid fa-chevron-down');
-
-            if (!isOpen) {
-                answer.style.display = 'block';
-                icon.className = 'fa-solid fa-chevron-up';
-            }
-        }
-
-        // زر العودة للأعلى
-        window.onscroll = function() {
-            const btn = document.getElementById('backToTop');
-            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-                btn.style.display = "block";
-            } else {
-                btn.style.display = "none";
-            }
-        };
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // معالجة وحفظ استمارة الاستفسارات في Firebase تحت مجموعة app_inquiries المتطابقة لديك
-        async function handleFormSubmit(event) {
-            event.preventDefault();
-            const submitBtn = document.getElementById('submitBtn');
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جاري إرسال الطلب سحابياً...';
-
-            const formData = {
-                fullname: document.getElementById('fullname').value.trim(),
-                email: document.getElementById('email').value.trim(),
-                phone: document.getElementById('phone').value.trim(),
-                serviceType: document.getElementById('governorate').value,
-                message: document.getElementById('proposal').value.trim(),
-                createdAt: serverTimestamp(),
-                date: new Date().toLocaleString('ar-EG')
-            };
-
-            try {
-                if (window.db && window.addDoc && window.collection) {
-                    // الحفظ في مجموعة app_inquiries الموجودة بالفعل في فايربيس لديك
-                    await window.addDoc(window.collection(window.db, "app_inquiries"), formData);
-                    
-                    let localData = JSON.parse(localStorage.getItem("giti_app_inquiries") || "[]");
-                    localData.push(formData);
-                    localStorage.setItem("giti_app_inquiries", JSON.stringify(localData));
-
-                    document.getElementById('forumForm').style.display = 'none';
-                    document.getElementById('successBox').style.display = 'block';
-                } else {
-                    throw new Error("قاعدة بيانات فايربيس غير متصلة.");
-                }
-            } catch (error) {
-                console.error("Firebase Sync Error:", error);
-                alert("❌ فشل الحفظ في قاعدة البيانات: " + error.message);
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = 'إرسال الطلب إلى فريق GITI';
-            }
-        }
-    </script>
+    <!-- ربط ملف الـ JavaScript الخارجي -->
+    <script src="app.js"></script>
 </body>
 </html>
