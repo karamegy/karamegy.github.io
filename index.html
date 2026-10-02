@@ -1,338 +1,337 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" data-theme="dark">
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <meta name="theme-color" content="#090d16">
-  <title>مدونة تكنولوجيا الأعمال وأنظمة الإدارة الحديثة | GITI Tech & Business OS</title>
-  <meta name="description" content="منصة متقدمة لأحدث المقالات التقنية، أنظمة تخطيط موارد المؤسسات (ERP)، حاسبات الأداء الذكية، وأمن البيانات وحلول التحول الرقمي للشركات." />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>مدونة تكنولوجيا الأعمال وأنظمة الإدارة الحديثة | GITI Tech & Business OS</title>
+    <meta name="description" content="منصة متقدمة لأحدث المقالات التقنية، أنظمة تخطيط موارد المؤسسات (ERP)، حاسبات الأداء الذكية، وأمن البيانات وحلول التحول الرقمي للشركات." />
 
-  <!-- بيانات هيكلية Schema.org لتقبلها جوجل كموقع إخباري/تقني موثوق -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "GITI Tech & Business OS",
-    "url": "https://aramegy.github.io/",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://aramegy.github.io/?q={search_term_string}",
-      "query-input": "required name=search_term_string"
+    <!-- بيانات هيكلية Schema.org -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "GITI Tech & Business OS",
+      "url": "https://aramegy.github.io/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://aramegy.github.io/?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
     }
-  }
-  </script>
+    </script>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
-  <link rel="icon" type="image/png" href="logo.png">
-  <link rel="apple-touch-icon" href="logo.png">
-  <link rel="stylesheet" href="style.css">
-  
-  <!-- أكواد إعلانات جوجل أدسنس الرسمية -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6651309355082807" crossorigin="anonymous"></script>
+    <!-- Google Fonts & Font Awesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="apple-touch-icon" href="logo.png">
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- إعلانات جوجل أدسنس -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6651309355082807" crossorigin="anonymous"></script>
 
-  <!-- سكربتات Firebase الأساسية للربط السحابي ومزامنة البيانات في المدونة -->
-  <script type="module">
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-      import { getFirestore, collection, getDocs, doc, setDoc, updateDoc, deleteDoc, onSnapshot, query, where, getDoc, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-      import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    <!-- ربط Firebase سحابياً -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getFirestore, collection, getDocs, doc, setDoc, updateDoc, deleteDoc, onSnapshot, query, where, getDoc, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+        import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-      const firebaseConfig = {
-          apiKey: "AIzaSyDTIxdIHfDaEH2wn7dEE9qMnsOlXtlSCI0",
-          authDomain: "omda-a750f.firebaseapp.com",
-          projectId: "omda-a750f",
-          storageBucket: "omda-a750f.firebasestorage.app",
-          messagingSenderId: "1078714497381",
-          appId: "1:1078714497381:web:074cbcf0d66c72a746898c",
-          measurementId: "G-P763CFS7GG"
-      };
+        const firebaseConfig = {
+            apiKey: "AIzaSyDTIxdIHfDaEH2wn7dEE9qMnsOlXtlSCI0",
+            authDomain: "omda-a750f.firebaseapp.com",
+            projectId: "omda-a750f",
+            storageBucket: "omda-a750f.firebasestorage.app",
+            messagingSenderId: "1078714497381",
+            appId: "1:1078714497381:web:074cbcf0d66c72a746898c",
+            measurementId: "G-P763CFS7GG"
+        };
 
-      const app = initializeApp(firebaseConfig);
-      const db = getFirestore(app);
-      const auth = getAuth(app);
-      const googleProvider = new GoogleAuthProvider();
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
 
-      window.db = db;
-      window.auth = auth;
-      window.firebaseModules = { collection, getDocs, doc, setDoc, updateDoc, deleteDoc, onSnapshot, query, where, getDoc, addDoc, serverTimestamp };
-
-      console.log("🔥 تم ربط المدونة بنجاح مع سحابة Firebase بشكل مستقل!");
-  </script>
+        window.db = db;
+        window.auth = auth;
+        window.firebaseModules = { collection, getDocs, doc, setDoc, updateDoc, deleteDoc, onSnapshot, query, where, getDoc, addDoc, serverTimestamp };
+    </script>
 </head>
 <body>
 
-  <!-- شريط التقدم أثناء القراءة العلوي -->
-  <div id="reading-progress"></div>
-
-  <!-- هيدر الموقع الاحترافي -->
-  <header class="app-header glass-nav">
-    <div class="brand-container">
-      <img src="logo.png" alt="GITI Logo" class="giti-header-logo">
-      <div>
-        <h1 style="font-size: 1.25rem; color: var(--accent); font-weight: 900;">GITI Tech & Business OS</h1>
-        <p class="subtitle">الموسوعة التقنية وأدوات إدارة الأعمال الذكية</p>
-      </div>
-    </div>
-    
-    <nav class="header-nav-links">
-      <a href="index.html" class="nav-link active">الرئيسية</a>
-      <a href="montda.html" class="nav-link" style="color: #f39c12; font-weight: bold;">🇪🇬 منتدى مصر</a>
-      <a href="#tools-section" class="nav-link">الأدوات الحاسبة</a>
-      <a href="tork.html" class="nav-link" style="color: var(--accent); font-weight: bold;">🔒 أمان وتطبيقات المنصة</a>
-      <a href="about.html" class="nav-link">من نحن</a>
-      <a href="contact.html" class="nav-link">اتصل بنا</a>
-      <a href="privacy.html" target="_blank" class="nav-link">سياسة الخصوصية</a>
-      <button id="theme-toggle-btn" class="btn-icon" title="تبديل المظهر">🌓</button>
-    </nav>
-  </header>
-
-  <div id="main-app">
-
-    <!-- إعلان علوي معتمد -->
-    <div class="giti-ad-wrapper">
-      <ins class="adsbygoogle"
-           style="display:block"
-           data-ad-client="ca-pub-6651309355082807"
-           data-ad-slot="1516733351"
-           data-ad-format="auto"
-           data-full-width-responsive="true"></ins>
-      <script>
-           (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
+    <!-- شريط الإخلاء القانوني -->
+    <div class="legal-disclaimer-bar">
+        ℹ <strong>تنويه إعلامي:</strong> هذه المنصة مبادرة إعلامية وتقنية مستقلة صدارة عن <strong>شبكة مدونة GITI</strong> لتقديم الحلول والأنظمة البرمجية.
     </div>
 
-    <!-- التخطيط الرئيسي للمدونة -->
-    <div class="blog-grid-layout">
-      
-      <!-- الشريط الجانبي للأقسام والتصفح (Sidebar) -->
-      <aside class="sidebar-categories">
-        <div class="card sidebar-card">
-          <h3 class="sidebar-title">📁 أقسام المنصة</h3>
-          <ul class="category-list">
-            <li><button onclick="filterCategory('all')" class="cat-btn active" data-cat="all">🌟 جميع المقالات</button></li>
-            <li><button onclick="filterCategory('erp')" class="cat-btn" data-cat="erp">💼 تكنولوجيا الشركات (ERP)</button></li>
-            <li><button onclick="filterCategory('logistics')" class="cat-btn" data-cat="logistics">🚚 الشحن والأنظمة اللوجستية</button></li>
-            <li><button onclick="filterCategory('security')" class="cat-btn" data-cat="security">🔒 أمن البيانات والسحابة</button></li>
-            <li><button onclick="filterCategory('web')" class="cat-btn" data-cat="web">💻 تطوير الويب والـ PWA</button></li>
-            <li><button onclick="filterCategory('ai')" class="cat-btn" data-cat="ai">🤖 الذكاء الاصطناعي والأتمتة</button></li>
-          </ul>
+    <!-- Top Bar العلوي -->
+    <div class="top-gov-bar">
+        <div class="social-icons">
+            <a href="https://facebook.com" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="https://instagram.com" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://youtube.com" target="_blank"><i class="fa-brands fa-youtube"></i></a>
         </div>
-
-        <!-- المقالات المحفوظة -->
-        <div class="card sidebar-card">
-          <h3 class="sidebar-title">🔖 مقالاتك المحفوظة</h3>
-          <div id="saved-bookmarks-list" style="font-size: 0.85rem; color: var(--text-muted);">
-            <p>لا توجد مقالات محفوظة حالياً.</p>
-          </div>
+        <div>
+            <a href="contact.html" class="contact-top-btn"><i class="fa-solid fa-envelope"></i> تواصل معنا</a>
         </div>
+    </div>
 
-        <!-- معايير الجودة وموثوقية الكاتب (E-E-A-T لرضا أدسنس) -->
-        <div class="card sidebar-card" style="border-right: 3px solid var(--accent);">
-          <h3 class="sidebar-title">🛡 معايير النشر والتوثيق</h3>
-          <p style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.6;">
-            يتم تدقيق كافة المقالات والدراسات التقنية بواسطة خبراء برمجيات وأمن معلومات لضمان دقة المعلومة وتقديم قيمة حقيقية للباحث العربي.
-          </p>
+    <!-- شريط الأخبار العاجلة المتحرك -->
+    <div class="news-ticker-container">
+        <div class="ticker-title">
+            <i class="fa-solid fa-bullhorn"></i> مستجدات
         </div>
-
-        <!-- النشرة البريدية -->
-        <div class="card sidebar-card">
-          <h3 class="sidebar-title">📬 النشرة البريدية الحصرية</h3>
-          <form onsubmit="event.preventDefault(); alert('✅ تم الاشتراك بنجاح في النشرة التقنية لـ GITI Tech!'); this.reset();" style="display: flex; flex-direction: column; gap: 8px;">
-            <input type="email" placeholder="بريدك الإلكتروني..." required style="font-size: 0.85rem; padding: 8px 12px; background: var(--input-bg); border: 1px solid var(--border-color); color: var(--text-main); border-radius: 8px;">
-            <button type="submit" class="btn-primary" style="font-size: 0.85rem; padding: 8px;">اشتراك فورى</button>
-          </form>
+        <div class="ticker-wrapper">
+            <div class="ticker-text">
+                🚀 إطلاق التحديث الجديد لمنصة GITI Tech & Business OS • أحدث مقالات التحول الرقمي وأدوات أتمتة الشركات • تغطية خاصة لمبادرات منتدى مصر 2026 وحلول الذكاء الاصطناعي.
+            </div>
         </div>
-      </aside>
+    </div>
 
-      <!-- القسم الرئيسي للمحتوى والأدوات -->
-      <main class="main-content-area">
+    <!-- الهيدر الرئيسي للمدونة -->
+    <header>
+        <div class="nav-container">
+            <div class="gov-branding">
+                <img src="logo.png" alt="GITI Logo" class="eagle-emblem-img" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/a/a6/Coat_of_arms_of_Egypt_%28official%29.svg'">
+                <div class="brand-text-box">
+                    <h2>GITI Tech & Business OS</h2>
+                    <p>الموسوعة التقنية وأدوات إدارة الأعمال الذكية</p>
+                </div>
+            </div>
+
+            <!-- زر القائمة الجانبية -->
+            <button class="menu-toggle-btn" onclick="toggleSidebar()">
+                <i class="fa-solid fa-bars"></i> القائمة الرئيسية
+            </button>
+        </div>
+    </header>
+
+    <!-- القائمة الجانبية المنسدلة (Sidebar Drawer) -->
+    <div id="sidebarOverlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
+    <div id="sideDrawer" class="sidebar-drawer">
+        <div class="sidebar-header">
+            <h3><i class="fa-solid fa-cube"></i> أقسام شبكة GITI</h3>
+            <button class="close-sidebar-btn" onclick="toggleSidebar()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="sidebar-links">
+            <a href="index.html" class="active"><i class="fa-solid fa-house"></i> الرئيسية والمدونة</a>
+            <a href="montda.html"><i class="fa-solid fa-landmark"></i> 🇪🇬 منتدى مصر 2026</a>
+            <a href="#tools-section" onclick="toggleSidebar()"><i class="fa-solid fa-calculator"></i> الحاسبة والأدوات</a>
+            <a href="tork.html"><i class="fa-solid fa-shield-halved"></i> أمان وتطبيقات المنصة</a>
+            <a href="about.html"><i class="fa-solid fa-circle-info"></i> من نحن</a>
+            <a href="contact.html"><i class="fa-solid fa-envelope"></i> اتصل بنا</a>
+            <a href="privacy.html" target="_blank"><i class="fa-solid fa-lock"></i> سياسة الخصوصية</a>
+        </div>
+    </div>
+
+    <!-- Hero Section الموحد -->
+    <section class="gov-hero-section">
+        <div class="hero-title-badge">GITI Tech & Business OS 2027</div>
         
-        <!-- بانر ترحيبي مميز -->
-        <section class="card hero-banner-card" style="margin-bottom: 20px; text-align: center; padding: 30px 20px;">
-          <h2 style="font-size: 1.5rem; margin-bottom: 8px; color: var(--accent);">بوابة التحول الرقمي وإدارة الأعمال الذكية 2027</h2>
-          <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.7;">
-            منصة متكاملة تركز على هندسة البرمجيات، أتمتة سلاسل الإمداد، وتوفير أدوات تفاعلية لدراسة جدوى أتمتة الشركات.
-          </p>
-          <!-- عداد تفاعلي لزيادة تفاعل الزوار -->
-          <div style="margin-top: 15px; display: flex; justify-content: center; gap: 20px; font-size: 0.85rem; color: var(--accent);">
-            <span>📊 المقالات المنشورة: 5 مقالات تخصصية</span>
-            <span>⚡ الأدوات المتاحة: حاسبة تخطيط موارد المؤسسات</span>
-          </div>
-        </section>
-
-        <!-- حاسبة تفاعلية متطورة -->
-        <section id="tools-section" class="card" style="margin-bottom: 20px; padding: 20px; border: 1px solid var(--accent);">
-          <h3 style="font-size: 1.1rem; color: var(--accent); margin-bottom: 10px;">🧮 الحاسبة الذكية: تقدير توفير نظام ERP لشركتك</h3>
-          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">أدخل عدد المعاملات الشهرية لمتجرك أو شركتك لتقدير نسبة تقليل الهدر المالي والوقتي:</p>
-          <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
-            <input type="number" id="calc-input" placeholder="عدد المعاملات الشهرية (مثال: 1000)" style="flex: 1; min-width: 200px; padding: 10px; background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-main); outline: none;">
-            <button onclick="calculateERPValue()" class="btn-primary" style="padding: 10px 20px;">احسب الآن</button>
-          </div>
-          <div id="calc-result" style="margin-top: 12px; font-weight: bold; font-size: 0.9rem; color: var(--accent);"></div>
-        </section>
-
-        <!-- حقل البحث الفوري -->
-        <div class="card" style="margin-bottom: 20px; padding: 12px;">
-          <input type="text" id="article-search" placeholder="🔍 ابحث في مئات المقالات والأدوات التقنية..." style="width: 100%; padding: 10px; background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-main); outline: none;">
+        <div class="president-speech">
+            <i class="fa-solid fa-quote-right quote-icon"></i>
+            بوابة التحول الرقمي وإدارة الأعمال الذكية — نضع بين يديك أحدث دراسات هندسة البرمجيات، أتمتة سلاسل الإمداد، وأدوات حساب الجدوى لتسهيل نمو المشاريع والمؤسسات في العصر الرقمي.
+            <i class="fa-solid fa-quote-left quote-icon"></i>
+            <div class="speech-author">منصة GITI الرقمية</div>
         </div>
 
-        <!-- قائمة المقالات الموسعة -->
-        <div id="articles-container" style="display: flex; flex-direction: column; gap: 20px;">
-          
-          <!-- المقال الأول -->
-          <article class="card article-item" data-category="erp" data-id="1">
-            <div class="article-meta-header">
-              <span class="badge badge-paid">تكنولوجيا الشركات</span>
-              <span class="reading-time">⏱️ وقت القراءة: 4 دقائق</span>
-            </div>
-            <h2>أهمية أنظمة تخطيط موارد المؤسسات (ERP) في إدارة المتاجر والشركات الناشئة</h2>
-            <p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 12px;">نشر بتاريخ: 28 سبتمبر 2026 • بواسطة فريق التحرير التقني</p>
-            <div class="article-body" style="font-size: 0.9rem; line-height: 1.8; color: var(--text-main);">
-              <p>تعتبر أنظمة تخطيط موارد المؤسسات المعروفة اختصاراً بـ (ERP) العصب الرئيسي لأي نشاط تجاري حديث يسعى نحو النمو والاستدامة. في الماضي كانت هذه الأنظمة حكراً على الشركات الكبرى والعملاقة نظراً لتكلفتها العالية وتعقيد برمجياتها. أما اليوم، ومع ثورة الحوسبة السحابية وتطبيقات الويب التقدمية (PWAs), أصبح بإمكان أصحاب المتاجر الصغيرة ومتوسطة الحجم إدارة مخازنهم وموظفيهم وحساباتهم بدقة متناهية...</p>
-            </div>
-            <div style="margin-top: 15px; display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap;">
-              <div style="display: flex; gap: 10px;">
-                <button onclick="openFullArticle('1')" class="btn-primary" style="font-size: 0.85rem; padding: 6px 14px;">📖 قراءة المقال كاملاً</button>
-                <button onclick="toggleBookmark('1')" style="background: var(--input-bg); border: 1px solid var(--border-color); padding: 6px 10px; border-radius: 8px; cursor: pointer; color: var(--text-main);" title="حفظ المقال">🔖 حفظ</button>
-              </div>
-              <span style="font-size: 0.8rem; color: var(--accent);">⭐ تقييم الزوار: 4.8 / 5</span>
-            </div>
-          </article>
-
-          <!-- المقال الثاني -->
-          <article class="card article-item" data-category="logistics" data-id="2">
-            <div class="article-meta-header">
-              <span class="badge badge-success">أنظمة لوجستية</span>
-              <span class="reading-time">⏱️ وقت القراءة: 5 دقائق</span>
-            </div>
-            <h2>كيف تطور نظام إدارة أساطيل الشحن وتتبع الشحنات الفوري (GPS Tracking)؟</h2>
-            <p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 12px;">نشر بتاريخ: 27 سبتمبر 2026 • بواسطة خبير الأنظمة اللوجستية</p>
-            <div class="article-body" style="font-size: 0.9rem; line-height: 1.8; color: var(--text-main);">
-              <p>تعتبر عمليات النقل وإدارة الأساطيل التحدي الأكبر لشركات التوزيع والتجارة الإلكترونية. يتيح دمج تقنيات التتبع الجغرافي اللحظي مع قواعد البيانات الموزعة مراقبة خطوط السير واستهلاك الوقود بدقة، مما يقلل تكاليف التشغيل بنسب تتجاوز 30% سنويًا...</p>
-            </div>
-            <div style="margin-top: 15px; display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap;">
-              <div style="display: flex; gap: 10px;">
-                <button onclick="openFullArticle('2')" class="btn-primary" style="font-size: 0.85rem; padding: 6px 14px;">📖 قراءة المقال كاملاً</button>
-                <button onclick="toggleBookmark('2')" style="background: var(--input-bg); border: 1px solid var(--border-color); padding: 6px 10px; border-radius: 8px; cursor: pointer; color: var(--text-main);" title="حفظ المقال">🔖 حفظ</button>
-              </div>
-              <span style="font-size: 0.8rem; color: var(--accent);">⭐ تقييم الزوار: 4.9 / 5</span>
-            </div>
-          </article>
-
-          <!-- المقال الثالث -->
-          <article class="card article-item" data-category="security" data-id="3">
-            <div class="article-meta-header">
-              <span class="badge badge-partial">أمن البيانات</span>
-              <span class="reading-time">⏱ وقت القراءة: 3 دقائق</span>
-            </div>
-            <h2>كيف تحمي بيانات عملك في السحابة وقواعد البيانات الموزعة؟</h2>
-            <p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 12px;">نشر بتاريخ: 25 سبتمبر 2026 • بواسطة مهندس أمن المعلومات</p>
-            <div class="article-body" style="font-size: 0.9rem; line-height: 1.8; color: var(--text-main);">
-              <p>مع الاعتماد المتزايد على التخزين السحابي وقواعد البيانات مثل Firebase، أصبح تأمين قواعد البيانات وتفعيل قواعد الصلاحيات الصارمة (Security Rules) أمراً لا غنى عنه لحماية السجلات المالية وحسابات العملاء من الاختراق...</p>
-            </div>
-            <div style="margin-top: 15px; display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap;">
-              <div style="display: flex; gap: 10px;">
-                <button onclick="openFullArticle('3')" class="btn-primary" style="font-size: 0.85rem; padding: 6px 14px;">📖 قراءة المقال كاملاً</button>
-                <button onclick="toggleBookmark('3')" style="background: var(--input-bg); border: 1px solid var(--border-color); padding: 6px 10px; border-radius: 8px; cursor: pointer; color: var(--text-main);" title="حفظ المقال">🔖 حفظ</button>
-              </div>
-              <span style="font-size: 0.8rem; color: var(--accent);">⭐ تقييم الزوار: 4.7 / 5</span>
-            </div>
-          </article>
-
-          <!-- المقال الرابع -->
-          <article class="card article-item" data-category="ai" data-id="4">
-            <div class="article-meta-header">
-              <span class="badge badge-paid">الذكاء الاصطناعي</span>
-              <span class="reading-time">⏱ وقت القراءة: 4 دقائق</span>
-            </div>
-            <h2>دور الذكاء الاصطناعي في أتمتة قراءة المستندات والفواتير عبر OCR</h2>
-            <p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 12px;">نشر بتاريخ: 24 سبتمبر 2026 • بواسطة خبير الذكاء الاصطناعي</p>
-            <div class="article-body" style="font-size: 0.9rem; line-height: 1.8; color: var(--text-main);">
-              <p>تشهد الأنظمة الحديثة اعتماداً متزايداً على تقنيات التعرف الضوئي على الحروف (OCR) المدعومة بالذكاء الاصطناعي لاستخراج البيانات من الفواتير وتذاكر الوزن والمستندات الورقية بدقة فائقة، مما يوفر ساعات طويلة من الإدخال اليدوي ويمنع الأخطاء البشرية...</p>
-            </div>
-            <div style="margin-top: 15px; display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap;">
-              <div style="display: flex; gap: 10px;">
-                <button onclick="openFullArticle('4')" class="btn-primary" style="font-size: 0.85rem; padding: 6px 14px;">📖 قراءة المقال كاملاً</button>
-                <button onclick="toggleBookmark('4')" style="background: var(--input-bg); border: 1px solid var(--border-color); padding: 6px 10px; border-radius: 8px; cursor: pointer; color: var(--text-main);" title="حفظ المقال">🔖 حفظ</button>
-              </div>
-              <span style="font-size: 0.8rem; color: var(--accent);">⭐ تقييم الزوار: 4.9 / 5</span>
-            </div>
-          </article>
-
-          <!-- المقال الخامس -->
-          <article class="card article-item" data-category="web" data-id="5">
-            <div class="article-meta-header">
-              <span class="badge badge-success">تطوير الويب</span>
-              <span class="reading-time">⏱️ وقت القراءة: 6 دقائق</span>
-            </div>
-            <h2>لماذا تتفوق تطبيقات الويب التقدمية (PWAs) على التطبيقات التقليدية في قطاع الأعمال؟</h2>
-            <p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 12px;">نشر بتاريخ: 22 سبتمبر 2026 • بواسطة مهندس الواجهات الأمامية</p>
-            <div class="article-body" style="font-size: 0.9rem; line-height: 1.8; color: var(--text-main);">
-              <p>تتيح تطبيقات الويب التقدمية (PWA) للمستخدمين تجربة شبيهة بالتطبيقات الأصلية مع ميزات العمل بدون إنترنت (Offline Mode)، وسرعة التحميل الفائقة، وإمكانية التثبيت مباشرة على سطح المكتب أو الهواتف الذكية دون الحاجة للمتاجر الكبرى...</p>
-            </div>
-            <div style="margin-top: 15px; display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap;">
-              <div style="display: flex; gap: 10px;">
-                <button onclick="openFullArticle('5')" class="btn-primary" style="font-size: 0.85rem; padding: 6px 14px;">📖 قراءة المقال كاملاً</button>
-                <button onclick="toggleBookmark('5')" style="background: var(--input-bg); border: 1px solid var(--border-color); padding: 6px 10px; border-radius: 8px; cursor: pointer; color: var(--text-main);" title="حفظ المقال">🔖 حفظ</button>
-              </div>
-              <span style="font-size: 0.8rem; color: var(--accent);">⭐ تقييم الزوار: 5.0 / 5</span>
-            </div>
-          </article>
-
+        <div class="gov-actions-container">
+            <a href="#articles-container" class="btn-gov-primary">
+                <span>تصفح المقالات التقنية</span>
+                <i class="fa-solid fa-newspaper"></i>
+            </a>
+            <a href="#tools-section" class="btn-gov-secondary">تجربة الحاسبة الذكية</a>
         </div>
-      </main>
+    </section>
 
+    <!-- عداد الإحصائيات -->
+    <section class="stats-section">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h4>+50</h4>
+                <p>دراسة تقنية ونظام إدارة</p>
+            </div>
+            <div class="stat-card">
+                <h4>100%</h4>
+                <p>حلول سحابية آمنة</p>
+            </div>
+            <div class="stat-card">
+                <h4>24/7</h4>
+                <p>مزامنة وقواعد بيانات Firebase</p>
+            </div>
+            <div class="stat-card">
+                <h4>PWA</h4>
+                <p>تطبيقات ويب تقدمية متطورة</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- المحتوى الرئيسي للمدونة -->
+    <div id="main-app" style="padding: 40px 20px;">
+        <div class="blog-grid-layout">
+            
+            <!-- الشريط الجانبي للأقسام -->
+            <aside class="sidebar-categories">
+                <div class="card sidebar-card">
+                    <h3 class="sidebar-title"><i class="fa-solid fa-folder-open"></i> أقسام المنصة</h3>
+                    <ul class="category-list">
+                        <li><button onclick="filterCategory('all')" class="cat-btn active" data-cat="all">🌟 جميع المقالات</button></li>
+                        <li><button onclick="filterCategory('erp')" class="cat-btn" data-cat="erp">💼 تكنولوجيا الشركات (ERP)</button></li>
+                        <li><button onclick="filterCategory('logistics')" class="cat-btn" data-cat="logistics">🚚 الشحن والأنظمة اللوجستية</button></li>
+                        <li><button onclick="filterCategory('security')" class="cat-btn" data-cat="security">🔒 أمن البيانات والسحابة</button></li>
+                        <li><button onclick="filterCategory('web')" class="cat-btn" data-cat="web">💻 تطوير الويب والـ PWA</button></li>
+                        <li><button onclick="filterCategory('ai')" class="cat-btn" data-cat="ai">🤖 الذكاء الاصطناعي والأتمتة</button></li>
+                    </ul>
+                </div>
+
+                <!-- المقالات المحفوظة -->
+                <div class="card sidebar-card">
+                    <h3 class="sidebar-title"><i class="fa-solid fa-bookmark"></i> المقالات المحفوظة</h3>
+                    <div id="saved-bookmarks-list" style="font-size: 0.85rem; color: #64748b;">
+                        <p>لا توجد مقالات محفوظة حالياً.</p>
+                    </div>
+                </div>
+
+                <!-- النشرة البريدية -->
+                <div class="card sidebar-card">
+                    <h3 class="sidebar-title"><i class="fa-solid fa-paper-plane"></i> النشرة البريدية</h3>
+                    <form onsubmit="event.preventDefault(); alert('✅ تم الاشتراك بنجاح في النشرة التقنية لـ GITI Tech!'); this.reset();" style="display: flex; flex-direction: column; gap: 10px;">
+                        <input type="email" placeholder="بريدك الإلكتروني..." required style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                        <button type="submit" class="submit-btn" style="padding: 10px; font-size: 0.9rem;">اشتراك فوري</button>
+                    </form>
+                </div>
+            </aside>
+
+            <!-- منطقة المقالات والأدوات -->
+            <main class="main-content-area">
+                
+                <!-- قسم الحاسبة الذكية -->
+                <section id="tools-section" class="card" style="margin-bottom: 25px; padding: 25px; border-top: 4px solid var(--gov-gold);">
+                    <h3 style="font-size: 1.2rem; color: var(--gov-blue-dark); margin-bottom: 10px; font-weight: 800;">
+                        <i class="fa-solid fa-calculator" style="color: var(--gov-gold);"></i> الحاسبة الذكية: تقدير توفير نظام ERP لشركتك
+                    </h3>
+                    <p style="font-size: 0.88rem; color: #64748b; margin-bottom: 15px;">أدخل عدد المعاملات الشهرية لمتجرك أو شركتك لتقدير نسبة تقليل الهدر المالي والوقتي:</p>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
+                        <input type="number" id="calc-input" placeholder="عدد المعاملات الشهرية (مثال: 1000)" style="flex: 1; min-width: 220px; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                        <button onclick="calculateERPValue()" class="submit-btn" style="width: auto; padding: 12px 25px;">احسب الآن</button>
+                    </div>
+                    <div id="calc-result" style="margin-top: 15px; font-weight: bold; font-size: 0.95rem; color: var(--gov-blue-dark);"></div>
+                </section>
+
+                <!-- البحث في المقالات -->
+                <div class="card" style="margin-bottom: 25px; padding: 15px;">
+                    <div style="position: relative;">
+                        <input type="text" id="article-search" placeholder="🔍 ابحث في المقالات والأدوات التقنية..." style="width: 100%; padding: 12px 15px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.95rem;">
+                    </div>
+                </div>
+
+                <!-- قائمة المقالات -->
+                <div id="articles-container" style="display: flex; flex-direction: column; gap: 20px;">
+                    
+                    <!-- مقال 1 -->
+                    <article class="card article-item" data-category="erp" data-id="1">
+                        <div class="article-meta-header">
+                            <span class="badge badge-paid">تكنولوجيا الشركات</span>
+                            <span class="reading-time"><i class="fa-regular fa-clock"></i> 4 دقائق</span>
+                        </div>
+                        <h2 style="font-size: 1.25rem; color: var(--gov-blue-dark); margin: 8px 0; font-weight: 800;">أهمية أنظمة تخطيط موارد المؤسسات (ERP) في إدارة المتاجر والشركات الناشئة</h2>
+                        <p style="color: #64748b; font-size: 0.8rem; margin-bottom: 12px;">نشر بتاريخ: 28 سبتمبر 2026 • بواسطة فريق التحرير التقني</p>
+                        <div class="article-body" style="font-size: 0.92rem; line-height: 1.8; color: var(--text-dark);">
+                            <p>تعتبر أنظمة تخطيط موارد المؤسسات (ERP) العصب الرئيسي لأي نشاط تجاري حديث يسعى نحو النمو والاستدامة. ومع ثورة الحوسبة السحابية وتطبيقات الويب التقدمية (PWAs), أصبح بإمكان أصحاب المتاجر إدارة مخازنهم وموظفيهم وحساباتهم بدقة متناهية...</p>
+                        </div>
+                        <div style="margin-top: 15px; display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap; border-top: 1px dashed #e2e8f0; padding-top: 12px;">
+                            <div style="display: flex; gap: 10px;">
+                                <button onclick="openFullArticle('1')" class="submit-btn" style="width: auto; padding: 8px 18px; font-size: 0.85rem;">قراءة المقال كاملاً</button>
+                                <button onclick="toggleBookmark('1')" style="background: #f1f5f9; border: 1px solid #cbd5e1; padding: 8px 12px; border-radius: 6px; cursor: pointer;" title="حفظ المقال">🔖 حفظ</button>
+                            </div>
+                            <span style="font-size: 0.8rem; color: var(--gov-gold); font-weight: 700;">⭐ 4.8 / 5</span>
+                        </div>
+                    </article>
+
+                    <!-- مقال 2 -->
+                    <article class="card article-item" data-category="logistics" data-id="2">
+                        <div class="article-meta-header">
+                            <span class="badge badge-success">أنظمة لوجستية</span>
+                            <span class="reading-time"><i class="fa-regular fa-clock"></i> 5 دقائق</span>
+                        </div>
+                        <h2 style="font-size: 1.25rem; color: var(--gov-blue-dark); margin: 8px 0; font-weight: 800;">كيف تطور نظام إدارة أساطيل الشحن وتتبع الشحنات الفوري (GPS Tracking)؟</h2>
+                        <p style="color: #64748b; font-size: 0.8rem; margin-bottom: 12px;">نشر بتاريخ: 27 سبتمبر 2026 • بواسطة خبير الأنظمة اللوجستية</p>
+                        <div class="article-body" style="font-size: 0.92rem; line-height: 1.8; color: var(--text-dark);">
+                            <p>تعتبر عمليات النقل وإدارة الأساطيل التحدي الأكبر لشركات التوزيع والتجارة الإلكترونية. يتيح دمج تقنيات التتبع الجغرافي اللحظي مع قواعد البيانات الموزعة مراقبة خطوط السير واستهلاك الوقود بدقة...</p>
+                        </div>
+                        <div style="margin-top: 15px; display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap; border-top: 1px dashed #e2e8f0; padding-top: 12px;">
+                            <div style="display: flex; gap: 10px;">
+                                <button onclick="openFullArticle('2')" class="submit-btn" style="width: auto; padding: 8px 18px; font-size: 0.85rem;">قراءة المقال كاملاً</button>
+                                <button onclick="toggleBookmark('2')" style="background: #f1f5f9; border: 1px solid #cbd5e1; padding: 8px 12px; border-radius: 6px; cursor: pointer;" title="حفظ المقال">🔖 حفظ</button>
+                            </div>
+                            <span style="font-size: 0.8rem; color: var(--gov-gold); font-weight: 700;">⭐ 4.9 / 5</span>
+                        </div>
+                    </article>
+
+                    <!-- مقال 3 -->
+                    <article class="card article-item" data-category="security" data-id="3">
+                        <div class="article-meta-header">
+                            <span class="badge badge-partial">أمن البيانات</span>
+                            <span class="reading-time"><i class="fa-regular fa-clock"></i> 3 دقائق</span>
+                        </div>
+                        <h2 style="font-size: 1.25rem; color: var(--gov-blue-dark); margin: 8px 0; font-weight: 800;">كيف تحمي بيانات عملك في السحابة وقواعد البيانات الموزعة؟</h2>
+                        <p style="color: #64748b; font-size: 0.8rem; margin-bottom: 12px;">نشر بتاريخ: 25 سبتمبر 2026 • بواسطة مهندس أمن المعلومات</p>
+                        <div class="article-body" style="font-size: 0.92rem; line-height: 1.8; color: var(--text-dark);">
+                            <p>مع الاعتماد المتزايد على التخزين السحابي وقواعد البيانات الموزعة مثل Firebase، أصبح تأمين قواعد البيانات وتفعيل قواعد الصلاحيات الصارمة (Security Rules) أمراً لا غنى عنه لحماية البيانات...</p>
+                        </div>
+                        <div style="margin-top: 15px; display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap; border-top: 1px dashed #e2e8f0; padding-top: 12px;">
+                            <div style="display: flex; gap: 10px;">
+                                <button onclick="openFullArticle('3')" class="submit-btn" style="width: auto; padding: 8px 18px; font-size: 0.85rem;">قراءة المقال كاملاً</button>
+                                <button onclick="toggleBookmark('3')" style="background: #f1f5f9; border: 1px solid #cbd5e1; padding: 8px 12px; border-radius: 6px; cursor: pointer;" title="حفظ المقال">🔖 حفظ</button>
+                            </div>
+                            <span style="font-size: 0.8rem; color: var(--gov-gold); font-weight: 700;">⭐ 4.7 / 5</span>
+                        </div>
+                    </article>
+
+                </div>
+            </main>
+        </div>
     </div>
 
-    <!-- نافذة منبثقة لعرض المقال كاملاً مع نظام التقييم التفاعلي والتعليقات -->
-    <div id="article-modal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 9999; overflow-y: auto; padding: 20px;">
-      <div class="card" style="max-width: 800px; margin: 40px auto; position: relative; padding: 30px;">
-        <button onclick="closeFullArticle()" style="position: absolute; top: 15px; left: 15px; background: var(--accent); color: #fff; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold;">✕ إغلاق</button>
-        <div id="modal-content-area"></div>
-        
-        <!-- نظام تقييم المقال بالنجوم -->
-        <div style="margin-top: 25px; padding: 15px; background: var(--input-bg); border-radius: 10px; border: 1px solid var(--border-color); text-align: center;">
-          <p style="font-size: 0.9rem; margin-bottom: 8px; font-weight: bold; color: var(--accent);">هل كان هذا المقال مفيداً لك؟ قيّمه الآن:</p>
-          <div id="rating-stars" style="font-size: 1.5rem; cursor: pointer; letter-spacing: 5px;">
-            <span onclick="rateArticle(1)">⭐</span>
-            <span onclick="rateArticle(2)">⭐</span>
-            <span onclick="rateArticle(3)">⭐</span>
-            <span onclick="rateArticle(4)">⭐</span>
-            <span onclick="rateArticle(5)">⭐</span>
-          </div>
-          <p id="rating-feedback" style="font-size: 0.8rem; color: var(--text-muted); margin-top: 5px;"></p>
-        </div>
+    <!-- النافذة المنبثقة للتعليقات والمقال الكامل -->
+    <div id="article-modal" style="display: none; position: fixed; inset: 0; background: rgba(11, 34, 56, 0.85); backdrop-filter: blur(5px); z-index: 9999; overflow-y: auto; padding: 20px;">
+        <div class="card" style="max-width: 800px; margin: 40px auto; position: relative; padding: 30px; border-top: 5px solid var(--gov-gold);">
+            <button onclick="closeFullArticle()" style="position: absolute; top: 15px; left: 15px; background: var(--primary-red); color: #fff; border: none; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-weight: bold;">✕ إغلاق</button>
+            <div id="modal-content-area"></div>
+            
+            <!-- تقييم المقال -->
+            <div style="margin-top: 25px; padding: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0; text-align: center;">
+                <p style="font-size: 0.9rem; margin-bottom: 8px; font-weight: bold; color: var(--gov-blue-dark);">هل كان هذا المقال مفيداً لك؟ قيّمه الآن:</p>
+                <div id="rating-stars" style="font-size: 1.5rem; cursor: pointer; color: var(--gov-gold);">
+                    <span onclick="rateArticle(1)">⭐</span>
+                    <span onclick="rateArticle(2)">⭐</span>
+                    <span onclick="rateArticle(3)">⭐</span>
+                    <span onclick="rateArticle(4)">⭐</span>
+                    <span onclick="rateArticle(5)">⭐</span>
+                </div>
+                <p id="rating-feedback" style="font-size: 0.8rem; color: #64748b; margin-top: 5px;"></p>
+            </div>
 
-        <!-- قسم التفاعل والتعليقات الحية السحابية -->
-        <div style="margin-top: 30px; border-top: 1px solid var(--border-color); padding-top: 20px;">
-          <h4 style="margin-bottom: 10px; color: var(--accent);">💬 تعليقات الزوار والنقاشات</h4>
-          <div id="comments-list" style="margin-bottom: 15px; font-size: 0.85rem; color: var(--text-muted);">جاري تحميل التعليقات...</div>
-          <form onsubmit="addCommentToFirebase(event)" style="display: flex; flex-direction: column; gap: 10px;">
-            <input type="text" id="comment-author" placeholder="اسمك الكريم..." required style="padding: 8px; background: var(--input-bg); border: 1px solid var(--border-color); color: var(--text-main); border-radius: 6px; outline: none;">
-            <textarea id="comment-text" placeholder="اكتب تعليقك أو استفسارك التقني هنا..." required rows="3" style="padding: 8px; background: var(--input-bg); border: 1px solid var(--border-color); color: var(--text-main); border-radius: 6px; outline: none;"></textarea>
-            <button type="submit" class="btn-primary" style="padding: 8px;">إرسال التعليق سحابياً</button>
-          </form>
+            <!-- التعليقات السحابية -->
+            <div style="margin-top: 30px; border-top: 1px solid #e2e8f0; padding-top: 20px;">
+                <h4 style="margin-bottom: 12px; color: var(--gov-blue-dark); font-weight: 800;"><i class="fa-solid fa-comments"></i> تعليقات الزوار والنقاشات</h4>
+                <div id="comments-list" style="margin-bottom: 15px; font-size: 0.88rem; color: #64748b;">جاري تحميل التعليقات...</div>
+                <form onsubmit="addCommentToFirebase(event)" style="display: flex; flex-direction: column; gap: 10px;">
+                    <input type="text" id="comment-author" placeholder="اسمك الكريم..." required style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                    <textarea id="comment-text" placeholder="اكتب تعليقك هنا..." required rows="3" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;"></textarea>
+                    <button type="submit" class="submit-btn">إرسال التعليق</button>
+                </form>
+            </div>
         </div>
-      </div>
     </div>
 
-    <!-- فوتر الموقع -->
-    <footer style="margin-top: 40px; padding: 25px 0; text-align: center; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 0.85rem;">
-      <p>جميع الحقوق محفوظة © 2027 GITI Tech & Business OS</p>
-      <div style="margin-top: 12px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
-        <a href="montda.html" style="color: #f39c12; text-decoration: none; font-weight: 700;">🇪🇬 منتدى مصر</a>
-        <a href="tork.html" style="color: var(--accent); text-decoration: none; font-weight: 700;">🔒 أمان وتطبيقات المنصة</a>
-        <a href="about.html" style="color: var(--accent); text-decoration: none; font-weight: 700;">من نحن</a>
-        <a href="contact.html" style="color: var(--accent); text-decoration: none; font-weight: 700;">اتصل بنا</a>
-        <a href="privacy.html" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: 700;">سياسة الخصوصية</a>
-      </div>
+    <!-- Footer -->
+    <footer>
+        <p>جميع الحقوق محفوظة &copy; 2027 — GITI Tech & Business OS | <a href="montda.html">🇪🇬 منتدى مصر 2026</a></p>
     </footer>
 
-  </div>
-
-  <script src="app.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
