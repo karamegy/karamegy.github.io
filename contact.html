@@ -201,7 +201,7 @@
       </div>
   </div>
 
-  <!-- Hero Section (مع الشعار الخاص بك كعلامة مائية) -->
+  <!-- Hero Section -->
   <section class="gov-hero-section">
       <div class="hero-title-badge">مركز الدعم والتواصل المباشر</div>
       
@@ -324,7 +324,7 @@
         document.getElementById('contact-form').reset();
         document.getElementById('char-count').innerText = '0';
         showContactAlert('✅ شكراً لك! تم إرسال رسالتك بنجاح وحفظها في السحابة.', '#15803d', '#dcfce7');
-      } cain-catch (err) {
+      } catch (err) {
         console.error("Contact Error:", err);
         showContactAlert('❌ تعسّر الحفظ بالسحابة. تأكد من إعدادات قواعد أمان Firebase (Firestore Rules).', '#b91c1c', '#fee2e2');
       } finally {
