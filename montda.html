@@ -152,9 +152,10 @@
             gap: 12px;
         }
 
-        .eagle-emblem-svg {
+        .eagle-emblem-img {
             height: 52px;
             width: auto;
+            object-fit: contain;
             display: block;
         }
 
@@ -684,7 +685,7 @@
 
     <!-- شريط الإخلاء القانوني لمنع المساءلة -->
     <div class="legal-disclaimer-bar">
-        ℹ️️ <strong>تنويه إعلامي:</strong> هذه الصفحة مبادرة إعلامية شبابية مستقلة صادرة عن <strong>مدونة GITI</strong> لتشجيع الشباب ومشاركة مقترحاتهم، ولا نُمثل أي جهة حكومية رسمية.
+        ℹ <strong>تنويه إعلامي:</strong> هذه الصفحة مبادرة إعلامية شبابية مستقلة صادرة عن <strong>مدونة GITI</strong> لتشجيع الشباب ومشاركة مقترحاتهم، ولا نُمثل أي جهة حكومية رسمية.
     </div>
 
     <!-- Top Bar الحكومي -->
@@ -711,19 +712,14 @@
         </div>
     </div>
 
-    <!-- Header Navigation متضمن النسر الجرافيكي المباشر المضمن داخل الكود وبصمة لوجو مدونة GITI -->
+    <!-- Header Navigation متضمن شعار الجمهورية الحقيقي وبصمة لوجو مدونة GITI -->
     <header>
         <div class="nav-container">
             <div class="gov-branding">
-                <!-- نسر شعار جمهورية مصر العربية مضمن كـ SVG (مضمون الظهور الفوري) بدون alt متسبب للمشاكل -->
-                <svg class="eagle-emblem-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M50 8 L60 22 L76 18 L70 34 L88 38 L76 50 L90 62 L72 66 L78 84 L60 76 L50 92 L40 76 L22 84 L28 66 L10 62 L24 50 L12 38 L30 34 L24 18 L40 22 Z" fill="#D4AF37" stroke="#0B2238" stroke-width="2.5"/>
-                    <rect x="36" y="38" width="28" height="28" fill="#FFFFFF" stroke="#0B2238" stroke-width="1.5"/>
-                    <rect x="36" y="38" width="9.3" height="28" fill="#C0392B"/>
-                    <rect x="45.3" y="38" width="9.3" height="28" fill="#FFFFFF"/>
-                    <rect x="54.6" y="38" width="9.3" height="28" fill="#1E293B"/>
-                    <path d="M30 76 Q50 86 70 76 L66 84 Q50 90 34 84 Z" fill="#D4AF37" stroke="#0B2238" stroke-width="1"/>
-                </svg>
+                <!-- شعار جمهورية مصر العربية الرسمي الحقيقي (نسر صلاح الدين) -->
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Coat_of_arms_of_Egypt_%28official%29.svg" 
+                     alt="" 
+                     class="eagle-emblem-img">
                 <div class="brand-text-box">
                     <h2>جمهورية مصر العربية</h2>
                     <p>المبادرة الرئاسية للشباب</p>
