@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" data-theme="dark">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <meta name="theme-color" content="#090d16">
-  <title>سياسة الخصوصية | GITI Tech & Business</title>
+  <title>سياسة الخصوصية | GITI Tech & Business OS</title>
   <meta name="description" content="تعرّف على سياسة الخصوصية وكيفية حماية بيانات زوار منصة GITI Tech والشروط المتعلقة بإعلانات جوجل أدسنس." />
   
+  <!-- Google Fonts & Font Awesome -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <link rel="icon" type="image/png" href="logo.png">
   <link rel="apple-touch-icon" href="logo.png">
@@ -17,70 +18,135 @@
 </head>
 <body>
 
-  <!-- هيدر الموقع الاحترافي -->
-  <header class="app-header glass-nav">
-    <div class="brand-container">
-      <img src="logo.png" alt="GITI Logo" class="giti-header-logo">
-      <div>
-        <h1 style="font-size: 1.25rem; color: var(--accent); font-weight: 900;">GITI Tech & Business</h1>
-        <p class="subtitle">الموسوعة التقنية لإدارة الأعمال والتحول الرقمي</p>
+  <!-- شريط الإخلاء القانوني -->
+  <div class="legal-disclaimer-bar">
+      ℹ <strong>تنويه إعلامي:</strong> هذه المنصة مبادرة إعلامية وتقنية مستقلة صدارة عن <strong>شبكة مدونة GITI</strong> لتقديم الحلول والأنظمة البرمجية.
+  </div>
+
+  <!-- Top Bar العلوي -->
+  <div class="top-gov-bar">
+      <div class="social-icons">
+          <a href="https://facebook.com/smaregy" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://instagram.com" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://youtube.com" target="_blank"><i class="fa-brands fa-youtube"></i></a>
       </div>
-    </div>
-    
-    <nav class="header-nav-links">
-      <a href="index.html" class="nav-link">الرئيسية</a>
-      <a href="about.html" class="nav-link">من نحن</a>
-      <a href="contact.html" class="nav-link">اتصل بنا</a>
-      <a href="privacy.html" class="nav-link active">سياسة الخصوصية</a>
-    </nav>
+      <div>
+          <a href="contact.html" class="contact-top-btn"><i class="fa-solid fa-envelope"></i> تواصل معنا</a>
+      </div>
+  </div>
+
+  <!-- شريط الأخبار المتحرك -->
+  <div class="news-ticker-container">
+      <div class="ticker-title">
+          <i class="fa-solid fa-shield-halved"></i> الخصوصية والأمان
+      </div>
+      <div class="ticker-wrapper">
+          <div class="ticker-text">
+              🔒 نلتزم في منصة GITI Tech & Business OS بحماية خصوصية بيانات جميع الزوار واتباع معايير الأمان المعتمدة.
+          </div>
+      </div>
+  </div>
+
+  <!-- الهيدر الرئيسي بشعار GITI فقط -->
+  <header>
+      <div class="nav-container">
+          <div class="gov-branding">
+              <img src="logo.png" alt="GITI Logo" class="eagle-emblem-img">
+              <div class="brand-text-box">
+                  <h2>GITI Tech & Business OS</h2>
+                  <p>الموسوعة التقنية وأدوات إدارة الأعمال الذكية</p>
+              </div>
+          </div>
+
+          <button class="menu-toggle-btn" onclick="toggleSidebar()">
+              <i class="fa-solid fa-bars"></i> القائمة الرئيسية
+          </button>
+      </div>
   </header>
 
-  <div id="main-app" style="max-width: 900px; margin: 20px auto; padding: 0 15px;">
-    
-    <section class="card" style="padding: 30px;">
-      <span class="badge badge-paid" style="margin-bottom: 12px; display: inline-block;">السياسات القانونية</span>
-      <h2 style="font-size: 1.6rem; margin-bottom: 15px; color: var(--accent);">سياسة الخصوصية لموقع GITI Tech</h2>
+  <!-- القائمة الجانبية (Sidebar Drawer) -->
+  <div id="sidebarOverlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
+  <div id="sideDrawer" class="sidebar-drawer">
+      <div class="sidebar-header">
+          <h3><i class="fa-solid fa-cube"></i> أقسام شبكة GITI</h3>
+          <button class="close-sidebar-btn" onclick="toggleSidebar()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="sidebar-links">
+          <a href="index.html"><i class="fa-solid fa-house"></i> الرئيسية والمدونة</a>
+          <a href="montda.html"><i class="fa-solid fa-landmark"></i> 🇪🇬 منتدى مصر 2026</a>
+          <a href="index.html#tools-section"><i class="fa-solid fa-calculator"></i> الحاسبة والأدوات</a>
+          <a href="tork.html"><i class="fa-solid fa-shield-halved"></i> أمان وتطبيقات المنصة</a>
+          <a href="about.html"><i class="fa-solid fa-circle-info"></i> من نحن</a>
+          <a href="contact.html"><i class="fa-solid fa-envelope"></i> اتصل بنا</a>
+          <a href="privacy.html" class="active"><i class="fa-solid fa-lock"></i> سياسة الخصوصية</a>
+      </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="gov-hero-section">
+      <div class="hero-title-badge">سياسة الخصوصية وحماية البيانات</div>
       
-      <p style="line-height: 1.9; font-size: 0.95rem; margin-bottom: 16px; color: var(--text-main);">
-        تعد خصوصية زوارنا في موقع <strong>GITI Tech & Business</strong> ذات أهمية بالغة بالنسبة لنا. توضح وثيقة سياسة الخصوصية هذه أنواع المعلومات الشخصية التي يتم جمعها وكيفية استخدامها وحمايتها.
+      <div class="president-speech">
+          <i class="fa-solid fa-quote-right quote-icon"></i>
+          خصوصية بيانات زوارنا وأمان مشاركاتهم هي أولويتنا المطبقة دائماً في كافة خدمات وتطبيقات شبكة GITI.
+          <i class="fa-solid fa-quote-left quote-icon"></i>
+          <div class="speech-author">GITI Tech Team</div>
+      </div>
+  </section>
+
+  <!-- محتوى الصفحة الرئيسي -->
+  <div style="max-width: 850px; margin: 40px auto; padding: 0 20px;">
+    
+    <section class="card" style="padding: 35px; border-top: 5px solid var(--gov-gold);">
+      <span class="badge badge-paid" style="margin-bottom: 15px;">السياسات القانونية</span>
+      <h2 style="font-size: 1.6rem; margin-bottom: 20px; color: var(--gov-blue-dark); font-weight: 800;">
+          <i class="fa-solid fa-user-shield" style="color: var(--gov-gold);"></i> سياسة الخصوصية لموقع GITI Tech
+      </h2>
+      
+      <p style="line-height: 1.9; font-size: 0.95rem; margin-bottom: 18px; color: var(--text-dark);">
+        تعد خصوصية زوارنا في موقع <strong>GITI Tech & Business OS</strong> ذات أهمية بالغة بالنسبة لنا. توضح وثيقة سياسة الخصوصية هذه أنواع المعلومات الشخصية التي يتم جمعها وكيفية استخدامها وحمايتها.
       </p>
 
-      <h3 style="font-size: 1.2rem; margin: 20px 0 10px; color: var(--text-main);">1. ملفات تعريف الارتباط (Cookies) وشبكات إعلانات جوجل (Google AdSense):</h3>
-      <p style="line-height: 1.9; font-size: 0.95rem; margin-bottom: 16px; color: var(--text-muted);">
+      <h3 style="font-size: 1.2rem; margin: 25px 0 10px; color: var(--gov-blue-dark); font-weight: 800;">
+        1. ملفات تعريف الارتباط (Cookies) وشبكات إعلانات جوجل (Google AdSense):
+      </h3>
+      <p style="line-height: 1.9; font-size: 0.95rem; margin-bottom: 16px; color: #475569;">
         نحن نستخدم شركات إعلانية خارجية مثل <strong>Google AdSense</strong> لعرض الإعلانات عندما تزور موقعنا الإلكتروني. قد تستخدم هذه الشركات معلومات حول زياراتك لهذا الموقع ومواقع الويب الأخرى (باستثناء الاسم، العنوان، البريد الإلكتروني، أو رقم الهاتف) من أجل تقديم إعلانات حول السلع والخدمات التي تهمك.
       </p>
-      <ul style="list-style-type: disc; padding-right: 20px; line-height: 1.8; color: var(--text-muted); margin-bottom: 16px;">
-        <li>استخدام Google لملفات تعريف الارتباط (DoubleClick Cookie) يمكنها من عرض الإعلانات للمستخدمين بناءً على زيارتهم لموقعنا ومواقع أخرى على الإنترنت.</li>
-        <li>يمكن للمستخدمين إلغاء استخدام ملف تعريف الارتباط الخاص بـ DART عن طريق زيارة سياسة الخصوصية الخاصة بإعلانات جوجل ومحتوى شبكة البيانات.</li>
+      <ul style="list-style-type: none; padding-right: 10px; line-height: 2; color: #475569; margin-bottom: 20px;">
+        <li style="margin-bottom: 8px;"><i class="fa-solid fa-check" style="color: var(--gov-gold); margin-left: 8px;"></i> استخدام Google لملفات تعريف الارتباط (DoubleClick Cookie) يمكنها من عرض الإعلانات للمستخدمين بناءً على زيارتهم لموقعنا ومواقع أخرى على الإنترنت.</li>
+        <li style="margin-bottom: 8px;"><i class="fa-solid fa-check" style="color: var(--gov-gold); margin-left: 8px;"></i> يمكن للمستخدمين إلغاء استخدام ملف تعريف الارتباط الخاص بـ DART عن طريق زيارة سياسة الخصوصية الخاصة بإعلانات جوجل ومحتوى شبكة البيانات.</li>
       </ul>
 
-      <h3 style="font-size: 1.2rem; margin: 20px 0 10px; color: var(--text-main);">2. ملفات السجل (Log Files):</h3>
-      <p style="line-height: 1.9; font-size: 0.95rem; margin-bottom: 16px; color: var(--text-muted);">
-        مثل معظم أجهزة مواقع الويب، يستخدم موقع GITI Tech ملفات السجل. تتضمن هذه المعلومات عناوين بروتوكول الإنترنت (IP)، نوع المتصفح، مزود الخدمة الإنترنت، التاريخ والوقت، وصفحات الإحالة/الخروج، وعدد النقرات لتحليل Trends وتدارة الموقع وتتبع حركة المستخدمين.
+      <h3 style="font-size: 1.2rem; margin: 25px 0 10px; color: var(--gov-blue-dark); font-weight: 800;">
+        2. ملفات السجل (Log Files):
+      </h3>
+      <p style="line-height: 1.9; font-size: 0.95rem; margin-bottom: 18px; color: #475569;">
+        مثل معظم أجهزة مواقع الويب، يستخدم موقع GITI Tech ملفات السجل. تتضمن هذه المعلومات عناوين بروتوكول الإنترنت (IP)، نوع المتصفح، مزود الخدمة الإنترنت، التاريخ والوقت، وصفحات الإحالة/الخروج، وعدد النقرات لتحليل الأداء وإدارة الموقع.
       </p>
 
-      <h3 style="font-size: 1.2rem; margin: 20px 0 10px; color: var(--text-main);">3. الروابط مع المواقع الخارجية:</h3>
-      <p style="line-height: 1.9; font-size: 0.95rem; margin-bottom: 16px; color: var(--text-muted);">
-        قد يحتوي موقعنا على روابط لمواقع أخرى. نحن لست مسؤولين عن ممارسات الخصوصية الخاصة بتلك المواقع، وننصحك بقراءة سياسة الخصوصية الخاصة بكل موقع إلكتروني تزياره.
+      <h3 style="font-size: 1.2rem; margin: 25px 0 10px; color: var(--gov-blue-dark); font-weight: 800;">
+        3. الروابط مع المواقع الخارجية:
+      </h3>
+      <p style="line-height: 1.9; font-size: 0.95rem; margin-bottom: 18px; color: #475569;">
+        قد يحتوي موقعنا على روابط لمواقع أخرى. نحن لسنا مسؤولين عن ممارسات الخصوصية الخاصة بتلك المواقع، وننصحك بقراءة سياسة الخصوصية الخاصة بكل موقع إلكتروني تقوم بزيارته.
       </p>
 
-      <h3 style="font-size: 1.2rem; margin: 20px 0 10px; color: var(--text-main);">4. موافقتك على السياسة:</h3>
-      <p style="line-height: 1.9; font-size: 0.95rem; color: var(--text-main);">
-        باستخدامك لموقعنا، فإنك توافق على سياسة الخصوصية الخاصة بنا وتوافق على شروطها. إذا كان لديك أي استفسار، يمكنك مراسلتنا مباشرة عبر صفحة <a href="contact.html" style="color: var(--accent); text-decoration: none; font-weight: 700;">اتصل بنا</a>.
+      <h3 style="font-size: 1.2rem; margin: 25px 0 10px; color: var(--gov-blue-dark); font-weight: 800;">
+        4. موافقتك على السياسة:
+      </h3>
+      <p style="line-height: 1.9; font-size: 0.95rem; color: var(--text-dark);">
+        باستخدامك لموقعنا، فإنك توافق على سياسة الخصوصية الخاصة بنا وتوافق على شروطها. إذا كان لديك أي استفسار، يمكنك مراسلتنا مباشرة عبر صفحة <a href="contact.html" style="color: var(--gov-blue-dark); font-weight: 800; text-decoration: underline;">اتصل بنا</a>.
       </p>
     </section>
 
-    <!-- فوتر الموقع -->
-    <footer style="margin-top: 40px; padding: 25px 0; text-align: center; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 0.85rem;">
-      <p>جميع الحقوق محفوظة © 2027 GITI Tech & Business</p>
-      <div style="margin-top: 12px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
-        <a href="index.html" style="color: var(--accent); text-decoration: none; font-weight: 700;">الرئيسية</a>
-        <a href="about.html" style="color: var(--accent); text-decoration: none; font-weight: 700;">من نحن</a>
-        <a href="contact.html" style="color: var(--accent); text-decoration: none; font-weight: 700;">اتصل بنا</a>
-      </div>
-    </footer>
-
   </div>
 
+  <!-- Footer -->
+  <footer>
+      <p>جميع الحقوق محفوظة &copy; 2027 — GITI Tech & Business OS | <a href="index.html">الرئيسية</a></p>
+  </footer>
+
+  <script src="app.js"></script>
 </body>
 </html>
