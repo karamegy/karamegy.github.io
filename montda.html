@@ -2,12 +2,12 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>منتدى مصر 2026 - تغطية شبكة GITI الشبابية</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>منتدى مصر 2026 - التغطية الإعلامية والمقترحات الشبابية | GITI Tech</title>
     
     <!-- وسوم المعاينة الاجتماعية (Open Graph) لمشاركة الرابط -->
-    <meta property="og:title" content="منتدى مصر 2026 - تغطية شبكة GITI الشبابية">
-    <meta property="og:description" content="بوابة التسجيل ومشاركة المقترحات وكروت الدعوات الشخصية لمنتدى مصر 2026 برعاية رئاسية ومبادرة GITI.">
+    <meta property="og:title" content="منتدى مصر 2026 - التغطية الإعلامية والمقترحات الشبابية | GITI Tech">
+    <meta property="og:description" content="تغطية إعلامية مستقلة ومساحة لمشاركة المقترحات وكروت الدعوات الإبداعية لمنتدى مصر 2026 عبر شبكة GITI.">
     <meta property="og:image" content="https://sis.gov.eg/media/833992/%D9%85%D9%86%D8%AA%D8%AF%D9%89-%D9%85%D8%B5%D8%B1-2026.jpg">
     <meta property="og:url" content="https://karamegy.github.io/montda">
     <meta property="og:type" content="website">
@@ -16,6 +16,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts - Cairo -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="apple-touch-icon" href="logo.png">
+    <link rel="stylesheet" href="style.css">
     
     <!-- كود إعلانات جوجل أدسنس التلقائية (Auto Ads) -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6651309355082807" crossorigin="anonymous"></script>
@@ -46,16 +50,43 @@
             background-color: var(--bg-light);
             color: var(--text-dark);
             line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* شعار GITI متحرك كعلامة مائية ثلاثية الأبعاد في الخلفية */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1);
+            width: 70vw;
+            height: 70vw;
+            max-width: 550px;
+            max-height: 550px;
+            background: url('logo.png') center/contain no-repeat;
+            opacity: 0.12;
+            pointer-events: none;
+            z-index: 0;
+            animation: logoFloat3D 12s infinite ease-in-out;
+        }
+
+        @keyframes logoFloat3D {
+            0%, 100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.2)); }
+            50% { transform: translate(-50%, -50%) scale(1.06) rotate(2deg); filter: drop-shadow(0 0 30px rgba(99, 102, 241, 0.35)); }
         }
 
         /* Legal Disclaimer Bar - إخلاء مسؤولية قانوني لحماية المدونة */
         .legal-disclaimer-bar {
-            background: #1e293b;
-            color: #cbd5e1;
-            padding: 6px 15px;
+            background: #7f1d1d;
+            color: #fef2f2;
+            padding: 8px 15px;
             font-size: 0.78rem;
             text-align: center;
-            border-bottom: 1px solid #334155;
+            border-bottom: 2px solid #ef4444;
+            position: relative;
+            z-index: 10;
         }
 
         .legal-disclaimer-bar strong {
@@ -71,6 +102,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
+            z-index: 10;
         }
 
         .top-gov-bar .social-icons a {
@@ -102,6 +135,8 @@
             overflow: hidden;
             font-size: 0.85rem;
             border-bottom: 1px solid rgba(212, 175, 55, 0.4);
+            position: relative;
+            z-index: 10;
         }
 
         .ticker-title {
@@ -292,13 +327,13 @@
 
         /* Hero Section */
         .gov-hero-section {
-            background: linear-gradient(180deg, rgba(11, 34, 56, 0.85) 0%, rgba(11, 34, 56, 0.94) 100%),
+            background: linear-gradient(180deg, rgba(11, 34, 56, 0.88) 0%, rgba(11, 34, 56, 0.95) 100%),
                         url('https://sis.gov.eg/media/833992/%D9%85%D9%86%D8%AA%D8%AF%D9%89-%D9%85%D8%B5%D8%B1-2026.jpg') center/cover no-repeat;
             color: #ffffff;
             padding: 50px 20px 70px;
             text-align: center;
             position: relative;
-            overflow: hidden;
+            z-index: 1;
         }
 
         .president-avatar-container {
@@ -455,9 +490,11 @@
 
         /* Stats Section */
         .stats-section {
-            background: #ffffff;
+            background: rgba(255, 255, 255, 0.9);
             padding: 40px 20px;
             border-bottom: 1px solid #e2e8f0;
+            position: relative;
+            z-index: 1;
         }
 
         .stats-grid {
@@ -487,6 +524,8 @@
             padding: 60px 20px;
             max-width: 1100px;
             margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
         .agenda-tabs {
@@ -515,7 +554,7 @@
         }
 
         .agenda-content {
-            background: #ffffff;
+            background: rgba(255, 255, 255, 0.92);
             padding: 30px;
             border-radius: 12px;
             border: 1px solid #cbd5e1;
@@ -561,9 +600,11 @@
             padding: 60px 20px;
             max-width: 1100px;
             margin: 0 auto;
-            background: #ffffff;
+            background: rgba(255, 255, 255, 0.92);
             border-radius: 15px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+            position: relative;
+            z-index: 1;
         }
 
         .section-heading {
@@ -611,10 +652,12 @@
             padding: 60px 20px;
             max-width: 900px;
             margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
         .faq-item {
-            background: #ffffff;
+            background: rgba(255, 255, 255, 0.92);
             border: 1px solid #cbd5e1;
             border-radius: 8px;
             margin-bottom: 12px;
@@ -647,9 +690,11 @@
 
         /* Registration Form Section */
         .registration-section {
-            background: #f1f5f9;
+            background: rgba(241, 245, 249, 0.9);
             padding: 60px 20px;
             border-top: 1px solid #e2e8f0;
+            position: relative;
+            z-index: 1;
         }
 
         .form-card {
@@ -719,6 +764,8 @@
             padding: 25px 20px;
             font-size: 0.85rem;
             border-top: 3px solid var(--gov-gold);
+            position: relative;
+            z-index: 10;
         }
 
         footer a {
@@ -762,15 +809,15 @@
 </head>
 <body>
 
-    <!-- شريط الإخلاء القانوني لمنع المساءلة -->
+    <!-- شريط إخلاء المسؤولية القانونية الصريح لمنع أي التباس أو مسائلة -->
     <div class="legal-disclaimer-bar">
-        ℹ <strong>تنويه إعلامي:</strong> هذه الصفحة مبادرة إعلامية شبابية مستقلة صادرة عن <strong>مدونة GITI</strong> لتشجيع الشباب ومشاركة مقترحاتهم، ولا نُمثل أي جهة حكومية رسمية.
+        ⚖️ <strong>تنويه قانوني هام:</strong> هذه الصفحة عبارة عن <strong>تغطية إعلامية ومبادرة شبابية مستقلة</strong> صادرة عن شبكة GITI التقنية لنقل أخبار ومقترحات منتدى مصر، ولا تُعد الموقع الحكومي الرسمي ولا تمثل أي جهة حكومية بأي شكل من الأشكال. للتسجيل الرسمي يرجى زيارة البوابة الحكومية المعتمدة.
     </div>
 
-    <!-- Top Bar الحكومي -->
+    <!-- Top Bar العلوي -->
     <div class="top-gov-bar">
         <div class="social-icons">
-            <a href="https://facebook.com" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="https://facebook.com/smaregy" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
             <a href="https://instagram.com" target="_blank"><i class="fa-brands fa-instagram"></i></a>
             <a href="https://youtube.com" target="_blank"><i class="fa-brands fa-youtube"></i></a>
         </div>
@@ -782,25 +829,23 @@
     <!-- شريط الأخبار العاجلة المتحرك -->
     <div class="news-ticker-container">
         <div class="ticker-title">
-            <i class="fa-solid fa-bullhorn"></i> عاجل
+            <i class="fa-solid fa-bullhorn"></i> تغطية إعلامية
         </div>
         <div class="ticker-wrapper">
             <div class="ticker-text">
-                📢 إطلاق البوابة الرسمية لمنتدى مصر 2026 بدعوة كريمة من السيد رئيس الجمهورية • فتح باب التسجيل لحضور الجلسات التحضيرية ومناقشات الذكاء الاصطناعي • انعقاد المنتدى بالفترة من 19 إلى 24 أكتوبر بفندق سانت ريجيس بالعاصمة الجديدة.
+                📢 متابعة فعاليات ومقترحات الشباب لمنتدى مصر • رصد جلسات التحول الرقمي والذكاء الاصطناعي • انعقاد المنتدى بالفترة من 19 إلى 24 أكتوبر بفندق سانت ريجيس بالعاصمة الجديدة.
             </div>
         </div>
     </div>
 
-    <!-- Header Navigation متضمن شعار الجمهورية، زر القائمة الجانبية (Sidebar) ولوجو GITI -->
+    <!-- Header Navigation بشعار GITI حصرياً (آمن قانونياً) -->
     <header>
         <div class="nav-container">
             <div class="gov-branding">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Coat_of_arms_of_Egypt_%28official%29.svg" 
-                     alt="" 
-                     class="eagle-emblem-img">
+                <img src="logo.png" alt="GITI Logo" class="eagle-emblem-img">
                 <div class="brand-text-box">
-                    <h2>جمهورية مصر العربية</h2>
-                    <p>المبادرة الرئاسية للشباب</p>
+                    <h2>GITI Tech & Business OS</h2>
+                    <p>التغطية الإعلامية ومقترحات منتدى مصر</p>
                 </div>
             </div>
 
@@ -831,21 +876,13 @@
 
     <!-- Hero Section -->
     <section class="gov-hero-section">
-        <div class="president-avatar-container">
-            <img src="https://static.srpcdigital.com/styles/1037xauto/public/2024-09/799459_0.jpeg.webp" 
-                 alt="" 
-                 class="president-avatar"
-                 onerror="this.src='https://vid.alarabiya.net/images/2022/12/28/1a7507ad-855c-45a3-a77a-98cb41d01638/1a7507ad-855c-45a3-a77a-98cb41d01638.JPG?crop=1:1&width=1000'">
-        </div>
-
-        <div class="hero-title-badge">منتدى مصر 2026</div>
+        <div class="hero-title-badge">تغطية منتدى مصر 2026</div>
 
         <div class="president-speech">
             <i class="fa-solid fa-quote-right quote-icon"></i>
-            يُعلن اليوم فخامه السيد الرئيس اليوم إطلاق الجلسات التحضيرية والموقع الإلكتروني الخاص بـ "منتدى مصر 2026"، لبدء تسجيل الحضور، وإجراء سلسلة من المناقشات والحوارات الأكاديمية والمجتمعية، تمهيداً لإنعقاد المنتدى خلال الفترة من 19 - 24 أكتوبر الجاري. وأدعو كافة مؤسسات الدولة والخبراء، وأبناء الشعب المصري، بمختلف الأطياف والتوجّهات، إلى التسجيل في الموقع الخاص بالمنتدى وإبداء الآراء وتسجيل المقترحات. "بالمشاركة والحوار، نبني معاً مستقبل وطننا".
+            نواكب في شبكة GITI التقنية فعاليات وجلسات "منتدى مصر"، ونوفر هذه المساحة الإخبارية والتفاعلية المستقلة لتمكين الشباب من مشاركة مقترحاتهم وأفكارهم التنموية في مجالات التكنولوجيا والتحول الرقمي لدعم مسيرة التنمية المستدامة.
             <i class="fa-solid fa-quote-left quote-icon"></i>
-            <div class="speech-author"> فخامة السيد الرئيس </div>
-            <div class="speech-author">عبد الفتاح السيسي</div>
+            <div class="speech-author">فريق التحرير التقني لشبكة GITI</div>
         </div>
 
         <!-- العد التنازلي التفاعلي المضاف -->
@@ -871,13 +908,13 @@
                 <i class="fa-solid fa-location-dot"></i>
                 <span>فندق سانت ريجيس — العاصمة الجديدة</span>
             </div>
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=%D9%85%D9%86%D8%AA%D8%AF%D9%89+%D9%85%D8%B5%D8%B1+2026&dates=20261019T090000Z/20261024T180000Z&details=%D9%81%D8%B9%D8%A7%D9%84%D9%8A%D8%A7%D8%AA+%D9%85%D9%86%D8%AA%D8%AF%D9%89+%D9%85%D8%B5%D8%B1+2026+%D8%A8%D8%AF%D8%C9+%D9%85%D9%86+%D8%B1%D8%A3%D9%8A%D8%B3+%D8%A7%D9%84%D8%AC%D9%85%D9%87%D9%88%D8%B1%D9%8A%D8%A9&location=%D9%81%D9%86%D8%AF%D9%82+%D8%B3%D8%A7%D9%86%D8%AA+%D8%B1%D9%8A%D8%AC%D9%8A%D8%B3+%D8%A7%D9%84%D8%AC%D8%AF%D9%8A%D8%AF%D8%A9" target="_blank" class="cal-btn">
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=%D9%85%D9%86%D8%AA%D8%AF%D9%89+%D9%85%D8%B5%D8%B1+2026&dates=20261019T090000Z/20261024T180000Z&details=%D9%81%D8%B9%D8%A7%D9%84%D9%8A%D8%A7%D8%AA+%D9%85%D9%86%D8%AA%D8%AF%D9%89+%D9%85%D8%B5%D8%B1+2026+%D8%B9%D8%A8%D8%B1+%D8%AA%D8%BA%D8%B7%D9%8A%D8%A9+GITI&location=%D9%81%D9%86%D8%AF%D9%82+%D8%B3%D8%A7%D9%86%D8%AA+%D8%B1%D9%8A%D8%AC%D9%8A%D8%B3+%D8%A7%D9%84%D8%AC%D8%AF%D9%8A%D8%AF%D8%A9" target="_blank" class="cal-btn">
                 <i class="fa-solid fa-calendar-plus"></i> حفظ في تقويم Google
             </a>
         </div>
 
         <div class="gov-actions-container">
-            <a href="https://egyptforum.gov.eg/signup" target="_blank" class="btn-gov-primary">
+            <a href="https://egyptforum.gov.eg/signup" target="_blank" class="btn-gov-primary" rel="nofollow">
                 <span>التسجيل بالبوابة الحكومية الرسمية</span>
                 <i class="fa-solid fa-external-link-alt"></i>
             </a>
@@ -907,12 +944,12 @@
         </div>
     </section>
 
-    <!-- قسم مولد كروت الدعوات الشخصية (بالصورة الرسمية للخلفية ورابط الحكومة) -->
-    <section class="registration-section" id="invitation-card-section" style="background: #ffffff; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0;">
+    <!-- قسم مولد كروت الدعوات الشخصية التذكارية -->
+    <section class="registration-section" id="invitation-card-section">
         <div class="form-card" style="max-width: 700px;">
             <div class="section-heading" style="margin-bottom: 25px;">
-                <h3 style="color: var(--gov-blue-dark); font-size: 1.8rem; font-weight: 800;">مولد بطاقة الدعوة الرسمية</h3>
-                <p style="color: #64748b; font-size: 0.9rem;">أنشئ كرت دعوتك الشخصي لمنتدى مصر 2026 بصورتك واسمك واحضره معك</p>
+                <h3 style="color: var(--gov-blue-dark); font-size: 1.8rem; font-weight: 800;">مولد بطاقة المشاركة التذكارية</h3>
+                <p style="color: #64748b; font-size: 0.9rem;">أنشئ بطاقتك الشخصية التذكارية لتغطية منتدى مصر 2026 بصورتك واسمك</p>
             </div>
 
             <div class="form-group">
@@ -927,14 +964,14 @@
 
             <!-- معاينة الكرت التصميمي الواقعي -->
             <div style="margin: 25px 0; text-align: center;">
-                <p style="font-weight: 700; color: var(--gov-blue-dark); margin-bottom: 10px; font-size: 0.95rem;">معاينة بطاقة الدعوة المخصصة:</p>
+                <p style="font-weight: 700; color: var(--gov-blue-dark); margin-bottom: 10px; font-size: 0.95rem;">معاينة بطاقة المشاركة المخصصة:</p>
                 <div style="position: relative; width: 100%; max-width: 600px; aspect-ratio: 16/9; margin: 0 auto; border-radius: 14px; overflow: hidden; box-shadow: 0 10px 30px rgba(11, 34, 56, 0.25); border: 3px solid var(--gov-gold); background: #0b2238;">
                     <canvas id="invitationCanvas" style="width: 100%; height: 100%; display: block;"></canvas>
                 </div>
             </div>
 
             <button type="button" class="submit-btn" onclick="downloadInvitationCard()" style="background: var(--gov-gold); color: var(--gov-blue-dark); font-weight: 900;">
-                <i class="fa-solid fa-download"></i> تحميل بطاقة الدعوة (صورة PNG)
+                <i class="fa-solid fa-download"></i> تحميل بطاقة المشاركة (صورة PNG)
             </button>
         </div>
     </section>
@@ -942,7 +979,7 @@
     <!-- أجندة الفعاليات والجدول الزمني -->
     <section class="agenda-section">
         <div class="section-heading">
-            <h3>جدول أعمال الجلسات التحضيرية</h3>
+            <h3>جدول أعمال الجلسات والفعاليات</h3>
             <p style="color: #64748b; font-size: 0.9rem;">استعرض برنامج المحاور والفعاليات طوال أيام انعقاد المنتدى</p>
         </div>
 
@@ -959,14 +996,14 @@
                     <span class="time-badge">10:00 صباحاً</span>
                     <div>
                         <h4 style="color: var(--gov-blue-dark); font-weight: 800;">الجلسة الافتتاحية الكبرى</h4>
-                        <p style="font-size: 0.88rem; color: #64748b;">استعراض محاور رؤية مصر وافتتاح فعاليات المنتدى بحضور صناع القرار والخبراء.</p>
+                        <p style="font-size: 0.88rem; color: #64748b;">استعراض محاور التنمية وافتتاح فعاليات المنتدى بحضور صناع القرار والخبراء.</p>
                     </div>
                 </div>
                 <div class="timeline-event">
                     <span class="time-badge">01:00 ظهراً</span>
                     <div>
-                        <h4 style="color: var(--gov-blue-dark); font-weight: 800;">جلسة الحوار الوطني للشباب</h4>
-                        <p style="font-size: 0.88rem; color: #64748b;">مناقشة الرؤى الطلابية ومقترحات الشباب من مختلف محافظات الجمهورية.</p>
+                        <h4 style="color: var(--gov-blue-dark); font-weight: 800;">جلسة الحوار الشبابي والتقني</h4>
+                        <p style="font-size: 0.88rem; color: #64748b;">مناقشة الرؤى الرقمية ومقترحات الشباب من مختلف المحافظات.</p>
                     </div>
                 </div>
             </div>
@@ -996,43 +1033,43 @@
                     <span class="time-badge">02:00 ظهراً</span>
                     <div>
                         <h4 style="color: var(--gov-blue-dark); font-weight: 800;">الجلسة الختامية وتكريم المشروعات الفائزة</h4>
-                        <p style="font-size: 0.88rem; color: #64748b;">إعلان التوصيات النهائية للمنتدى وتكريم أصحاب أفضل 10 أفكار ومقترحات.</p>
+                        <p style="font-size: 0.88rem; color: #64748b;">إعلان التوصيات النهائية وتكريم أصحاب أفضل 10 أفكار ومقترحات.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- خطوات التسجيل -->
+    <!-- خطوات التسجيل الرسمي -->
     <section class="steps-section">
         <div class="section-heading">
-            <h3>خطوات التسجيل للمشاركة بمنتدى مصر 2026</h3>
-            <p style="color: #64748b; font-size: 0.9rem;">بدعوة من السيد رئيس الجمهورية عبر البوابة الرسمية</p>
+            <h3>خطوات التسجيل للحضور عبر البوابة الرسمية</h3>
+            <p style="color: #64748b; font-size: 0.9rem;">دليل مبسط للانتقال والتسجيل في البوابة الحكومية المعتمدة</p>
         </div>
 
         <div class="steps-grid">
             <div class="step-card">
                 <div class="step-icon">1</div>
-                <h4 style="color: var(--gov-blue-dark); font-weight: 700; margin-bottom: 8px;">الدخول للرابط الرسمى</h4>
-                <p style="font-size: 0.85rem; color: #64748b;">الانتقال إلى رابط منتدى مصر egyptforum.gov.eg</p>
+                <h4 style="color: var(--gov-blue-dark); font-weight: 700; margin-bottom: 8px;">الزيارة الرسمية</h4>
+                <p style="font-size: 0.85rem; color: #64748b;">الانتقال إلى البوابة المعتمدة egyptforum.gov.eg</p>
             </div>
 
             <div class="step-card">
                 <div class="step-icon">2</div>
-                <h4 style="color: var(--gov-blue-dark); font-weight: 700; margin-bottom: 8px;">بيانات الحساب</h4>
-                <p style="font-size: 0.85rem; color: #64748b;">الاسم - رقم الهاتف - البريد الإلكتروني</p>
+                <h4 style="color: var(--gov-blue-dark); font-weight: 700; margin-bottom: 8px;">إدخال البيانات</h4>
+                <p style="font-size: 0.85rem; color: #64748b;">الاسم - رقم الهاتف - البريد الإلكتروني الشخصي</p>
             </div>
 
             <div class="step-card">
                 <div class="step-icon">3</div>
                 <h4 style="color: var(--gov-blue-dark); font-weight: 700; margin-bottom: 8px;">البيانات الوظيفية</h4>
-                <p style="font-size: 0.85rem; color: #64748b;">إدخال البيانات الوظيفية والمسمى الوظيفي الخاص بك</p>
+                <p style="font-size: 0.85rem; color: #64748b;">إدخال المسمى الوظيفي والجهة أو التخصص</p>
             </div>
 
             <div class="step-card">
                 <div class="step-icon">4</div>
                 <h4 style="color: var(--gov-blue-dark); font-weight: 700; margin-bottom: 8px;">تأكيد التسجيل</h4>
-                <p style="font-size: 0.85rem; color: #64748b;">إدخال كلمة المرور والضغط على (أنا لست روبوت)</p>
+                <p style="font-size: 0.85rem; color: #64748b;">إتمام التحقق واستلام رسالة تأكيد الحضور</p>
             </div>
         </div>
     </section>
@@ -1040,37 +1077,37 @@
     <!-- قسم الأسئلة الشائعة FAQ -->
     <section class="faq-section">
         <div class="section-heading">
-            <h3>الأسئلة الشائعة حول المنتدى</h3>
-            <p style="color: #64748b; font-size: 0.9rem;">إجابات لأهم الاستفسارات الخاصة بالحضور والتسجيل</p>
+            <h3>الأسئلة الشائعة حول المنتدى والتغطية</h3>
+            <p style="color: #64748b; font-size: 0.9rem;">إجابات لأهم الاستفسارات الخاصة بالحضور ومقترحات المنصة</p>
         </div>
 
         <div class="faq-item">
             <button class="faq-question" onclick="toggleFaq(this)">
-                <span>هل التسجيل وحضور المنتدى مجاني؟</span>
+                <span>هل هذه الصفحة هي البوابة الحكومية الرسمية؟</span>
                 <i class="fa-solid fa-chevron-down"></i>
             </button>
             <div class="faq-answer">
-                نعم، التسجيل والحضور مجاني بالكامل لكافة الشباب والخبراء وأبناء الوطن بدعوة كريمة من المبادرة الرئاسية.
+                لا، هذه الصفحة هي منصة إعلامية ومبادرة تقنية مستقلة تابعة لشبكة GITI لتغطية فعاليات المنتدى، وليست الموقع الحكومي الرسمي.
             </div>
         </div>
 
         <div class="faq-item">
             <button class="faq-question" onclick="toggleFaq(this)">
-                <span>كيف أعرف أنه تم تأكيد تسجيلي وحضوري؟</span>
+                <span>كيف يمكنني التسجيل الرسمي لحضور المنتدى؟</span>
                 <i class="fa-solid fa-chevron-down"></i>
             </button>
             <div class="faq-answer">
-                ستصلك رسالة تأكيد رسمية تحتوي على كود الدعوة وبطاقة الحضور الإلكترونية عبر البريد الإلكتروني المسجل بالموقع الحكومي.
+                يمكنك التسجيل الرسمي عبر الانتقال إلى البوابة الحكومية المعتمدة (egyptforum.gov.eg) من خلال الأزرار المتاحة في الصفحة.
             </div>
         </div>
 
         <div class="faq-item">
             <button class="faq-question" onclick="toggleFaq(this)">
-                <span>هل يمكنني تقديم ورقة عمل أو مشروع بالمنتدى؟</span>
+                <span>ما هو الهدف من استمارة مقترحات GITI؟</span>
                 <i class="fa-solid fa-chevron-down"></i>
             </button>
             <div class="faq-answer">
-                بالتأكيد، يُمكنك إدخال ملخص رؤيتك أو مقترحك التنموي أثناء ملء بيانات التسجيل بالاستمارة المتاحة بالمنصة.
+                الهدف هو تجميع أفكار ومقترحات الشباب والمهتمين بتكنولوجيا الأعمال ونشرها ضمن تقارير شبكة GITI لدعم رواد الأعمال.
             </div>
         </div>
     </section>
@@ -1079,7 +1116,7 @@
     <section class="registration-section" id="backup-register">
         <div class="form-card">
             <h3 style="text-align: center; color: var(--gov-blue-dark); font-weight: 800; margin-bottom: 8px;">استمارة مشاركة المقترحات (شبكة GITI)</h3>
-            <p style="text-align: center; font-size: 0.85rem; color: #64748b; margin-bottom: 20px;">سجّل بياناتك ومقترحك ليتم حفظه في سحابة مدونة GITI الخاصة بنا</p>
+            <p style="text-align: center; font-size: 0.85rem; color: #64748b; margin-bottom: 20px;">سجّل بياناتك ومقترحك التقني ليتم حفظه في قاعدة بيانات مدونة GITI</p>
             
             <form id="forumForm" onsubmit="handleFormSubmit(event)">
                 <div class="form-group">
@@ -1111,15 +1148,15 @@
                 </div>
 
                 <div class="form-group">
-                    <label>المقترح أو الرؤية التي ترغب بطرحها</label>
+                    <label>المقترح أو الرؤية التقنية التي ترغب بطرحها</label>
                     <textarea id="proposal" rows="3" placeholder="اكتب ملخص مقترحك هنا..."></textarea>
                 </div>
 
-                <button type="submit" id="submitBtn" class="submit-btn">إرسال المقترح إلى GITI</button>
+                <button type="submit" id="submitBtn" class="submit-btn">إرسال المقترح إلى شبكة GITI</button>
             </form>
 
             <div id="successBox" class="success-box" style="margin-top: 15px;">
-                ✅ تم حفظ تسجيلك ومقترحك بنجاح في قاعدة بيانات GITI!
+                ✅ تم حفظ مقترحك بنجاح في قاعدة بيانات GITI!
             </div>
         </div>
     </section>
@@ -1131,7 +1168,7 @@
 
     <!-- Footer -->
     <footer>
-        <p>جميع الحقوق محفوظة &copy; 2026 — مدونة GITI الإعلامية الشبابية | <a href="index.html">العودة للرئيسية</a></p>
+        <p>جميع الحقوق محفوظة &copy; 2027 — GITI Tech & Business OS | <a href="index.html">العودة للرئيسية</a></p>
     </footer>
 
     <script>
@@ -1166,7 +1203,7 @@
             document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
         }, 1000);
 
-        // --- كود مولد بطاقة الدعوة (Canvas Generator) ---
+        // --- كود مولد بطاقة المشاركة التذكارية (Canvas Generator) ---
         const cardCanvas = document.getElementById('invitationCanvas');
         const cardCtx = cardCanvas.getContext('2d');
         cardCanvas.width = 1000;
@@ -1202,10 +1239,10 @@
         function drawCard() {
             cardCtx.clearRect(0, 0, cardCanvas.width, cardCanvas.height);
 
-            // 1. رسم خلفية المنتدى الرسمية مع طبقة تعتيم داكنة لضمان وضوح النص
+            // 1. رسم خلفية المنتدى مع طبقة تعتيم داكنة
             if (isBgLoaded) {
                 cardCtx.drawImage(bgCardImg, 0, 0, cardCanvas.width, cardCanvas.height);
-                cardCtx.fillStyle = 'rgba(11, 34, 56, 0.78)';
+                cardCtx.fillStyle = 'rgba(11, 34, 56, 0.82)';
                 cardCtx.fillRect(0, 0, cardCanvas.width, cardCanvas.height);
             } else {
                 cardCtx.fillStyle = '#0b2238';
@@ -1219,14 +1256,14 @@
 
             // 2. الهيدر والعنوان
             cardCtx.fillStyle = '#d4af37';
-            cardCtx.font = 'bold 34px Cairo, sans-serif';
+            cardCtx.font = 'bold 32px Cairo, sans-serif';
             cardCtx.textAlign = 'center';
             cardCtx.direction = 'rtl';
-            cardCtx.fillText('منتدى مصر 2026', cardCanvas.width / 2, 75);
+            cardCtx.fillText('تغطية منتدى مصر 2026', cardCanvas.width / 2, 75);
 
             cardCtx.fillStyle = '#e2e8f0';
-            cardCtx.font = '18px Cairo, sans-serif';
-            cardCtx.fillText('نظرة لليوم .. رؤية للغد', cardCanvas.width / 2, 110);
+            cardCtx.font = '17px Cairo, sans-serif';
+            cardCtx.fillText('بطاقة مشاركة وتغطية إعلامية مستقلة', cardCanvas.width / 2, 110);
 
             // خط فاصل ذهبي
             cardCtx.strokeStyle = '#d4af37';
@@ -1275,20 +1312,20 @@
             cardCtx.textAlign = 'center';
             cardCtx.fillText(fullNameText, cardCanvas.width / 2, 335);
 
-            // صفة الدعوة
+            // صفة البطاقة
             cardCtx.fillStyle = '#d4af37';
             cardCtx.font = 'bold 17px Cairo, sans-serif';
-            cardCtx.fillText('دعوة رسمية لحضور فعاليات المنتدى', cardCanvas.width / 2, 372);
+            cardCtx.fillText('بطاقة حضور ومشاركة تفاعلية', cardCanvas.width / 2, 372);
 
-            // 5. رابط الموقع الحكومي الرسمي في الكرت
+            // 5. رابط الموقع الحكومي الرسمي كمرجع للتسجيل
             cardCtx.fillStyle = '#93c5fd';
-            cardCtx.font = 'bold 16px Cairo, sans-serif';
-            cardCtx.fillText('بوابة التسجيل الرسمية: https://egyptforum.gov.eg', cardCanvas.width / 2, 420);
+            cardCtx.font = 'bold 15px Cairo, sans-serif';
+            cardCtx.fillText('البوابة الرسمية للتسجيل: https://egyptforum.gov.eg', cardCanvas.width / 2, 420);
 
             // 6. الفوتر والسفلية
             cardCtx.fillStyle = '#cbd5e1';
             cardCtx.font = '14px Cairo, sans-serif';
-            cardCtx.fillText('تغطية شبكة GITI الشبابية | 19-24 أكتوبر 2026', cardCanvas.width / 2, 490);
+            cardCtx.fillText('شبكة GITI Tech & Business OS | 19-24 أكتوبر 2026', cardCanvas.width / 2, 490);
         }
 
         // رسم الكرت أول ما الصفحة تفتح
@@ -1298,7 +1335,7 @@
 
         function downloadInvitationCard() {
             const link = document.createElement('a');
-            link.download = 'Egypt_Forum_2026_Invitation.png';
+            link.download = 'GITI_Egypt_Forum_Card.png';
             link.href = cardCanvas.toDataURL('image/png');
             link.click();
         }
