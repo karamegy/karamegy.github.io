@@ -336,26 +336,6 @@
             z-index: 1;
         }
 
-        .president-avatar-container {
-            position: relative;
-            width: 160px;
-            height: 160px;
-            margin: 0 auto 20px;
-            border-radius: 50%;
-            background: #0b2238;
-            padding: 4px;
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.6), 0 0 10px rgba(0,0,0,0.5);
-            border: 3px solid var(--gov-gold);
-        }
-
-        .president-avatar {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-            display: block;
-        }
-
         .hero-title-badge {
             display: inline-block;
             color: var(--gov-gold);
@@ -1228,7 +1208,7 @@
             </form>
 
             <div id="successBox" class="success-box" style="margin-top: 15px;">
-                ✅ تم حفظ مقترحك بنجاح في قاعدة بيانات GITI!
+                ✅ تم حفظ مقترحك بنجاح في قاعدة بيانات GITI وسيظهر في لوحة التحكم!
             </div>
         </div>
     </section>
@@ -1454,12 +1434,12 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // معالجة وحفظ استمارة التسجيل في قاعدة بيانات المدونة الخاصة
+        // معالجة وحفظ استمارة التسجيل في قاعدة بيانات Firebase بشكل صحيح وموثوق
         async function handleFormSubmit(event) {
             event.preventDefault();
             const submitBtn = document.getElementById('submitBtn');
             submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جاري إرسال المقترح...';
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جاري إرسال المقترح سحابياً...';
 
             const formData = {
                 fullname: document.getElementById('fullname').value.trim(),
@@ -1467,30 +1447,32 @@
                 phone: document.getElementById('phone').value.trim(),
                 governorate: document.getElementById('governorate').value,
                 proposal: document.getElementById('proposal').value.trim(),
+                createdAt: serverTimestamp(),
                 date: new Date().toLocaleString('ar-EG')
             };
 
-            // 1. حفظ في المتصفح المحلي للتحقق الفوري
-            try {
-                let localData = JSON.parse(localStorage.getItem("giti_forum_registrations") || "[]");
-                localData.push(formData);
-                localStorage.setItem("giti_forum_registrations", JSON.stringify(localData));
-            } catch(e) { console.log(e); }
-
-            // 2. مزامنة مع قاعدة بيانات Firebase الخاصة بك
             try {
                 if (window.db && window.addDoc && window.collection) {
+                    // الحفظ في مجموعة forum_registrations المطابقة تماماً للوحة التحكم
                     await window.addDoc(window.collection(window.db, "forum_registrations"), formData);
+                    
+                    // حفظ محلي احتياطي
+                    let localData = JSON.parse(localStorage.getItem("giti_forum_registrations") || "[]");
+                    localData.push(formData);
+                    localStorage.setItem("giti_forum_registrations", JSON.stringify(localData));
+
+                    // إظهار رسالة النجاح الحقيقية
+                    document.getElementById('forumForm').style.display = 'none';
+                    document.getElementById('successBox').style.display = 'block';
+                } else {
+                    throw new Error("قاعدة بيانات فايربيس غير متصلة.");
                 }
             } catch (error) {
                 console.error("Firebase Sync Error:", error);
+                alert("❌ فشل الحفظ في قاعدة البيانات: " + error.message + "\n(تأكد من تفعيل قواعد الكتابة المسموحة لـ forum_registrations في فايربيس).");
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'إرسال المقترح إلى شبكة GITI';
             }
-
-            // إظهار ناتج النجاح فوراً
-            setTimeout(() => {
-                document.getElementById('forumForm').style.display = 'none';
-                document.getElementById('successBox').style.display = 'block';
-            }, 500);
         }
     </script>
 </body>
