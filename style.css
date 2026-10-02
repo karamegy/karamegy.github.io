@@ -5,7 +5,7 @@
     --primary-red: #c0392b;
     --bg-light: #f1f5f9;
     --text-dark: #1e293b;
-    --card-bg: rgba(255, 255, 255, 0.95);
+    --card-bg: rgba(255, 255, 255, 0.92);
     --border-color: #cbd5e1;
 }
 
@@ -28,17 +28,87 @@ body {
     overflow-x: hidden;
 }
 
-/* قسم الـ Hero مع خلفية منتدى مصر الرسمية ونقاوة كاملة بدون شعار خلفي مزعج */
+/* =========================================================
+   1. طبقات التأثيرات الخلفية المتحركة والـ 3D (لوجو مائي + رعد + دخان)
+   ========================================================= */
+
+/* أ) لوجو المدونة المتحرك في الخلفية كعلامة مائية ثلاثية الأبعاد */
+body::before {
+    content: '';
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    width: 70vw;
+    height: 70vw;
+    max-width: 550px;
+    max-height: 550px;
+    background: url('logo.png') center/contain no-repeat;
+    opacity: 0.12;
+    pointer-events: none;
+    z-index: 0;
+    animation: logoFloat3D 12s infinite ease-in-out;
+}
+
+@keyframes logoFloat3D {
+    0%, 100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.2)); }
+    50% { transform: translate(-50%, -50%) scale(1.06) rotate(2deg); filter: drop-shadow(0 0 30px rgba(99, 102, 241, 0.35)); }
+}
+
+/* ب) طبقة تأثير الرعد والإضاءة المتحركة عبر الشاشة بالكامل */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 0;
+    background: radial-gradient(circle at 30% 30%, rgba(99, 102, 241, 0.1), transparent 60%),
+                radial-gradient(circle at 70% 70%, rgba(212, 175, 55, 0.08), transparent 60%);
+    animation: lightningStorm3D 8s infinite ease-in-out;
+}
+
+@keyframes lightningStorm3D {
+    0%, 85%, 100% { opacity: 0.4; transform: scale(1); }
+    88% { opacity: 0.95; background: radial-gradient(circle at 50% 20%, rgba(255, 255, 255, 0.2), transparent 70%); transform: scale(1.02); }
+    91% { opacity: 0.3; }
+    94% { opacity: 0.9; background: radial-gradient(circle at 80% 40%, rgba(212, 175, 55, 0.25), transparent 65%); }
+}
+
+/* ج) قسم الـ Hero (بدون صورة منتدى مصر وبخلفية تدرج أزرق مع تأثير الدخان المتحرك) */
 .gov-hero-section {
     position: relative;
     overflow: hidden;
-    background: linear-gradient(180deg, rgba(11, 34, 56, 0.92) 0%, rgba(11, 34, 56, 0.97) 100%),
-                url('https://sis.gov.eg/media/833992/%D9%85%D9%86%D8%AA%D8%AF%D9%89-%D9%85%D8%B5%D8%B1-2026.jpg') center/cover no-repeat;
+    background: linear-gradient(135deg, #0b2238 0%, #18446e 100%);
     color: #ffffff;
     padding: 50px 20px 60px;
     text-align: center;
+    z-index: 1;
 }
 
+.gov-hero-section::before {
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: -100%;
+    width: 300%;
+    height: 300%;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.12) 5%, rgba(99, 102, 241, 0.08) 30%, transparent 65%);
+    animation: smokeMotion3D 15s infinite linear;
+    pointer-events: none;
+}
+
+@keyframes smokeMotion3D {
+    0% { transform: rotate(0deg) translate(0, 0) scale(1); }
+    50% { transform: rotate(180deg) translate(40px, 25px) scale(1.1); }
+    100% { transform: rotate(360deg) translate(0, 0) scale(1); }
+}
+
+/* =========================================================
+   2. الكروت والعناصر الأساسية
+   ========================================================= */
 .card {
     background: var(--card-bg);
     backdrop-filter: blur(10px);
@@ -465,7 +535,6 @@ header {
 .badge-success { background: rgba(34, 197, 94, 0.15); color: #15803d; }
 .badge-partial { background: rgba(212, 175, 55, 0.2); color: #854d0e; }
 
-/* تنسيقات نموذج التواصل لمنع تداخل الحقول */
 .form-group {
     margin-bottom: 18px;
     display: flex;
