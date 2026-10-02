@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لوحة التحكم وإدارة المقالات | GITI Tech CMS</title>
+    <title>لوحة التحكم الشاملة وإدارة المنصة | GITI Tech CMS</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- سكربت Firebase للمصادقة وإدارة المقالات -->
+    <!-- سكربت Firebase لإدارة كافة أقسام المنصة سحابياً -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
         import { getFirestore, collection, addDoc, getDocs, doc, deleteDoc, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-        import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+        import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyDTIxdIHfDaEH2wn7dEE9qMnsOlXtlSCI0",
@@ -31,7 +31,7 @@
         let editingArticleId = null;
         let selectedImageBase64 = "";
 
-        // مراقبة حالة تسجيل الدخول في صفحة الأدمن
+        // مراقبة حالة تسجيل الدخول للأدمن
         onAuthStateChanged(auth, (user) => {
             const loginSection = document.getElementById('admin-login-section');
             const contentSection = document.getElementById('admin-content-section');
@@ -42,7 +42,7 @@
                     loginSection.style.display = 'none';
                     contentSection.style.display = 'block';
                     adminInfo.innerHTML = `مرحباً بك يا أدمن (${user.email})`;
-                    loadAdminArticles();
+                    loadAllAdminSections();
                 } else {
                     loginSection.style.display = 'block';
                     contentSection.style.display = 'none';
@@ -54,7 +54,6 @@
             }
         });
 
-        // دالة تسجيل الدخول للأدمن
         window.loginAdmin = async function() {
             const provider = new GoogleAuthProvider();
             try {
@@ -64,7 +63,22 @@
             }
         };
 
-        // رفع الصورة وتحويلها
+        window.logoutAdmin = async function() {
+            await signOut(auth);
+            window.location.reload();
+        };
+
+        // تبديل التبويبات داخل لوحة التحكم
+        window.switchAdminTab = function(tabId) {
+            document.querySelectorAll('.admin-tab-content').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('.admin-nav-btn').forEach(btn => btn.style.background = 'var(--gov-blue-dark)');
+            
+            document.getElementById(tabId).style.display = 'block';
+            event.target.style.background = 'var(--gov-gold)';
+            event.target.style.color = 'var(--gov-blue-dark)';
+        };
+
+        // رفع وتشفير الصور
         window.handleImageUpload = function(event) {
             const file = event.target.files[0];
             if (file) {
@@ -79,7 +93,7 @@
             }
         };
 
-        // حفظ أو تحديث المقال
+        // 1. إدارة المقالات
         window.saveArticle = async function(e) {
             e.preventDefault();
             const title = document.getElementById('art-title').value;
@@ -87,9 +101,7 @@
             const content = document.getElementById('art-content').value;
             let imageUrl = document.getElementById('art-image-old').value;
 
-            if (selectedImageBase64) {
-                imageUrl = selectedImageBase64;
-            }
+            if (selectedImageBase64) imageUrl = selectedImageBase64;
 
             const btn = document.getElementById('pub-btn');
             btn.disabled = true;
@@ -98,22 +110,13 @@
             try {
                 if (editingArticleId) {
                     await updateDoc(doc(db, "articles", editingArticleId), {
-                        title,
-                        category,
-                        imageUrl,
-                        content,
-                        updatedAt: serverTimestamp()
+                        title, category, imageUrl, content, updatedAt: serverTimestamp()
                     });
                     alert("✅ تم تحديث المقال بنجاح!");
                     editingArticleId = null;
-                    btn.innerText = "نشر المقال فوراً 🚀";
                 } else {
                     await addDoc(collection(db, "articles"), {
-                        title,
-                        category,
-                        imageUrl,
-                        content,
-                        createdAt: serverTimestamp()
+                        title, category, imageUrl, content, createdAt: serverTimestamp()
                     });
                     alert("✅ تم نشر المقال بنجاح وسيظهر في الرئيسية!");
                 }
@@ -125,58 +128,53 @@
                 loadAdminArticles();
             } catch (err) {
                 alert("❌ حدث خطأ سحابي: " + err.message);
-                console.error(err);
             } finally {
                 btn.disabled = false;
-                if (!editingArticleId) btn.innerText = "نشر المقال فوراً 🚀";
+                btn.innerText = "نشر المقال فوراً 🚀";
             }
         };
 
-        // جلب المقالات لإدارتها
         async function loadAdminArticles() {
             const container = document.getElementById('admin-articles-list');
-            container.innerHTML = "<p style='text-align:center; color:#64748b;'>جاري تحميل المقالات...</p>";
-
+            container.innerHTML = "<p style='text-align:center;'>جاري تحميل المقالات...</p>";
             try {
                 const querySnapshot = await getDocs(collection(db, "articles"));
                 if (querySnapshot.empty) {
-                    container.innerHTML = "<p style='text-align:center; color:#64748b;'>لا توجد مقالات منشورة حالياً.</p>";
+                    container.innerHTML = "<p style='text-align:center;'>لا توجد مقالات منشورة حالياً.</p>";
                     return;
                 }
-
                 let html = "";
                 querySnapshot.forEach((docSnap) => {
                     const data = docSnap.data();
                     const id = docSnap.id;
                     html += `
                         <div style="background: #f8fafc; border: 1px solid var(--border-color); border-radius: 8px; padding: 15px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap;">
-                            <div style="display: flex; align-items: center; gap: 12px; flex: 1; min-width: 250px;">
-                                ${data.imageUrl ? `<img src="${data.imageUrl}" style="width: 50px; height: 50px; border-radius: 6px; object-fit: cover;">` : '<div style="width:50px;height:50px;background:#cbd5e1;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;">بدون صورة</div>'}
+                            <div style="display: flex; align-items: center; gap: 12px; flex: 1;">
+                                ${data.imageUrl ? `<img src="${data.imageUrl}" style="width: 50px; height: 50px; border-radius: 6px; object-fit: cover;">` : '<div style="width:50px;height:50px;background:#cbd5e1;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;">بدون</div>'}
                                 <div>
                                     <span class="badge badge-paid" style="font-size: 0.7rem; margin-bottom: 3px;">${data.category}</span>
                                     <h4 style="color: var(--gov-blue-dark); font-size: 0.95rem; font-weight: 800;">${data.title}</h4>
                                 </div>
                             </div>
                             <div style="display: flex; gap: 8px;">
-                                <button type="button" onclick="editArticle('${id}', '${encodeURIComponent(data.title)}', '${data.category}', '${encodeURIComponent(data.imageUrl || '')}', '${encodeURIComponent(data.content)}')" style="background: var(--gov-gold); color: var(--gov-blue-dark); border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.8rem;"><i class="fa-solid fa-pen"></i> تعديل</button>
-                                <button type="button" onclick="deleteArticle('${id}')" style="background: var(--primary-red); color: #fff; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.8rem;"><i class="fa-solid fa-trash"></i> حذف</button>
+                                <button type="button" onclick="editArticle('${id}', '${encodeURIComponent(data.title)}', '${data.category}', '${encodeURIComponent(data.imageUrl || '')}', '${encodeURIComponent(data.content)}')" style="background: var(--gov-gold); color: var(--gov-blue-dark); border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold;"><i class="fa-solid fa-pen"></i> تعديل</button>
+                                <button type="button" onclick="deleteDocument('articles', '${id}')" style="background: var(--primary-red); color: #fff; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold;"><i class="fa-solid fa-trash"></i> حذف</button>
                             </div>
                         </div>
                     `;
                 });
                 container.innerHTML = html;
             } catch (err) {
-                container.innerHTML = "<p style='color: red; text-align: center;'>خطأ في تحميل المقالات. تأكد من قواعد الأمن.</p>";
-                console.error(err);
+                container.innerHTML = "<p style='color: red;'>خطأ في تحميل المقالات.</p>";
             }
         }
 
-        window.deleteArticle = async function(id) {
-            if (confirm("هل أنت متأكد من حذف هذا المقال نهائياً؟")) {
+        window.deleteDocument = async function(collectionName, id) {
+            if (confirm("هل أنت متأكد من الحذف نهائياً؟")) {
                 try {
-                    await deleteDoc(doc(db, "articles", id));
-                    alert("🗑️ تم حذف المقال بنجاح.");
-                    loadAdminArticles();
+                    await deleteDoc(doc(db, collectionName, id));
+                    alert("🗑️ تم الحذف بنجاح.");
+                    loadAllAdminSections();
                 } catch (err) {
                     alert("❌ حدث خطأ أثناء الحذف: " + err.message);
                 }
@@ -198,69 +196,213 @@
             } else {
                 preview.style.display = 'none';
             }
-
             document.getElementById('pub-btn').innerText = "تحديث المقال 🔄";
             window.scrollTo({ top: 0, behavior: 'smooth' });
         };
+
+        // 2. إدارة رسائل اتصل بنا (contact_messages)
+        async function loadAdminContactMessages() {
+            const container = document.getElementById('admin-contact-list');
+            container.innerHTML = "<p style='text-align:center;'>جاري التحميل...</p>";
+            try {
+                const snapshot = await getDocs(collection(db, "contact_messages"));
+                if (snapshot.empty) {
+                    container.innerHTML = "<p style='text-align:center;'>لا توجد رسائل دعم حالياً.</p>";
+                    return;
+                }
+                let html = "";
+                snapshot.forEach(docSnap => {
+                    const data = docSnap.data();
+                    const id = docSnap.id;
+                    html += `
+                        <div style="background: #f8fafc; border: 1px solid var(--border-color); border-radius: 8px; padding: 15px; margin-bottom: 12px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                <strong style="color: var(--gov-blue-dark);">${data.name} (${data.email})</strong>
+                                <span class="badge badge-paid">${data.subject}</span>
+                            </div>
+                            <p style="color: #475569; font-size: 0.9rem; margin-bottom: 10px;">${data.message}</p>
+                            <button onclick="deleteDocument('contact_messages', '${id}')" style="background: var(--primary-red); color: #fff; border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 0.78rem;"><i class="fa-solid fa-trash"></i> حذف الرسالة</button>
+                        </div>
+                    `;
+                });
+                container.innerHTML = html;
+            } catch (e) {
+                container.innerHTML = "<p style='color: red;'>خطأ في تحميل رسائل اتصل بنا.</p>";
+            }
+        }
+
+        // 3. إدارة استفسارات الدعم (app_inquiries)
+        async function loadAdminInquiries() {
+            const container = document.getElementById('admin-inquiries-list');
+            container.innerHTML = "<p style='text-align:center;'>جاري التحميل...</p>";
+            try {
+                const snapshot = await getDocs(collection(db, "app_inquiries"));
+                if (snapshot.empty) {
+                    container.innerHTML = "<p style='text-align:center;'>لا توجد استفسارات حالياً.</p>";
+                    return;
+                }
+                let html = "";
+                snapshot.forEach(docSnap => {
+                    const data = docSnap.data();
+                    const id = docSnap.id;
+                    html += `
+                        <div style="background: #f8fafc; border: 1px solid var(--border-color); border-radius: 8px; padding: 15px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <strong style="color: var(--gov-blue-dark);">${data.name}</strong>
+                                <p style="color: #475569; font-size: 0.9rem; margin-top: 3px;">${data.text}</p>
+                            </div>
+                            <button onclick="deleteDocument('app_inquiries', '${id}')" style="background: var(--primary-red); color: #fff; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 0.8rem;"><i class="fa-solid fa-trash"></i> حذف</button>
+                        </div>
+                    `;
+                });
+                container.innerHTML = html;
+            } catch (e) {
+                container.innerHTML = "<p style='color: red;'>خطأ في التحميل.</p>";
+            }
+        }
+
+        // 4. إدارة طلبات منتدى مصر (forum_registrations)
+        async function loadAdminForumRegistrations() {
+            const container = document.getElementById('admin-forum-list');
+            container.innerHTML = "<p style='text-align:center;'>جاري التحميل...</p>";
+            try {
+                const snapshot = await getDocs(collection(db, "forum_registrations"));
+                if (snapshot.empty) {
+                    container.innerHTML = "<p style='text-align:center;'>لا توجد مقترحات منتدى مسجلة حالياً.</p>";
+                    return;
+                }
+                let html = "";
+                snapshot.forEach(docSnap => {
+                    const data = docSnap.data();
+                    const id = docSnap.id;
+                    html += `
+                        <div style="background: #f8fafc; border: 1px solid var(--border-color); border-radius: 8px; padding: 15px; margin-bottom: 12px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                <strong style="color: var(--gov-blue-dark);">${data.fullname} (${data.governorate})</strong>
+                                <span style="font-size: 0.8rem; color: #64748b;">${data.phone} | ${data.email}</span>
+                            </div>
+                            <p style="color: #475569; font-size: 0.9rem; margin-bottom: 10px;"><strong>المقترح:</strong> ${data.proposal || 'بدون مقترح'}</p>
+                            <button onclick="deleteDocument('forum_registrations', '${id}')" style="background: var(--primary-red); color: #fff; border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 0.78rem;"><i class="fa-solid fa-trash"></i> حذف التسجيل</button>
+                        </div>
+                    `;
+                });
+                container.innerHTML = html;
+            } catch (e) {
+                container.innerHTML = "<p style='color: red;'>خطأ في تحميل بيانات المنتدى.</p>";
+            }
+        }
+
+        function loadAllAdminSections() {
+            loadAdminArticles();
+            loadAdminContactMessages();
+            loadAdminInquiries();
+            loadAdminForumRegistrations();
+        }
     </script>
 </head>
 <body>
-    <div style="max-width: 800px; margin: 40px auto; padding: 20px;">
+    <div style="max-width: 950px; margin: 30px auto; padding: 20px;">
         
-        <!-- قسم تسجيل دخول الأدمن إذا لم يكن مسجلاً -->
+        <!-- قسم تسجيل دخول الأدمن -->
         <div id="admin-login-section" class="card" style="padding: 30px; text-align: center; display: none; margin-bottom: 20px;">
-            <h3 style="color: var(--gov-blue-dark); margin-bottom: 15px;">🔒 بوابة تحكم المشرفين</h3>
+            <h3 style="color: var(--gov-blue-dark); margin-bottom: 15px;">🔒 بوابة تحكم المشرفين المركزيّة</h3>
             <p id="admin-user-info" style="color: #64748b; margin-bottom: 15px; font-size: 0.9rem;">يجب تسجيل الدخول بحساب الأدمن (haretg@gmail.com) للمتابعة.</p>
             <button onclick="loginAdmin()" class="submit-btn" style="background: #db4437; width: auto; padding: 10px 20px;">
                 <i class="fa-brands fa-google"></i> تسجيل الدخول بحساب الأدمن
             </button>
         </div>
 
-        <!-- محتوى لوحة التحكم يظهر فقط عند نجاح المصادقة -->
+        <!-- محتوى لوحة التحكم الشاملة -->
         <div id="admin-content-section" style="display: none;">
-            <div class="card" style="padding: 30px; margin-bottom: 30px;">
-                <h2 style="color: var(--gov-blue-dark); margin-bottom: 20px; font-weight: 900;">
-                    <i class="fa-solid fa-pen-nib"></i> لوحة تحكم المقالات (GITI CMS)
-                </h2>
-                <form id="article-form" onsubmit="saveArticle(event)" style="display: flex; flex-direction: column; gap: 15px;">
-                    <input type="hidden" id="art-image-old">
-                    <div>
-                        <label style="font-weight: 700; display: block; margin-bottom: 5px;">عنوان المقال *</label>
-                        <input type="text" id="art-title" required placeholder="اكتب عنوان المقال هنا..." style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px;">
-                    </div>
-                    <div>
-                        <label style="font-weight: 700; display: block; margin-bottom: 5px;">القسم *</label>
-                        <select id="art-cat" style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px;">
-                            <option value="تكنولوجيا الشركات">تكنولوجيا الشركات</option>
-                            <option value="الأنظمة اللوجستية">الأنظمة اللوجستية</option>
-                            <option value="أمن البيانات">أمن البيانات</option>
-                            <option value="تطوير الويب والـ PWA">تطوير الويب والـ PWA</option>
-                            <option value="الذكاء الاصطناعي">الذكاء الاصطناعي</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label style="font-weight: 700; display: block; margin-bottom: 5px;">اختر صورة المقال من جهازك *</label>
-                        <input type="file" id="art-image-file" accept="image/*" onchange="handleImageUpload(event)" style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 6px; background: #fff;">
-                        <img id="img-preview" src="" style="display: none; width: 80px; height: 80px; margin-top: 10px; border-radius: 6px; object-fit: cover; border: 1px solid var(--border-color);">
-                    </div>
-                    <div>
-                        <label style="font-weight: 700; display: block; margin-bottom: 5px;">محتوى المقال *</label>
-                        <textarea id="art-content" required rows="6" placeholder="اكتب تفاصيل المقال..." style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px; font-family: inherit;"></textarea>
-                    </div>
-                    <button type="submit" id="pub-btn" class="submit-btn">نشر المقال فوراً 🚀</button>
-                </form>
+            
+            <!-- هيدر اللوحة مع زر الخروج -->
+            <div class="card" style="padding: 20px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                <div>
+                    <h2 style="color: var(--gov-blue-dark); font-weight: 900; font-size: 1.3rem;">
+                        <i class="fa-solid fa-gauge-high" style="color: var(--gov-gold);"></i> لوحة التحكم الشاملة (GITI CMS)
+                    </h2>
+                    <p style="color: #64748b; font-size: 0.85rem;">تحكم كامل بإضافة، تعديل، وحذف أقسام ومقترحات المنصة سحابياً</p>
+                </div>
+                <button onclick="logoutAdmin()" style="background: var(--primary-red); color: #fff; border: none; padding: 8px 15px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 0.85rem;">
+                    <i class="fa-solid fa-right-from-bracket"></i> خروج الأدمن
+                </button>
             </div>
 
-            <div class="card" style="padding: 25px;">
-                <h3 style="color: var(--gov-blue-dark); margin-bottom: 15px; font-weight: 800;">
-                    <i class="fa-solid fa-list-check"></i> المقالات المنشورة حالياً (إدارة وتعديل)
-                </h3>
-                <div id="admin-articles-list"></div>
+            <!-- أزرار تبديل الأقسام في لوحة التحكم -->
+            <div style="display: flex; gap: 8px; margin-bottom: 25px; flex-wrap: wrap;">
+                <button class="admin-nav-btn" onclick="switchAdminTab('tab-articles')" style="background: var(--gov-gold); color: var(--gov-blue-dark); border: none; padding: 10px 18px; border-radius: 6px; font-weight: bold; cursor: pointer;"><i class="fa-solid fa-newspaper"></i> المقالات</button>
+                <button class="admin-nav-btn" onclick="switchAdminTab('tab-contact')" style="background: var(--gov-blue-dark); color: #fff; border: none; padding: 10px 18px; border-radius: 6px; font-weight: bold; cursor: pointer;"><i class="fa-solid fa-envelope"></i> رسائل اتصل بنا</button>
+                <button class="admin-nav-btn" onclick="switchAdminTab('tab-inquiries')" style="background: var(--gov-blue-dark); color: #fff; border: none; padding: 10px 18px; border-radius: 6px; font-weight: bold; cursor: pointer;"><i class="fa-solid fa-headset"></i> استفسارات الأمان</button>
+                <button class="admin-nav-btn" onclick="switchAdminTab('tab-forum')" style="background: var(--gov-blue-dark); color: #fff; border: none; padding: 10px 18px; border-radius: 6px; font-weight: bold; cursor: pointer;"><i class="fa-solid fa-landmark"></i> مقترحات منتدى مصر</button>
             </div>
+
+            <!-- 1. قسم إدارة المقالات -->
+            <div id="tab-articles" class="admin-tab-content">
+                <div class="card" style="padding: 25px; margin-bottom: 25px;">
+                    <h3 style="color: var(--gov-blue-dark); margin-bottom: 15px; font-weight: 800;"><i class="fa-solid fa-pen-nib"></i> إضافة أو تعديل مقال جديد</h3>
+                    <form id="article-form" onsubmit="saveArticle(event)" style="display: flex; flex-direction: column; gap: 15px;">
+                        <input type="hidden" id="art-image-old">
+                        <div>
+                            <label style="font-weight: 700; display: block; margin-bottom: 5px;">عنوان المقال *</label>
+                            <input type="text" id="art-title" required placeholder="اكتب عنوان المقال هنا..." style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px;">
+                        </div>
+                        <div>
+                            <label style="font-weight: 700; display: block; margin-bottom: 5px;">القسم *</label>
+                            <select id="art-cat" style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px;">
+                                <option value="تكنولوجيا الشركات">تكنولوجيا الشركات</option>
+                                <option value="الأنظمة اللوجستية">الأنظمة اللوجستية</option>
+                                <option value="أمن البيانات">أمن البيانات</option>
+                                <option value="تطوير الويب والـ PWA">تطوير الويب والـ PWA</option>
+                                <option value="الذكاء الاصطناعي">الذكاء الاصطناعي</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label style="font-weight: 700; display: block; margin-bottom: 5px;">اختر صورة المقال *</label>
+                            <input type="file" id="art-image-file" accept="image/*" onchange="handleImageUpload(event)" style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 6px; background: #fff;">
+                            <img id="img-preview" src="" style="display: none; width: 80px; height: 80px; margin-top: 10px; border-radius: 6px; object-fit: cover; border: 1px solid var(--border-color);">
+                        </div>
+                        <div>
+                            <label style="font-weight: 700; display: block; margin-bottom: 5px;">محتوى المقال *</label>
+                            <textarea id="art-content" required rows="6" placeholder="اكتب تفاصيل المقال..." style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px; font-family: inherit;"></textarea>
+                        </div>
+                        <button type="submit" id="pub-btn" class="submit-btn">نشر المقال فوراً 🚀</button>
+                    </form>
+                </div>
+
+                <div class="card" style="padding: 25px;">
+                    <h3 style="color: var(--gov-blue-dark); margin-bottom: 15px; font-weight: 800;"><i class="fa-solid fa-list-check"></i> المقالات المنشورة حالياً (إدارة وحذف)</h3>
+                    <div id="admin-articles-list"></div>
+                </div>
+            </div>
+
+            <!-- 2. قسم رسائل اتصل بنا -->
+            <div id="tab-contact" class="admin-tab-content" style="display: none;">
+                <div class="card" style="padding: 25px;">
+                    <h3 style="color: var(--gov-blue-dark); margin-bottom: 15px; font-weight: 800;"><i class="fa-solid fa-envelope"></i> رسائل زوار المنصة الواردة</h3>
+                    <div id="admin-contact-list"></div>
+                </div>
+            </div>
+
+            <!-- 3. قسم استفسارات الأمان والدعم -->
+            <div id="tab-inquiries" class="admin-tab-content" style="display: none;">
+                <div class="card" style="padding: 25px;">
+                    <h3 style="color: var(--gov-blue-dark); margin-bottom: 15px; font-weight: 800;"><i class="fa-solid fa-headset"></i> استفسارات حائط الأمان والتطبيقات</h3>
+                    <div id="admin-inquiries-list"></div>
+                </div>
+            </div>
+
+            <!-- 4. قسم مقترحات منتدى مصر -->
+            <div id="tab-forum" class="admin-tab-content" style="display: none;">
+                <div class="card" style="padding: 25px;">
+                    <h3 style="color: var(--gov-blue-dark); margin-bottom: 15px; font-weight: 800;"><i class="fa-solid fa-landmark"></i> مقترحات الشباب المسجلة لمنتدى مصر 2026</h3>
+                    <div id="admin-forum-list"></div>
+                </div>
+            </div>
+
         </div>
 
-        <div style="margin-top: 20px; text-align: center;">
-            <a href="index.html" style="color: var(--gov-blue-light); font-weight: 700; text-decoration: none;"><i class="fa-solid fa-arrow-right"></i> العودة إلى الصفحة الرئيسية</a>
+        <div style="margin-top: 30px; text-align: center;">
+            <a href="index.html" style="color: var(--gov-blue-light); font-weight: 700; text-decoration: none;"><i class="fa-solid fa-arrow-right"></i> العودة إلى الصفحة الرئيسية للمنصة</a>
         </div>
     </div>
 </body>
