@@ -8,7 +8,7 @@
     <!-- وسوم المعاينة الاجتماعية (Open Graph) لمشاركة الرابط -->
     <meta property="og:title" content="منتدى مصر 2026 - التغطية الإعلامية والمقترحات الشبابية | GITI Tech">
     <meta property="og:description" content="تغطية إعلامية مستقلة ومساحة لمشاركة المقترحات وكروت الدعوات الإبداعية لمنتدى مصر 2026 عبر شبكة GITI.">
-    <meta property="og:image" content="https://sis.gov.eg/media/833992/%D9%85%D9%86%D8%AA%D8%AF%D9%89-%D9%85%D8%B5%D8%B1-2026.jpg">
+    <meta property="og:image" content="logo.png">
     <meta property="og:url" content="https://karamegy.github.io/montda">
     <meta property="og:type" content="website">
 
@@ -325,13 +325,31 @@
             display: block;
         }
 
-        /* Hero Section */
+        /* Hero Section (Clean GITI Gradient with Logo Watermark) */
         .gov-hero-section {
-            background: linear-gradient(180deg, rgba(11, 34, 56, 0.88) 0%, rgba(11, 34, 56, 0.95) 100%),
-                        url('https://sis.gov.eg/media/833992/%D9%85%D9%86%D8%AA%D8%AF%D9%89-%D9%85%D8%B5%D8%B1-2026.jpg') center/cover no-repeat;
+            position: relative;
+            background: linear-gradient(135deg, var(--gov-blue-dark), #0f172a) !important;
             color: #ffffff;
             padding: 50px 20px 70px;
             text-align: center;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .gov-hero-section::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: url('logo.png');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 320px auto;
+            opacity: 0.08;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .gov-hero-section > * {
             position: relative;
             z-index: 1;
         }
@@ -926,7 +944,7 @@
         </div>
     </div>
 
-    <!-- Hero Section -->
+    <!-- Hero Section (خلفية GITI الاحترافية النظيفة بدون أي صور خارجية) -->
     <section class="gov-hero-section">
         <div class="hero-title-badge">تغطية منتدى مصر 2026</div>
 
@@ -1255,51 +1273,24 @@
             document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
         }, 1000);
 
-        // --- كود مولد بطاقة المشاركة التذكارية (Canvas Generator) ---
+        // --- كود مولد بطاقة المشاركة التذكارية (Canvas Generator بدون صور خارجية) ---
         const cardCanvas = document.getElementById('invitationCanvas');
         const cardCtx = cardCanvas.getContext('2d');
         cardCanvas.width = 1000;
-        cardCanvas.height = 562; // نسبة عرض 16:9
+        cardCanvas.height = 562;
 
         let userAvatarImg = new Image();
         let isAvatarLoaded = false;
 
-        let bgCardImg = new Image();
-        bgCardImg.crossOrigin = "anonymous";
-        bgCardImg.src = "https://sis.gov.eg/media/833992/%D9%85%D9%86%D8%AA%D8%AF%D9%89-%D9%85%D8%B5%D8%B1-2026.jpg";
-        let isBgLoaded = false;
-        bgCardImg.onload = function() {
-            isBgLoaded = true;
-            drawCard();
-        };
-
-        function loadCardImage(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    userAvatarImg.src = e.target.result;
-                    userAvatarImg.onload = function() {
-                        isAvatarLoaded = true;
-                        drawCard();
-                    }
-                }
-                reader.readAsDataURL(file);
-            }
-        }
-
         function drawCard() {
             cardCtx.clearRect(0, 0, cardCanvas.width, cardCanvas.height);
 
-            // 1. رسم خلفية المنتدى مع طبقة تعتيم داكنة
-            if (isBgLoaded) {
-                cardCtx.drawImage(bgCardImg, 0, 0, cardCanvas.width, cardCanvas.height);
-                cardCtx.fillStyle = 'rgba(11, 34, 56, 0.82)';
-                cardCtx.fillRect(0, 0, cardCanvas.width, cardCanvas.height);
-            } else {
-                cardCtx.fillStyle = '#0b2238';
-                cardCtx.fillRect(0, 0, cardCanvas.width, cardCanvas.height);
-            }
+            // 1. رسم خلفية البطاقة الاحترافية (متدرجة داكنة مع إطار ذهبي)
+            const grad = cardCtx.createLinearGradient(0, 0, cardCanvas.width, cardCanvas.height);
+            grad.addColorStop(0, '#0b2238');
+            grad.addColorStop(1, '#0f172a');
+            cardCtx.fillStyle = grad;
+            cardCtx.fillRect(0, 0, cardCanvas.width, cardCanvas.height);
 
             // إطار ذهبي خارجي فاخر
             cardCtx.strokeStyle = '#d4af37';
@@ -1378,6 +1369,21 @@
             cardCtx.fillStyle = '#cbd5e1';
             cardCtx.font = '14px Cairo, sans-serif';
             cardCtx.fillText('شبكة GITI Tech & Business OS | 19-24 أكتوبر 2026', cardCanvas.width / 2, 490);
+        }
+
+        function loadCardImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    userAvatarImg.src = e.target.result;
+                    userAvatarImg.onload = function() {
+                        isAvatarLoaded = true;
+                        drawCard();
+                    }
+                }
+                reader.readAsDataURL(file);
+            }
         }
 
         // رسم الكرت أول ما الصفحة تفتح
