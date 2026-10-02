@@ -98,7 +98,7 @@
             }
         };
 
-        // 1. إدارة المقالات
+        // 1. إدارة المقالات (articles)
         window.saveArticle = async function(e) {
             e.preventDefault();
             const title = document.getElementById('art-title').value;
@@ -171,7 +171,7 @@
                 container.innerHTML = html;
             } catch (err) {
                 console.error(err);
-                container.innerHTML = "<p style='color: red; text-align:center;'>خطأ في تحميل المقالات. تأكد من قواعد أمان Firebase.</p>";
+                container.innerHTML = "<p style='color: red; text-align:center;'>خطأ في تحميل المقالات.</p>";
             }
         }
 
@@ -179,7 +179,7 @@
             if (confirm("هل أنت متأكد من الحذف نهائياً؟")) {
                 try {
                     await deleteDoc(doc(db, collectionName, id));
-                    alert("🗑️️ تم الحذف بنجاح.");
+                    alert("🗑 تم الحذف بنجاح.");
                     loadAllAdminSections();
                 } catch (err) {
                     alert("❌ حدث خطأ أثناء الحذف: " + err.message);
@@ -206,14 +206,14 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         };
 
-        // 2. إدارة رسائل اتصل بنا (contact_messages)
-        async function loadAdminContactMessages() {
-            const container = document.getElementById('admin-contact-list');
+        // 2. إدارة تعليقات المقالات (article_comments)
+        async function loadAdminComments() {
+            const container = document.getElementById('admin-comments-list');
             container.innerHTML = "<p style='text-align:center;'>جاري التحميل...</p>";
             try {
-                const snapshot = await getDocs(collection(db, "contact_messages"));
+                const snapshot = await getDocs(collection(db, "article_comments"));[span_3](start_span)[span_3](end_span)
                 if (snapshot.empty) {
-                    container.innerHTML = "<p style='text-align:center; color:#64748b;'>لا توجد رسائل دعم حالياً.</p>";
+                    container.innerHTML = "<p style='text-align:center; color:#64748b;'>لا توجد تعليقات حالياً.</p>";
                     return;
                 }
                 let html = "";
@@ -223,27 +223,27 @@
                     html += `
                         <div style="background: #f8fafc; border: 1px solid var(--border-color); border-radius: 8px; padding: 15px; margin-bottom: 12px;">
                             <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                                <strong style="color: var(--gov-blue-dark);">${data.name || 'زائر'} (${data.email || 'بدون بريد'})</strong>
-                                <span class="badge badge-paid">${data.subject || 'استفسار'}</span>
+                                <strong style="color: var(--gov-blue-dark);">${data.name || 'زائر'}</strong>
+                                <span style="font-size: 0.8rem; color: #64748b;">${data.date || ''}</span>
                             </div>
-                            <p style="color: #475569; font-size: 0.9rem; margin-bottom: 10px;">${data.message || ''}</p>
-                            <button onclick="deleteDocument('contact_messages', '${id}')" style="background: var(--primary-red); color: #fff; border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 0.78rem;"><i class="fa-solid fa-trash"></i> حذف الرسالة</button>
+                            <p style="color: #475569; font-size: 0.9rem; margin-bottom: 10px;">${data.comment || data.text || ''}</p>
+                            <button onclick="deleteDocument('article_comments', '${id}')" style="background: var(--primary-red); color: #fff; border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 0.78rem;"><i class="fa-solid fa-trash"></i> حذف التعليق</button>
                         </div>
                     `;
                 });
                 container.innerHTML = html;
             } catch (e) {
                 console.error(e);
-                container.innerHTML = "<p style='color: red; text-align:center;'>لا توجد بيانات أو تعسّر تحميل رسائل اتصل بنا.</p>";
+                container.innerHTML = "<p style='color: red; text-align:center;'>خطأ في تحميل تعليقات المقالات.</p>";
             }
         }
 
-        // 3. إدارة استفسارات الدعم (app_inquiries)
+        // 3. إدارة استفسارات الأمان والتطبيقات (app_inquiries)
         async function loadAdminInquiries() {
             const container = document.getElementById('admin-inquiries-list');
             container.innerHTML = "<p style='text-align:center;'>جاري التحميل...</p>";
             try {
-                const snapshot = await getDocs(collection(db, "app_inquiries"));
+                const snapshot = await getDocs(collection(db, "app_inquiries"));[span_4](start_span)[span_4](end_span)
                 if (snapshot.empty) {
                     container.innerHTML = "<p style='text-align:center; color:#64748b;'>لا توجد استفسارات حالياً.</p>";
                     return;
@@ -256,7 +256,7 @@
                         <div style="background: #f8fafc; border: 1px solid var(--border-color); border-radius: 8px; padding: 15px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
                             <div>
                                 <strong style="color: var(--gov-blue-dark);">${data.name || 'عضو'}</strong>
-                                <p style="color: #475569; font-size: 0.9rem; margin-top: 3px;">${data.text || ''}</p>
+                                <p style="color: #475569; font-size: 0.9rem; margin-top: 3px;">${data.text || data.message || ''}</p>
                             </div>
                             <button onclick="deleteDocument('app_inquiries', '${id}')" style="background: var(--primary-red); color: #fff; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 0.8rem;"><i class="fa-solid fa-trash"></i> حذف</button>
                         </div>
@@ -269,14 +269,24 @@
             }
         }
 
-        // 4. إدارة طلبات منتدى مصر (forum_registrations)
+        // 4. إدارة مقترحات منتدى مصر
         async function loadAdminForumRegistrations() {
             const container = document.getElementById('admin-forum-list');
             container.innerHTML = "<p style='text-align:center;'>جاري التحميل...</p>";
             try {
-                const snapshot = await getDocs(collection(db, "forum_registrations"));
-                if (snapshot.empty) {
-                    container.innerHTML = "<p style='text-align:center; color:#64748b;'>لا توجد مقترحات منتدى مسجلة حالياً.</p>";
+                // محاولة جلب البيانات من المجموعات المحتملة للمنتدى (forum_proposals أو forum_registrations)
+                let snapshot;
+                try {
+                    snapshot = await getDocs(collection(db, "forum_proposals"));
+                    if (snapshot.empty) {
+                        snapshot = await getDocs(collection(db, "forum_registrations"));
+                    }
+                } catch (err) {
+                    snapshot = await getDocs(collection(db, "forum_registrations"));
+                }
+
+                if (!snapshot || snapshot.empty) {
+                    container.innerHTML = "<p style='text-align:center; color:#64748b;'>لا توجد مقترحات مسجلة لمنتدى مصر حالياً.</p>";
                     return;
                 }
                 let html = "";
@@ -286,11 +296,11 @@
                     html += `
                         <div style="background: #f8fafc; border: 1px solid var(--border-color); border-radius: 8px; padding: 15px; margin-bottom: 12px;">
                             <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                                <strong style="color: var(--gov-blue-dark);">${data.fullname || 'مشارك'} (${data.governorate || 'محافظة'})</strong>
+                                <strong style="color: var(--gov-blue-dark);">${data.fullname || data.name || 'مشارك'} (${data.governorate || 'محافظة'})</strong>
                                 <span style="font-size: 0.8rem; color: #64748b;">${data.phone || ''} | ${data.email || ''}</span>
                             </div>
-                            <p style="color: #475569; font-size: 0.9rem; margin-bottom: 10px;"><strong>المقترح:</strong> ${data.proposal || 'بدون مقترح'}</p>
-                            <button onclick="deleteDocument('forum_registrations', '${id}')" style="background: var(--primary-red); color: #fff; border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 0.78rem;"><i class="fa-solid fa-trash"></i> حذف التسجيل</button>
+                            <p style="color: #475569; font-size: 0.9rem; margin-bottom: 10px;"><strong>المقترح:</strong> ${data.proposal || data.text || 'بدون مقترح'}</p>
+                            <button onclick="deleteDocument('forum_proposals', '${id}')" style="background: var(--primary-red); color: #fff; border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 0.78rem;"><i class="fa-solid fa-trash"></i> حذف المقترح</button>
                         </div>
                     `;
                 });
@@ -303,7 +313,7 @@
 
         function loadAllAdminSections() {
             loadAdminArticles();
-            loadAdminContactMessages();
+            loadAdminComments();
             loadAdminInquiries();
             loadAdminForumRegistrations();
         }
@@ -340,7 +350,7 @@
             <!-- أزرار تبديل الأقسام في لوحة التحكم -->
             <div style="display: flex; gap: 8px; margin-bottom: 25px; flex-wrap: wrap;">
                 <button class="admin-nav-btn" onclick="switchAdminTab('tab-articles')" style="background: var(--gov-gold); color: var(--gov-blue-dark); border: none; padding: 10px 18px; border-radius: 6px; font-weight: bold; cursor: pointer;"><i class="fa-solid fa-newspaper"></i> المقالات</button>
-                <button class="admin-nav-btn" onclick="switchAdminTab('tab-contact')" style="background: var(--gov-blue-dark); color: #fff; border: none; padding: 10px 18px; border-radius: 6px; font-weight: bold; cursor: pointer;"><i class="fa-solid fa-envelope"></i> رسائل اتصل بنا</button>
+                <button class="admin-nav-btn" onclick="switchAdminTab('tab-comments')" style="background: var(--gov-blue-dark); color: #fff; border: none; padding: 10px 18px; border-radius: 6px; font-weight: bold; cursor: pointer;"><i class="fa-solid fa-comments"></i> تعليقات المقالات</button>
                 <button class="admin-nav-btn" onclick="switchAdminTab('tab-inquiries')" style="background: var(--gov-blue-dark); color: #fff; border: none; padding: 10px 18px; border-radius: 6px; font-weight: bold; cursor: pointer;"><i class="fa-solid fa-headset"></i> استفسارات الأمان</button>
                 <button class="admin-nav-btn" onclick="switchAdminTab('tab-forum')" style="background: var(--gov-blue-dark); color: #fff; border: none; padding: 10px 18px; border-radius: 6px; font-weight: bold; cursor: pointer;"><i class="fa-solid fa-landmark"></i> مقترحات منتدى مصر</button>
             </div>
@@ -384,11 +394,11 @@
                 </div>
             </div>
 
-            <!-- 2. قسم رسائل اتصل بنا -->
-            <div id="tab-contact" class="admin-tab-content" style="display: none;">
+            <!-- 2. قسم تعليقات المقالات -->
+            <div id="tab-comments" class="admin-tab-content" style="display: none;">
                 <div class="card" style="padding: 25px;">
-                    <h3 style="color: var(--gov-blue-dark); margin-bottom: 15px; font-weight: 800;"><i class="fa-solid fa-envelope"></i> رسائل زوار المنصة الواردة</h3>
-                    <div id="admin-contact-list"></div>
+                    <h3 style="color: var(--gov-blue-dark); margin-bottom: 15px; font-weight: 800;"><i class="fa-solid fa-comments"></i> تعليقات الزوار على المقالات</h3>
+                    <div id="admin-comments-list"></div>
                 </div>
             </div>
 
