@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منتدى مصر 2026 - مبادرة رئيس الجمهورية</title>
+    <title>منتدى مصر 2026 - تغطية شبكة GITI الشبابية</title>
     <!-- Font Awesome الأيقونات -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts - Cairo -->
@@ -20,6 +20,7 @@
             --primary-red: #c0392b;
             --bg-light: #f8fafc;
             --text-dark: #1e293b;
+            --giti-purple: #4f46e5;
         }
 
         * {
@@ -39,7 +40,21 @@
             line-height: 1.6;
         }
 
-        /* Top Bar - الشريطة الحكومية العليا */
+        /* Legal Disclaimer Bar - إخلاء مسؤولية قانوني لحماية المدونة */
+        .legal-disclaimer-bar {
+            background: #1e293b;
+            color: #cbd5e1;
+            padding: 6px 15px;
+            font-size: 0.78rem;
+            text-align: center;
+            border-bottom: 1px solid #334155;
+        }
+
+        .legal-disclaimer-bar strong {
+            color: var(--gov-gold);
+        }
+
+        /* Top Bar - الشريطة العليا */
         .top-gov-bar {
             background-color: var(--gov-blue-dark);
             color: #fff;
@@ -134,42 +149,69 @@
         .gov-branding {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
         }
 
-        .eagle-emblem {
-            height: 52px;
-            width: auto;
-            object-fit: contain;
+        .eagle-svg-box {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .brand-text-box h2 {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             color: var(--gov-blue-dark);
             font-weight: 800;
             line-height: 1.2;
         }
 
         .brand-text-box p {
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             color: #64748b;
         }
 
-        .forum-logo-title {
-            text-align: left;
-            border-right: 2px solid #e2e8f0;
-            padding-right: 15px;
+        /* لوجو اسم مدونة GITI الشبابية */
+        .giti-blog-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #f1f5f9;
+            padding: 6px 14px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
         }
 
-        .forum-logo-title h1 {
-            font-size: 1.3rem;
-            color: var(--gov-blue-dark);
+        .giti-cube-logo {
+            width: 32px;
+            height: 32px;
+            background: #4338ca;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.1rem;
+            box-shadow: 0 2px 8px rgba(67, 56, 202, 0.3);
+        }
+
+        .giti-title-text h1 {
+            font-size: 1.15rem;
+            color: #312e81;
             font-weight: 900;
+            line-height: 1;
         }
 
-        /* Hero Section - مع صورة خلفية المنتدى المباشرة المعتمدة */
+        .giti-title-text span {
+            font-size: 0.68rem;
+            color: #6366f1;
+            font-weight: 700;
+        }
+
+        /* Hero Section */
         .gov-hero-section {
-            background: linear-gradient(180deg, rgba(11, 34, 56, 0.82) 0%, rgba(11, 34, 56, 0.92) 100%),
+            background: linear-gradient(180deg, rgba(11, 34, 56, 0.85) 0%, rgba(11, 34, 56, 0.94) 100%),
                         url('https://sis.gov.eg/media/833992/%D9%85%D9%86%D8%AA%D8%AF%D9%89-%D9%85%D8%B5%D8%B1-2026.jpg') center/cover no-repeat;
             color: #ffffff;
             padding: 50px 20px 70px;
@@ -330,7 +372,7 @@
             background: rgba(255,255,255,0.1);
         }
 
-        /* Animated Statistics Section */
+        /* Stats Section */
         .stats-section {
             background: #ffffff;
             padding: 40px 20px;
@@ -609,8 +651,8 @@
         }
 
         @media (max-width: 768px) {
-            .nav-container { flex-direction: column; gap: 10px; text-align: center; }
-            .forum-logo-title { border-right: none; padding-right: 0; }
+            .nav-container { flex-direction: column; gap: 12px; text-align: center; }
+            .giti-blog-brand { width: 100%; justify-content: center; }
             .president-speech { font-size: 1rem; padding: 20px; }
             .timeline-event { flex-direction: column; gap: 8px; }
         }
@@ -642,6 +684,11 @@
 </head>
 <body>
 
+    <!-- شريط الإخلاء القانوني لمنع المساءلة -->
+    <div class="legal-disclaimer-bar">
+        ℹ️ <strong>تنويه إعلامي:</strong> هذه الصفحة مبادرة إعلامية شبابية مستقلة صادرة عن <strong>مدونة GITI</strong> لتشجيع الشباب ومشاركة مقترحاتهم في منتدى مصر 2026، ولا نُمثل أي جهة حكومية رسمية.
+    </div>
+
     <!-- Top Bar الحكومي -->
     <div class="top-gov-bar">
         <div class="social-icons">
@@ -666,22 +713,34 @@
         </div>
     </div>
 
-    <!-- Header Navigation مع النسر الحكومي الشفاف والمضمون -->
+    <!-- Header Navigation متضمن نسر الشعار المدمج وبصمة لوجو مدونة GITI -->
     <header>
         <div class="nav-container">
             <div class="gov-branding">
-                <img src="https://pngimg.com/d/coat_of_arms_of_egypt_PNG12.png" 
-                     alt="شعار نسر جمهورية مصر العربية" 
-                     class="eagle-emblem"
-                     onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Coat_of_arms_of_Egypt_%28official%29.svg/250px-Coat_of_arms_of_Egypt_%28official%29.svg.png'">
+                <!-- النسر العربي المباشر المضمن بصيغة إلكترونية ثابتة -->
+                <div class="eagle-svg-box">
+                    <svg viewBox="0 0 100 100" style="width: 100%; height: 100%;">
+                        <path d="M50 10 L60 30 L85 30 L65 45 L72 70 L50 55 L28 70 L35 45 L15 30 L40 30 Z" fill="#d4af37" stroke="#0b2238" stroke-width="2"/>
+                        <rect x="42" y="38" width="16" height="22" fill="#c0392b" />
+                        <rect x="42" y="45" width="16" height="15" fill="#ffffff" />
+                        <rect x="42" y="52" width="16" height="8" fill="#000000" />
+                    </svg>
+                </div>
                 <div class="brand-text-box">
                     <h2>جمهورية مصر العربية</h2>
-                    <p>رئاسة مجلس الوزراء</p>
+                    <p>المبادرة الرئاسية للشباب</p>
                 </div>
             </div>
 
-            <div class="forum-logo-title">
-                <h1>منتدى مصر — 2026</h1>
+            <!-- لوجو اسم مدونة GITI المعتمد لمزيد من الأمان القانوني -->
+            <div class="giti-blog-brand">
+                <div class="giti-cube-logo">
+                    <i class="fa-solid fa-cube"></i>
+                </div>
+                <div class="giti-title-text">
+                    <h1>GITI BLOG</h1>
+                    <span>مدونة جيتي الشبابية</span>
+                </div>
             </div>
         </div>
     </header>
@@ -938,9 +997,9 @@
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- Footer متضمن حقوق مدونة GITI والإخلاء القانوني -->
     <footer>
-        <p>جميع الحقوق محفوظة &copy; 2026 — منتدى مصر | <a href="index.html">العودة للرئيسية</a></p>
+        <p>جميع الحقوق محفوظة &copy; 2026 — مدونة GITI الإعلامية الشبابية | <a href="index.html">العودة للرئيسية</a></p>
     </footer>
 
     <script>
