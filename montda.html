@@ -152,10 +152,9 @@
             gap: 12px;
         }
 
-        .eagle-emblem-img {
+        .eagle-emblem-svg {
             height: 52px;
             width: auto;
-            object-fit: contain;
             display: block;
         }
 
@@ -685,7 +684,7 @@
 
     <!-- شريط الإخلاء القانوني لمنع المساءلة -->
     <div class="legal-disclaimer-bar">
-        ℹ️ <strong>تنويه إعلامي:</strong> هذه الصفحة مبادرة إعلامية شبابية مستقلة صادرة عن <strong>مدونة GITI</strong> لتشجيع الشباب ومشاركة مقترحاتهم، ولا نُمثل أي جهة حكومية رسمية.
+        ℹ️️ <strong>تنويه إعلامي:</strong> هذه الصفحة مبادرة إعلامية شبابية مستقلة صادرة عن <strong>مدونة GITI</strong> لتشجيع الشباب ومشاركة مقترحاتهم، ولا نُمثل أي جهة حكومية رسمية.
     </div>
 
     <!-- Top Bar الحكومي -->
@@ -712,14 +711,19 @@
         </div>
     </div>
 
-    <!-- Header Navigation متضمن نسر الشعار المباشر المضمون وبصمة لوجو مدونة GITI -->
+    <!-- Header Navigation متضمن النسر الجرافيكي المباشر المضمن داخل الكود وبصمة لوجو مدونة GITI -->
     <header>
         <div class="nav-container">
             <div class="gov-branding">
-                <img src="https://raw.githubusercontent.com/mushab0/Egypt-coat-of-arms/main/Coat_of_arms_of_Egypt.svg" 
-                     alt="شعار جمهورية مصر العربية" 
-                     class="eagle-emblem-img"
-                     onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/commons/a/a6/Coat_of_arms_of_Egypt_%28official%29.svg';">
+                <!-- نسر شعار جمهورية مصر العربية مضمن كـ SVG (مضمون الظهور الفوري) بدون alt متسبب للمشاكل -->
+                <svg class="eagle-emblem-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M50 8 L60 22 L76 18 L70 34 L88 38 L76 50 L90 62 L72 66 L78 84 L60 76 L50 92 L40 76 L22 84 L28 66 L10 62 L24 50 L12 38 L30 34 L24 18 L40 22 Z" fill="#D4AF37" stroke="#0B2238" stroke-width="2.5"/>
+                    <rect x="36" y="38" width="28" height="28" fill="#FFFFFF" stroke="#0B2238" stroke-width="1.5"/>
+                    <rect x="36" y="38" width="9.3" height="28" fill="#C0392B"/>
+                    <rect x="45.3" y="38" width="9.3" height="28" fill="#FFFFFF"/>
+                    <rect x="54.6" y="38" width="9.3" height="28" fill="#1E293B"/>
+                    <path d="M30 76 Q50 86 70 76 L66 84 Q50 90 34 84 Z" fill="#D4AF37" stroke="#0B2238" stroke-width="1"/>
+                </svg>
                 <div class="brand-text-box">
                     <h2>جمهورية مصر العربية</h2>
                     <p>المبادرة الرئاسية للشباب</p>
@@ -743,7 +747,7 @@
     <section class="gov-hero-section">
         <div class="president-avatar-container">
             <img src="https://static.srpcdigital.com/styles/1037xauto/public/2024-09/799459_0.jpeg.webp" 
-                 alt="فخامة رئيس الجمهورية عبد الفتاح السيسي" 
+                 alt="" 
                  class="president-avatar"
                  onerror="this.src='https://vid.alarabiya.net/images/2022/12/28/1a7507ad-855c-45a3-a77a-98cb41d01638/1a7507ad-855c-45a3-a77a-98cb41d01638.JPG?crop=1:1&width=1000'">
         </div>
