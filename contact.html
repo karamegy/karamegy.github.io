@@ -16,11 +16,11 @@
   <link rel="apple-touch-icon" href="logo.png">
   <link rel="stylesheet" href="style.css">
 
-  <!-- سكربتات Firebase الأساسية -->
+  <!-- سكربتات Firebase والمصادقة -->
   <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
       import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-      import { getAuth, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+      import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
       const firebaseConfig = {
           apiKey: "AIzaSyDTIxdIHfDaEH2wn7dEE9qMnsOlXtlSCI0",
@@ -36,9 +36,73 @@
       const db = getFirestore(app);
       const auth = getAuth(app);
 
+      const ADMIN_EMAILS = ["haretg@gmail.com", "karamegy@gmail.com"];
+
       window.db = db;
       window.auth = auth;
       window.firebaseModules = { collection, addDoc, serverTimestamp };
+
+      // مراقبة حالة تسجيل الدخول وتحديث واجهة المستخدم
+      onAuthStateChanged(auth, (user) => {
+          const authContainer = document.getElementById('auth-container');
+          const sidebarLinks = document.querySelector('.sidebar-links');
+
+          if (user) {
+              const isAdmin = ADMIN_EMAILS.includes(user.email) || user.email.includes("haretg") || user.email.includes("karamegy");
+
+              if (authContainer) {
+                  authContainer.innerHTML = `
+                      <div style="display: flex; align-items: center; gap: 6px; color: #fff; font-size: 0.8rem; cursor: pointer;" title="الملف الشخصي">
+                          <img src="${user.photoURL || 'logo.png'}" alt="Avatar" style="width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--gov-gold); object-fit: cover;">
+                          <span style="font-weight: 700;">${user.displayName ? user.displayName.split(' ')[0] : 'عضو'}</span>
+                          <button onclick="logoutUser(); event.stopPropagation();" style="background: var(--primary-red); color: #fff; border: none; padding: 2px 6px; border-radius: 4px; cursor: pointer; font-size: 0.7rem;">خروج</button>
+                      </div>
+                  `;
+              }
+
+              // إظهار رابط لوحة التحكم في القائمة الجانبية للأدمن فقط
+              if (isAdmin && sidebarLinks) {
+                  if (!document.getElementById('admin-sidebar-link')) {
+                      const adminLink = document.createElement('a');
+                      adminLink.id = 'admin-sidebar-link';
+                      adminLink.href = 'admin.html';
+                      adminLink.innerHTML = '<i class="fa-solid fa-gauge-high" style="color: var(--gov-gold);"></i> ⚙️ لوحة التحكم (Admin)';
+                      sidebarLinks.prepend(adminLink);
+                  }
+              }
+          } else {
+              if (authContainer) {
+                  authContainer.innerHTML = `
+                      <button onclick="loginWithGoogle()" style="background: #ffffff; color: var(--gov-blue-dark); padding: 3px 9px; border-radius: 4px; font-weight: 700; border: none; cursor: pointer; font-size: 0.78rem; display: inline-flex; align-items: center; gap: 4px;">
+                          <i class="fa-brands fa-google" style="color: #db4437;"></i> دخول بجوجل
+                      </button>
+                  `;
+              }
+              const existingAdminLink = document.getElementById('admin-sidebar-link');
+              if (existingAdminLink) existingAdminLink.remove();
+          }
+      });
+
+      window.loginWithGoogle = async function() {
+          const provider = new GoogleAuthProvider();
+          try {
+              const result = await signInWithPopup(auth, provider);
+              const user = result.user;
+              alert("✅ أهلاً بك يا " + (user.displayName || 'عضو المنصة') + "، تم تسجيل الدخول بنجاح!");
+          } catch (error) {
+              alert("❌ فشل تسجيل الدخول: " + error.message);
+          }
+      };
+
+      window.logoutUser = async function() {
+          try {
+              await signOut(auth);
+              alert("تم تسجيل الخروج بنجاح.");
+              window.location.reload();
+          } catch (error) {
+              console.error(error);
+          }
+      };
   </script>
 </head>
 <body>
@@ -48,15 +112,20 @@
       ℹ <strong>تنويه إعلامي:</strong> هذه المنصة مبادرة إعلامية وتقنية مستقلة صدارة عن <strong>شبكة مدونة GITI</strong> لتقديم الحلول والأنظمة البرمجية.
   </div>
 
-  <!-- Top Bar العلوي -->
+  <!-- Top Bar العلوي مع زر تسجيل الدخول -->
   <div class="top-gov-bar">
       <div class="social-icons">
           <a href="https://facebook.com/smaregy" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
           <a href="https://instagram.com" target="_blank"><i class="fa-brands fa-instagram"></i></a>
           <a href="https://youtube.com" target="_blank"><i class="fa-brands fa-youtube"></i></a>
       </div>
-      <div>
-          <a href="contact.html" class="contact-top-btn"><i class="fa-solid fa-envelope"></i> تواصل معنا</a>
+      <div style="display: flex; align-items: center; gap: 8px;">
+          <div id="auth-container">
+              <button onclick="loginWithGoogle()" style="background: #ffffff; color: var(--gov-blue-dark); padding: 3px 9px; border-radius: 4px; font-weight: 700; border: none; cursor: pointer; font-size: 0.78rem; display: inline-flex; align-items: center; gap: 4px;">
+                  <i class="fa-brands fa-google" style="color: #db4437;"></i> دخول بجوجل
+              </button>
+          </div>
+          <a href="contact.html" class="contact-top-btn" style="padding: 3px 10px; font-size: 0.78rem;"><i class="fa-solid fa-envelope"></i> تواصل</a>
       </div>
   </div>
 
