@@ -206,7 +206,7 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         };
 
-        // 2. إدارة تعليقات المقالات (article_comments)
+        // 2. إدارة تعليقات المقالات
         async function loadAdminComments() {
             const container = document.getElementById('admin-comments-list');
             container.innerHTML = "<p style='text-align:center;'>جاري التحميل...</p>";
@@ -238,7 +238,7 @@
             }
         }
 
-        // 3. إدارة رسائل صفحة اتصل بنا (contact_messages)
+        // 3. إدارة رسائل اتصل بنا
         async function loadAdminContactMessages() {
             const container = document.getElementById('admin-contact-list');
             container.innerHTML = "<p style='text-align:center;'>جاري التحميل...</p>";
@@ -270,7 +270,7 @@
             }
         }
 
-        // 4. إدارة استفسارات الأمان والتطبيقات (app_inquiries)
+        // 4. إدارة استفسارات الأمان والتطبيقات
         async function loadAdminInquiries() {
             const container = document.getElementById('admin-inquiries-list');
             container.innerHTML = "<p style='text-align:center;'>جاري التحميل...</p>";
@@ -301,14 +301,14 @@
             }
         }
 
-        // 5. إدارة مقترحات منتدى  (forum_registrations)
+        // 5. إدارة مقترحات منتدى ومجتمع GITI
         async function loadAdminForumRegistrations() {
             const container = document.getElementById('admin-forum-list');
             container.innerHTML = "<p style='text-align:center;'>جاري التحميل...</p>";
             try {
                 const snapshot = await getDocs(collection(db, "forum_registrations"));
                 if (snapshot.empty) {
-                    container.innerHTML = "<p style='text-align:center; color:#64748b;'>لا توجد مقترحات مسجلة لمنتدى مصر حالياً.</p>";
+                    container.innerHTML = "<p style='text-align:center; color:#64748b;'>لا توجد مقترحات مسجلة حالياً.</p>";
                     return;
                 }
                 let html = "";
@@ -329,7 +329,7 @@
                 container.innerHTML = html;
             } catch (e) {
                 console.error(e);
-                container.innerHTML = "<p style='color: #64748b; text-align:center;'>لا توجد بيانات مسجلة لمنتدى مصر حالياً.</p>";
+                container.innerHTML = "<p style='color: #64748b; text-align:center;'>لا توجد بيانات مسجلة حالياً.</p>";
             }
         }
 
@@ -376,7 +376,7 @@
                 <button class="admin-nav-btn" onclick="switchAdminTab('tab-comments')" style="background: var(--gov-blue-dark); color: #fff; border: none; padding: 10px 18px; border-radius: 6px; font-weight: bold; cursor: pointer;"><i class="fa-solid fa-comments"></i> تعليقات المقالات</button>
                 <button class="admin-nav-btn" onclick="switchAdminTab('tab-contact')" style="background: var(--gov-blue-dark); color: #fff; border: none; padding: 10px 18px; border-radius: 6px; font-weight: bold; cursor: pointer;"><i class="fa-solid fa-envelope"></i> رسائل اتصل بنا</button>
                 <button class="admin-nav-btn" onclick="switchAdminTab('tab-inquiries')" style="background: var(--gov-blue-dark); color: #fff; border: none; padding: 10px 18px; border-radius: 6px; font-weight: bold; cursor: pointer;"><i class="fa-solid fa-headset"></i> استفسارات الأمان</button>
-                <button class="admin-nav-btn" onclick="switchAdminTab('tab-forum')" style="background: var(--gov-blue-dark); color: #fff; border: none; padding: 10px 18px; border-radius: 6px; font-weight: bold; cursor: pointer;"><i class="fa-solid fa-landmark"></i> مقترحات منتدى </button>
+                <button class="admin-nav-btn" onclick="switchAdminTab('tab-forum')" style="background: var(--gov-blue-dark); color: #fff; border: none; padding: 10px 18px; border-radius: 6px; font-weight: bold; cursor: pointer;"><i class="fa-solid fa-comments"></i> مقترحات منتدى GITI</button>
             </div>
 
             <!-- 1. قسم إدارة المقالات -->
@@ -442,10 +442,10 @@
                 </div>
             </div>
 
-            <!-- 5. قسم مقترحات منتدى  -->
+            <!-- 5. قسم مقترحات منتدى ومجتمع GITI -->
             <div id="tab-forum" class="admin-tab-content" style="display: none;">
                 <div class="card" style="padding: 25px;">
-                    <h3 style="color: var(--gov-blue-dark); margin-bottom: 15px; font-weight: 800;"><i class="fa-solid fa-landmark"></i> مقترحات الشباب المسجلة لمنتدى مصر 2026</h3>
+                    <h3 style="color: var(--gov-blue-dark); margin-bottom: 15px; font-weight: 800;"><i class="fa-solid fa-comments"></i> مقترحات ومشاركات منتدى ومجتمع GITI</h3>
                     <div id="admin-forum-list"></div>
                 </div>
             </div>
