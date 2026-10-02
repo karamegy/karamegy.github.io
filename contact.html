@@ -16,6 +16,31 @@
   <link rel="apple-touch-icon" href="logo.png">
   <link rel="stylesheet" href="style.css">
 
+  <!-- تخصيص خلفية الهيرو لإظهار اللوجو الخاص بك كعلامة مائية شفافة -->
+  <style>
+      .gov-hero-section {
+          position: relative;
+          background: linear-gradient(135deg, var(--gov-blue-dark), #0f172a) !important;
+          overflow: hidden;
+      }
+      .gov-hero-section::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background-image: url('logo.png');
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: 320px auto;
+          opacity: 0.08; /* علامة مائية شفافة واحترافية */
+          pointer-events: none;
+          z-index: 0;
+      }
+      .gov-hero-section > * {
+          position: relative;
+          z-index: 1;
+      }
+  </style>
+
   <!-- سكربتات Firebase والمصادقة -->
   <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
@@ -176,7 +201,7 @@
       </div>
   </div>
 
-  <!-- Hero Section -->
+  <!-- Hero Section (مع الشعار الخاص بك كعلامة مائية) -->
   <section class="gov-hero-section">
       <div class="hero-title-badge">مركز الدعم والتواصل المباشر</div>
       
@@ -299,7 +324,7 @@
         document.getElementById('contact-form').reset();
         document.getElementById('char-count').innerText = '0';
         showContactAlert('✅ شكراً لك! تم إرسال رسالتك بنجاح وحفظها في السحابة.', '#15803d', '#dcfce7');
-      } catch (err) {
+      } cain-catch (err) {
         console.error("Contact Error:", err);
         showContactAlert('❌ تعسّر الحفظ بالسحابة. تأكد من إعدادات قواعد أمان Firebase (Firestore Rules).', '#b91c1c', '#fee2e2');
       } finally {
