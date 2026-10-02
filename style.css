@@ -3,9 +3,9 @@
     --gov-blue-light: #18446e;
     --gov-gold: #d4af37;
     --primary-red: #c0392b;
-    --bg-light: #f8fafc;
+    --bg-light: #f1f5f9;
     --text-dark: #1e293b;
-    --card-bg: #ffffff;
+    --card-bg: rgba(255, 255, 255, 0.88); /* خلفية زجاجية شفافة للكروت لتظهر التأثيرات من خلفها */
     --border-color: #cbd5e1;
 }
 
@@ -29,27 +29,33 @@ body {
 }
 
 /* =========================================================
-   1. إضافات الخلفية: لوجو المدونة + تأثير الدخان والإضاءة والرعد
+   1. طبقات التأثيرات الخلفية المتحركة والـ 3D (دخان + رعد + إضاءة)
    ========================================================= */
 
-/* إضافة اللوجو كعلامة مائية خفيفة وثابتة في خلفية الموقع */
+/* أ) لوجو المدونة المتحرك في الخلفية كعلامة مائية ثلاثية الأبعاد */
 body::before {
     content: '';
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    width: 60vw;
-    height: 60vw;
-    max-width: 650px;
-    max-height: 650px;
+    transform: translate(-50%, -50%) scale(1);
+    width: 70vw;
+    height: 70vw;
+    max-width: 550px;
+    max-height: 550px;
     background: url('logo.png') center/contain no-repeat;
-    opacity: 0.035; /* درجة شفافية لطيفة جداً لا تؤثر على القراءة */
+    opacity: 0.15; /* زيادة وضوح اللوجو بالخلفية */
     pointer-events: none;
     z-index: 0;
+    animation: logoFloat3D 12s infinite ease-in-out;
 }
 
-/* تأثير الرعد والإضاءة الخفيفة اللطيفة في الخلفية */
+@keyframes logoFloat3D {
+    0%, 100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.2)); }
+    50% { transform: translate(-50%, -50%) scale(1.06) rotate(2deg); filter: drop-shadow(0 0 30px rgba(99, 102, 241, 0.35)); }
+}
+
+/* ب) طبقة تأثير الرعد والإضاءة المتحركة والـ 3D عبر الشاشة بالكامل */
 body::after {
     content: '';
     position: fixed;
@@ -57,20 +63,21 @@ body::after {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: radial-gradient(circle at 50% 20%, rgba(99, 102, 241, 0.08), transparent 70%);
     pointer-events: none;
     z-index: 0;
-    animation: gentleLightning 14s infinite ease-in-out;
+    background: radial-gradient(circle at 30% 30%, rgba(99, 102, 241, 0.12), transparent 60%),
+                radial-gradient(circle at 70% 70%, rgba(212, 175, 55, 0.1), transparent 60%);
+    animation: lightningStorm3D 8s infinite ease-in-out;
 }
 
-@keyframes gentleLightning {
-    0%, 90%, 100% { opacity: 0.3; }
-    92% { opacity: 0.8; background: radial-gradient(circle at 50% 15%, rgba(212, 175, 55, 0.15), transparent 60%); }
-    94% { opacity: 0.2; }
-    96% { opacity: 0.9; background: radial-gradient(circle at 50% 10%, rgba(255, 255, 255, 0.18), transparent 70%); }
+@keyframes lightningStorm3D {
+    0%, 85%, 100% { opacity: 0.4; transform: scale(1); }
+    88% { opacity: 0.95; background: radial-gradient(circle at 50% 20%, rgba(255, 255, 255, 0.25), transparent 70%); transform: scale(1.02); }
+    91% { opacity: 0.3; }
+    94% { opacity: 0.9; background: radial-gradient(circle at 80% 40%, rgba(212, 175, 55, 0.3), transparent 65%); }
 }
 
-/* تأثير سحب الدخان السلسة والخفيفة جداً */
+/* ج) طبقة الدخان المتحرك والسحب المتداخلة (3D Fog & Smoke) */
 .gov-hero-section {
     position: relative;
     overflow: hidden;
@@ -84,99 +91,61 @@ body::after {
 .gov-hero-section::before {
     content: '';
     position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255,255,255,0.05) 10%, transparent 60%);
-    animation: smokeEffect 22s infinite linear;
+    top: -100%;
+    left: -100%;
+    width: 300%;
+    height: 300%;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 5%, rgba(99, 102, 241, 0.1) 30%, transparent 65%);
+    animation: smokeMotion3D 15s infinite linear;
     pointer-events: none;
 }
 
-@keyframes smokeEffect {
-    0% { transform: rotate(0deg) translate(0, 0); }
-    50% { transform: rotate(180deg) translate(30px, 15px); }
-    100% { transform: rotate(360deg) translate(0, 0); }
+@keyframes smokeMotion3D {
+    0% { transform: rotate(0deg) translate(0, 0) scale(1); }
+    50% { transform: rotate(180deg) translate(40px, 25px) scale(1.1); }
+    100% { transform: rotate(360deg) translate(0, 0) scale(1); }
 }
 
 /* =========================================================
-   2. مقترحاتنا التحسينية (وهج ذهبي + حركة الأزرار + Glassmorphism)
+   2. تحسينات الكروت والعناصر لتتفاعل مع الخلفية المتحركة
    ========================================================= */
+.card {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
 
-/* مقترح 1: إضافة وهج ذكي وهادئ للشعارات والبطاقات المهمة */
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(11, 34, 56, 0.12);
+}
+
+/* تأثير الـ 3D والوهج المضيء للشعار الرئيسي */
 .eagle-emblem-img {
     height: 48px;
     width: auto;
     max-width: 120px;
     object-fit: contain;
     display: block;
-    filter: drop-shadow(0 2px 5px rgba(212, 175, 55, 0.25));
+    filter: drop-shadow(0 4px 12px rgba(212, 175, 55, 0.5));
     transition: transform 0.3s ease;
 }
 
 .eagle-emblem-img:hover {
-    transform: scale(1.05);
-}
-
-/* مقترح 2: تأثير زجاجي ناعم (Glassmorphism) لكلمة الخطاب ورسائل الصفحة */
-.president-speech {
-    max-width: 850px;
-    margin: 0 auto 35px;
-    font-size: 1.05rem;
-    line-height: 2;
-    color: #f1f5f9;
-    background: rgba(11, 34, 56, 0.65);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    padding: 25px;
-    border-radius: 16px;
-    border: 1px solid rgba(212, 175, 55, 0.35);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-    position: relative;
-    z-index: 1;
-}
-
-.president-speech i.quote-icon {
-    color: var(--gov-gold);
-    margin: 0 8px;
-}
-
-.speech-author {
-    margin-top: 10px;
-    font-size: 1.1rem;
-    font-weight: 800;
-    color: var(--gov-gold);
-}
-
-/* مقترح 3: نبض لطيف للأزرار الرئيسية لجذب انتباه الزائر بشكل مدروس */
-.btn-gov-primary {
-    background-color: var(--gov-blue-dark);
-    color: #fff;
-    padding: 12px 30px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 800;
-    font-size: 1rem;
-    border: 2px solid var(--gov-gold);
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    box-shadow: 0 0 12px rgba(212, 175, 55, 0.2);
-}
-
-.btn-gov-primary:hover {
-    background-color: var(--gov-gold);
-    color: var(--gov-blue-dark);
-    box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
-    transform: translateY(-2px);
+    transform: scale(1.1) rotate(2deg);
 }
 
 /* =========================================================
-   3. بقية أنماط الموقع الأساسية والأنشطة
+   3. بقية أنماط الموقع الأساسية (مع ضبط الـ z-index لتظهر فوق الخلفية)
    ========================================================= */
 
-/* Legal Disclaimer Bar */
 .legal-disclaimer-bar {
     background: #1e293b;
     color: #cbd5e1;
@@ -192,7 +161,6 @@ body::after {
     color: var(--gov-gold);
 }
 
-/* Top Bar */
 .top-gov-bar {
     background-color: var(--gov-blue-dark);
     color: #fff;
@@ -268,7 +236,6 @@ body::after {
     100% { transform: translate3d(100%, 0, 0); }
 }
 
-/* Header Navbar */
 header {
     background-color: #ffffff;
     position: sticky;
@@ -306,7 +273,6 @@ header {
     color: #64748b;
 }
 
-/* Sidebar Menu Toggle */
 .menu-toggle-btn {
     background: var(--gov-blue-dark);
     color: var(--gov-gold);
@@ -444,6 +410,29 @@ header {
     z-index: 1;
 }
 
+.btn-gov-primary {
+    background-color: var(--gov-blue-dark);
+    color: #fff;
+    padding: 12px 30px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 1rem;
+    border: 2px solid var(--gov-gold);
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+}
+
+.btn-gov-primary:hover {
+    background-color: var(--gov-gold);
+    color: var(--gov-blue-dark);
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.6);
+    transform: translateY(-2px);
+}
+
 .btn-gov-secondary {
     background-color: transparent;
     color: #fff;
@@ -461,7 +450,6 @@ header {
     background: rgba(255,255,255,0.1);
 }
 
-/* Stats Section */
 .stats-section {
     background: #ffffff;
     padding: 30px 20px;
@@ -491,7 +479,6 @@ header {
     font-weight: 600;
 }
 
-/* Blog Layout Grid */
 .blog-grid-layout {
     display: grid;
     grid-template-columns: 1fr;
@@ -506,20 +493,6 @@ header {
     .blog-grid-layout {
         grid-template-columns: 280px 1fr;
     }
-}
-
-.card {
-    background: var(--card-bg);
-    border-radius: 12px;
-    padding: 20px;
-    border: 1px solid var(--border-color);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(11, 34, 56, 0.08);
 }
 
 .sidebar-title {
@@ -586,7 +559,6 @@ header {
     background: var(--gov-blue-light);
 }
 
-/* Footer */
 footer {
     background: var(--gov-blue-dark);
     color: #94a3b8;
@@ -603,7 +575,6 @@ footer a {
     text-decoration: none;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
     .nav-container {
         padding: 0.5rem 1rem;
