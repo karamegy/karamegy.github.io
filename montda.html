@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>منتدى مصر 2026 - التغطية الإعلامية والمقترحات الشبابية | GITI Tech</title>
+    <title>منتدى ومجتمع GITI التقني وأنظمة الأعمال | GITI Tech & Business OS</title>
     
     <!-- وسوم المعاينة الاجتماعية (Open Graph) لمشاركة الرابط -->
-    <meta property="og:title" content="منتدى مصر 2026 - التغطية الإعلامية والمقترحات الشبابية | GITI Tech">
-    <meta property="og:description" content="تغطية إعلامية مستقلة ومساحة لمشاركة المقترحات وكروت الدعوات الإبداعية لمنتدى مصر 2026 عبر شبكة GITI.">
+    <meta property="og:title" content="منتدى ومجتمع GITI التقني وأنظمة الأعمال | GITI Tech">
+    <meta property="og:description" content="المنصة المجتمعية والتقنية الرسمية لأنظمة Na2la لإدارة الأساطيل، اللوجستيات، وحلول الأعمال المتكاملة.">
     <meta property="og:image" content="logo.png">
     <meta property="og:url" content="https://karamegy.github.io/montda">
     <meta property="og:type" content="website">
@@ -77,14 +77,14 @@
             50% { transform: translate(-50%, -50%) scale(1.06) rotate(2deg); filter: drop-shadow(0 0 30px rgba(99, 102, 241, 0.35)); }
         }
 
-        /* Legal Disclaimer Bar - إخلاء مسؤولية قانوني لحماية المدونة */
+        /* Legal Disclaimer Bar - إخلاء مسؤولية وحماية ملكية فكرية قانونية صريحة */
         .legal-disclaimer-bar {
-            background: #7f1d1d;
+            background: var(--gov-blue-dark);
             color: #fef2f2;
             padding: 8px 15px;
             font-size: 0.78rem;
             text-align: center;
-            border-bottom: 2px solid #ef4444;
+            border-bottom: 2px solid var(--gov-gold);
             position: relative;
             z-index: 10;
         }
@@ -95,7 +95,7 @@
 
         /* Top Bar - الشريطة العليا */
         .top-gov-bar {
-            background-color: var(--gov-blue-dark);
+            background-color: #08192a;
             color: #fff;
             padding: 8px 20px;
             font-size: 0.85rem;
@@ -126,7 +126,7 @@
             font-weight: 700;
         }
 
-        /* شريط الأخبار العاجلة المتحرك */
+        /* شريط الأخبار المتحرك لأنظمة GITI */
         .news-ticker-container {
             background: #123354;
             color: #fff;
@@ -140,7 +140,7 @@
         }
 
         .ticker-title {
-            background: var(--primary-red);
+            background: var(--giti-purple);
             padding: 6px 15px;
             font-weight: 800;
             white-space: nowrap;
@@ -159,7 +159,7 @@
         .ticker-text {
             display: inline-block;
             padding-right: 100%;
-            animation: ticker 30s linear infinite;
+            animation: ticker 35s linear infinite;
             font-weight: 600;
             color: #e2e8f0;
         }
@@ -325,7 +325,7 @@
             display: block;
         }
 
-        /* Hero Section (Clean GITI Gradient with Logo Watermark) */
+        /* Hero Section */
         .gov-hero-section {
             position: relative;
             background: linear-gradient(135deg, var(--gov-blue-dark), #0f172a) !important;
@@ -394,7 +394,7 @@
 
         .speech-author {
             margin-top: 15px;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 800;
             color: var(--gov-gold);
         }
@@ -423,23 +423,6 @@
             color: var(--gov-gold);
         }
 
-        .cal-btn {
-            background: rgba(212, 175, 55, 0.2);
-            color: var(--gov-gold);
-            border: 1px solid var(--gov-gold);
-            padding: 8px 16px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 700;
-            transition: all 0.3s;
-        }
-
-        .cal-btn:hover {
-            background: var(--gov-gold);
-            color: var(--gov-blue-dark);
-        }
-
         .gov-actions-container {
             display: flex;
             justify-content: center;
@@ -448,8 +431,8 @@
         }
 
         .btn-gov-primary {
-            background-color: var(--gov-blue-dark);
-            color: #fff;
+            background-color: var(--gov-gold);
+            color: var(--gov-blue-dark);
             padding: 14px 35px;
             border-radius: 8px;
             text-decoration: none;
@@ -464,8 +447,7 @@
         }
 
         .btn-gov-primary:hover {
-            background-color: var(--gov-gold);
-            color: var(--gov-blue-dark);
+            background-color: #fff;
             transform: translateY(-2px);
         }
 
@@ -517,7 +499,7 @@
             font-weight: 600;
         }
 
-        /* Agenda Section */
+        /* Modules / Tabs Section */
         .agenda-section {
             padding: 60px 20px;
             max-width: 1100px;
@@ -593,7 +575,7 @@
             font-size: 0.85rem;
         }
 
-        /* Steps Section */
+        /* Features / Steps Section */
         .steps-section {
             padding: 60px 20px;
             max-width: 1100px;
@@ -874,9 +856,9 @@
 </head>
 <body>
 
-    <!-- شريط إخلاء المسؤولية القانونية الصريح لمنع أي التباس أو مسائلة -->
+    <!-- شريط إخلاء المسؤولية وحماية الملكية الفكرية القانونية -->
     <div class="legal-disclaimer-bar">
-        ⚖️ <strong>تنويه قانوني هام:</strong> هذه الصفحة عبارة عن <strong>تغطية إعلامية ومبادرة شبابية مستقلة</strong> صادرة عن شبكة GITI التقنية لنقل أخبار ومقترحات منتدى مصر، ولا تُعد الموقع الحكومي الرسمي ولا تمثل أي جهة حكومية بأي شكل من الأشكال. للتسجيل الرسمي يرجى زيارة البوابة الحكومية المعتمدة.
+        🔒 <strong>منصة رسمية محمية:</strong> هذه الصفحة ومحتواها مملوكتان بالكامل لشبكة <strong>GITI Tech & Business OS</strong> وتطبيقات اللوجستيات (Na2la)، وجميع الحقوق والبرمجيات مسجلة ومحمية قانونياً.
     </div>
 
     <!-- Top Bar العلوي مع زر تسجيل الدخول -->
@@ -896,26 +878,26 @@
         </div>
     </div>
 
-    <!-- شريط الأخبار العاجلة المتحرك -->
+    <!-- شريط الأخبار العاجلة المتحرك لأنظمة GITI -->
     <div class="news-ticker-container">
         <div class="ticker-title">
-            <i class="fa-solid fa-bullhorn"></i> تغطية إعلامية
+            <i class="fa-solid fa-bullhorn"></i> أخبار GITI
         </div>
         <div class="ticker-wrapper">
             <div class="ticker-text">
-                📢 متابعة فعاليات ومقترحات الشباب لمنتدى مصر • رصد جلسات التحول الرقمي والذكاء الاصطناعي • انعقاد المنتدى بالفترة من 19 إلى 24 أكتوبر بفندق سانت ريجيس بالعاصمة الجديدة.
+                🚀 إطلاق التحديث الجديد لمنصة Na2la لإدارة الأساطيل وتتبع الشحنات • تفعيل المزامنة الفورية عبر قاعدة بيانات Firebase • انضم لمجتمع شركاء الأعمال والمطورين بقطاع اللوجستيات.
             </div>
         </div>
     </div>
 
-    <!-- Header Navigation بشعار GITI حصرياً (آمن قانونياً) -->
+    <!-- Header Navigation -->
     <header>
         <div class="nav-container">
             <div class="gov-branding">
                 <img src="logo.png" alt="GITI Logo" class="eagle-emblem-img">
                 <div class="brand-text-box">
                     <h2>GITI Tech & Business OS</h2>
-                    <p>التغطية الإعلامية ومقترحات منتدى مصر</p>
+                    <p>منتدى المجتمع والحلول اللوجستية</p>
                 </div>
             </div>
 
@@ -935,7 +917,7 @@
         </div>
         <div class="sidebar-links">
             <a href="index.html"><i class="fa-solid fa-house"></i> الرئيسية والمدونة</a>
-            <a href="montda.html" class="active"><i class="fa-solid fa-landmark"></i> 🇪🇬 منتدى مصر 2026</a>
+            <a href="montda.html" class="active"><i class="fa-solid fa-comments"></i> 💬 منتدى ومجتمع GITI</a>
             <a href="index.html#tools-section"><i class="fa-solid fa-calculator"></i> الحاسبة والأدوات</a>
             <a href="tork.html"><i class="fa-solid fa-shield-halved"></i> أمان وتطبيقات المنصة</a>
             <a href="about.html"><i class="fa-solid fa-circle-info"></i> من نحن</a>
@@ -944,249 +926,214 @@
         </div>
     </div>
 
-    <!-- Hero Section (خلفية GITI الاحترافية النظيفة بدون أي صور خارجية) -->
+    <!-- Hero Section -->
     <section class="gov-hero-section">
-        <div class="hero-title-badge">تغطية منتدى مصر 2026</div>
+        <div class="hero-title-badge">مجتمع GITI التقني وأنظمة الأعمال</div>
 
         <div class="president-speech">
             <i class="fa-solid fa-quote-right quote-icon"></i>
-            نواكب في شبكة GITI التقنية فعاليات وجلسات "منتدى مصر"، ونوفر هذه المساحة الإخبارية والتفاعلية المستقلة لتمكين الشباب من مشاركة مقترحاتهم وأفكارهم التنموية في مجالات التكنولوجيا والتحول الرقمي لدعم مسيرة التنمية المستدامة.
+            نرحب بك في المنتدى الرسمي لشبكة **GITI Tech & Business OS** وتطبيقاتنا المتكاملة لإدارة الأساطيل مثل **Na2la**. منصة مجتمعية مخصصة لتمكين السائقين، رواد الأعمال، والمطورين من استعراض حلول الأتمتة، متابعة حركة الشحنات، وتبادل الخبرات التشغيلية.
             <i class="fa-solid fa-quote-left quote-icon"></i>
-            <div class="speech-author">فريق التحرير التقني لشبكة GITI</div>
-        </div>
-
-        <!-- العد التنازلي التفاعلي المضاف -->
-        <div style="background: rgba(11, 34, 56, 0.85); border: 1px solid var(--gov-gold); max-width: 600px; margin: 0 auto 30px; padding: 15px; border-radius: 12px; text-align: center; backdrop-filter: blur(10px);">
-            <p style="color: var(--gov-gold); font-weight: 700; font-size: 0.95rem; margin-bottom: 8px;"><i class="fa-solid fa-hourglass-half"></i> متبقي على انطلاق المنتدى:</p>
-            <div id="countdown" style="display: flex; justify-content: center; gap: 15px; color: #fff; font-weight: 800; font-size: 1.1rem;">
-                <div><span id="days">00</span><p style="font-size: 0.7rem; color: #cbd5e1;">يوم</p></div>
-                <div>:</div>
-                <div><span id="hours">00</span><p style="font-size: 0.7rem; color: #cbd5e1;">ساعة</p></div>
-                <div>:</div>
-                <div><span id="minutes">00</span><p style="font-size: 0.7rem; color: #cbd5e1;">دقيقة</p></div>
-                <div>:</div>
-                <div><span id="seconds">00</span><p style="font-size: 0.7rem; color: #cbd5e1;">ثانية</p></div>
-            </div>
+            <div class="speech-author">إدارة تطوير الأنظمة — شبكة GITI</div>
         </div>
 
         <div class="event-info-bar">
             <div class="event-info-item">
-                <i class="fa-regular fa-calendar-days"></i>
-                <span>19 - 24 أكتوبر 2026</span>
+                <i class="fa-solid fa-cloud-arrow-up"></i>
+                <span>مزامنة سحابية حية (Firebase)</span>
             </div>
             <div class="event-info-item">
-                <i class="fa-solid fa-location-dot"></i>
-                <span>فندق سانت ريجيس — العاصمة الجديدة</span>
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>حماية وأمان تام للبيانات</span>
             </div>
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=%D9%85%D9%86%D8%AA%D8%AF%D9%89+%D9%85%D8%B5%D8%B1+2026&dates=20261019T090000Z/20261024T180000Z&details=%D9%81%D8%B9%D8%A7%D9%84%D9%8A%D8%A7%D8%AA+%D9%85%D9%86%D8%AA%D8%AF%D9%89+%D9%85%D8%B5%D8%B1+2026+%D8%B9%D8%A8%D8%B1+%D8%AA%D8%BA%D8%B7%D9%8A%D8%A9+GITI&location=%D9%81%D9%86%D8%AF%D9%82+%D8%B3%D8%A7%D9%86%D8%AA+%D8%B1%D9%8A%D8%AC%D9%8A%D8%B3+%D8%A7%D9%84%D8%AC%D8%AF%D9%8A%D8%AF%D8%A9" target="_blank" class="cal-btn">
-                <i class="fa-solid fa-calendar-plus"></i> حفظ في تقويم Google
-            </a>
         </div>
 
         <div class="gov-actions-container">
-            <a href="https://egyptforum.gov.eg/signup" target="_blank" class="btn-gov-primary" rel="nofollow">
-                <span>التسجيل بالبوابة الحكومية الرسمية</span>
-                <i class="fa-solid fa-external-link-alt"></i>
+            <a href="index.html#tools-section" class="btn-gov-primary">
+                <span>استكشف تطبيق Na2la والأدوات</span>
+                <i class="fa-solid fa-arrow-left"></i>
             </a>
-            <a href="#backup-register" class="btn-gov-secondary">تقديم مقترح عبر شبكة GITI</a>
+            <a href="#backup-register" class="btn-gov-secondary">تقديم مقترح أو استفسار لفريق GITI</a>
         </div>
     </section>
 
-    <!-- عداد الإحصائيات التفاعلي -->
+    <!-- عداد الإحصائيات التفاعلي لأنظمة GITI -->
     <section class="stats-section">
         <div class="stats-grid">
             <div class="stat-card">
-                <h4>+50,000</h4>
-                <p>مشارك متوقع بالمنتدى</p>
-            </div>
-            <div class="stat-card">
-                <h4>27</h4>
-                <p>محافظة ممثلة للجلسات</p>
-            </div>
-            <div class="stat-card">
-                <h4>100+</h4>
-                <p>ورشة عمل وجلسة حوارية</p>
+                <h4>+1,500</h4>
+                <p>عملية شحن وأسطول مدار</p>
             </div>
             <div class="stat-card">
                 <h4>100%</h4>
-                <p>دعم للمشروعات الواعدة</p>
+                <p>استقرار وتزامن سحابي</p>
+            </div>
+            <div class="stat-card">
+                <h4>24/7</h4>
+                <p>دعم فني وتطوير مستمر</p>
+            </div>
+            <div class="stat-card">
+                <h4>+50</h4>
+                <p>شريك ومؤسسة تجارية</p>
             </div>
         </div>
     </section>
 
-    <!-- قسم مولد كروت الدعوات الشخصية التذكارية -->
+    <!-- قسم مولد بطاقة العضوية والاعتماد المهني لشريكة GITI -->
     <section class="registration-section" id="invitation-card-section">
         <div class="form-card" style="max-width: 700px;">
             <div class="section-heading" style="margin-bottom: 25px;">
-                <h3 style="color: var(--gov-blue-dark); font-size: 1.8rem; font-weight: 800;">مولد بطاقة المشاركة التذكارية</h3>
-                <p style="color: #64748b; font-size: 0.9rem;">أنشئ بطاقتك الشخصية التذكارية لتغطية منتدى مصر 2026 بصورتك واسمك</p>
+                <h3 style="color: var(--gov-blue-dark); font-size: 1.8rem; font-weight: 800;">مولد بطاقة عضوية شبكة GITI</h3>
+                <p style="color: #64748b; font-size: 0.9rem;">أنشئ بطاقة العضوية الرقمية الخاصة بك كمطور، شريك، أو مدير أساطيل عبر منصتنا</p>
             </div>
 
             <div class="form-group">
-                <label><i class="fa-solid fa-user"></i> اسمك الكريم (كما سيظهر بالبطاقة) *</label>
-                <input type="text" id="cardUserName" placeholder="أدخل اسمك الكامل هنا..." oninput="drawCard()">
+                <label><i class="fa-solid fa-user"></i> اسم العضو / المؤسسة *</label>
+                <input type="text" id="cardUserName" placeholder="أدخل اسمك أو اسم شركتك هنا..." oninput="drawCard()">
             </div>
 
             <div class="form-group">
-                <label><i class="fa-solid fa-image"></i> صورتك الشخصية *</label>
+                <label><i class="fa-solid fa-image"></i> صورتك الشخصية أو شعارك *</label>
                 <input type="file" id="cardUserImage" accept="image/*" onchange="loadCardImage(event)">
             </div>
 
             <!-- معاينة الكرت التصميمي الواقعي -->
             <div style="margin: 25px 0; text-align: center;">
-                <p style="font-weight: 700; color: var(--gov-blue-dark); margin-bottom: 10px; font-size: 0.95rem;">معاينة بطاقة المشاركة المخصصة:</p>
+                <p style="font-weight: 700; color: var(--gov-blue-dark); margin-bottom: 10px; font-size: 0.95rem;">معاينة بطاقة العضوية المخصصة:</p>
                 <div style="position: relative; width: 100%; max-width: 600px; aspect-ratio: 16/9; margin: 0 auto; border-radius: 14px; overflow: hidden; box-shadow: 0 10px 30px rgba(11, 34, 56, 0.25); border: 3px solid var(--gov-gold); background: #0b2238;">
                     <canvas id="invitationCanvas" style="width: 100%; height: 100%; display: block;"></canvas>
                 </div>
             </div>
 
             <button type="button" class="submit-btn" onclick="downloadInvitationCard()" style="background: var(--gov-gold); color: var(--gov-blue-dark); font-weight: 900;">
-                <i class="fa-solid fa-download"></i> تحميل بطاقة المشاركة (صورة PNG)
+                <i class="fa-solid fa-download"></i> تحميل بطاقة العضوية (صورة PNG)
             </button>
         </div>
     </section>
 
-    <!-- أجندة الفعاليات والجدول الزمني -->
+    <!-- أقسام ومحاور أنظمة GITI -->
     <section class="agenda-section">
         <div class="section-heading">
-            <h3>جدول أعمال الجلسات والفعاليات</h3>
-            <p style="color: #64748b; font-size: 0.9rem;">استعرض برنامج المحاور والفعاليات طوال أيام انعقاد المنتدى</p>
+            <h3>محاور وأقسام منصة GITI اللوجستية</h3>
+            <p style="color: #64748b; font-size: 0.9rem;">استعرض الخدمات التقنية الأساسية المدمجة في تطبيقاتنا</p>
         </div>
 
         <div class="agenda-tabs">
-            <button class="tab-btn active" onclick="switchAgenda(0)">اليوم 1 (19 أكتوبر)</button>
-            <button class="tab-btn" onclick="switchAgenda(1)">اليوم 2 (20 أكتوبر)</button>
-            <button class="tab-btn" onclick="switchAgenda(2)">اليوم 3 (21 أكتوبر)</button>
-            <button class="tab-btn" onclick="switchAgenda(3)">اليوم 4 (22-24 أكتوبر)</button>
+            <button class="tab-btn active" onclick="switchAgenda(0)">نظام Na2la (الأساطيل)</button>
+            <button class="tab-btn" onclick="switchAgenda(1)">Business OS (إدارة المخازن)</button>
+            <button class="tab-btn" onclick="switchAgenda(2)">المزامنة السحابية (Firebase)</button>
         </div>
 
         <div class="agenda-content">
             <div class="agenda-item active">
                 <div class="timeline-event">
-                    <span class="time-badge">10:00 صباحاً</span>
+                    <span class="time-badge">تتبع مباشر</span>
                     <div>
-                        <h4 style="color: var(--gov-blue-dark); font-weight: 800;">الجلسة الافتتاحية الكبرى</h4>
-                        <p style="font-size: 0.88rem; color: #64748b;">استعراض محاور التنمية وافتتاح فعاليات المنتدى بحضور صناع القرار والخبراء.</p>
-                    </div>
-                </div>
-                <div class="timeline-event">
-                    <span class="time-badge">01:00 ظهراً</span>
-                    <div>
-                        <h4 style="color: var(--gov-blue-dark); font-weight: 800;">جلسة الحوار الشبابي والتقني</h4>
-                        <p style="font-size: 0.88rem; color: #64748b;">مناقشة الرؤى الرقمية ومقترحات الشباب من مختلف المحافظات.</p>
+                        <h4 style="color: var(--gov-blue-dark); font-weight: 800;">إدارة حركة الشاحنات والسائقين</h4>
+                        <p style="font-size: 0.88rem; color: #64748b;">متابعة خطوط سير النقل، تسجيل بوليصة الشحن، وإصدار الفواتير اللحظية بدقة عالية عبر تطبيق Na2la.</p>
                     </div>
                 </div>
             </div>
 
             <div class="agenda-item">
                 <div class="timeline-event">
-                    <span class="time-badge">11:00 صباحاً</span>
+                    <span class="time-badge">إدارة الخزينة</span>
                     <div>
-                        <h4 style="color: var(--gov-blue-dark); font-weight: 800;">ورشة الذكاء الاصطناعي والتحول الرقمي</h4>
-                        <p style="font-size: 0.88rem; color: #64748b;">عروض أتمتة الأنظمة وتكنولوجيا الشركات الناشئة وحلول البرمجيات المستدامة.</p>
+                        <h4 style="color: var(--gov-blue-dark); font-weight: 800;">حسابات العملاء والخزائن والمصروفات</h4>
+                        <p style="font-size: 0.88rem; color: #64748b;">نظام متكامل لتتبع الواردات، الصادرات، الأرباح، وحسابات العملاء والموردين عبر EIDCO Business OS.</p>
                     </div>
                 </div>
             </div>
 
             <div class="agenda-item">
                 <div class="timeline-event">
-                    <span class="time-badge">10:30 صباحاً</span>
+                    <span class="time-badge">قواعد البيانات</span>
                     <div>
-                        <h4 style="color: var(--gov-blue-dark); font-weight: 800;">منتدى الاقتصاد الأخضر والطاقة</h4>
-                        <p style="font-size: 0.88rem; color: #64748b;">طرح أفكار ومشروعات المبادرات الخضراء المستدامة ودعم رواد الأعمال.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="agenda-item">
-                <div class="timeline-event">
-                    <span class="time-badge">02:00 ظهراً</span>
-                    <div>
-                        <h4 style="color: var(--gov-blue-dark); font-weight: 800;">الجلسة الختامية وتكريم المشروعات الفائزة</h4>
-                        <p style="font-size: 0.88rem; color: #64748b;">إعلان التوصيات النهائية وتكريم أصحاب أفضل 10 أفكار ومقترحات.</p>
+                        <h4 style="color: var(--gov-blue-dark); font-weight: 800;">تخزين سحابي آمن وتوثيق مستندات</h4>
+                        <p style="font-size: 0.88rem; color: #64748b;">استخدام أحدث تقنيات Firestore وقواعد الأمان لضمان عدم ضياع أي بيانات عمل أو سجلات مالية.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- خطوات التسجيل الرسمي -->
+    <!-- مميزات الاستخدام -->
     <section class="steps-section">
         <div class="section-heading">
-            <h3>خطوات التسجيل للحضور عبر البوابة الرسمية</h3>
-            <p style="color: #64748b; font-size: 0.9rem;">دليل مبسط للانتقال والتسجيل في البوابة الحكومية المعتمدة</p>
+            <h3>لماذا تختار أنظمة GITI Tech؟</h3>
+            <p style="color: #64748b; font-size: 0.9rem;">مزايا برمجية مصممة خصيصاً لتطوير أعمالك اللوجستية</p>
         </div>
 
         <div class="steps-grid">
             <div class="step-card">
                 <div class="step-icon">1</div>
-                <h4 style="color: var(--gov-blue-dark); font-weight: 700; margin-bottom: 8px;">الزيارة الرسمية</h4>
-                <p style="font-size: 0.85rem; color: #64748b;">الانتقال إلى البوابة المعتمدة egyptforum.gov.eg</p>
+                <h4 style="color: var(--gov-blue-dark); font-weight: 700; margin-bottom: 8px;">سرعة الأداء</h4>
+                <p style="font-size: 0.85rem; color: #64748b;">واجهات مصممة بتقنيات PWA تعمل بكفاءة على كافة الأجهزة.</p>
             </div>
 
             <div class="step-card">
                 <div class="step-icon">2</div>
-                <h4 style="color: var(--gov-blue-dark); font-weight: 700; margin-bottom: 8px;">إدخال البيانات</h4>
-                <p style="font-size: 0.85rem; color: #64748b;">الاسم - رقم الهاتف - البريد الإلكتروني الشخصي</p>
+                <h4 style="color: var(--gov-blue-dark); font-weight: 700; margin-bottom: 8px;">سهولة الإدارة</h4>
+                <p style="font-size: 0.85rem; color: #64748b;">لوحة تحكم مركزية متكاملة تتيح لك مراقبة كل تفاصيل عملك.</p>
             </div>
 
             <div class="step-card">
                 <div class="step-icon">3</div>
-                <h4 style="color: var(--gov-blue-dark); font-weight: 700; margin-bottom: 8px;">البيانات الوظيفية</h4>
-                <p style="font-size: 0.85rem; color: #64748b;">إدخال المسمى الوظيفي والجهة أو التخصص</p>
+                <h4 style="color: var(--gov-blue-dark); font-weight: 700; margin-bottom: 8px;">تحديثات مستمرة</h4>
+                <p style="font-size: 0.85rem; color: #64748b;">إضافات دورية ومميزات جديدة تدار مباشرة عبر سحابة فايربيس.</p>
             </div>
 
             <div class="step-card">
                 <div class="step-icon">4</div>
-                <h4 style="color: var(--gov-blue-dark); font-weight: 700; margin-bottom: 8px;">تأكيد التسجيل</h4>
-                <p style="font-size: 0.85rem; color: #64748b;">إتمام التحقق واستلام رسالة تأكيد الحضور</p>
+                <h4 style="color: var(--gov-blue-dark); font-weight: 700; margin-bottom: 8px;">حماية البيانات</h4>
+                <p style="font-size: 0.85rem; color: #64748b;">صلاحيات وصول دقيقة وتشفير تام لكافة معاملاتك وحساباتك.</p>
             </div>
         </div>
     </section>
 
-    <!-- قسم الأسئلة الشائعة FAQ -->
+    <!-- الأسئلة الشائعة FAQ -->
     <section class="faq-section">
         <div class="section-heading">
-            <h3>الأسئلة الشائعة حول المنتدى والتغطية</h3>
-            <p style="color: #64748b; font-size: 0.9rem;">إجابات لأهم الاستفسارات الخاصة بالحضور ومقترحات المنصة</p>
+            <h3>الأسئلة الشائعة حول المنصة والخدمات</h3>
+            <p style="color: #64748b; font-size: 0.9rem;">إجابات لأهم الاستفسارات حول تطبيقات شبكة GITI</p>
         </div>
 
         <div class="faq-item">
             <button class="faq-question" onclick="toggleFaq(this)">
-                <span>هل هذه الصفحة هي البوابة الحكومية الرسمية؟</span>
+                <span>ما هي التطبيقات التي تشملها شبكة GITI Tech؟</span>
                 <i class="fa-solid fa-chevron-down"></i>
             </button>
             <div class="faq-answer">
-                لا، هذه الصفحة هي منصة إعلامية ومبادرة تقنية مستقلة تابعة لشبكة GITI لتغطية فعاليات المنتدى، وليست الموقع الحكومي الرسمي.
+                تشمل شبكة GITI تطبيق Na2la لإدارة الأساطيل واللوجستيات، وأنظمة EIDCO Business OS لإدارة المخازن والمبيعات والحسابات.
             </div>
         </div>
 
         <div class="faq-item">
             <button class="faq-question" onclick="toggleFaq(this)">
-                <span>كيف يمكنني التسجيل الرسمي لحضور المنتدى؟</span>
+                <span>كيف يمكنني الانضمام أو طلب دعم فني؟</span>
                 <i class="fa-solid fa-chevron-down"></i>
             </button>
             <div class="faq-answer">
-                يمكنك التسجيل الرسمي عبر الانتقال إلى البوابة الحكومية المعتمدة (egyptforum.gov.eg) من خلال الأزرار المتاحة في الصفحة.
+                يمكنك التواصل معنا مباشرة عبر صفحة "اتصل بنا" أو إرسال استفسارك عبر الاستمارة أدناه وسيتم حفظ طلبك سحابياً في قاعدة البيانات.
             </div>
         </div>
 
         <div class="faq-item">
             <button class="faq-question" onclick="toggleFaq(this)">
-                <span>ما هو الهدف من استمارة مقترحات GITI؟</span>
+                <span>هل البيانات مسجلة بشكل آمن؟</span>
                 <i class="fa-solid fa-chevron-down"></i>
             </button>
             <div class="faq-answer">
-                الهدف هو تجميع أفكار ومقترحات الشباب والمهتمين بتكنولوجيا الأعمال ونشرها ضمن تقارير شبكة GITI لدعم رواد الأعمال.
+                نعم، نعتمد على بنية Firebase التحتية وقواعد أمان صارمة تضمن سرية تامة لكافة بيانات المستخدمين والشركات.
             </div>
         </div>
     </section>
 
-    <!-- استمارة التسجيل الخاصة بمدونة GITI لتجميع المقترحات -->
+    <!-- استمارة الاستفسارات والمقترحات المتصلة بقاعدة البيانات app_inquiries -->
     <section class="registration-section" id="backup-register">
         <div class="form-card">
-            <h3 style="text-align: center; color: var(--gov-blue-dark); font-weight: 800; margin-bottom: 8px;">استمارة مشاركة المقترحات (شبكة GITI)</h3>
-            <p style="text-align: center; font-size: 0.85rem; color: #64748b; margin-bottom: 20px;">سجّل بياناتك ومقترحك التقني ليتم حفظه في قاعدة بيانات مدونة GITI</p>
+            <h3 style="text-align: center; color: var(--gov-blue-dark); font-weight: 800; margin-bottom: 8px;">استمارة التواصل ومقترحات تطوير GITI</h3>
+            <p style="text-align: center; font-size: 0.85rem; color: #64748b; margin-bottom: 20px;">أرسل مقترحك أو استفسار التقني ليتم حفظه مباشرة في قاعدة بيانات المنصة</p>
             
             <form id="forumForm" onsubmit="handleFormSubmit(event)">
                 <div class="form-group">
@@ -1205,28 +1152,26 @@
                 </div>
 
                 <div class="form-group">
-                    <label>المحافظة *</label>
+                    <label>نوع الخدمة أو التطبيق المهتم به *</label>
                     <select id="governorate" required>
-                        <option value="">اختر المحافظة...</option>
-                        <option value="القاهرة">القاهرة</option>
-                        <option value="الإسكندرية">الإسكندرية</option>
-                        <option value="الجيزة">الجيزة</option>
-                        <option value="الدقهلية">الدقهلية</option>
-                        <option value="أسيوط">أسيوط</option>
-                        <option value="محافظة أخرى">محافظة أخرى</option>
+                        <option value="">اختر النظام...</option>
+                        <option value="Na2la (إدارة الأساطيل والنقل)">Na2la (إدارة الأساطيل والنقل)</option>
+                        <option value="Business OS (إدارة المخازن والحسابات)">Business OS (إدارة المخازن والحسابات)</option>
+                        <option value="تطوير برمجيات مخصصة">تطوير برمجيات مخصصة</option>
+                        <option value="استفسار عام أو اقتراح">استفسار عام أو اقتراح</option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label>المقترح أو الرؤية التقنية التي ترغب بطرحها</label>
-                    <textarea id="proposal" rows="3" placeholder="اكتب ملخص مقترحك هنا..."></textarea>
+                    <label>نص الاستفسار أو المقترح التقني</label>
+                    <textarea id="proposal" rows="3" placeholder="اكتب تفاصيل مقترحك أو استفسارك هنا..."></textarea>
                 </div>
 
-                <button type="submit" id="submitBtn" class="submit-btn">إرسال المقترح إلى شبكة GITI</button>
+                <button type="submit" id="submitBtn" class="submit-btn">إرسال الطلب إلى فريق GITI</button>
             </form>
 
             <div id="successBox" class="success-box" style="margin-top: 15px;">
-                ✅ تم حفظ مقترحك بنجاح في قاعدة بيانات GITI وسيظهر في لوحة التحكم!
+                ✅ تم إرسال رسالتك بنجاح إلى قاعدة بيانات GITI وسيتم مراجعتها قريباً!
             </div>
         </div>
     </section>
@@ -1250,30 +1195,7 @@
             overlay.classList.toggle('active');
         }
 
-        // العد التنازلي لموعد انطلاق المنتدى (19 أكتوبر 2026)
-        const targetDate = new Date("October 19, 2026 09:00:00").getTime();
-        const countdownTimer = setInterval(() => {
-            const now = new Date().getTime();
-            const distance = targetDate - now;
-
-            if (distance < 0) {
-                clearInterval(countdownTimer);
-                document.getElementById("countdown").innerHTML = "انطلق المنتدى بنجاح!";
-                return;
-            }
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            document.getElementById("days").innerText = days < 10 ? "0" + days : days;
-            document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
-            document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
-            document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
-        }, 1000);
-
-        // --- كود مولد بطاقة المشاركة التذكارية (Canvas Generator بدون صور خارجية) ---
+        // --- كود مولد بطاقة العضوية المهنية (Canvas Generator) ---
         const cardCanvas = document.getElementById('invitationCanvas');
         const cardCtx = cardCanvas.getContext('2d');
         cardCanvas.width = 1000;
@@ -1285,28 +1207,28 @@
         function drawCard() {
             cardCtx.clearRect(0, 0, cardCanvas.width, cardCanvas.height);
 
-            // 1. رسم خلفية البطاقة الاحترافية (متدرجة داكنة مع إطار ذهبي)
+            // 1. خلفية البطاقة الاحترافية
             const grad = cardCtx.createLinearGradient(0, 0, cardCanvas.width, cardCanvas.height);
             grad.addColorStop(0, '#0b2238');
             grad.addColorStop(1, '#0f172a');
             cardCtx.fillStyle = grad;
             cardCtx.fillRect(0, 0, cardCanvas.width, cardCanvas.height);
 
-            // إطار ذهبي خارجي فاخر
+            // إطار ذهبي فاخر
             cardCtx.strokeStyle = '#d4af37';
             cardCtx.lineWidth = 8;
             cardCtx.strokeRect(20, 20, cardCanvas.width - 40, cardCanvas.height - 40);
 
-            // 2. الهيدر والعنوان
+            // 2. العنوان والهيدر
             cardCtx.fillStyle = '#d4af37';
             cardCtx.font = 'bold 32px Cairo, sans-serif';
             cardCtx.textAlign = 'center';
             cardCtx.direction = 'rtl';
-            cardCtx.fillText('تغطية منتدى مصر 2026', cardCanvas.width / 2, 75);
+            cardCtx.fillText('GITI Tech & Business OS', cardCanvas.width / 2, 75);
 
             cardCtx.fillStyle = '#e2e8f0';
             cardCtx.font = '17px Cairo, sans-serif';
-            cardCtx.fillText('بطاقة مشاركة وتغطية إعلامية مستقلة', cardCanvas.width / 2, 110);
+            cardCtx.fillText('بطاقة عضوية وشريك معتمد في الشبكة', cardCanvas.width / 2, 110);
 
             // خط فاصل ذهبي
             cardCtx.strokeStyle = '#d4af37';
@@ -1346,9 +1268,9 @@
             cardCtx.closePath();
             cardCtx.stroke();
 
-            // 4. اسم المشارك
+            // 4. اسم المستخدم أو الشركة
             const inputNameVal = document.getElementById('cardUserName').value.trim();
-            const fullNameText = inputNameVal !== '' ? inputNameVal : 'اسم المشارك الكريم';
+            const fullNameText = inputNameVal !== '' ? inputNameVal : 'اسم العضو الكريم';
 
             cardCtx.fillStyle = '#ffffff';
             cardCtx.font = 'bold 28px Cairo, sans-serif';
@@ -1358,17 +1280,17 @@
             // صفة البطاقة
             cardCtx.fillStyle = '#d4af37';
             cardCtx.font = 'bold 17px Cairo, sans-serif';
-            cardCtx.fillText('بطاقة حضور ومشاركة تفاعلية', cardCanvas.width / 2, 372);
+            cardCtx.fillText('عضو مشارك في أنظمة Na2la و Business OS', cardCanvas.width / 2, 372);
 
-            // 5. رابط الموقع الحكومي الرسمي كمرجع للتسجيل
+            // 5. رابط المنصة الرسمي
             cardCtx.fillStyle = '#93c5fd';
             cardCtx.font = 'bold 15px Cairo, sans-serif';
-            cardCtx.fillText('البوابة الرسمية للتسجيل: https://egyptforum.gov.eg', cardCanvas.width / 2, 420);
+            cardCtx.fillText('الموقع الرسمي: https://karamegy.github.io', cardCanvas.width / 2, 420);
 
-            // 6. الفوتر والسفلية
+            // 6. الفوتر
             cardCtx.fillStyle = '#cbd5e1';
             cardCtx.font = '14px Cairo, sans-serif';
-            cardCtx.fillText('شبكة GITI Tech & Business OS | 19-24 أكتوبر 2026', cardCanvas.width / 2, 490);
+            cardCtx.fillText('شبكة GITI Tech | نظام إدارة الأساطيل والأعمال المتكامل', cardCanvas.width / 2, 490);
         }
 
         function loadCardImage(event) {
@@ -1386,19 +1308,18 @@
             }
         }
 
-        // رسم الكرت أول ما الصفحة تفتح
         window.addEventListener('DOMContentLoaded', () => {
             drawCard();
         });
 
         function downloadInvitationCard() {
             const link = document.createElement('a');
-            link.download = 'GITI_Egypt_Forum_Card.png';
+            link.download = 'GITI_Member_Card.png';
             link.href = cardCanvas.toDataURL('image/png');
             link.click();
         }
 
-        // التبديل بين تبويبات أجندة الفعاليات
+        // التبديل بين تبويبات محاور GITI
         function switchAgenda(index) {
             const tabs = document.querySelectorAll('.tab-btn');
             const items = document.querySelectorAll('.agenda-item');
@@ -1412,7 +1333,7 @@
             });
         }
 
-        // فتح وإغلاق إجابات الأسئلة الشائعة FAQ
+        // إجابات الأسئلة الشائعة FAQ
         function toggleFaq(btn) {
             const answer = btn.nextElementSibling;
             const icon = btn.querySelector('i');
@@ -1427,7 +1348,7 @@
             }
         }
 
-        // تحكم زر العودة إلى الأعلى وتفعيل ظهوره
+        // زر العودة للأعلى
         window.onscroll = function() {
             const btn = document.getElementById('backToTop');
             if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
@@ -1440,34 +1361,32 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // معالجة وحفظ استمارة التسجيل في قاعدة بيانات Firebase بشكل صحيح وموثوق
+        // معالجة وحفظ استمارة الاستفسارات في Firebase تحت مجموعة app_inquiries المتطابقة لديك
         async function handleFormSubmit(event) {
             event.preventDefault();
             const submitBtn = document.getElementById('submitBtn');
             submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جاري إرسال المقترح سحابياً...';
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جاري إرسال الطلب سحابياً...';
 
             const formData = {
                 fullname: document.getElementById('fullname').value.trim(),
                 email: document.getElementById('email').value.trim(),
                 phone: document.getElementById('phone').value.trim(),
-                governorate: document.getElementById('governorate').value,
-                proposal: document.getElementById('proposal').value.trim(),
+                serviceType: document.getElementById('governorate').value,
+                message: document.getElementById('proposal').value.trim(),
                 createdAt: serverTimestamp(),
                 date: new Date().toLocaleString('ar-EG')
             };
 
             try {
                 if (window.db && window.addDoc && window.collection) {
-                    // الحفظ في مجموعة forum_registrations المطابقة تماماً للوحة التحكم
-                    await window.addDoc(window.collection(window.db, "forum_registrations"), formData);
+                    // الحفظ في مجموعة app_inquiries الموجودة بالفعل في فايربيس لديك
+                    await window.addDoc(window.collection(window.db, "app_inquiries"), formData);
                     
-                    // حفظ محلي احتياطي
-                    let localData = JSON.parse(localStorage.getItem("giti_forum_registrations") || "[]");
+                    let localData = JSON.parse(localStorage.getItem("giti_app_inquiries") || "[]");
                     localData.push(formData);
-                    localStorage.setItem("giti_forum_registrations", JSON.stringify(localData));
+                    localStorage.setItem("giti_app_inquiries", JSON.stringify(localData));
 
-                    // إظهار رسالة النجاح الحقيقية
                     document.getElementById('forumForm').style.display = 'none';
                     document.getElementById('successBox').style.display = 'block';
                 } else {
@@ -1475,9 +1394,9 @@
                 }
             } catch (error) {
                 console.error("Firebase Sync Error:", error);
-                alert("❌ فشل الحفظ في قاعدة البيانات: " + error.message + "\n(تأكد من تفعيل قواعد الكتابة المسموحة لـ forum_registrations في فايربيس).");
+                alert("❌ فشل الحفظ في قاعدة البيانات: " + error.message);
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = 'إرسال المقترح إلى شبكة GITI';
+                submitBtn.innerHTML = 'إرسال الطلب إلى فريق GITI';
             }
         }
     </script>
