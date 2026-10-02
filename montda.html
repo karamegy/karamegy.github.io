@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>منتدى مصر 2026 - تغطية شبكة GITI الشبابية</title>
     
     <!-- وسوم المعاينة الاجتماعية (Open Graph) لمشاركة الرابط -->
@@ -161,59 +161,133 @@
         }
 
         .eagle-emblem-img {
-            height: 52px;
+            height: 48px;
             width: auto;
             object-fit: contain;
             display: block;
         }
 
         .brand-text-box h2 {
-            font-size: 1.05rem;
+            font-size: 1rem;
             color: var(--gov-blue-dark);
             font-weight: 800;
             line-height: 1.2;
         }
 
         .brand-text-box p {
-            font-size: 0.72rem;
+            font-size: 0.7rem;
             color: #64748b;
         }
 
-        /* لوجو اسم مدونة GITI الشبابية */
-        .giti-blog-brand {
+        /* زر القائمة الجانبية (Sidebar Menu Toggle) */
+        .menu-toggle-btn {
+            background: var(--gov-blue-dark);
+            color: var(--gov-gold);
+            border: 2px solid var(--gov-gold);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 800;
+            cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 10px;
-            background: #f1f5f9;
-            padding: 6px 14px;
-            border-radius: 8px;
-            border: 1px solid #e2e8f0;
+            gap: 8px;
+            font-size: 0.95rem;
+            transition: all 0.3s;
         }
 
-        .giti-cube-logo {
-            width: 34px;
-            height: 34px;
-            background: linear-gradient(135deg, #4f46e5 0%, #312e81 100%);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .menu-toggle-btn:hover {
+            background: var(--gov-gold);
+            color: var(--gov-blue-dark);
+        }
+
+        /* القائمة الجانبية المنسدلة (Sidebar Drawer) */
+        .sidebar-drawer {
+            position: fixed;
+            top: 0;
+            right: -320px;
+            width: 300px;
+            height: 100%;
+            background: #0b2238;
             color: #fff;
+            z-index: 2000;
+            box-shadow: -5px 0 25px rgba(0,0,0,0.5);
+            transition: right 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            border-left: 3px solid var(--gov-gold);
+        }
+
+        .sidebar-drawer.open {
+            right: 0;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            background: #123354;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .sidebar-header h3 {
+            color: var(--gov-gold);
             font-size: 1.1rem;
-            box-shadow: 0 2px 8px rgba(79, 70, 229, 0.4);
-        }
-
-        .giti-title-text h1 {
-            font-size: 1.15rem;
-            color: #312e81;
             font-weight: 900;
-            line-height: 1;
         }
 
-        .giti-title-text span {
-            font-size: 0.68rem;
-            color: #6366f1;
+        .close-sidebar-btn {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.3rem;
+            cursor: pointer;
+        }
+
+        .sidebar-links {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .sidebar-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            padding: 12px 15px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.05);
             font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s;
+            border-right: 3px solid transparent;
+        }
+
+        .sidebar-links a:hover, .sidebar-links a.active {
+            background: rgba(212, 175, 55, 0.15);
+            color: var(--gov-gold);
+            border-right-color: var(--gov-gold);
+            transform: translateX(-4px);
+        }
+
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 1500;
+            display: none;
+            backdrop-filter: blur(3px);
+        }
+
+        .sidebar-overlay.active {
+            display: block;
         }
 
         /* Hero Section */
@@ -659,9 +733,6 @@
 
         @media (max-width: 768px) {
             .nav-container { flex-direction: column; gap: 12px; text-align: center; }
-            .giti-blog-brand { width: 100%; justify-content: center; }
-            .president-speech { font-size: 1rem; padding: 20px; }
-            .timeline-event { flex-direction: column; gap: 8px; }
         }
     </style>
 
@@ -720,11 +791,10 @@
         </div>
     </div>
 
-    <!-- Header Navigation متضمن شعار الجمهورية الحقيقي وبصمة لوجو مدونة GITI -->
+    <!-- Header Navigation متضمن شعار الجمهورية، زر القائمة الجانبية (Sidebar) ولوجو GITI -->
     <header>
         <div class="nav-container">
             <div class="gov-branding">
-                <!-- شعار جمهورية مصر العربية الرسمي الحقيقي (نسر صلاح الدين) -->
                 <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Coat_of_arms_of_Egypt_%28official%29.svg" 
                      alt="" 
                      class="eagle-emblem-img">
@@ -734,18 +804,30 @@
                 </div>
             </div>
 
-            <!-- لوجو اسم مدونة GITI المعتمد -->
-            <div class="giti-blog-brand">
-                <div class="giti-cube-logo">
-                    <i class="fa-solid fa-cube"></i>
-                </div>
-                <div class="giti-title-text">
-                    <h1>GITI BLOG</h1>
-                    <span>مدونة جيتي الشبابية</span>
-                </div>
-            </div>
+            <!-- زر فتح القائمة الجانبية للمدونة -->
+            <button class="menu-toggle-btn" onclick="toggleSidebar()">
+                <i class="fa-solid fa-bars"></i> القائمة الرئيسية
+            </button>
         </div>
     </header>
+
+    <!-- القائمة الجانبية المنسدلة (Sidebar Drawer) -->
+    <div id="sidebarOverlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
+    <div id="sideDrawer" class="sidebar-drawer">
+        <div class="sidebar-header">
+            <h3><i class="fa-solid fa-cube"></i> أقسام شبكة GITI</h3>
+            <button class="close-sidebar-btn" onclick="toggleSidebar()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="sidebar-links">
+            <a href="index.html"><i class="fa-solid fa-house"></i> الرئيسية والمدونة</a>
+            <a href="montda.html" class="active"><i class="fa-solid fa-landmark"></i> 🇪🇬 منتدى مصر 2026</a>
+            <a href="index.html#tools-section"><i class="fa-solid fa-calculator"></i> الحاسبة والأدوات</a>
+            <a href="tork.html"><i class="fa-solid fa-shield-halved"></i> أمان وتطبيقات المنصة</a>
+            <a href="about.html"><i class="fa-solid fa-circle-info"></i> من نحن</a>
+            <a href="contact.html"><i class="fa-solid fa-envelope"></i> اتصل بنا</a>
+            <a href="privacy.html" target="_blank"><i class="fa-solid fa-lock"></i> سياسة الخصوصية</a>
+        </div>
+    </div>
 
     <!-- Hero Section -->
     <section class="gov-hero-section">
@@ -794,7 +876,6 @@
         </div>
 
         <div class="gov-actions-container">
-            <!-- يوجه مباشرة للتسجيل بالبوابة الحكومية الرسمية -->
             <a href="https://egyptforum.gov.eg/signup" target="_blank" class="btn-gov-primary">
                 <span>التسجيل بالبوابة الحكومية الرسمية</span>
                 <i class="fa-solid fa-external-link-alt"></i>
@@ -825,7 +906,7 @@
         </div>
     </section>
 
-    <!-- قسم مولد كروت الدعوات الشخصية (محدث بالصورة الرسمية ورابط الحكومة) -->
+    <!-- قسم مولد كروت الدعوات الشخصية (بالصورة الرسمية للخلفية ورابط الحكومة) -->
     <section class="registration-section" id="invitation-card-section" style="background: #ffffff; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0;">
         <div class="form-card" style="max-width: 700px;">
             <div class="section-heading" style="margin-bottom: 25px;">
@@ -1047,17 +1128,25 @@
         </div>
     </section>
 
-    <!-- زر العودة إلى الأعلى المضاف -->
+    <!-- زر العودة إلى الأعلى -->
     <button id="backToTop" onclick="scrollToTop()" style="display: none; position: fixed; bottom: 20px; left: 20px; background: var(--gov-gold); color: var(--gov-blue-dark); border: none; width: 45px; height: 45px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; z-index: 999; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: 0.3s;">
         <i class="fa-solid fa-arrow-up"></i>
     </button>
 
-    <!-- Footer متضمن حقوق مدونة GITI والإخلاء القانوني -->
+    <!-- Footer -->
     <footer>
         <p>جميع الحقوق محفوظة &copy; 2026 — مدونة GITI الإعلامية الشبابية | <a href="index.html">العودة للرئيسية</a></p>
     </footer>
 
     <script>
+        // دالة فتح وإغلاق القائمة الجانبية (Sidebar)
+        function toggleSidebar() {
+            const drawer = document.getElementById('sideDrawer');
+            const overlay = document.getElementById('sidebarOverlay');
+            drawer.classList.toggle('open');
+            overlay.classList.toggle('active');
+        }
+
         // العد التنازلي لموعد انطلاق المنتدى (19 أكتوبر 2026)
         const targetDate = new Date("October 19, 2026 09:00:00").getTime();
         const countdownTimer = setInterval(() => {
@@ -1117,10 +1206,9 @@
         function drawCard() {
             cardCtx.clearRect(0, 0, cardCanvas.width, cardCanvas.height);
 
-            // 1. رسم خلفية المنتدى الرسمية أو بديل متدرج إذا لم تحمل
+            // 1. رسم خلفية المنتدى الرسمية مع طبقة تعتيم داكنة لضمان وضوح النص
             if (isBgLoaded) {
                 cardCtx.drawImage(bgCardImg, 0, 0, cardCanvas.width, cardCanvas.height);
-                // طبقة تعتيم شفافة داكنة لضمان بروز النصوص والوجه
                 cardCtx.fillStyle = 'rgba(11, 34, 56, 0.78)';
                 cardCtx.fillRect(0, 0, cardCanvas.width, cardCanvas.height);
             } else {
