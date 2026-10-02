@@ -9,6 +9,9 @@
     <!-- Google Fonts - Cairo -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     
+    <!-- كود إعلانات جوجل أدسنس الرسمية -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6651309355082807" crossorigin="anonymous"></script>
+
     <style>
         :root {
             --primary-color: #c0392b; /* أحمر يعبر عن علم مصر */
@@ -84,17 +87,26 @@
             color: var(--primary-color);
         }
 
-        /* Hero Section */
+        /* AdSense Container Style */
+        .ad-container-wrapper {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        /* Hero Section مع خلفية صورة اللقاء الرئاسي */
         .hero {
-            background: linear-gradient(135deg, rgba(26, 37, 47, 0.85), rgba(192, 57, 43, 0.8)), 
-                        url('https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=1350&q=80') center/cover;
-            min-height: 85vh;
+            background: linear-gradient(135deg, rgba(26, 37, 47, 0.88), rgba(192, 57, 43, 0.82)), 
+                        url('https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Barack_Obama_and_Abdel_Fattah_el-Sisi_2014.jpg/1200px-Barack_Obama_and_Abdel_Fattah_el-Sisi_2014.jpg') center/cover no-repeat;
+            min-height: 90vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             color: var(--text-light);
-            padding: 100px 20px 60px;
+            padding: 120px 20px 60px;
         }
 
         .hero-content h1 {
@@ -102,13 +114,15 @@
             font-weight: 800;
             margin-bottom: 20px;
             animation: fadeInDown 1s ease;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
 
         .hero-content p {
-            font-size: 1.2rem;
-            max-width: 700px;
+            font-size: 1.25rem;
+            max-width: 750px;
             margin: 0 auto 30px;
             animation: fadeInUp 1s ease;
+            text-shadow: 0 1px 5px rgba(0,0,0,0.5);
         }
 
         .cta-btn {
@@ -156,6 +170,100 @@
             font-size: 2rem;
             font-weight: 700;
             color: var(--accent-color);
+        }
+
+        /* Governmental Portal Section */
+        .gov-portal-section {
+            background: #ffffff;
+            padding: 70px 20px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .gov-card {
+            max-width: 900px;
+            margin: 0 auto;
+            background: linear-gradient(145deg, #ffffff, #f4f6f9);
+            border-top: 5px solid var(--primary-color);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.07);
+            padding: 40px 30px;
+        }
+
+        .gov-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .gov-badge {
+            background: rgba(192, 57, 43, 0.1);
+            color: var(--primary-color);
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .gov-steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-bottom: 35px;
+        }
+
+        .gov-step-item {
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #edf2f7;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.02);
+        }
+
+        .step-number {
+            background: var(--secondary-color);
+            color: var(--accent-color);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .gov-link-box {
+            background: var(--secondary-color);
+            color: #fff;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .gov-link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--primary-color);
+            color: #fff;
+            padding: 16px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.15rem;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(192, 57, 43, 0.4);
+        }
+
+        .gov-link-btn:hover {
+            background: #e74c3c;
+            transform: scale(1.03);
         }
 
         /* Features Section */
@@ -367,20 +475,34 @@
             <ul class="nav-links">
                 <li><a href="index.html"><i class="fa-solid fa-house"></i> العودة للمدونة</a></li>
                 <li><a href="#about">عن المبادرة</a></li>
+                <li><a href="#gov-portal">المنصة الرسمية</a></li>
                 <li><a href="#goals">الأهداف</a></li>
                 <li><a href="#register">سجل الآن</a></li>
             </ul>
         </div>
     </header>
 
-    <!-- Hero Section -->
+    <!-- Hero Section مع صورة اللقاء الرئاسي -->
     <section class="hero" id="about">
         <div class="hero-content">
             <h1>مبادرة رئيس الجمهورية لتمكين الشباب</h1>
             <p>شارك بصوتك وأفكارك في صياغة مستقبل أفضل لمصر. منتدى مصر هو المنصة الرسمية للحوار والتنمية والابتكار.</p>
-            <a href="#register" class="cta-btn">سجل للمشاركة الآن</a>
+            <a href="#gov-portal" class="cta-btn">سجل للمشاركة الآن</a>
         </div>
     </section>
+
+    <!-- وحدة إعلانية علوية بعد المقدمة -->
+    <div class="ad-container-wrapper">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-6651309355082807"
+             data-ad-slot="1516733351"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
 
     <!-- Timer Section -->
     <section class="timer-section">
@@ -392,6 +514,73 @@
             <div class="time-box"><span id="seconds">00</span>ثانية</div>
         </div>
     </section>
+
+    <!-- Governmental Registration Portal Section -->
+    <section class="gov-portal-section" id="gov-portal">
+        <div class="gov-card">
+            <div class="gov-header">
+                <span class="gov-badge"><i class="fa-solid fa-shield-halved"></i> بدعوة من الرئيس السيسي</span>
+                <h2 style="font-size: 2rem; color: var(--secondary-color); font-weight: 800;">خطوات التسجيل للمشاركة بمنتدى مصر 2026</h2>
+                <p style="color: #64748b; font-size: 0.95rem; margin-top: 5px;">يرجى اتباع الخطوات للتحويل والتسجيل بالرابط الحكومي المعتمد للمنتدى</p>
+            </div>
+
+            <div class="gov-steps-grid">
+                <div class="gov-step-item">
+                    <div class="step-number">1</div>
+                    <div>
+                        <h4 style="font-weight: 700; color: var(--secondary-color);">التحويل للرابط الحكومي</h4>
+                        <p style="font-size: 0.85rem; color: #64748b;">الانتقال لبوابة المنتدى الرسمية egyptforum.gov.eg</p>
+                    </div>
+                </div>
+
+                <div class="gov-step-item">
+                    <div class="step-number">2</div>
+                    <div>
+                        <h4 style="font-weight: 700; color: var(--secondary-color);">إدخال البيانات الأساسية</h4>
+                        <p style="font-size: 0.85rem; color: #64748b;">الاسم - الرقم القومي - رقم الهاتف - البريد الإلكتروني</p>
+                    </div>
+                </div>
+
+                <div class="gov-step-item">
+                    <div class="step-number">3</div>
+                    <div>
+                        <h4 style="font-weight: 700; color: var(--secondary-color);">الوظيفة والمسمى الوظيفي</h4>
+                        <p style="font-size: 0.85rem; color: #64748b;">إدخال كافة البيانات الوظيفية والقطاع التابع له</p>
+                    </div>
+                </div>
+
+                <div class="gov-step-item">
+                    <div class="step-number">4</div>
+                    <div>
+                        <h4 style="font-weight: 700; color: var(--secondary-color);">كلمة المرور وتأكيد الحساب</h4>
+                        <p style="font-size: 0.85rem; color: #64748b;">إنشاء كلمة مرور واجتياز التحقق (أنا لست روبوت)</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gov-link-box">
+                <h3 style="color: var(--accent-color); font-size: 1.3rem; margin-bottom: 8px;">بوابة التسجيل الرسمية المباشرة</h3>
+                <p style="font-size: 0.9rem; color: #cbd5e1;">اضغط على الزر أدناه للتحويل المباشر إلى الموقع الحكومي والتسجيل الفوري</p>
+                <a href="https://egyptforum.gov.eg/" target="_blank" rel="noopener noreferrer" class="gov-link-btn">
+                    <span>الانتقال لموقع الحكومة والتسجيل الآن</span>
+                    <i class="fa-solid fa-arrow-left-long"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- وحدة إعلانية وسطية -->
+    <div class="ad-container-wrapper">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-6651309355082807"
+             data-ad-slot="1516733351"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
 
     <!-- Features Section -->
     <section class="features" id="goals">
@@ -417,7 +606,7 @@
 
     <!-- Registration Section -->
     <section class="registration" id="register">
-        <h2 class="section-title">استمارة التسجيل للمشاركة</h2>
+        <h2 class="section-title">استمارة التسجيل السريع (نسخة احتياطية)</h2>
         <div class="form-container">
             <form id="forumForm" onsubmit="handleFormSubmit(event)">
                 <div class="form-group">
@@ -459,7 +648,7 @@
                 </div>
 
                 <button type="submit" id="submitBtn" class="submit-btn">
-                    <span>إرسال الطلب</span>
+                    <span>إرسال الطلب سحابياً</span>
                     <i class="fa-solid fa-paper-plane"></i>
                 </button>
             </form>
@@ -473,6 +662,19 @@
             </div>
         </div>
     </section>
+
+    <!-- وحدة إعلانية قبل الفوتر -->
+    <div class="ad-container-wrapper">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-6651309355082807"
+             data-ad-slot="1516733351"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
 
     <!-- Footer -->
     <footer>
@@ -545,7 +747,7 @@
                 errorBox.innerText = "حدث خطأ أثناء إرسال البيانات. يرجى المحاولة مرة أخرى.";
                 errorBox.style.display = 'block';
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = `<span>إرسال الطلب</span> <i class="fa-solid fa-paper-plane"></i>`;
+                submitBtn.innerHTML = `<span>إرسال الطلب سحابياً</span> <i class="fa-solid fa-paper-plane"></i>`;
             }
         }
     </script>
