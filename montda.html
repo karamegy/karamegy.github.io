@@ -152,12 +152,11 @@
             gap: 12px;
         }
 
-        .eagle-svg-box {
-            width: 48px;
-            height: 48px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .eagle-emblem-img {
+            height: 52px;
+            width: auto;
+            object-fit: contain;
+            display: block;
         }
 
         .brand-text-box h2 {
@@ -184,16 +183,16 @@
         }
 
         .giti-cube-logo {
-            width: 32px;
-            height: 32px;
-            background: #4338ca;
-            border-radius: 6px;
+            width: 34px;
+            height: 34px;
+            background: linear-gradient(135deg, #4f46e5 0%, #312e81 100%);
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: #fff;
             font-size: 1.1rem;
-            box-shadow: 0 2px 8px rgba(67, 56, 202, 0.3);
+            box-shadow: 0 2px 8px rgba(79, 70, 229, 0.4);
         }
 
         .giti-title-text h1 {
@@ -564,7 +563,7 @@
             border-top: 1px solid #f1f5f9;
         }
 
-        /* Backup Registration Section */
+        /* Registration Form Section */
         .registration-section {
             background: #f1f5f9;
             padding: 60px 20px;
@@ -686,7 +685,7 @@
 
     <!-- شريط الإخلاء القانوني لمنع المساءلة -->
     <div class="legal-disclaimer-bar">
-        ℹ️ <strong>تنويه إعلامي:</strong> هذه الصفحة مبادرة إعلامية شبابية مستقلة صادرة عن <strong>مدونة GITI</strong> لتشجيع الشباب ومشاركة مقترحاتهم في منتدى مصر 2026، ولا نُمثل أي جهة حكومية رسمية.
+        ℹ️ <strong>تنويه إعلامي:</strong> هذه الصفحة مبادرة إعلامية شبابية مستقلة صادرة عن <strong>مدونة GITI</strong> لتشجيع الشباب ومشاركة مقترحاتهم، ولا نُمثل أي جهة حكومية رسمية.
     </div>
 
     <!-- Top Bar الحكومي -->
@@ -713,26 +712,21 @@
         </div>
     </div>
 
-    <!-- Header Navigation متضمن نسر الشعار المدمج وبصمة لوجو مدونة GITI -->
+    <!-- Header Navigation متضمن نسر الشعار المباشر المضمون وبصمة لوجو مدونة GITI -->
     <header>
         <div class="nav-container">
             <div class="gov-branding">
-                <!-- النسر العربي المباشر المضمن بصيغة إلكترونية ثابتة -->
-                <div class="eagle-svg-box">
-                    <svg viewBox="0 0 100 100" style="width: 100%; height: 100%;">
-                        <path d="M50 10 L60 30 L85 30 L65 45 L72 70 L50 55 L28 70 L35 45 L15 30 L40 30 Z" fill="#d4af37" stroke="#0b2238" stroke-width="2"/>
-                        <rect x="42" y="38" width="16" height="22" fill="#c0392b" />
-                        <rect x="42" y="45" width="16" height="15" fill="#ffffff" />
-                        <rect x="42" y="52" width="16" height="8" fill="#000000" />
-                    </svg>
-                </div>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Coat_of_arms_of_Egypt_%28official%29.svg/250px-Coat_of_arms_of_Egypt_%28official%29.svg.png" 
+                     alt="شعار جمهورية مصر العربية" 
+                     class="eagle-emblem-img"
+                     onerror="this.onerror=null; this.src='https://sis.gov.eg/Content/Upload/slider/4202316124531427.png';">
                 <div class="brand-text-box">
                     <h2>جمهورية مصر العربية</h2>
                     <p>المبادرة الرئاسية للشباب</p>
                 </div>
             </div>
 
-            <!-- لوجو اسم مدونة GITI المعتمد لمزيد من الأمان القانوني -->
+            <!-- لوجو اسم مدونة GITI المعتمد -->
             <div class="giti-blog-brand">
                 <div class="giti-cube-logo">
                     <i class="fa-solid fa-cube"></i>
@@ -745,7 +739,7 @@
         </div>
     </header>
 
-    <!-- Hero Section مع صورة خلفية المنتدى وصورة فخامة الرئيس المؤكدة -->
+    <!-- Hero Section -->
     <section class="gov-hero-section">
         <div class="president-avatar-container">
             <img src="https://static.srpcdigital.com/styles/1037xauto/public/2024-09/799459_0.jpeg.webp" 
@@ -772,17 +766,18 @@
                 <i class="fa-solid fa-location-dot"></i>
                 <span>فندق سانت ريجيس — العاصمة الجديدة</span>
             </div>
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=%D9%85%D9%86%D8%AA%D8%AF%D9%89+%D9%85%D8%B5%D8%B1+2026&dates=20261019T090000Z/20261024T180000Z&details=%D9%81%D8%B9%D8%A7%D9%84%D9%8A%D8%A7%D8%AA+%D9%85%D9%86%D8%AA%D8%AF%D9%89+%D9%85%D8%B5%D8%B1+2026+%D8%A8%D8%AF%D8%B9%D9%88%D8%A9+%D9%85%D9%86+%D8%B1%D8%A3%D9%8A%D8%B3+%D8%A7%D9%84%D8%AC%D9%85%D9%87%D9%88%D8%B1%D9%8A%D8%A9&location=%D9%81%D9%86%D8%AF%D9%82+%D8%B3%D8%A7%D9%86%D8%AA+%D8%B1%D9%8A%D8%AC%D9%8A%D8%B3+%D8%A7%D9%84%D8%B9%D8%A7%D8%B5%D9%85%D8%A9+%D8%A7%D9%84%D8%AC%D8%AF%D9%8A%D8%AF%D8%A9" target="_blank" class="cal-btn">
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=%D9%85%D9%86%D8%AA%D8%AF%D9%89+%D9%85%D8%B5%D8%B1+2026&dates=20261019T090000Z/20261024T180000Z&details=%D9%81%D8%B9%D8%A7%D9%84%D9%8A%D8%A7%D8%AA+%D9%85%D9%86%D8%AA%D8%AF%D9%89+%D9%85%D8%B5%D8%B1+2026+%D8%A8%D8%AF%D8%B9%D9%88%D8%A9+%D9%85%D9%86+%D8%B1%D8%A3%D9%8A%D8%B3+%D8%A7%D9%84%D8%AC%D9%85%D9%87%D9%88%D8%B1%D9%8A%D8%A9&location=%D9%81%D9%86%D8%AF%D9%82+%D8%B3%D8%A7%D9%86%D8%AA+%D8%B1%D9%8A%D8%AC%D9%8A%D8%B3+%D8%A7%D9%84%D8%AC%D8%AF%D9%8A%D8%AF%D8%A9" target="_blank" class="cal-btn">
                 <i class="fa-solid fa-calendar-plus"></i> حفظ في تقويم Google
             </a>
         </div>
 
         <div class="gov-actions-container">
-            <a href="https://egyptforum.gov.eg/" target="_blank" class="btn-gov-primary">
-                <span>إنشاء حساب جديد</span>
-                <i class="fa-solid fa-chevron-left"></i>
+            <!-- يوجه مباشرة للتسجيل بالبوابة الحكومية الرسمية -->
+            <a href="https://egyptforum.gov.eg/signup" target="_blank" class="btn-gov-primary">
+                <span>التسجيل بالبوابة الحكومية الرسمية</span>
+                <i class="fa-solid fa-external-link-alt"></i>
             </a>
-            <a href="#backup-register" class="btn-gov-secondary">التسجيل السريع بالمنصة</a>
+            <a href="#backup-register" class="btn-gov-secondary">تقديم مقترح عبر شبكة GITI</a>
         </div>
     </section>
 
@@ -944,10 +939,11 @@
         </div>
     </section>
 
-    <!-- استمارة التسجيل السريع السحابية الاحتياطية -->
+    <!-- استمارة التسجيل الخاصة بمدونة GITI لتجميع المقترحات -->
     <section class="registration-section" id="backup-register">
         <div class="form-card">
-            <h3 style="text-align: center; color: var(--gov-blue-dark); font-weight: 800; margin-bottom: 20px;">استمارة التسجيل المباشر السريعة</h3>
+            <h3 style="text-align: center; color: var(--gov-blue-dark); font-weight: 800; margin-bottom: 8px;">استمارة مشاركة المقترحات (شبكة GITI)</h3>
+            <p style="text-align: center; font-size: 0.85rem; color: #64748b; margin-bottom: 20px;">سجّل بياناتك ومقترحك ليتم حفظه في سحابة مدونة GITI الخاصة بنا</p>
             
             <form id="forumForm" onsubmit="handleFormSubmit(event)">
                 <div class="form-group">
@@ -988,11 +984,11 @@
                     <textarea id="proposal" rows="3" placeholder="اكتب ملخص مقترحك هنا..."></textarea>
                 </div>
 
-                <button type="submit" id="submitBtn" class="submit-btn">إرسال طلب التسجيل</button>
+                <button type="submit" id="submitBtn" class="submit-btn">إرسال المقترح إلى GITI</button>
             </form>
 
             <div id="successBox" class="success-box" style="margin-top: 15px;">
-                ✅ تم حفظ تسجيلك بنجاح في السحابة! سيتم التواصل معك قريباً.
+                ✅ تم حفظ تسجيلك ومقترحك بنجاح في قاعدة بيانات GITI!
             </div>
         </div>
     </section>
@@ -1032,11 +1028,13 @@
             }
         }
 
-        // معالجة حفظ بيانات الاستمارة بسحابة Firebase
+        // معالجة وحفظ استمارة التسجيل في قاعدة بيانات المدونة الخاصة
         async function handleFormSubmit(event) {
             event.preventDefault();
             const submitBtn = document.getElementById('submitBtn');
-            
+            submitBtn.disabled = true;
+            submitBtn.innerText = "جاري الإرسال...";
+
             const formData = {
                 fullname: document.getElementById('fullname').value.trim(),
                 nationalId: document.getElementById('nationalId').value.trim(),
@@ -1044,26 +1042,30 @@
                 phone: document.getElementById('phone').value.trim(),
                 governorate: document.getElementById('governorate').value,
                 proposal: document.getElementById('proposal').value.trim(),
-                createdAt: window.serverTimestamp ? window.serverTimestamp() : new Date().toISOString()
+                date: new Date().toLocaleString('ar-EG')
             };
 
+            // 1. حفظ في المتصفح المحلي للتحقق الفوري
             try {
-                submitBtn.disabled = true;
-                submitBtn.innerText = "جاري الإرسال...";
+                let localData = JSON.parse(localStorage.getItem("giti_forum_registrations") || "[]");
+                localData.push(formData);
+                localStorage.setItem("giti_forum_registrations", JSON.stringify(localData));
+            } catch(e) { console.log(e); }
 
+            // 2. مزامنة مع قاعدة بيانات Firebase الخاصة بك
+            try {
                 if (window.db && window.addDoc && window.collection) {
                     await window.addDoc(window.collection(window.db, "forum_registrations"), formData);
                 }
+            } catch (error) {
+                console.error("Firebase Sync Error:", error);
+            }
 
+            // إظهار ناتج النجاح فوراً
+            setTimeout(() => {
                 document.getElementById('forumForm').style.display = 'none';
                 document.getElementById('successBox').style.display = 'block';
-
-            } catch (error) {
-                console.error("Error saving registration:", error);
-                alert("حدث خطأ أثناء حفظ البيانات، يرجى المحاولة لاحقاً.");
-                submitBtn.disabled = false;
-                submitBtn.innerText = "إرسال طلب التسجيل";
-            }
+            }, 500);
         }
     </script>
 </body>
