@@ -63,12 +63,14 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            text-decoration: none;
         }
 
         .nav-links {
             display: flex;
             list-style: none;
             gap: 20px;
+            align-items: center;
         }
 
         .nav-links a {
@@ -259,21 +261,43 @@
             border-radius: 8px;
             cursor: pointer;
             transition: background 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
         }
 
         .submit-btn:hover {
             background-color: #a93226;
         }
 
+        .submit-btn:disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+        }
+
         .success-box {
             display: none;
             text-align: center;
-            padding: 20px;
+            padding: 25px;
             background: #e8f8f5;
             color: #117a65;
-            border-radius: 8px;
+            border-radius: 12px;
             border: 1px solid #a3e4d7;
             font-weight: 700;
+            line-height: 1.8;
+        }
+
+        .error-box {
+            display: none;
+            text-align: center;
+            padding: 15px;
+            background: #fadbd8;
+            color: #78281f;
+            border-radius: 8px;
+            border: 1px solid #f5b7b1;
+            font-weight: 600;
+            margin-top: 15px;
         }
 
         /* Footer */
@@ -304,16 +328,44 @@
             to { opacity: 1; transform: translateY(0); }
         }
     </style>
+
+    <!-- ربط مكتبات Firebase الأساسية -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDTIxdIHfDaEH2wn7dEE9qMnsOlXtlSCI0",
+            authDomain: "omda-a750f.firebaseapp.com",
+            projectId: "omda-a750f",
+            storageBucket: "omda-a750f.firebasestorage.app",
+            messagingSenderId: "1078714497381",
+            appId: "1:1078714497381:web:074cbcf0d66c72a746898c",
+            measurementId: "G-P763CFS7GG"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // إتاحة أدوات الفايربيس للسكربت العام
+        window.db = db;
+        window.addDoc = addDoc;
+        window.collection = collection;
+        window.serverTimestamp = serverTimestamp;
+
+        console.log("🔥 تم ربط منتدى مصر بنجاح مع سحابة Firebase!");
+    </script>
 </head>
 <body>
 
     <!-- Header / Navbar -->
     <header>
         <div class="nav-container">
-            <div class="logo">
+            <a href="index.html" class="logo">
                 <i class="fa-solid fa-flag"></i> منتدى مصر للشباب
-            </div>
+            </a>
             <ul class="nav-links">
+                <li><a href="index.html"><i class="fa-solid fa-house"></i> العودة للمدونة</a></li>
                 <li><a href="#about">عن المبادرة</a></li>
                 <li><a href="#goals">الأهداف</a></li>
                 <li><a href="#register">سجل الآن</a></li>
@@ -322,7 +374,7 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="hero">
+    <section class="hero" id="about">
         <div class="hero-content">
             <h1>مبادرة رئيس الجمهورية لتمكين الشباب</h1>
             <p>شارك بصوتك وأفكارك في صياغة مستقبل أفضل لمصر. منتدى مصر هو المنصة الرسمية للحوار والتنمية والابتكار.</p>
@@ -392,10 +444,12 @@
                     <label for="governorate">المحافظة</label>
                     <select id="governorate" required>
                         <option value="">اختر المحافظة</option>
-                        <option value="cairo">القاهرة</option>
-                        <option value="alex">الإسكندرية</option>
-                        <option value="giza">الجيزة</option>
-                        <option value="other">محافظة أخرى</option>
+                        <option value="القاهرة">القاهرة</option>
+                        <option value="الإسكندرية">الإسكندرية</option>
+                        <option value="الجيزة">الجيزة</option>
+                        <option value="الدقهلية">الدقهلية</option>
+                        <option value="أسيوط">أسيوط</option>
+                        <option value="محافظة أخرى">محافظة أخرى</option>
                     </select>
                 </div>
 
@@ -404,11 +458,18 @@
                     <textarea id="proposal" rows="4" placeholder="اكتب ملخص فكرتك هنا..."></textarea>
                 </div>
 
-                <button type="submit" class="submit-btn">إرسال الطلب</button>
+                <button type="submit" id="submitBtn" class="submit-btn">
+                    <span>إرسال الطلب</span>
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
             </form>
 
+            <div id="errorBox" class="error-box"></div>
+
             <div id="successBox" class="success-box">
-                تم استلام طلب تسجيلك بنجاح! ستتواصل معك اللجنة التنظيمية عبر البريد الإلكتروني.
+                <i class="fa-solid fa-circle-check" style="font-size: 2.5rem; margin-bottom: 10px; color: #27ae60;"></i><br>
+                تم استلام ورفع طلب تسجيلك سحابياً بنجاح!<br>
+                ستتواصل معك اللجنة التنظيمية للمنتدى عبر البريد الإلكتروني المرفق.
             </div>
         </div>
     </section>
@@ -444,11 +505,48 @@
         setInterval(updateTimer, 1000);
         updateTimer();
 
-        // Form Submit Handler
-        function handleFormSubmit(event) {
+        // حفظ البيانات في سحابة Firebase Firestore
+        async function handleFormSubmit(event) {
             event.preventDefault();
-            document.getElementById('forumForm').style.display = 'none';
-            document.getElementById('successBox').style.display = 'block';
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const errorBox = document.getElementById('errorBox');
+            errorBox.style.display = 'none';
+
+            // تجميع البيانات من الاستمارة
+            const formData = {
+                fullname: document.getElementById('fullname').value.trim(),
+                nationalId: document.getElementById('nationalId').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                phone: document.getElementById('phone').value.trim(),
+                governorate: document.getElementById('governorate').value,
+                proposal: document.getElementById('proposal').value.trim(),
+                createdAt: window.serverTimestamp ? window.serverTimestamp() : new Date().toISOString()
+            };
+
+            try {
+                // تعطيل الزر أثناء الحفظ
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = `<span>جاري الإرسال...</span> <i class="fa-solid fa-spinner fa-spin"></i>`;
+
+                // الحفظ في كولكشن forum_registrations في فايربيس
+                if (window.db && window.addDoc && window.collection) {
+                    await window.addDoc(window.collection(window.db, "forum_registrations"), formData);
+                } else {
+                    throw new Error("لم يتم تحميل قاعدة بيانات Firebase بشكل صحيح.");
+                }
+
+                // إخفاء الاستمارة وإظهار نجاح الإرسال
+                document.getElementById('forumForm').style.display = 'none';
+                document.getElementById('successBox').style.display = 'block';
+
+            } catch (error) {
+                console.error("خطأ أثناء حفظ البيانات:", error);
+                errorBox.innerText = "حدث خطأ أثناء إرسال البيانات. يرجى المحاولة مرة أخرى.";
+                errorBox.style.display = 'block';
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = `<span>إرسال الطلب</span> <i class="fa-solid fa-paper-plane"></i>`;
+            }
         }
     </script>
 </body>
