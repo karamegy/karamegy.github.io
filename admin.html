@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لوحة التحكم ونشر المقالات | GITI Tech</title>
+    <title>لوحة التحكم وإدارة المقالات | GITI Tech CMS</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- سكربت Firebase -->
+    <!-- سكربت Firebase لإدارة المقالات (إضافة، تعديل، حذف، جلب) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, getDocs, doc, deleteDoc, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyDTIxdIHfDaEH2wn7dEE9qMnsOlXtlSCI0",
@@ -25,41 +25,129 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        window.publishArticle = async function(e) {
+        let editingArticleId = null; // لتحديد ما إذا كنا نقوم بتعديل مقال حالي
+
+        // دالة نشر أو تحديث المقال
+        window.saveArticle = async function(e) {
             e.preventDefault();
             const title = document.getElementById('art-title').value;
             const category = document.getElementById('art-cat').value;
+            const imageUrl = document.getElementById('art-image').value;
             const content = document.getElementById('art-content').value;
             const btn = document.getElementById('pub-btn');
 
             btn.disabled = true;
-            btn.innerText = "جاري النشر سحابياً...";
+            btn.innerText = "جاري الحفظ سحابياً...";
 
             try {
-                await addDoc(collection(db, "articles"), {
-                    title,
-                    category,
-                    content,
-                    createdAt: serverTimestamp()
-                });
-                alert("✅ تم نشر المقال بنجاح وسيظهر في الرئيسية!");
+                if (editingArticleId) {
+                    // تحديث مقال موجود
+                    await updateDoc(doc(db, "articles", editingArticleId), {
+                        title,
+                        category,
+                        imageUrl,
+                        content,
+                        updatedAt: serverTimestamp()
+                    });
+                    alert("✅ تم تحديث المقال بنجاح!");
+                    editingArticleId = null;
+                    document.getElementById('pub-btn').innerText = "نشر المقال فوراً 🚀";
+                } else {
+                    // إضافة مقال جديد
+                    await addDoc(collection(db, "articles"), {
+                        title,
+                        category,
+                        imageUrl,
+                        content,
+                        createdAt: serverTimestamp()
+                    });
+                    alert("✅ تم نشر المقال بنجاح وسيظهر في الرئيسية!");
+                }
+
                 document.getElementById('article-form').reset();
+                loadAdminArticles();
             } catch (err) {
-                alert("❌ حدث خطأ أثناء النشر: " + err.message);
+                alert("❌ حدث خطأ: " + err.message);
             } finally {
                 btn.disabled = false;
-                btn.innerText = "نشر المقال فوراً 🚀";
+                if (!editingArticleId) btn.innerText = "نشر المقال فوراً 🚀";
+            }
+        };
+
+        // جلب المقالات وعرضها في لوحة التحكم للإدارة
+        async function loadAdminArticles() {
+            const container = document.getElementById('admin-articles-list');
+            container.innerHTML = "<p style='text-align:center; color:#64748b;'>جاري تحميل المقالات...</p>";
+
+            try {
+                const querySnapshot = await getDocs(collection(db, "articles"));
+                if (querySnapshot.empty) {
+                    container.innerHTML = "<p style='text-align:center; color:#64748b;'>لا توجد مقالات منشورة حالياً.</p>";
+                    return;
+                }
+
+                let html = "";
+                querySnapshot.forEach((docSnap) => {
+                    const data = docSnap.data();
+                    const id = docSnap.id;
+                    html += `
+                        <div style="background: #f8fafc; border: 1px solid var(--border-color); border-radius: 8px; padding: 15px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap;">
+                            <div style="display: flex; align-items: center; gap: 12px; flex: 1; min-width: 250px;">
+                                ${data.imageUrl ? `<img src="${data.imageUrl}" style="width: 50px; height: 50px; border-radius: 6px; object-fit: cover;">` : '<div style="width:50px;height:50px;background:#cbd5e1;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;">بدون صورة</div>'}
+                                <div>
+                                    <span class="badge badge-paid" style="font-size: 0.7rem; margin-bottom: 3px;">${data.category}</span>
+                                    <h4 style="color: var(--gov-blue-dark); font-size: 0.95rem; font-weight: 800;">${data.title}</h4>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 8px;">
+                                <button onclick="editArticle('${id}', '${encodeURIComponent(data.title)}', '${data.category}', '${encodeURIComponent(data.imageUrl || '')}', '${encodeURIComponent(data.content)}')" style="background: var(--gov-gold); color: var(--gov-blue-dark); border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.8rem;"><i class="fa-solid fa-pen"></i> تعديل</button>
+                                <button onclick="deleteArticle('${id}')" style="background: var(--primary-red); color: #fff; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.8rem;"><i class="fa-solid fa-trash"></i> حذف</button>
+                            </div>
+                        </div>
+                    `;
+                });
+                container.innerHTML = html;
+            } catch (err) {
+                container.innerHTML = "<p style='color: red; text-align: center;'>خطأ في تحميل المقالات.</p>";
             }
         }
+
+        // حذف مقال
+        window.deleteArticle = async function(id) {
+            if (confirm("هل أنت متأكد من حذف هذا المقال نهائياً؟")) {
+                try {
+                    await deleteDoc(doc(db, "articles", id));
+                    alert("🗑️ تم حذف المقال بنجاح.");
+                    loadAdminArticles();
+                } catch (err) {
+                    alert("❌ حدث خطأ أثناء الحذف: " + err.message);
+                }
+            }
+        };
+
+        // تعبئة نموذج التعديل
+        window.editArticle = function(id, title, category, imageUrl, content) {
+            editingArticleId = id;
+            document.getElementById('art-title').value = decodeURIComponent(title);
+            document.getElementById('art-cat').value = category;
+            document.getElementById('art-image').value = decodeURIComponent(imageUrl);
+            document.getElementById('art-content').value = decodeURIComponent(content);
+            document.getElementById('pub-btn').innerText = "تحديث المقال 🔄";
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        window.addEventListener('DOMContentLoaded', loadAdminArticles);
     </script>
 </head>
 <body>
-    <div style="max-width: 700px; margin: 40px auto; padding: 20px;">
-        <div class="card" style="padding: 30px;">
+    <div style="max-width: 800px; margin: 40px auto; padding: 20px;">
+        
+        <!-- نموذج إضافة / تعديل مقال -->
+        <div class="card" style="padding: 30px; margin-bottom: 30px;">
             <h2 style="color: var(--gov-blue-dark); margin-bottom: 20px; font-weight: 900;">
                 <i class="fa-solid fa-pen-nib"></i> لوحة تحكم المقالات (GITI CMS)
             </h2>
-            <form id="article-form" onsubmit="publishArticle(event)" style="display: flex; flex-direction: column; gap: 15px;">
+            <form id="article-form" onsubmit="saveArticle(event)" style="display: flex; flex-direction: column; gap: 15px;">
                 <div>
                     <label style="font-weight: 700; display: block; margin-bottom: 5px;">عنوان المقال *</label>
                     <input type="text" id="art-title" required placeholder="اكتب عنوان المقال هنا..." style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px;">
@@ -67,20 +155,37 @@
                 <div>
                     <label style="font-weight: 700; display: block; margin-bottom: 5px;">القسم *</label>
                     <select id="art-cat" style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px;">
-                        <option value="تكنولوجيا الأعمال">تكنولوجيا الأعمال</option>
+                        <option value="تكنولوجيا الشركات">تكنولوجيا الشركات</option>
                         <option value="الأنظمة اللوجستية">الأنظمة اللوجستية</option>
+                        <option value="أمن البيانات">أمن البيانات</option>
+                        <option value="تطوير الويب والـ PWA">تطوير الويب والـ PWA</option>
                         <option value="الذكاء الاصطناعي">الذكاء الاصطناعي</option>
                     </select>
                 </div>
                 <div>
-                    <label style="font-weight: 700; display: block; margin-bottom: 5px; ">محتوى المقال *</label>
+                    <label style="font-weight: 700; display: block; margin-bottom: 5px;">رابط صورة المقال (URL) *</label>
+                    <input type="url" id="art-image" placeholder="https://example.com/image.jpg" style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px;">
+                </div>
+                <div>
+                    <label style="font-weight: 700; display: block; margin-bottom: 5px;">محتوى المقال *</label>
                     <textarea id="art-content" required rows="6" placeholder="اكتب تفاصيل المقال..." style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px; font-family: inherit;"></textarea>
                 </div>
                 <button type="submit" id="pub-btn" class="submit-btn">نشر المقال فوراً 🚀</button>
             </form>
-            <div style="margin-top: 20px; text-align: center;">
-                <a href="index.html" style="color: var(--gov-blue-light); font-weight: 700; text-decoration: none;">← العودة إلى الصفحة الرئيسية</a>
+        </div>
+
+        <!-- قائمة إدارة المقالات الحالية -->
+        <div class="card" style="padding: 25px;">
+            <h3 style="color: var(--gov-blue-dark); margin-bottom: 15px; font-weight: 800;">
+                <i class="fa-solid fa-list-check"></i> المقالات المنشورة حالياً (إدارة وتعديل)
+            </h3>
+            <div id="admin-articles-list">
+                <!-- سيتم جلب المقالات هنا تلقائياً -->
             </div>
+        </div>
+
+        <div style="margin-top: 20px; text-align: center;">
+            <a href="index.html" style="color: var(--gov-blue-light); font-weight: 700; text-decoration: none;"><i class="fa-solid fa-arrow-right"></i> العودة إلى الصفحة الرئيسية</a>
         </div>
     </div>
 </body>
