@@ -91,7 +91,7 @@
                       const adminLink = document.createElement('a');
                       adminLink.id = 'admin-sidebar-link';
                       adminLink.href = 'admin.html';
-                      adminLink.innerHTML = '<i class="fa-solid fa-gauge-high" style="color: var(--gov-gold);"></i> ⚙️ لوحة التحكم (Admin)';
+                      adminLink.innerHTML = '<i class="fa-solid fa-gauge-high" style="color: var(--gov-gold);"></i> ⚙ لوحة التحكم (Admin)';
                       sidebarLinks.prepend(adminLink);
                   }
               }
@@ -192,7 +192,7 @@
       </div>
       <div class="sidebar-links">
           <a href="index.html"><i class="fa-solid fa-house"></i> الرئيسية والمدونة</a>
-          <a href="montda.html"><i class="fa-solid fa-landmark"></i> 🇪🇬 المنتدي  </a>
+          <a href="montda.html"><i class="fa-solid fa-comments"></i> 💬 منتدى ومجتمع GITI</a>
           <a href="index.html#tools-section"><i class="fa-solid fa-calculator"></i> الحاسبة والأدوات</a>
           <a href="tork.html"><i class="fa-solid fa-shield-halved"></i> أمان وتطبيقات المنصة</a>
           <a href="about.html"><i class="fa-solid fa-circle-info"></i> من نحن</a>
@@ -205,7 +205,7 @@
   <section class="gov-hero-section">
       <div class="hero-title-badge">مركز الدعم والتواصل المباشر</div>
       
-      <div class="president-speech">
+      <div class="president-speech card">
           <i class="fa-solid fa-quote-right quote-icon"></i>
           نحن هنا للإجابة على جميع استفساراتك حول حلول البرمجيات، أتمتة الأعمال، ونظام ERP. يسعدنا تواصلك معنا دائماً.
           <i class="fa-solid fa-quote-left quote-icon"></i>
@@ -291,56 +291,5 @@
   </footer>
 
   <script src="app.js"></script>
-  <script>
-    async function submitContactForm(e) {
-      e.preventDefault();
-      
-      const firestoreDb = window.db;
-      if (!firestoreDb) {
-        showContactAlert('⚠ قاعدة البيانات غير متصلة حالياً. حاول مرة أخرى.', '#b45309', '#fef3c7');
-        return;
-      }
-
-      const name = document.getElementById('contact-name').value.trim();
-      const email = document.getElementById('contact-email').value.trim();
-      const subject = document.getElementById('contact-subject').value;
-      const message = document.getElementById('contact-msg').value.trim();
-
-      const btn = document.getElementById('submit-contact-btn');
-      btn.disabled = true;
-      btn.innerText = "جاري إرسال الرسالة سحابياً...";
-
-      try {
-        const { collection, addDoc, serverTimestamp } = window.firebaseModules || await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
-        
-        await addDoc(collection(firestoreDb, 'contact_messages'), {
-          name: name,
-          email: email,
-          subject: subject,
-          message: message,
-          timestamp: serverTimestamp()
-        });
-
-        document.getElementById('contact-form').reset();
-        document.getElementById('char-count').innerText = '0';
-        showContactAlert('✅ شكراً لك! تم إرسال رسالتك بنجاح وحفظها في السحابة.', '#15803d', '#dcfce7');
-      } catch (err) {
-        console.error("Contact Error:", err);
-        showContactAlert('❌ تعسّر الحفظ بالسحابة. تأكد من إعدادات قواعد أمان Firebase (Firestore Rules).', '#b91c1c', '#fee2e2');
-      } finally {
-        btn.disabled = false;
-        btn.innerText = "إرسال الرسالة إلى فريق الدعم 📨";
-      }
-    }
-
-    function showContactAlert(msg, textColor, bgColor) {
-      const alertBox = document.getElementById('contact-alert');
-      alertBox.innerText = msg;
-      alertBox.style.color = textColor;
-      alertBox.style.background = bgColor;
-      alertBox.style.display = 'block';
-      setTimeout(() => { alertBox.style.display = 'none'; }, 6000);
-    }
-  </script>
 </body>
 </html>
