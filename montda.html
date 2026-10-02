@@ -1019,7 +1019,7 @@
             <div class="step-card">
                 <div class="step-icon">2</div>
                 <h4 style="color: var(--gov-blue-dark); font-weight: 700; margin-bottom: 8px;">بيانات الحساب</h4>
-                <p style="font-size: 0.85rem; color: #64748b;">الاسم - الرقم القومي - رقم الهاتف - البريد الإلكتروني</p>
+                <p style="font-size: 0.85rem; color: #64748b;">الاسم - رقم الهاتف - البريد الإلكتروني</p>
             </div>
 
             <div class="step-card">
@@ -1082,13 +1082,8 @@
             
             <form id="forumForm" onsubmit="handleFormSubmit(event)">
                 <div class="form-group">
-                    <label>الاسم الرباعي *</label>
-                    <input type="text" id="fullname" required placeholder="أدخل اسمك كما بالرقم القومي">
-                </div>
-
-                <div class="form-group">
-                    <label>الرقم القومي (14 رقم) *</label>
-                    <input type="text" id="nationalId" maxlength="14" pattern="\d{14}" required placeholder="29900000000000">
+                    <label>الاسم الكامل *</label>
+                    <input type="text" id="fullname" required placeholder="أدخل اسمك الكريم">
                 </div>
 
                 <div class="form-group">
@@ -1306,7 +1301,6 @@
             link.href = cardCanvas.toDataURL('image/png');
             link.click();
         }
-        // --------------------------------------------------
 
         // التبديل بين تبويبات أجندة الفعاليات
         function switchAgenda(index) {
@@ -1350,7 +1344,7 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // معالجة وحفظ استمارة التسجيل في قاعدة بيانات المدونة الخاصة مع أيقونة التحميل
+        // معالجة وحفظ استمارة التسجيل في قاعدة بيانات المدونة الخاصة
         async function handleFormSubmit(event) {
             event.preventDefault();
             const submitBtn = document.getElementById('submitBtn');
@@ -1359,7 +1353,6 @@
 
             const formData = {
                 fullname: document.getElementById('fullname').value.trim(),
-                nationalId: document.getElementById('nationalId').value.trim(),
                 email: document.getElementById('email').value.trim(),
                 phone: document.getElementById('phone').value.trim(),
                 governorate: document.getElementById('governorate').value,
