@@ -1,4 +1,4 @@
-const CACHE_NAME = 'giti-tech-blog-v9';
+const CACHE_NAME = 'giti-tech-blog-v10';
 const urlsToCache = [
   './index.html',
   './about.html',
