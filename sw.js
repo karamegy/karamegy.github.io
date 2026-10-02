@@ -1,4 +1,4 @@
-const CACHE_NAME = 'giti-tech-blog-v15';
+const CACHE_NAME = 'giti-tech-blog-v16';
 const urlsToCache = [
   './',
   './index.html',
@@ -7,11 +7,12 @@ const urlsToCache = [
   './privacy.html',
   './tork.html',
   './montda.html',
+  './admin.html',
   './manifest.json',
   './style.css',
   './app.js',
-  './logo.png',
-  './admin.html',
+  './Adsesns.js',
+  './logo.png'
 ];
 
 // تثبيت الخدمة وتخزين كافة الملفات المحدثة
@@ -25,7 +26,7 @@ self.addEventListener('install', event => {
   );
 });
 
-// تفعيل الخدمة وتنظيف أي نسخ كاش قديمة تلقائياً
+// تفعيل الخدمة وتنظيف أي نسخ كاش قديمة تلقائياً وفوراً
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(cacheNames => {
@@ -42,8 +43,17 @@ self.addEventListener('activate', event => {
 
 // استراتيجية جلب البيانات: تجربة الشبكة أولاً مع العودة للكاش عند انقطاع الإنترنت
 self.addEventListener('fetch', event => {
-  // تجاهل طلبات Firebase و AdSense من التخزين المؤقت
-  if (event.request.url.includes('firestore') || event.request.url.includes('googlesyndication')) {
+  const requestUrl = event.request.url;
+
+  // تجاهل طلبات Firebase، Google APIs، ومكتبات CDN من التخزين المؤقت لضمان عمل قاعدة البيانات واللوحات لحظياً
+  if (
+    requestUrl.includes('firestore') || 
+    requestUrl.includes('firebase') || 
+    requestUrl.includes('googleapis') || 
+    requestUrl.includes('gstatic') || 
+    requestUrl.includes('googlesyndication') ||
+    requestUrl.includes('cdnjs.cloudflare.com')
+  ) {
     return;
   }
 
