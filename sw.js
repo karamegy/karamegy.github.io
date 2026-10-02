@@ -1,4 +1,4 @@
-const CACHE_NAME = 'giti-tech-blog-v19';
+const CACHE_NAME = 'giti-tech-blog-v13';
 const urlsToCache = [
   './',
   './index.html',
@@ -10,7 +10,8 @@ const urlsToCache = [
   './manifest.json',
   './style.css',
   './app.js',
-  './logo.png'
+  './logo.png',
+  './admin.html',
 ];
 
 // تثبيت الخدمة وتخزين كافة الملفات المحدثة
