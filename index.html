@@ -6,21 +6,6 @@
     <title>مدونة تكنولوجيا الأعمال وأنظمة الإدارة الحديثة | GITI Tech & Business OS</title>
     <meta name="description" content="منصة متقدمة لأحدث المقالات التقنية، أنظمة تخطيط موارد المؤسسات (ERP)، حاسبات الأداء الذكية، وأمن البيانات وحلول التحول الرقمي للشركات." />
 
-    <!-- بيانات هيكلية Schema.org -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "GITI Tech & Business OS",
-      "url": "https://aramegy.github.io/",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://aramegy.github.io/?q={search_term_string}",
-        "query-input": "required name=search_term_string"
-      }
-    }
-    </script>
-
     <!-- Google Fonts & Font Awesome -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -69,7 +54,7 @@
     <!-- Top Bar العلوي -->
     <div class="top-gov-bar">
         <div class="social-icons">
-            <a href="https://facebook.com" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="https://facebook.com/smaregy" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
             <a href="https://instagram.com" target="_blank"><i class="fa-brands fa-instagram"></i></a>
             <a href="https://youtube.com" target="_blank"><i class="fa-brands fa-youtube"></i></a>
         </div>
@@ -78,7 +63,7 @@
         </div>
     </div>
 
-    <!-- شريط الأخبار العاجلة المتحرك -->
+    <!-- شريط الأخبار المتحرك -->
     <div class="news-ticker-container">
         <div class="ticker-title">
             <i class="fa-solid fa-bullhorn"></i> مستجدات
@@ -90,11 +75,11 @@
         </div>
     </div>
 
-    <!-- الهيدر الرئيسي للمدونة -->
+    <!-- الهيدر الرئيسي للمدونة بشعار GITI فقط -->
     <header>
         <div class="nav-container">
             <div class="gov-branding">
-                <img src="logo.png" alt="GITI Logo" class="eagle-emblem-img" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/a/a6/Coat_of_arms_of_Egypt_%28official%29.svg'">
+                <img src="logo.png" alt="GITI Logo" class="eagle-emblem-img">
                 <div class="brand-text-box">
                     <h2>GITI Tech & Business OS</h2>
                     <p>الموسوعة التقنية وأدوات إدارة الأعمال الذكية</p>
@@ -126,7 +111,7 @@
         </div>
     </div>
 
-    <!-- Hero Section الموحد -->
+    <!-- Hero Section -->
     <section class="gov-hero-section">
         <div class="hero-title-badge">GITI Tech & Business OS 2027</div>
         
@@ -230,7 +215,6 @@
                 <!-- قائمة المقالات -->
                 <div id="articles-container" style="display: flex; flex-direction: column; gap: 20px;">
                     
-                    <!-- مقال 1 -->
                     <article class="card article-item" data-category="erp" data-id="1">
                         <div class="article-meta-header">
                             <span class="badge badge-paid">تكنولوجيا الشركات</span>
@@ -250,7 +234,6 @@
                         </div>
                     </article>
 
-                    <!-- مقال 2 -->
                     <article class="card article-item" data-category="logistics" data-id="2">
                         <div class="article-meta-header">
                             <span class="badge badge-success">أنظمة لوجستية</span>
@@ -270,7 +253,6 @@
                         </div>
                     </article>
 
-                    <!-- مقال 3 -->
                     <article class="card article-item" data-category="security" data-id="3">
                         <div class="article-meta-header">
                             <span class="badge badge-partial">أمن البيانات</span>
@@ -295,13 +277,12 @@
         </div>
     </div>
 
-    <!-- النافذة المنبثقة للتعليقات والمقال الكامل -->
+    <!-- النافذة المنبثقة -->
     <div id="article-modal" style="display: none; position: fixed; inset: 0; background: rgba(11, 34, 56, 0.85); backdrop-filter: blur(5px); z-index: 9999; overflow-y: auto; padding: 20px;">
         <div class="card" style="max-width: 800px; margin: 40px auto; position: relative; padding: 30px; border-top: 5px solid var(--gov-gold);">
             <button onclick="closeFullArticle()" style="position: absolute; top: 15px; left: 15px; background: var(--primary-red); color: #fff; border: none; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-weight: bold;">✕ إغلاق</button>
             <div id="modal-content-area"></div>
             
-            <!-- تقييم المقال -->
             <div style="margin-top: 25px; padding: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0; text-align: center;">
                 <p style="font-size: 0.9rem; margin-bottom: 8px; font-weight: bold; color: var(--gov-blue-dark);">هل كان هذا المقال مفيداً لك؟ قيّمه الآن:</p>
                 <div id="rating-stars" style="font-size: 1.5rem; cursor: pointer; color: var(--gov-gold);">
@@ -314,7 +295,6 @@
                 <p id="rating-feedback" style="font-size: 0.8rem; color: #64748b; margin-top: 5px;"></p>
             </div>
 
-            <!-- التعليقات السحابية -->
             <div style="margin-top: 30px; border-top: 1px solid #e2e8f0; padding-top: 20px;">
                 <h4 style="margin-bottom: 12px; color: var(--gov-blue-dark); font-weight: 800;"><i class="fa-solid fa-comments"></i> تعليقات الزوار والنقاشات</h4>
                 <div id="comments-list" style="margin-bottom: 15px; font-size: 0.88rem; color: #64748b;">جاري تحميل التعليقات...</div>
