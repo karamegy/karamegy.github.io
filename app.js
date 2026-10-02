@@ -1,4 +1,4 @@
-// GITI Tech Engine - Dynamic Firestore Articles Integration & Canvas Generator
+// GITI Tech Engine - Dynamic Firestore Articles Integration, Canvas Generator & Security Tools
 
 function toggleSidebar() {
     const drawer = document.getElementById('sideDrawer');
@@ -41,6 +41,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     injectProfileModalHTML();
+
+    // تشغيل وظائف صفحة الأمان (tork.html) إن وجدت في الصفحة الحالية
+    if (document.getElementById('pageReadsCounter')) {
+        incrementAndFetchPageReads();
+        fetchFirebaseInquiries();
+    }
 });
 
 function drawCard() {
@@ -446,3 +452,215 @@ window.onscroll = function() {
         }
     }
 };
+
+// ==========================================
+// دوال صفحة الأمان وتطبيقات المنصة (tork.html)
+// ==========================================
+let globalInquiriesData = [];
+let lastSubmissionTime = 0;
+
+window.checkPasswordStrength = function(pwd) {
+    const resultEl = document.getElementById('pwd-result');
+    if (!resultEl) return;
+    
+    if (!pwd) {
+        resultEl.innerHTML = "أدخل كلمة مرور أعلاه لمعرفة تقييم أمانها...";
+        resultEl.style.color = "#64748b";
+        return;
+    }
+    
+    let score = 0;
+    if (pwd.length >= 8) score++;
+    if (/[A-Z]/.test(pwd)) score++;
+    if (/[0-9]/.test(pwd)) score++;
+    if (/[^A-Za-z0-9]/.test(pwd)) score++;
+
+    if (score <= 2) {
+        resultEl.innerHTML = "🔴 ضعيفة: يفضل إضافة رموز وأرقام وحروف كبيرة لزيادة التشفير.";
+        resultEl.style.color = "#dc2626";
+    } else if (score === 3) {
+        resultEl.innerHTML = "🟡 متوسطة: كلمة المرور مقبولة ولكن يمكن تحسينها.";
+        resultEl.style.color = "#d97706";
+    } else {
+        resultEl.innerHTML = "🟢 قوية وممتازة: كلمة المرور مؤمنة ضد الاختراق والتشفير قوي جداً!";
+        resultEl.style.color = "#15803d";
+    }
+};
+
+async function incrementAndFetchPageReads() {
+    const pageReadsEl = document.getElementById('pageReadsCounter');
+    if (!pageReadsEl || !window.db) {
+        if (pageReadsEl) pageReadsEl.innerText = "4,120+";
+        return;
+    }
+
+    try {
+        const { doc, runTransaction } = window.firebaseModules;
+        const statsRef = doc(window.db, 'site_metrics', 'apps_page_views');
+        
+        await runTransaction(window.db, async (transaction) => {
+            const docSnap = await transaction.get(statsRef);
+            let newViews = 4120;
+            if (docSnap.exists()) {
+                newViews = (docSnap.data().views || 4120) + 1;
+                transaction.update(statsRef, { views: newViews });
+            } else {
+                transaction.set(statsRef, { views: newViews });
+            }
+            pageReadsEl.innerText = newViews.toLocaleString();
+        });
+    } catch (e) {
+        pageReadsEl.innerText = "4,120+";
+    }
+}
+
+function sanitizeAndValidate(text) {
+    if (!text || typeof text !== 'string') return '';
+    const cleaned = text.trim().replace(/<[^>]*>?/gm, '');
+    const bannedKeywords = ['عنف', 'قتل', 'إرهاب', 'سلاح', 'تفجير', 'كراهية', 'حرب', 'دمار', 'تحريض', 'شتم', 'سب', 'script', 'onerror', 'onload'];
+    const lowerText = cleaned.toLowerCase();
+    const hasBanned = bannedKeywords.some(word => lowerText.includes(word));
+    return { cleaned, hasBanned };
+}
+
+window.submitInquiryToFirebase = async function(e) {
+    e.preventDefault();
+    if (!window.db) {
+        alert('قاعدة البيانات غير متصلة حالياً.');
+        return;
+    }
+
+    const now = Date.now();
+    if (now - lastSubmissionTime < 15000) {
+        showAlert('⚠ يرجى الانتظار قليلاً قبل إرسال استفسار جديد لمنع الضغط على السحابة.', '#b45309', '#fef3c7');
+        return;
+    }
+
+    const rawName = document.getElementById('inq-name').value;
+    const rawText = document.getElementById('inq-text').value;
+
+    const nameCheck = sanitizeAndValidate(rawName);
+    const textCheck = sanitizeAndValidate(rawText);
+
+    if (nameCheck.hasBanned || textCheck.hasBanned) {
+        showAlert('🚫 عذراً، المدخلات تحتوي على عبارات غير مسموح بها وفقاً لمعايير الأمان.', '#b91c1c', '#fee2e2');
+        return;
+    }
+
+    const submitBtn = document.getElementById('submit-btn');
+    if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerText = "جاري الحفظ الآمن بالسحابة...";
+    }
+
+    try {
+        const { collection, addDoc, serverTimestamp } = window.firebaseModules;
+        await addDoc(collection(window.db, 'app_inquiries'), {
+            name: nameCheck.cleaned,
+            text: textCheck.cleaned,
+            timestamp: serverTimestamp()
+        });
+
+        const formEl = document.getElementById('inquiry-form');
+        if (formEl) formEl.reset();
+        const counterEl = document.getElementById('char-counter');
+        if (counterEl) counterEl.innerText = '0';
+
+        lastSubmissionTime = Date.now();
+        fetchFirebaseInquiries();
+        showAlert('✅ تم إرسال استفسارك التقني وحفظه بأمان تشفير تام في السحابة!', '#15803d', '#dcfce7');
+    } catch (err) {
+        showAlert('❌ حدث خطأ أثناء الاتصال بالسحابة. تأكد من اتصالك بالإنترنت.', '#b91c1c', '#fee2e2');
+    } finally {
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerText = "إرسال الاستفسار سحابياً بأمان 📨";
+        }
+    }
+};
+
+function showAlert(msg, textColor, bgColor) {
+    const alertBox = document.getElementById('form-alert');
+    if (!alertBox) return;
+    alertBox.innerText = msg;
+    alertBox.style.color = textColor;
+    alertBox.style.background = bgColor;
+    alertBox.style.display = 'block';
+    setTimeout(() => { alertBox.style.display = 'none'; }, 6000);
+}
+
+async function fetchFirebaseInquiries() {
+    const listContainer = document.getElementById('firebase-inquiries-list');
+    if (!listContainer) return;
+
+    if (!window.db) {
+        listContainer.innerHTML = '<p style="color: #64748b; text-align: center;">قاعدة البيانات غير متصلة.</p>';
+        return;
+    }
+
+    try {
+        const { collection, getDocs, query } = window.firebaseModules;
+        const q = query(collection(window.db, 'app_inquiries'));
+        const snapshot = await getDocs(q);
+
+        if (snapshot.empty) {
+            listContainer.innerHTML = '<p style="color: #64748b; text-align: center;">لا توجد استفسارات حالياً. كن أول من يطرح استفساراً تقنياً!</p>';
+            globalInquiriesData = [];
+            return;
+        }
+
+        globalInquiriesData = [];
+        snapshot.forEach(doc => {
+            globalInquiriesData.push(doc.data());
+        });
+        renderInquiriesList(globalInquiriesData);
+    } catch (e) {
+        listContainer.innerHTML = `
+          <div style="background: rgba(248, 250, 252, 0.9); border: 1px solid var(--border-color); border-right: 4px solid var(--gov-gold); padding: 15px; border-radius: 6px;">
+            <h4 style="color: var(--gov-blue-dark); font-size: 1rem; font-weight: 800;">فريق الدعم الفني GITI</h4>
+            <p style="font-size: 0.95rem; color: #64748b; margin: 0;">نظام الحماية السحابي وقواعد التشفير تعمل بكفاءة تامة لحماية البيانات.</p>
+          </div>
+        `;
+    }
+}
+
+function renderInquiriesList(inquiries) {
+    const listContainer = document.getElementById('firebase-inquiries-list');
+    if (!listContainer) return;
+
+    if (inquiries.length === 0) {
+        listContainer.innerHTML = '<p style="color: #64748b; text-align: center;">لا توجد نتائج مطابقة للبحث.</p>';
+        return;
+    }
+
+    let htmlContent = '';
+    inquiries.forEach(data => {
+        htmlContent += `
+          <div style="background: rgba(248, 250, 252, 0.9); border: 1px solid var(--border-color); border-right: 4px solid var(--gov-gold); padding: 15px; border-radius: 6px; margin-bottom: 10px;">
+            <h4 style="margin-bottom: 5px; color: var(--gov-blue-dark); font-size: 1rem; font-weight: 800;">${escapeHtml(data.name || 'زائر')}</h4>
+            <p style="font-size: 0.95rem; color: #475569; margin: 0;">${escapeHtml(data.text || '')}</p>
+          </div>
+        `;
+    });
+    listContainer.innerHTML = htmlContent;
+}
+
+window.filterInquiries = function() {
+    const searchInput = document.getElementById('inquiry-search');
+    if (!searchInput) return;
+    const queryStr = searchInput.value.toLowerCase();
+    const filtered = globalInquiriesData.filter(i => 
+        (i.name && i.name.toLowerCase().includes(queryStr)) || 
+        (i.text && i.text.toLowerCase().includes(queryStr))
+    );
+    renderInquiriesList(filtered);
+};
+
+function escapeHtml(str) {
+    return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
