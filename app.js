@@ -664,3 +664,64 @@ function escapeHtml(str) {
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
 }
+
+// ==========================================
+// دوال صفحة اتصل بنا (contact.html)
+// ==========================================
+window.submitContactForm = async function(e) {
+    e.preventDefault();
+    
+    const firestoreDb = window.db;
+    if (!firestoreDb) {
+        showContactAlert('⚠ قاعدة البيانات غير متصلة حالياً. حاول مرة أخرى.', '#b45309', '#fef3c7');
+        return;
+    }
+
+    const name = document.getElementById('contact-name').value.trim();
+    const email = document.getElementById('contact-email').value.trim();
+    const subject = document.getElementById('contact-subject').value;
+    const message = document.getElementById('contact-msg').value.trim();
+
+    const btn = document.getElementById('submit-contact-btn');
+    if (btn) {
+        btn.disabled = true;
+        btn.innerText = "جاري إرسال الرسالة سحابياً...";
+    }
+
+    try {
+        const { collection, addDoc, serverTimestamp } = window.firebaseModules || {};
+        
+        await addDoc(collection(firestoreDb, 'contact_messages'), {
+            name: name,
+            email: email,
+            subject: subject,
+            message: message,
+            timestamp: serverTimestamp()
+        });
+
+        const formEl = document.getElementById('contact-form');
+        if (formEl) formEl.reset();
+        const charCountEl = document.getElementById('char-count');
+        if (charCountEl) charCountEl.innerText = '0';
+        
+        showContactAlert('✅ شكراً لك! تم إرسال رسالتك بنجاح وحفظها في السحابة.', '#15803d', '#dcfce7');
+    } catch (err) {
+        console.error("Contact Error:", err);
+        showContactAlert('❌ تعسّر الحفظ بالسحابة. تأكد من إعدادات قواعد أمان Firebase (Firestore Rules).', '#b91c1c', '#fee2e2');
+    } finally {
+        if (btn) {
+            btn.disabled = false;
+            btn.innerText = "إرسال الرسالة إلى فريق الدعم 📨";
+        }
+    }
+};
+
+function showContactAlert(msg, textColor, bgColor) {
+    const alertBox = document.getElementById('contact-alert');
+    if (!alertBox) return;
+    alertBox.innerText = msg;
+    alertBox.style.color = textColor;
+    alertBox.style.background = bgColor;
+    alertBox.style.display = 'block';
+    setTimeout(() => { alertBox.style.display = 'none'; }, 6000);
+}
