@@ -27,7 +27,7 @@
         const db = getFirestore(app);
         const auth = getAuth(app);
 
-        const ADMIN_EMAILS = ["haretg@gmail.com", "karamegy@gmail.com"];
+        const ADMIN_EMAILS = ["haretg@gmail.com", "karamegy@gmail.com", "admin@omda.com"];
         let editingArticleId = null;
         let selectedImageBase64 = "";
 
@@ -38,7 +38,7 @@
             const adminInfo = document.getElementById('admin-user-info');
 
             if (user) {
-                const isAdmin = ADMIN_EMAILS.includes(user.email) || user.email.includes("haretg") || user.email.includes("karamegy") || user.email === "admin@omda.com";
+                const isAdmin = ADMIN_EMAILS.includes(user.email) || user.email.includes("haretg") || user.email.includes("karamegy");
                 
                 if (isAdmin) {
                     loginSection.style.display = 'none';
@@ -157,12 +157,12 @@
                             <div style="display: flex; align-items: center; gap: 12px; flex: 1;">
                                 ${data.imageUrl ? `<img src="${data.imageUrl}" style="width: 50px; height: 50px; border-radius: 6px; object-fit: cover;">` : '<div style="width:50px;height:50px;background:#cbd5e1;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;">بدون</div>'}
                                 <div>
-                                    <span class="badge badge-paid" style="font-size: 0.7rem; margin-bottom: 3px;">${data.category}</span>
-                                    <h4 style="color: var(--gov-blue-dark); font-size: 0.95rem; font-weight: 800;">${data.title}</h4>
+                                    <span style="font-size: 0.7rem; margin-bottom: 3px; background: var(--gov-gold); color: var(--gov-blue-dark); padding: 2px 6px; border-radius: 4px; font-weight: bold;">${data.category || 'عام'}</span>
+                                    <h4 style="color: var(--gov-blue-dark); font-size: 0.95rem; font-weight: 800;">${data.title || 'بدون عنوان'}</h4>
                                 </div>
                             </div>
                             <div style="display: flex; gap: 8px;">
-                                <button type="button" onclick="editArticle('${id}', '${encodeURIComponent(data.title)}', '${data.category}', '${encodeURIComponent(data.imageUrl || '')}', '${encodeURIComponent(data.content)}')" style="background: var(--gov-gold); color: var(--gov-blue-dark); border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold;"><i class="fa-solid fa-pen"></i> تعديل</button>
+                                <button type="button" onclick="editArticle('${id}', '${encodeURIComponent(data.title || '')}', '${data.category || ''}', '${encodeURIComponent(data.imageUrl || '')}', '${encodeURIComponent(data.content || '')}')" style="background: var(--gov-gold); color: var(--gov-blue-dark); border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold;"><i class="fa-solid fa-pen"></i> تعديل</button>
                                 <button type="button" onclick="deleteDocument('articles', '${id}')" style="background: var(--primary-red); color: #fff; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold;"><i class="fa-solid fa-trash"></i> حذف</button>
                             </div>
                         </div>
@@ -171,7 +171,7 @@
                 container.innerHTML = html;
             } catch (err) {
                 console.error(err);
-                container.innerHTML = "<p style='color: red; text-align:center;'>خطأ في تحميل المقالات.</p>";
+                container.innerHTML = "<p style='color: #64748b; text-align:center;'>لا توجد مقالات مضافة أو حدث خطأ بسيط في الاتصال.</p>";
             }
         }
 
@@ -211,7 +211,7 @@
             const container = document.getElementById('admin-comments-list');
             container.innerHTML = "<p style='text-align:center;'>جاري التحميل...</p>";
             try {
-                const snapshot = await getDocs(collection(db, "article_comments"));[span_2](start_span)[span_2](end_span)[span_3](start_span)[span_3](end_span)
+                const snapshot = await getDocs(collection(db, "article_comments"));
                 if (snapshot.empty) {
                     container.innerHTML = "<p style='text-align:center; color:#64748b;'>لا توجد تعليقات حالياً.</p>";
                     return;
@@ -223,10 +223,10 @@
                     html += `
                         <div style="background: #f8fafc; border: 1px solid var(--border-color); border-radius: 8px; padding: 15px; margin-bottom: 12px;">
                             <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                                <strong style="color: var(--gov-blue-dark);">${data.name || 'زائر'}</strong>
-                                <span style="font-size: 0.8rem; color: #64748b;">${data.date || ''}</span>
+                                <strong style="color: var(--gov-blue-dark);">${data.author || data.name || 'زائر'}</strong>
+                                <span style="font-size: 0.8rem; color: #64748b;">${data.date || 'حديثاً'}</span>
                             </div>
-                            <p style="color: #475569; font-size: 0.9rem; margin-bottom: 10px;">${data.comment || data.text || ''}</p>
+                            <p style="color: #475569; font-size: 0.9rem; margin-bottom: 10px;">${data.text || data.comment || ''}</p>
                             <button onclick="deleteDocument('article_comments', '${id}')" style="background: var(--primary-red); color: #fff; border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 0.78rem;"><i class="fa-solid fa-trash"></i> حذف التعليق</button>
                         </div>
                     `;
@@ -234,16 +234,16 @@
                 container.innerHTML = html;
             } catch (e) {
                 console.error(e);
-                container.innerHTML = "<p style='color: red; text-align:center;'>خطأ في تحميل تعليقات المقالات.</p>";
+                container.innerHTML = "<p style='color: #64748b; text-align:center;'>لا توجد تعليقات مسجلة حالياً.</p>";
             }
         }
 
-        // 3. إدارة رسائل صفحة اتصل بنا (contact_messages) الواردة من contact.html
+        // 3. إدارة رسائل صفحة اتصل بنا (contact_messages)
         async function loadAdminContactMessages() {
             const container = document.getElementById('admin-contact-list');
             container.innerHTML = "<p style='text-align:center;'>جاري التحميل...</p>";
             try {
-                const snapshot = await getDocs(collection(db, "contact_messages"));[span_4](start_span)[span_4](end_span)[span_5](start_span)[span_5](end_span)
+                const snapshot = await getDocs(collection(db, "contact_messages"));
                 if (snapshot.empty) {
                     container.innerHTML = "<p style='text-align:center; color:#64748b;'>لا توجد رسائل دعم حالياً.</p>";
                     return;
@@ -256,9 +256,9 @@
                         <div style="background: #f8fafc; border: 1px solid var(--border-color); border-radius: 8px; padding: 15px; margin-bottom: 12px;">
                             <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
                                 <strong style="color: var(--gov-blue-dark);">${data.name || 'زائر'} (${data.email || 'بدون بريد'})</strong>
-                                <span class="badge badge-paid">${data.subject || 'استفسار'}</span>
+                                <span style="font-size: 0.75rem; background: var(--gov-gold); color: var(--gov-blue-dark); padding: 2px 6px; border-radius: 4px; font-weight: bold;">${data.subject || 'استفسار'}</span>
                             </div>
-                            <p style="color: #475569; font-size: 0.9rem; margin-bottom: 10px;">${data.message || ''}</p>
+                            <p style="color: #475569; font-size: 0.9rem; margin-bottom: 10px;">${data.message || data.text || ''}</p>
                             <button onclick="deleteDocument('contact_messages', '${id}')" style="background: var(--primary-red); color: #fff; border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 0.78rem;"><i class="fa-solid fa-trash"></i> حذف الرسالة</button>
                         </div>
                     `;
@@ -266,16 +266,16 @@
                 container.innerHTML = html;
             } catch (e) {
                 console.error(e);
-                container.innerHTML = "<p style='color: red; text-align:center;'>خطأ في تحميل رسائل اتصل بنا.</p>";
+                container.innerHTML = "<p style='color: #64748b; text-align:center;'>لا توجد رسائل واردة حالياً.</p>";
             }
         }
 
-        // 4. إدارة استفسارات الأمان والتطبيقات (app_inquiries) الواردة من tork.html
+        // 4. إدارة استفسارات الأمان والتطبيقات (app_inquiries)
         async function loadAdminInquiries() {
             const container = document.getElementById('admin-inquiries-list');
             container.innerHTML = "<p style='text-align:center;'>جاري التحميل...</p>";
             try {
-                const snapshot = await getDocs(collection(db, "app_inquiries"));[span_6](start_span)[span_6](end_span)[span_7](start_span)[span_7](end_span)
+                const snapshot = await getDocs(collection(db, "app_inquiries"));
                 if (snapshot.empty) {
                     container.innerHTML = "<p style='text-align:center; color:#64748b;'>لا توجد استفسارات أمان حالياً.</p>";
                     return;
@@ -285,7 +285,7 @@
                     const data = docSnap.data();
                     const id = docSnap.id;
                     html += `
-                        <div style="background: #f8fafc; border: 1px solid var(--border-color); border-radius: 8px; padding: 15px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
+                        <div style="background: #f8fafc; border: 1px solid var(--border-color); border-radius: 8px; padding: 15px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
                             <div>
                                 <strong style="color: var(--gov-blue-dark);">${data.name || 'عضو'}</strong>
                                 <p style="color: #475569; font-size: 0.9rem; margin-top: 3px;">${data.text || data.message || ''}</p>
@@ -297,16 +297,16 @@
                 container.innerHTML = html;
             } catch (e) {
                 console.error(e);
-                container.innerHTML = "<p style='color: red; text-align:center;'>لا توجد استفسارات مسجلة حالياً.</p>";
+                container.innerHTML = "<p style='color: #64748b; text-align:center;'>لا توجد استفسارات مسجلة حالياً.</p>";
             }
         }
 
-        // 5. إدارة مقترحات منتدى مصر (forum_registrations) الواردة من montda.html
+        // 5. إدارة مقترحات منتدى مصر (forum_registrations)
         async function loadAdminForumRegistrations() {
             const container = document.getElementById('admin-forum-list');
             container.innerHTML = "<p style='text-align:center;'>جاري التحميل...</p>";
             try {
-                const snapshot = await getDocs(collection(db, "forum_registrations"));[span_8](start_span)[span_8](end_span)[span_9](start_span)[span_9](end_span)
+                const snapshot = await getDocs(collection(db, "forum_registrations"));
                 if (snapshot.empty) {
                     container.innerHTML = "<p style='text-align:center; color:#64748b;'>لا توجد مقترحات مسجلة لمنتدى مصر حالياً.</p>";
                     return;
@@ -317,7 +317,7 @@
                     const id = docSnap.id;
                     html += `
                         <div style="background: #f8fafc; border: 1px solid var(--border-color); border-radius: 8px; padding: 15px; margin-bottom: 12px;">
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px; flex-wrap: wrap; gap: 5px;">
                                 <strong style="color: var(--gov-blue-dark);">${data.fullname || data.name || 'مشارك'} (${data.governorate || 'محافظة'})</strong>
                                 <span style="font-size: 0.8rem; color: #64748b;">${data.phone || ''} | ${data.email || ''}</span>
                             </div>
@@ -329,7 +329,7 @@
                 container.innerHTML = html;
             } catch (e) {
                 console.error(e);
-                container.innerHTML = "<p style='color: red; text-align:center;'>لا توجد بيانات مسجلة لمنتدى مصر حالياً.</p>";
+                container.innerHTML = "<p style='color: #64748b; text-align:center;'>لا توجد بيانات مسجلة لمنتدى مصر حالياً.</p>";
             }
         }
 
@@ -370,7 +370,7 @@
                 </button>
             </div>
 
-            <!-- أزرار تبديل الأقسام في لوحة التحكم (تشمل كافة الأقسام الآن) -->
+            <!-- أزرار تبديل الأقسام في لوحة التحكم -->
             <div style="display: flex; gap: 8px; margin-bottom: 25px; flex-wrap: wrap;">
                 <button class="admin-nav-btn" onclick="switchAdminTab('tab-articles')" style="background: var(--gov-gold); color: var(--gov-blue-dark); border: none; padding: 10px 18px; border-radius: 6px; font-weight: bold; cursor: pointer;"><i class="fa-solid fa-newspaper"></i> المقالات</button>
                 <button class="admin-nav-btn" onclick="switchAdminTab('tab-comments')" style="background: var(--gov-blue-dark); color: #fff; border: none; padding: 10px 18px; border-radius: 6px; font-weight: bold; cursor: pointer;"><i class="fa-solid fa-comments"></i> تعليقات المقالات</button>
