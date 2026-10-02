@@ -109,7 +109,7 @@
 
   <!-- شريط الإخلاء القانوني -->
   <div class="legal-disclaimer-bar">
-      ℹ <strong>تنويه إعلامي:</strong> هذه المنصة مبادرة إعلامية وتقنية مستقلة صدارة عن <strong>شبكة مدونة GITI</strong> لتقديم الحلول والأنظمة البرمجية.
+      ℹ <strong>تنويه إعلامي:</strong> هذه المنصة مبادرة إعلامية وتقنية مستقلة صادرة عن <strong>شبكة مدونة GITI</strong> لتقديم الحلول والأنظمة البرمجية.
   </div>
 
   <!-- Top Bar العلوي مع زر تسجيل الدخول -->
@@ -269,8 +269,10 @@
   <script>
     async function submitContactForm(e) {
       e.preventDefault();
-      if (!window.db) {
-        alert('قاعدة البيانات غير متصلة حالياً.');
+      
+      const firestoreDb = window.db;
+      if (!firestoreDb) {
+        showContactAlert('⚠ قاعدة البيانات غير متصلة حالياً. حاول مرة أخرى.', '#b45309', '#fef3c7');
         return;
       }
 
@@ -284,8 +286,9 @@
       btn.innerText = "جاري إرسال الرسالة سحابياً...";
 
       try {
-        const { collection, addDoc, serverTimestamp } = window.firebaseModules;
-        await addDoc(collection(window.db, 'contact_messages'), {
+        const { collection, addDoc, serverTimestamp } = window.firebaseModules || await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+        
+        await addDoc(collection(firestoreDb, 'contact_messages'), {
           name: name,
           email: email,
           subject: subject,
@@ -298,7 +301,7 @@
         showContactAlert('✅ شكراً لك! تم إرسال رسالتك بنجاح وحفظها في السحابة.', '#15803d', '#dcfce7');
       } catch (err) {
         console.error("Contact Error:", err);
-        showContactAlert('❌ حدث خطأ أثناء الإرسال. تأكد من اتصالك بالإنترنت.', '#b91c1c', '#fee2e2');
+        showContactAlert('❌ تعسّر الحفظ بالسحابة. تأكد من إعدادات قواعد أمان Firebase (Firestore Rules).', '#b91c1c', '#fee2e2');
       } finally {
         btn.disabled = false;
         btn.innerText = "إرسال الرسالة إلى فريق الدعم 📨";
