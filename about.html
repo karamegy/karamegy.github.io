@@ -16,6 +16,31 @@
     <link rel="apple-touch-icon" href="logo.png">
     <link rel="stylesheet" href="style.css">
 
+    <!-- تخصيص خلفية الهيرو لإظهار اللوجو الخاص بك كعلامة مائية شفافة -->
+    <style>
+        .gov-hero-section {
+            position: relative;
+            background: linear-gradient(135deg, var(--gov-blue-dark), #0f172a) !important;
+            overflow: hidden;
+        }
+        .gov-hero-section::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: url('logo.png');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 320px auto;
+            opacity: 0.08; /* شفافة كعلامة مائية احترافية */
+            pointer-events: none;
+            z-index: 0;
+        }
+        .gov-hero-section > * {
+            position: relative;
+            z-index: 1;
+        }
+    </style>
+
     <!-- ربط Firebase سحابياً مع المصادقة -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
@@ -109,7 +134,7 @@
 
     <!-- شريط الإخلاء القانوني -->
     <div class="legal-disclaimer-bar">
-        ℹ <strong>تنويه إعلامي:</strong> هذه المنصة مبادرة إعلامية وتقنية مستقلة صدارة عن <strong>شبكة مدونة GITI</strong> لتقديم الحلول والأنظمة البرمجية.
+        ℹ <strong>تنويه إعلامي:</strong> هذه المنصة مبادرة إعلامية وتقنية مستقلة صادرة عن <strong>شبكة مدونة GITI</strong> لتقديم الحلول والأنظمة البرمجية.
     </div>
 
     <!-- Top Bar العلوي مع زر تسجيل الدخول -->
@@ -176,7 +201,7 @@
         </div>
     </div>
 
-    <!-- Hero Section -->
+    <!-- Hero Section (مع الشعار الخاص بك كعلامة مائية) -->
     <section class="gov-hero-section">
         <div class="hero-title-badge">عن المنصة ورؤيتنا المستقبلية</div>
         
