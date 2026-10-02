@@ -7,10 +7,11 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- سكربت Firebase لإدارة المقالات ورفع الصور -->
+    <!-- سكربت Firebase للمصادقة وإدارة المقالات -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
         import { getFirestore, collection, addDoc, getDocs, doc, deleteDoc, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+        import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyDTIxdIHfDaEH2wn7dEE9qMnsOlXtlSCI0",
@@ -24,18 +25,52 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+        const auth = getAuth(app);
 
+        const ADMIN_EMAIL = "haretg@gmail.com";
         let editingArticleId = null;
-        let selectedImageBase64 = ""; // لتخزين الصورة المحولة من الجهاز
+        let selectedImageBase64 = "";
 
-        // قراءة وتحويل الصورة المرفوعة من الجهاز إلى Base64
+        // مراقبة حالة تسجيل الدخول في صفحة الأدمن
+        onAuthStateChanged(auth, (user) => {
+            const loginSection = document.getElementById('admin-login-section');
+            const contentSection = document.getElementById('admin-content-section');
+            const adminInfo = document.getElementById('admin-user-info');
+
+            if (user) {
+                if (user.email === ADMIN_EMAIL || user.email === "admin@omda.com") {
+                    loginSection.style.display = 'none';
+                    contentSection.style.display = 'block';
+                    adminInfo.innerHTML = `مرحباً بك يا أدمن (${user.email})`;
+                    loadAdminArticles();
+                } else {
+                    loginSection.style.display = 'block';
+                    contentSection.style.display = 'none';
+                    adminInfo.innerHTML = `❌ الحساب الحالي (${user.email}) ليس لديه صلاحيات الأدمن.`;
+                }
+            } else {
+                loginSection.style.display = 'block';
+                contentSection.style.display = 'none';
+            }
+        });
+
+        // دالة تسجيل الدخول للأدمن
+        window.loginAdmin = async function() {
+            const provider = new GoogleAuthProvider();
+            try {
+                await signInWithPopup(auth, provider);
+            } catch (err) {
+                alert("❌ فشل تسجيل الدخول: " + err.message);
+            }
+        };
+
+        // رفع الصورة وتحويلها
         window.handleImageUpload = function(event) {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     selectedImageBase64 = e.target.result;
-                    // عرض معاينة مصغرة للصورة المرفوعة
                     const preview = document.getElementById('img-preview');
                     preview.src = selectedImageBase64;
                     preview.style.display = 'block';
@@ -44,7 +79,7 @@
             }
         };
 
-        // دالة نشر أو تحديث المقال
+        // حفظ أو تحديث المقال
         window.saveArticle = async function(e) {
             e.preventDefault();
             const title = document.getElementById('art-title').value;
@@ -52,7 +87,6 @@
             const content = document.getElementById('art-content').value;
             let imageUrl = document.getElementById('art-image-old').value;
 
-            // إذا اختار المستخدم صورة جديدة من جهازه، نعتمدها
             if (selectedImageBase64) {
                 imageUrl = selectedImageBase64;
             }
@@ -90,7 +124,7 @@
                 document.getElementById('img-preview').style.display = 'none';
                 loadAdminArticles();
             } catch (err) {
-                alert("❌ حدث خطأ سحابي: " + err.message + "\nتأكد من ضبط قواعد Firestore Rules في Firebase.");
+                alert("❌ حدث خطأ سحابي: " + err.message);
                 console.error(err);
             } finally {
                 btn.disabled = false;
@@ -101,7 +135,7 @@
         // جلب المقالات لإدارتها
         async function loadAdminArticles() {
             const container = document.getElementById('admin-articles-list');
-            container.innerHTML = "<p style='text-align:center; color:#64748b;'>جاري تحميل المقالات من السحابة...</p>";
+            container.innerHTML = "<p style='text-align:center; color:#64748b;'>جاري تحميل المقالات...</p>";
 
             try {
                 const querySnapshot = await getDocs(collection(db, "articles"));
@@ -132,7 +166,7 @@
                 });
                 container.innerHTML = html;
             } catch (err) {
-                container.innerHTML = "<p style='color: red; text-align: center;'>خطأ في الاتصال بقاعدة البيانات. تأكد من تفعيل قواعد Firestore.</p>";
+                container.innerHTML = "<p style='color: red; text-align: center;'>خطأ في تحميل المقالات. تأكد من قواعد الأمن.</p>";
                 console.error(err);
             }
         }
@@ -156,7 +190,7 @@
             document.getElementById('art-image-old').value = decodeURIComponent(imageUrl || '');
             document.getElementById('art-content').value = decodeURIComponent(content);
             
-            selectedImageBase64 = ""; // إعادة تعيين لكي لا يتم تعديل الصورة إلا إذا اختار صورة جديدة
+            selectedImageBase64 = "";
             const preview = document.getElementById('img-preview');
             if (imageUrl && imageUrl !== 'undefined') {
                 preview.src = decodeURIComponent(imageUrl);
@@ -168,50 +202,61 @@
             document.getElementById('pub-btn').innerText = "تحديث المقال 🔄";
             window.scrollTo({ top: 0, behavior: 'smooth' });
         };
-
-        window.addEventListener('DOMContentLoaded', loadAdminArticles);
     </script>
 </head>
 <body>
     <div style="max-width: 800px; margin: 40px auto; padding: 20px;">
-        <div class="card" style="padding: 30px; margin-bottom: 30px;">
-            <h2 style="color: var(--gov-blue-dark); margin-bottom: 20px; font-weight: 900;">
-                <i class="fa-solid fa-pen-nib"></i> لوحة تحكم المقالات (GITI CMS)
-            </h2>
-            <form id="article-form" onsubmit="saveArticle(event)" style="display: flex; flex-direction: column; gap: 15px;">
-                <input type="hidden" id="art-image-old">
-                <div>
-                    <label style="font-weight: 700; display: block; margin-bottom: 5px;">عنوان المقال *</label>
-                    <input type="text" id="art-title" required placeholder="اكتب عنوان المقال هنا..." style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px;">
-                </div>
-                <div>
-                    <label style="font-weight: 700; display: block; margin-bottom: 5px;">القسم *</label>
-                    <select id="art-cat" style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px;">
-                        <option value="تكنولوجيا الشركات">تكنولوجيا الشركات</option>
-                        <option value="الأنظمة اللوجستية">الأنظمة اللوجستية</option>
-                        <option value="أمن البيانات">أمن البيانات</option>
-                        <option value="تطوير الويب والـ PWA">تطوير الويب والـ PWA</option>
-                        <option value="الذكاء الاصطناعي">الذكاء الاصطناعي</option>
-                    </select>
-                </div>
-                <div>
-                    <label style="font-weight: 700; display: block; margin-bottom: 5px;">اختر صورة المقال من جهازك *</label>
-                    <input type="file" id="art-image-file" accept="image/*" onchange="handleImageUpload(event)" style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 6px; background: #fff;">
-                    <img id="img-preview" src="" style="display: none; width: 80px; height: 80px; margin-top: 10px; border-radius: 6px; object-fit: cover; border: 1px solid var(--border-color);">
-                </div>
-                <div>
-                    <label style="font-weight: 700; display: block; margin-bottom: 5px;">محتوى المقال *</label>
-                    <textarea id="art-content" required rows="6" placeholder="اكتب تفاصيل المقال..." style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px; font-family: inherit;"></textarea>
-                </div>
-                <button type="submit" id="pub-btn" class="submit-btn">نشر المقال فوراً 🚀</button>
-            </form>
+        
+        <!-- قسم تسجيل دخول الأدمن إذا لم يكن مسجلاً -->
+        <div id="admin-login-section" class="card" style="padding: 30px; text-align: center; display: none; margin-bottom: 20px;">
+            <h3 style="color: var(--gov-blue-dark); margin-bottom: 15px;">🔒 بوابة تحكم المشرفين</h3>
+            <p id="admin-user-info" style="color: #64748b; margin-bottom: 15px; font-size: 0.9rem;">يجب تسجيل الدخول بحساب الأدمن (haretg@gmail.com) للمتابعة.</p>
+            <button onclick="loginAdmin()" class="submit-btn" style="background: #db4437; width: auto; padding: 10px 20px;">
+                <i class="fa-brands fa-google"></i> تسجيل الدخول بحساب الأدمن
+            </button>
         </div>
 
-        <div class="card" style="padding: 25px;">
-            <h3 style="color: var(--gov-blue-dark); margin-bottom: 15px; font-weight: 800;">
-                <i class="fa-solid fa-list-check"></i> المقالات المنشورة حالياً (إدارة وتعديل)
-            </h3>
-            <div id="admin-articles-list"></div>
+        <!-- محتوى لوحة التحكم يظهر فقط عند نجاح المصادقة -->
+        <div id="admin-content-section" style="display: none;">
+            <div class="card" style="padding: 30px; margin-bottom: 30px;">
+                <h2 style="color: var(--gov-blue-dark); margin-bottom: 20px; font-weight: 900;">
+                    <i class="fa-solid fa-pen-nib"></i> لوحة تحكم المقالات (GITI CMS)
+                </h2>
+                <form id="article-form" onsubmit="saveArticle(event)" style="display: flex; flex-direction: column; gap: 15px;">
+                    <input type="hidden" id="art-image-old">
+                    <div>
+                        <label style="font-weight: 700; display: block; margin-bottom: 5px;">عنوان المقال *</label>
+                        <input type="text" id="art-title" required placeholder="اكتب عنوان المقال هنا..." style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px;">
+                    </div>
+                    <div>
+                        <label style="font-weight: 700; display: block; margin-bottom: 5px;">القسم *</label>
+                        <select id="art-cat" style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px;">
+                            <option value="تكنولوجيا الشركات">تكنولوجيا الشركات</option>
+                            <option value="الأنظمة اللوجستية">الأنظمة اللوجستية</option>
+                            <option value="أمن البيانات">أمن البيانات</option>
+                            <option value="تطوير الويب والـ PWA">تطوير الويب والـ PWA</option>
+                            <option value="الذكاء الاصطناعي">الذكاء الاصطناعي</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="font-weight: 700; display: block; margin-bottom: 5px;">اختر صورة المقال من جهازك *</label>
+                        <input type="file" id="art-image-file" accept="image/*" onchange="handleImageUpload(event)" style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 6px; background: #fff;">
+                        <img id="img-preview" src="" style="display: none; width: 80px; height: 80px; margin-top: 10px; border-radius: 6px; object-fit: cover; border: 1px solid var(--border-color);">
+                    </div>
+                    <div>
+                        <label style="font-weight: 700; display: block; margin-bottom: 5px;">محتوى المقال *</label>
+                        <textarea id="art-content" required rows="6" placeholder="اكتب تفاصيل المقال..." style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px; font-family: inherit;"></textarea>
+                    </div>
+                    <button type="submit" id="pub-btn" class="submit-btn">نشر المقال فوراً 🚀</button>
+                </form>
+            </div>
+
+            <div class="card" style="padding: 25px;">
+                <h3 style="color: var(--gov-blue-dark); margin-bottom: 15px; font-weight: 800;">
+                    <i class="fa-solid fa-list-check"></i> المقالات المنشورة حالياً (إدارة وتعديل)
+                </h3>
+                <div id="admin-articles-list"></div>
+            </div>
         </div>
 
         <div style="margin-top: 20px; text-align: center;">
