@@ -75,7 +75,7 @@
       </div>
   </div>
 
-  <!-- الهيدر الرئيسي بشعار GITI فقط -->
+  <!-- الهيدر الرئيسي بشعار GITI -->
   <header>
       <div class="nav-container">
           <div class="gov-branding">
@@ -123,7 +123,7 @@
   </section>
 
   <!-- محتوى الصفحة الرئيسي -->
-  <div style="max-width: 1000px; margin: 40px auto; padding: 0 20px;">
+  <div style="max-width: 1000px; margin: 40px auto; padding: 0 20px; position: relative; z-index: 1;">
 
     <!-- شريط التنقل السريع الداخلي -->
     <div class="card" style="margin-bottom: 30px; padding: 15px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
@@ -142,7 +142,7 @@
         <span id="secureOpsCounter" style="font-size: 2rem; font-weight: 900; color: var(--gov-blue-dark); display: block; margin-top: 5px;">+25,400</span>
       </div>
       <div class="card" style="text-align: center; padding: 25px; border-top: 4px solid var(--gov-gold);">
-        <span style="font-size: 0.95rem; color: #64748b;">👁️️ إجمالي زيارات المنصة:</span>
+        <span style="font-size: 0.95rem; color: #64748b;">👁 إجمالي زيارات المنصة:</span>
         <span id="pageReadsCounter" style="font-size: 2rem; font-weight: 900; color: var(--gov-blue-dark); display: block; margin-top: 5px;">جاري التحديث...</span>
       </div>
       <div class="card" style="text-align: center; padding: 25px; border-top: 4px solid var(--gov-gold);">
@@ -159,7 +159,7 @@
       <p style="font-size: 0.95rem; line-height: 1.9; color: var(--text-dark); margin-bottom: 15px;">
         تعتمد المنصة على طبقات تأمين صارمة تشمل المصادقة الرقمية، التحقق المسبق من المدخلات لمنع هجمات الحقن البرمجي (XSS & Injection)، وتطبيق قواعد صلاحيات مشددة في بيئة فايربيس (Firestore Rules).
       </p>
-      <div style="background: #f8fafc; border-right: 4px solid var(--gov-gold); padding: 15px; font-style: italic; color: #475569; border-radius: 4px;">
+      <div style="background: rgba(248, 250, 252, 0.9); border-right: 4px solid var(--gov-gold); padding: 15px; font-style: italic; color: #475569; border-radius: 4px;">
         "الأمان ليس ميزة إضافية، بل هو الأساس المعماري لكل سطر برمجي في تطبيقاتنا."
       </div>
     </section>
@@ -173,7 +173,7 @@
       <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 12px;">
         <input type="text" id="pwd-input" placeholder="اكتب كلمة مرور للاختبار..." oninput="checkPasswordStrength(this.value)" style="flex: 1; min-width: 250px; padding: 11px; background: #fff; border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-dark); outline: none;">
       </div>
-      <div id="pwd-result" style="font-size: 0.9rem; font-weight: bold; color: #64748b; padding: 12px; background: #f8fafc; border-radius: 6px; border: 1px solid var(--border-color);">
+      <div id="pwd-result" style="font-size: 0.9rem; font-weight: bold; color: #64748b; padding: 12px; background: rgba(248, 250, 252, 0.9); border-radius: 6px; border: 1px solid var(--border-color);">
         أدخل كلمة مرور أعلاه لمعرفة تقييم أمانها...
       </div>
     </section>
@@ -212,7 +212,7 @@
       <div style="overflow-x: auto;">
         <table style="width: 100%; border-collapse: collapse; text-align: right; font-size: 0.92rem; color: var(--text-dark);">
           <thead>
-            <tr style="background: #f8fafc; border-bottom: 2px solid var(--gov-gold);">
+            <tr style="background: rgba(248, 250, 252, 0.9); border-bottom: 2px solid var(--gov-gold);">
               <th style="padding: 12px; color: var(--gov-blue-dark);">وجه المقارنة</th>
               <th style="padding: 12px; color: var(--gov-blue-dark);">تطبيق GITI-فواتير</th>
               <th style="padding: 12px; color: var(--gov-blue-dark);">نظام EIDCO Business OS</th>
@@ -432,7 +432,7 @@
         renderInquiriesList(globalInquiriesData);
       } catch (e) {
         listContainer.innerHTML = `
-          <div style="background: #f8fafc; border: 1px solid var(--border-color); border-right: 4px solid var(--gov-gold); padding: 15px; border-radius: 6px;">
+          <div style="background: rgba(248, 250, 252, 0.9); border: 1px solid var(--border-color); border-right: 4px solid var(--gov-gold); padding: 15px; border-radius: 6px;">
             <h4 style="color: var(--gov-blue-dark); font-size: 1rem; font-weight: 800;">فريق الدعم الفني GITI</h4>
             <p style="font-size: 0.95rem; color: #64748b; margin: 0;">نظام الحماية السحابي وقواعد التشفير تعمل بكفاءة تامة لحماية البيانات.</p>
           </div>
@@ -450,7 +450,7 @@
       let htmlContent = '';
       inquiries.forEach(data => {
         htmlContent += `
-          <div style="background: #f8fafc; border: 1px solid var(--border-color); border-right: 4px solid var(--gov-gold); padding: 15px; border-radius: 6px;">
+          <div style="background: rgba(248, 250, 252, 0.9); border: 1px solid var(--border-color); border-right: 4px solid var(--gov-gold); padding: 15px; border-radius: 6px;">
             <h4 style="margin-bottom: 5px; color: var(--gov-blue-dark); font-size: 1rem; font-weight: 800;">${escapeHtml(data.name || 'زائر')}</h4>
             <p style="font-size: 0.95rem; color: #475569; margin: 0;">${escapeHtml(data.text || '')}</p>
           </div>
