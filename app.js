@@ -42,7 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     injectProfileModalHTML();
 
-    // تشغيل وظائف صفحة الأمان (tork.html) إن وجدت في الصفحة الحالية
     if (document.getElementById('pageReadsCounter')) {
         incrementAndFetchPageReads();
         fetchFirebaseInquiries();
@@ -164,8 +163,9 @@ async function initDynamicArticles() {
     }
 
     try {
-        const { collection, getDocs } = window.firebaseModules || window.firebase;
-        const querySnapshot = await getDocs(collection(window.db, "articles"));
+        const getDocsFn = window.firebaseModules?.getDocs || window.getDocs;
+        const collectionFn = window.firebaseModules?.collection || window.collection;
+        const querySnapshot = await getDocsFn(collectionFn(window.db, "articles"));
         
         let html = "";
         articlesDatabase = {};
@@ -315,14 +315,17 @@ window.addCommentToFirebase = async function(e) {
     if (!text) return;
 
     try {
-        const { collection, addDoc, serverTimestamp } = window.firebaseModules || window.firebase;
-        await addDoc(collection(window.db, "article_comments"), {
+        const addDocFn = window.firebaseModules?.addDoc || window.addDoc;
+        const collectionFn = window.firebaseModules?.collection || window.collection;
+        const serverTimestampFn = window.firebaseModules?.serverTimestamp || window.serverTimestamp;
+
+        await addDocFn(collectionFn(window.db, "article_comments"), {
             articleId: currentActiveArticleId,
             uid: user.uid,
             author: user.displayName || "عضو المنصة",
             avatar: user.photoURL || "logo.png",
             text: text,
-            timestamp: serverTimestamp()
+            timestamp: serverTimestampFn ? serverTimestampFn() : new Date()
         });
 
         document.getElementById('comment-text').value = '';
@@ -340,10 +343,14 @@ function loadFirebaseComments(articleId) {
     }
 
     try {
-        const { collection, query, where, onSnapshot } = window.firebaseModules || window.firebase;
-        const q = query(collection(window.db, "article_comments"), where("articleId", "==", articleId));
+        const queryFn = window.firebaseModules?.query || window.query;
+        const whereFn = window.firebaseModules?.where || window.where;
+        const onSnapshotFn = window.firebaseModules?.onSnapshot || window.onSnapshot;
+        const collectionFn = window.firebaseModules?.collection || window.collection;
+
+        const q = queryFn(collectionFn(window.db, "article_comments"), whereFn("articleId", "==", articleId));
         
-        onSnapshot(q, (snapshot) => {
+        onSnapshotFn(q, (snapshot) => {
             if (snapshot.empty) {
                 commentsList.innerHTML = '<p style="color: #64748b;">لا توجد تعليقات بعد. كن أول المعلقين!</p>';
                 return;
@@ -369,12 +376,14 @@ function loadFirebaseComments(articleId) {
     }
 }
 
-// حفظ استمارة الاستفسارات في مجموعة app_inquiries
+// حفظ استمارة الاستفسارات في مجموعة app_inquiries (تم تصحيح طريقة الاتصال بـ Firebase)
 window.handleFormSubmit = async function(event) {
     event.preventDefault();
     const submitBtn = document.getElementById('submitBtn');
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جاري إرسال الطلب سحابياً...';
+    if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جاري إرسال الطلب سحابياً...';
+    }
 
     const formData = {
         fullname: document.getElementById('fullname').value.trim(),
@@ -382,23 +391,36 @@ window.handleFormSubmit = async function(event) {
         phone: document.getElementById('phone').value.trim(),
         serviceType: document.getElementById('governorate').value,
         message: document.getElementById('proposal').value.trim(),
-        createdAt: window.serverTimestamp ? window.serverTimestamp() : new Date(),
+        createdAt: (window.serverTimestamp ? window.serverTimestamp() : (window.firebaseModules?.serverTimestamp ? window.firebaseModules.serverTimestamp() : new Date())),
         date: new Date().toLocaleString('ar-EG')
     };
 
     try {
-        if (window.db && window.addDoc && window.collection) {
-            await window.addDoc(window.collection(window.db, "app_inquiries"), formData);
+        // التأكد من توفر قاعدة البيانات ووحدات الإضافة
+        const addDocFn = window.addDoc || window.firebaseModules?.addDoc;
+        const collectionFn = window.collection || window.firebaseModules?.collection;
+
+        if (window.db && addDocFn && collectionFn) {
+            await addDocFn(collectionFn(window.db, "app_inquiries"), formData);
             document.getElementById('forumForm').style.display = 'none';
             document.getElementById('successBox').style.display = 'block';
         } else {
-            throw new Error("قاعدة بيانات فايربيس غير متصلة.");
+            // محاولة جلبها من window.firebaseModules بشكل مباشر
+            if (window.db && window.firebaseModules) {
+                await window.firebaseModules.addDoc(window.firebaseModules.collection(window.db, "app_inquiries"), formData);
+                document.getElementById('forumForm').style.display = 'none';
+                document.getElementById('successBox').style.display = 'block';
+            } else {
+                throw new Error("قاعدة بيانات فايربيس غير متصلة.");
+            }
         }
     } catch (error) {
         console.error("Firebase Sync Error:", error);
         alert("❌ فشل الحفظ في قاعدة البيانات: " + error.message);
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = 'إرسال الطلب إلى فريق GITI';
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = 'إرسال الطلب إلى فريق GITI';
+        }
     }
 };
 
@@ -554,11 +576,14 @@ window.submitInquiryToFirebase = async function(e) {
     }
 
     try {
-        const { collection, addDoc, serverTimestamp } = window.firebaseModules;
-        await addDoc(collection(window.db, 'app_inquiries'), {
+        const addDocFn = window.firebaseModules?.addDoc || window.addDoc;
+        const collectionFn = window.firebaseModules?.collection || window.collection;
+        const serverTimestampFn = window.firebaseModules?.serverTimestamp || window.serverTimestamp;
+
+        await addDocFn(collectionFn(window.db, 'app_inquiries'), {
             name: nameCheck.cleaned,
             text: textCheck.cleaned,
-            timestamp: serverTimestamp()
+            timestamp: serverTimestampFn ? serverTimestampFn() : new Date()
         });
 
         const formEl = document.getElementById('inquiry-form');
@@ -599,9 +624,12 @@ async function fetchFirebaseInquiries() {
     }
 
     try {
-        const { collection, getDocs, query } = window.firebaseModules;
-        const q = query(collection(window.db, 'app_inquiries'));
-        const snapshot = await getDocs(q);
+        const getDocsFn = window.firebaseModules?.getDocs || window.getDocs;
+        const collectionFn = window.firebaseModules?.collection || window.collection;
+        const queryFn = window.firebaseModules?.query || window.query;
+
+        const q = queryFn(collectionFn(window.db, 'app_inquiries'));
+        const snapshot = await getDocsFn(q);
 
         if (snapshot.empty) {
             listContainer.innerHTML = '<p style="color: #64748b; text-align: center;">لا توجد استفسارات حالياً. كن أول من يطرح استفساراً تقنياً!</p>';
@@ -637,8 +665,8 @@ function renderInquiriesList(inquiries) {
     inquiries.forEach(data => {
         htmlContent += `
           <div style="background: rgba(248, 250, 252, 0.9); border: 1px solid var(--border-color); border-right: 4px solid var(--gov-gold); padding: 15px; border-radius: 6px; margin-bottom: 10px;">
-            <h4 style="margin-bottom: 5px; color: var(--gov-blue-dark); font-size: 1rem; font-weight: 800;">${escapeHtml(data.name || 'زائر')}</h4>
-            <p style="font-size: 0.95rem; color: #475569; margin: 0;">${escapeHtml(data.text || '')}</p>
+            <h4 style="margin-bottom: 5px; color: var(--gov-blue-dark); font-size: 1rem; font-weight: 800;">${escapeHtml(data.name || data.fullname || 'زائر')}</h4>
+            <p style="font-size: 0.95rem; color: #475569; margin: 0;">${escapeHtml(data.text || data.message || '')}</p>
           </div>
         `;
     });
@@ -650,8 +678,8 @@ window.filterInquiries = function() {
     if (!searchInput) return;
     const queryStr = searchInput.value.toLowerCase();
     const filtered = globalInquiriesData.filter(i => 
-        (i.name && i.name.toLowerCase().includes(queryStr)) || 
-        (i.text && i.text.toLowerCase().includes(queryStr))
+        ((i.name || i.fullname) && (i.name || i.fullname).toLowerCase().includes(queryStr)) || 
+        ((i.text || i.message) && (i.text || i.message).toLowerCase().includes(queryStr))
     );
     renderInquiriesList(filtered);
 };
@@ -689,14 +717,16 @@ window.submitContactForm = async function(e) {
     }
 
     try {
-        const { collection, addDoc, serverTimestamp } = window.firebaseModules || {};
+        const addDocFn = window.firebaseModules?.addDoc || window.addDoc;
+        const collectionFn = window.firebaseModules?.collection || window.collection;
+        const serverTimestampFn = window.firebaseModules?.serverTimestamp || window.serverTimestamp;
         
-        await addDoc(collection(firestoreDb, 'contact_messages'), {
+        await addDocFn(collectionFn(firestoreDb, 'contact_messages'), {
             name: name,
             email: email,
             subject: subject,
             message: message,
-            timestamp: serverTimestamp()
+            timestamp: serverTimestampFn ? serverTimestampFn() : new Date()
         });
 
         const formEl = document.getElementById('contact-form');
