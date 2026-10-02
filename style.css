@@ -5,7 +5,7 @@
     --primary-red: #c0392b;
     --bg-light: #f1f5f9;
     --text-dark: #1e293b;
-    --card-bg: rgba(255, 255, 255, 0.88); /* خلفية زجاجية شفافة للكروت لتظهر التأثيرات من خلفها */
+    --card-bg: rgba(255, 255, 255, 0.95);
     --border-color: #cbd5e1;
 }
 
@@ -28,56 +28,7 @@ body {
     overflow-x: hidden;
 }
 
-/* =========================================================
-   1. طبقات التأثيرات الخلفية المتحركة والـ 3D (دخان + رعد + إضاءة)
-   ========================================================= */
-
-/* أ) لوجو المدونة المتحرك في الخلفية كعلامة مائية ثلاثية الأبعاد */
-body::before {
-    content: '';
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(1);
-    width: 70vw;
-    height: 70vw;
-    max-width: 550px;
-    max-height: 550px;
-    background: url('logo.png') center/contain no-repeat;
-    opacity: 0.15; /* زيادة وضوح اللوجو بالخلفية */
-    pointer-events: none;
-    z-index: 0;
-    animation: logoFloat3D 12s infinite ease-in-out;
-}
-
-@keyframes logoFloat3D {
-    0%, 100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.2)); }
-    50% { transform: translate(-50%, -50%) scale(1.06) rotate(2deg); filter: drop-shadow(0 0 30px rgba(99, 102, 241, 0.35)); }
-}
-
-/* ب) طبقة تأثير الرعد والإضاءة المتحركة والـ 3D عبر الشاشة بالكامل */
-body::after {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
-    z-index: 0;
-    background: radial-gradient(circle at 30% 30%, rgba(99, 102, 241, 0.12), transparent 60%),
-                radial-gradient(circle at 70% 70%, rgba(212, 175, 55, 0.1), transparent 60%);
-    animation: lightningStorm3D 8s infinite ease-in-out;
-}
-
-@keyframes lightningStorm3D {
-    0%, 85%, 100% { opacity: 0.4; transform: scale(1); }
-    88% { opacity: 0.95; background: radial-gradient(circle at 50% 20%, rgba(255, 255, 255, 0.25), transparent 70%); transform: scale(1.02); }
-    91% { opacity: 0.3; }
-    94% { opacity: 0.9; background: radial-gradient(circle at 80% 40%, rgba(212, 175, 55, 0.3), transparent 65%); }
-}
-
-/* ج) طبقة الدخان المتحرك والسحب المتداخلة (3D Fog & Smoke) */
+/* قسم الـ Hero مع خلفية منتدى مصر الرسمية ونقاوة كاملة بدون شعار خلفي مزعج */
 .gov-hero-section {
     position: relative;
     overflow: hidden;
@@ -88,27 +39,6 @@ body::after {
     text-align: center;
 }
 
-.gov-hero-section::before {
-    content: '';
-    position: absolute;
-    top: -100%;
-    left: -100%;
-    width: 300%;
-    height: 300%;
-    background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 5%, rgba(99, 102, 241, 0.1) 30%, transparent 65%);
-    animation: smokeMotion3D 15s infinite linear;
-    pointer-events: none;
-}
-
-@keyframes smokeMotion3D {
-    0% { transform: rotate(0deg) translate(0, 0) scale(1); }
-    50% { transform: rotate(180deg) translate(40px, 25px) scale(1.1); }
-    100% { transform: rotate(360deg) translate(0, 0) scale(1); }
-}
-
-/* =========================================================
-   2. تحسينات الكروت والعناصر لتتفاعل مع الخلفية المتحركة
-   ========================================================= */
 .card {
     background: var(--card-bg);
     backdrop-filter: blur(10px);
@@ -127,7 +57,6 @@ body::after {
     box-shadow: 0 10px 30px rgba(11, 34, 56, 0.12);
 }
 
-/* تأثير الـ 3D والوهج المضيء للشعار الرئيسي */
 .eagle-emblem-img {
     height: 48px;
     width: auto;
@@ -141,10 +70,6 @@ body::after {
 .eagle-emblem-img:hover {
     transform: scale(1.1) rotate(2deg);
 }
-
-/* =========================================================
-   3. بقية أنماط الموقع الأساسية (مع ضبط الـ z-index لتظهر فوق الخلفية)
-   ========================================================= */
 
 .legal-disclaimer-bar {
     background: #1e293b;
@@ -193,7 +118,6 @@ body::after {
     font-weight: 700;
 }
 
-/* شريط الأخبار المتحرك */
 .news-ticker-container {
     background: #123354;
     color: #fff;
@@ -293,7 +217,6 @@ header {
     color: var(--gov-blue-dark);
 }
 
-/* Sidebar Drawer */
 .sidebar-drawer {
     position: fixed;
     top: 0;
@@ -541,6 +464,34 @@ header {
 .badge-paid { background: rgba(11, 34, 56, 0.1); color: var(--gov-blue-dark); }
 .badge-success { background: rgba(34, 197, 94, 0.15); color: #15803d; }
 .badge-partial { background: rgba(212, 175, 55, 0.2); color: #854d0e; }
+
+/* تنسيقات نموذج التواصل لمنع تداخل الحقول */
+.form-group {
+    margin-bottom: 18px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 700;
+    color: var(--gov-blue-dark);
+    font-size: 0.9rem;
+}
+
+.form-group input, 
+.form-group select, 
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    outline: none;
+    background: #fff;
+    box-sizing: border-box;
+}
 
 .submit-btn {
     width: 100%;
