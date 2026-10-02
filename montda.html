@@ -29,7 +29,7 @@
     <!-- تهيئة Firebase والمصادقة -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, getDocs, query, where, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, getDocs, query, where, onSnapshot, serverTimestamp, doc, runTransaction } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
         import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
         const firebaseConfig = {
@@ -46,9 +46,13 @@
         const db = getFirestore(app);
         const auth = getAuth(app);
 
+        // ربط الدوال والكائنات بنافذة المتصفح لسهولة الاستخدام في app.js
         window.db = db;
         window.auth = auth;
-        window.firebaseModules = { collection, addDoc, getDocs, query, where, onSnapshot, serverTimestamp };
+        window.firebaseModules = { collection, addDoc, getDocs, query, where, onSnapshot, serverTimestamp, doc, runTransaction };
+        window.addDoc = addDoc;
+        window.collection = collection;
+        window.serverTimestamp = serverTimestamp;
 
         const ADMIN_EMAILS_LIST = ["haretg@gmail.com", "karamegy@gmail.com"];
 
