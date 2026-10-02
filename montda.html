@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>منتدى مصر 2026 - تغطية شبكة GITI الشبابية</title>
+    
+    <!-- وسوم المعاينة الاجتماعية (Open Graph) لمشاركة الرابط -->
+    <meta property="og:title" content="منتدى مصر 2026 - تغطية شبكة GITI الشبابية">
+    <meta property="og:description" content="بوابة التسجيل ومشاركة المقترحات وكروت الدعوات الشخصية لمنتدى مصر 2026 برعاية رئاسية ومبادرة GITI.">
+    <meta property="og:image" content="https://sis.gov.eg/media/833992/%D9%85%D9%86%D8%AA%D8%AF%D9%89-%D9%85%D8%B5%D8%B1-2026.jpg">
+    <meta property="og:url" content="https://karamegy.github.io/montda">
+    <meta property="og:type" content="website">
+
     <!-- Font Awesome الأيقونات -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts - Cairo -->
@@ -757,6 +765,20 @@
             <div class="speech-author">عبد الفتاح السيسي</div>
         </div>
 
+        <!-- العد التنازلي التفاعلي المضاف -->
+        <div style="background: rgba(11, 34, 56, 0.85); border: 1px solid var(--gov-gold); max-width: 600px; margin: 0 auto 30px; padding: 15px; border-radius: 12px; text-align: center; backdrop-filter: blur(10px);">
+            <p style="color: var(--gov-gold); font-weight: 700; font-size: 0.95rem; margin-bottom: 8px;"><i class="fa-solid fa-hourglass-half"></i> متبقي على انطلاق المنتدى:</p>
+            <div id="countdown" style="display: flex; justify-content: center; gap: 15px; color: #fff; font-weight: 800; font-size: 1.1rem;">
+                <div><span id="days">00</span><p style="font-size: 0.7rem; color: #cbd5e1;">يوم</p></div>
+                <div>:</div>
+                <div><span id="hours">00</span><p style="font-size: 0.7rem; color: #cbd5e1;">ساعة</p></div>
+                <div>:</div>
+                <div><span id="minutes">00</span><p style="font-size: 0.7rem; color: #cbd5e1;">دقيقة</p></div>
+                <div>:</div>
+                <div><span id="seconds">00</span><p style="font-size: 0.7rem; color: #cbd5e1;">ثانية</p></div>
+            </div>
+        </div>
+
         <div class="event-info-bar">
             <div class="event-info-item">
                 <i class="fa-regular fa-calendar-days"></i>
@@ -766,7 +788,7 @@
                 <i class="fa-solid fa-location-dot"></i>
                 <span>فندق سانت ريجيس — العاصمة الجديدة</span>
             </div>
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=%D9%85%D9%86%D8%AA%D8%AF%D9%89+%D9%85%D8%B5%D8%B1+2026&dates=20261019T090000Z/20261024T180000Z&details=%D9%81%D8%B9%D8%A7%D9%84%D9%8A%D8%A7%D8%AA+%D9%85%D9%86%D8%AA%D8%AF%D9%89+%D9%85%D8%B5%D8%B1+2026+%D8%A8%D8%AF%D8%B9%D9%88%D8%A9+%D9%85%D9%86+%D8%B1%D8%A3%D9%8A%D8%B3+%D8%A7%D9%84%D8%AC%D9%85%D9%87%D9%88%D8%B1%D9%8A%D8%A9&location=%D9%81%D9%86%D8%AF%D9%82+%D8%B3%D8%A7%D9%86%D8%AA+%D8%B1%D9%8A%D8%AC%D9%8A%D8%B3+%D8%A7%D9%84%D8%AC%D8%AF%D9%8A%D8%AF%D8%A9" target="_blank" class="cal-btn">
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=%D9%85%D9%86%D8%AA%D8%AF%D9%89+%D9%85%D8%B5%D8%B1+2026&dates=20261019T090000Z/20261024T180000Z&details=%D9%81%D8%B9%D8%A7%D9%84%D9%8A%D8%A7%D8%AA+%D9%85%D9%86%D8%AA%D8%AF%D9%89+%D9%85%D8%B5%D8%B1+2026+%D8%A8%D8%AF%D8%C9+%D9%85%D9%86+%D8%B1%D8%A3%D9%8A%D8%B3+%D8%A7%D9%84%D8%AC%D9%85%D9%87%D9%88%D8%B1%D9%8A%D8%A9&location=%D9%81%D9%86%D8%AF%D9%82+%D8%B3%D8%A7%D9%86%D8%AA+%D8%B1%D9%8A%D8%AC%D9%8A%D8%B3+%D8%A7%D9%84%D8%AC%D8%AF%D9%8A%D8%AF%D8%A9" target="_blank" class="cal-btn">
                 <i class="fa-solid fa-calendar-plus"></i> حفظ في تقويم Google
             </a>
         </div>
@@ -800,6 +822,38 @@
                 <h4>100%</h4>
                 <p>دعم للمشروعات الواعدة</p>
             </div>
+        </div>
+    </section>
+
+    <!-- قسم مولد كروت الدعوات الشخصية (مضاف حديثاً) -->
+    <section class="registration-section" id="invitation-card-section" style="background: #ffffff; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0;">
+        <div class="form-card" style="max-width: 700px;">
+            <div class="section-heading" style="margin-bottom: 25px;">
+                <h3 style="color: var(--gov-blue-dark); font-size: 1.8rem; font-weight: 800;">مولد بطاقة الدعوة الرسمية</h3>
+                <p style="color: #64748b; font-size: 0.9rem;">أنشئ كرت دعوتك الشخصي لمنتدى مصر 2026 بصورتك واسمك واحضره معك</p>
+            </div>
+
+            <div class="form-group">
+                <label><i class="fa-solid fa-user"></i> اسمك الكريم (كما سيظهر بالبطاقة) *</label>
+                <input type="text" id="cardUserName" placeholder="أدخل اسمك الكامل هنا..." oninput="drawCard()">
+            </div>
+
+            <div class="form-group">
+                <label><i class="fa-solid fa-image"></i> صورتك الشخصية *</label>
+                <input type="file" id="cardUserImage" accept="image/*" onchange="loadCardImage(event)">
+            </div>
+
+            <!-- معاينة الكرت التصميمي الواقعي -->
+            <div style="margin: 25px 0; text-align: center;">
+                <p style="font-weight: 700; color: var(--gov-blue-dark); margin-bottom: 10px; font-size: 0.95rem;">معاينة بطاقة الدعوة المخصصة:</p>
+                <div style="position: relative; width: 100%; max-width: 600px; aspect-ratio: 16/9; margin: 0 auto; border-radius: 14px; overflow: hidden; box-shadow: 0 10px 30px rgba(11, 34, 56, 0.25); border: 3px solid var(--gov-gold); background: #0b2238;">
+                    <canvas id="invitationCanvas" style="width: 100%; height: 100%; display: block;"></canvas>
+                </div>
+            </div>
+
+            <button type="button" class="submit-btn" onclick="downloadInvitationCard()" style="background: var(--gov-gold); color: var(--gov-blue-dark); font-weight: 900;">
+                <i class="fa-solid fa-download"></i> تحميل بطاقة الدعوة (صورة PNG)
+            </button>
         </div>
     </section>
 
@@ -993,12 +1047,166 @@
         </div>
     </section>
 
+    <!-- زر العودة إلى الأعلى المضاف -->
+    <button id="backToTop" onclick="scrollToTop()" style="display: none; position: fixed; bottom: 20px; left: 20px; background: var(--gov-gold); color: var(--gov-blue-dark); border: none; width: 45px; height: 45px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; z-index: 999; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: 0.3s;">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
     <!-- Footer متضمن حقوق مدونة GITI والإخلاء القانوني -->
     <footer>
         <p>جميع الحقوق محفوظة &copy; 2026 — مدونة GITI الإعلامية الشبابية | <a href="index.html">العودة للرئيسية</a></p>
     </footer>
 
     <script>
+        // العد التنازلي لموعد انطلاق المنتدى (19 أكتوبر 2026)
+        const targetDate = new Date("October 19, 2026 09:00:00").getTime();
+        const countdownTimer = setInterval(() => {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance < 0) {
+                clearInterval(countdownTimer);
+                document.getElementById("countdown").innerHTML = "انطلق المنتدى بنجاح!";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days < 10 ? "0" + days : days;
+            document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+            document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+            document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+        }, 1000);
+
+        // --- كود مولد بطاقة الدعوة (Canvas Generator) ---
+        const cardCanvas = document.getElementById('invitationCanvas');
+        const cardCtx = cardCanvas.getContext('2d');
+        cardCanvas.width = 1000;
+        cardCanvas.height = 562; // نسبة عرض 16:9
+
+        let userAvatarImg = new Image();
+        let isAvatarLoaded = false;
+
+        function loadCardImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    userAvatarImg.src = e.target.result;
+                    userAvatarImg.onload = function() {
+                        isAvatarLoaded = true;
+                        drawCard();
+                    }
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function drawCard() {
+            cardCtx.clearRect(0, 0, cardCanvas.width, cardCanvas.height);
+
+            // 1. الخلفية التدرجية الملكية
+            let bgGradient = cardCtx.createLinearGradient(0, 0, cardCanvas.width, cardCanvas.height);
+            bgGradient.addColorStop(0, '#0b2238');
+            bgGradient.addColorStop(0.5, '#123354');
+            bgGradient.addColorStop(1, '#0b2238');
+            cardCtx.fillStyle = bgGradient;
+            cardCtx.fillRect(0, 0, cardCanvas.width, cardCanvas.height);
+
+            // إطار ذهبي خارجي وداخلي
+            cardCtx.strokeStyle = '#d4af37';
+            cardCtx.lineWidth = 8;
+            cardCtx.strokeRect(20, 20, cardCanvas.width - 40, cardCanvas.height - 40);
+
+            cardCtx.strokeStyle = 'rgba(212, 175, 55, 0.4)';
+            cardCtx.lineWidth = 2;
+            cardCtx.strokeRect(32, 32, cardCanvas.width - 64, cardCanvas.height - 64);
+
+            // 2. الهيدر والعنوان
+            cardCtx.fillStyle = '#d4af37';
+            cardCtx.font = 'bold 36px Cairo, sans-serif';
+            cardCtx.textAlign = 'center';
+            cardCtx.direction = 'rtl';
+            cardCtx.fillText('منتدى مصر 2026', cardCanvas.width / 2, 85);
+
+            cardCtx.fillStyle = '#cbd5e1';
+            cardCtx.font = '20px Cairo, sans-serif';
+            cardCtx.fillText('نظرة لليوم .. رؤية للغد', cardCanvas.width / 2, 125);
+
+            // خط فاصل ذهبي
+            cardCtx.strokeStyle = '#d4af37';
+            cardCtx.lineWidth = 2;
+            cardCtx.beginPath();
+            cardCtx.moveTo(cardCanvas.width / 2 - 150, 145);
+            cardCtx.lineTo(cardCanvas.width / 2 + 150, 145);
+            cardCtx.stroke();
+
+            // 3. صورة المستخدم الدائرية
+            const centerX = cardCanvas.width / 2;
+            const centerY = 255;
+            const radius = 65;
+
+            cardCtx.save();
+            cardCtx.beginPath();
+            cardCtx.arc(centerX, centerY, radius, 0, Math.PI * 2, true);
+            cardCtx.closePath();
+            cardCtx.clip();
+
+            if (isAvatarLoaded) {
+                cardCtx.drawImage(userAvatarImg, centerX - radius, centerY - radius, radius * 2, radius * 2);
+            } else {
+                cardCtx.fillStyle = '#1e293b';
+                cardCtx.fillRect(centerX - radius, centerY - radius, radius * 2, radius * 2);
+                cardCtx.fillStyle = '#d4af37';
+                cardCtx.font = 'bold 16px Cairo, sans-serif';
+                cardCtx.fillText('صورتك هنا', centerX, centerY + 6);
+            }
+            cardCtx.restore();
+
+            // إطار الصورة الذهبي
+            cardCtx.strokeStyle = '#d4af37';
+            cardCtx.lineWidth = 4;
+            cardCtx.beginPath();
+            cardCtx.arc(centerX, centerY, radius, 0, Math.PI * 2, true);
+            cardCtx.closePath();
+            cardCtx.stroke();
+
+            // 4. اسم المشارك
+            const inputNameVal = document.getElementById('cardUserName').value.trim();
+            const fullNameText = inputNameVal !== '' ? inputNameVal : 'اسم المشارك الكريم';
+
+            cardCtx.fillStyle = '#ffffff';
+            cardCtx.font = 'bold 30px Cairo, sans-serif';
+            cardCtx.textAlign = 'center';
+            cardCtx.fillText(fullNameText, cardCanvas.width / 2, 380);
+
+            // وصف الدعوة
+            cardCtx.fillStyle = '#d4af37';
+            cardCtx.font = 'bold 19px Cairo, sans-serif';
+            cardCtx.fillText('بطاقة دعوة رسمية — مشارك بفعاليات المنتدى', cardCanvas.width / 2, 420);
+
+            // 5. الفوتر
+            cardCtx.fillStyle = '#94a3b8';
+            cardCtx.font = '15px Cairo, sans-serif';
+            cardCtx.fillText('تغطية شبكة GITI الشبابية | 19-24 أكتوبر 2026', cardCanvas.width / 2, 490);
+        }
+
+        // رسم الكرت أول ما الصفحة تفتح
+        window.addEventListener('DOMContentLoaded', () => {
+            drawCard();
+        });
+
+        function downloadInvitationCard() {
+            const link = document.createElement('a');
+            link.download = 'Egypt_Forum_2026_Invitation.png';
+            link.href = cardCanvas.toDataURL('image/png');
+            link.click();
+        }
+        // --------------------------------------------------
+
         // التبديل بين تبويبات أجندة الفعاليات
         function switchAgenda(index) {
             const tabs = document.querySelectorAll('.tab-btn');
@@ -1028,12 +1236,25 @@
             }
         }
 
-        // معالجة وحفظ استمارة التسجيل في قاعدة بيانات المدونة الخاصة
+        // تحكم زر العودة إلى الأعلى وتفعيل ظهوره
+        window.onscroll = function() {
+            const btn = document.getElementById('backToTop');
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // معالجة وحفظ استمارة التسجيل في قاعدة بيانات المدونة الخاصة مع أيقونة التحميل
         async function handleFormSubmit(event) {
             event.preventDefault();
             const submitBtn = document.getElementById('submitBtn');
             submitBtn.disabled = true;
-            submitBtn.innerText = "جاري الإرسال...";
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جاري إرسال المقترح...';
 
             const formData = {
                 fullname: document.getElementById('fullname').value.trim(),
