@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- سكربت Firebase لإدارة المقالات (إضافة، تعديل، حذف، جلب) -->
+    <!-- سكربت Firebase لإدارة المقالات ورفع الصور -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
         import { getFirestore, collection, addDoc, getDocs, doc, deleteDoc, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
@@ -25,23 +25,44 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        let editingArticleId = null; // لتحديد ما إذا كنا نقوم بتعديل مقال حالي
+        let editingArticleId = null;
+        let selectedImageBase64 = ""; // لتخزين الصورة المحولة من الجهاز
+
+        // قراءة وتحويل الصورة المرفوعة من الجهاز إلى Base64
+        window.handleImageUpload = function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    selectedImageBase64 = e.target.result;
+                    // عرض معاينة مصغرة للصورة المرفوعة
+                    const preview = document.getElementById('img-preview');
+                    preview.src = selectedImageBase64;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        };
 
         // دالة نشر أو تحديث المقال
         window.saveArticle = async function(e) {
             e.preventDefault();
             const title = document.getElementById('art-title').value;
             const category = document.getElementById('art-cat').value;
-            const imageUrl = document.getElementById('art-image').value;
             const content = document.getElementById('art-content').value;
-            const btn = document.getElementById('pub-btn');
+            let imageUrl = document.getElementById('art-image-old').value;
 
+            // إذا اختار المستخدم صورة جديدة من جهازه، نعتمدها
+            if (selectedImageBase64) {
+                imageUrl = selectedImageBase64;
+            }
+
+            const btn = document.getElementById('pub-btn');
             btn.disabled = true;
             btn.innerText = "جاري الحفظ سحابياً...";
 
             try {
                 if (editingArticleId) {
-                    // تحديث مقال موجود
                     await updateDoc(doc(db, "articles", editingArticleId), {
                         title,
                         category,
@@ -51,9 +72,8 @@
                     });
                     alert("✅ تم تحديث المقال بنجاح!");
                     editingArticleId = null;
-                    document.getElementById('pub-btn').innerText = "نشر المقال فوراً 🚀";
+                    btn.innerText = "نشر المقال فوراً 🚀";
                 } else {
-                    // إضافة مقال جديد
                     await addDoc(collection(db, "articles"), {
                         title,
                         category,
@@ -65,19 +85,23 @@
                 }
 
                 document.getElementById('article-form').reset();
+                selectedImageBase64 = "";
+                document.getElementById('art-image-old').value = "";
+                document.getElementById('img-preview').style.display = 'none';
                 loadAdminArticles();
             } catch (err) {
-                alert("❌ حدث خطأ: " + err.message);
+                alert("❌ حدث خطأ سحابي: " + err.message + "\nتأكد من ضبط قواعد Firestore Rules في Firebase.");
+                console.error(err);
             } finally {
                 btn.disabled = false;
                 if (!editingArticleId) btn.innerText = "نشر المقال فوراً 🚀";
             }
         };
 
-        // جلب المقالات وعرضها في لوحة التحكم للإدارة
+        // جلب المقالات لإدارتها
         async function loadAdminArticles() {
             const container = document.getElementById('admin-articles-list');
-            container.innerHTML = "<p style='text-align:center; color:#64748b;'>جاري تحميل المقالات...</p>";
+            container.innerHTML = "<p style='text-align:center; color:#64748b;'>جاري تحميل المقالات من السحابة...</p>";
 
             try {
                 const querySnapshot = await getDocs(collection(db, "articles"));
@@ -100,19 +124,19 @@
                                 </div>
                             </div>
                             <div style="display: flex; gap: 8px;">
-                                <button onclick="editArticle('${id}', '${encodeURIComponent(data.title)}', '${data.category}', '${encodeURIComponent(data.imageUrl || '')}', '${encodeURIComponent(data.content)}')" style="background: var(--gov-gold); color: var(--gov-blue-dark); border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.8rem;"><i class="fa-solid fa-pen"></i> تعديل</button>
-                                <button onclick="deleteArticle('${id}')" style="background: var(--primary-red); color: #fff; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.8rem;"><i class="fa-solid fa-trash"></i> حذف</button>
+                                <button type="button" onclick="editArticle('${id}', '${encodeURIComponent(data.title)}', '${data.category}', '${encodeURIComponent(data.imageUrl || '')}', '${encodeURIComponent(data.content)}')" style="background: var(--gov-gold); color: var(--gov-blue-dark); border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.8rem;"><i class="fa-solid fa-pen"></i> تعديل</button>
+                                <button type="button" onclick="deleteArticle('${id}')" style="background: var(--primary-red); color: #fff; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.8rem;"><i class="fa-solid fa-trash"></i> حذف</button>
                             </div>
                         </div>
                     `;
                 });
                 container.innerHTML = html;
             } catch (err) {
-                container.innerHTML = "<p style='color: red; text-align: center;'>خطأ في تحميل المقالات.</p>";
+                container.innerHTML = "<p style='color: red; text-align: center;'>خطأ في الاتصال بقاعدة البيانات. تأكد من تفعيل قواعد Firestore.</p>";
+                console.error(err);
             }
         }
 
-        // حذف مقال
         window.deleteArticle = async function(id) {
             if (confirm("هل أنت متأكد من حذف هذا المقال نهائياً؟")) {
                 try {
@@ -125,13 +149,22 @@
             }
         };
 
-        // تعبئة نموذج التعديل
         window.editArticle = function(id, title, category, imageUrl, content) {
             editingArticleId = id;
             document.getElementById('art-title').value = decodeURIComponent(title);
             document.getElementById('art-cat').value = category;
-            document.getElementById('art-image').value = decodeURIComponent(imageUrl);
+            document.getElementById('art-image-old').value = decodeURIComponent(imageUrl || '');
             document.getElementById('art-content').value = decodeURIComponent(content);
+            
+            selectedImageBase64 = ""; // إعادة تعيين لكي لا يتم تعديل الصورة إلا إذا اختار صورة جديدة
+            const preview = document.getElementById('img-preview');
+            if (imageUrl && imageUrl !== 'undefined') {
+                preview.src = decodeURIComponent(imageUrl);
+                preview.style.display = 'block';
+            } else {
+                preview.style.display = 'none';
+            }
+
             document.getElementById('pub-btn').innerText = "تحديث المقال 🔄";
             window.scrollTo({ top: 0, behavior: 'smooth' });
         };
@@ -141,13 +174,12 @@
 </head>
 <body>
     <div style="max-width: 800px; margin: 40px auto; padding: 20px;">
-        
-        <!-- نموذج إضافة / تعديل مقال -->
         <div class="card" style="padding: 30px; margin-bottom: 30px;">
             <h2 style="color: var(--gov-blue-dark); margin-bottom: 20px; font-weight: 900;">
                 <i class="fa-solid fa-pen-nib"></i> لوحة تحكم المقالات (GITI CMS)
             </h2>
             <form id="article-form" onsubmit="saveArticle(event)" style="display: flex; flex-direction: column; gap: 15px;">
+                <input type="hidden" id="art-image-old">
                 <div>
                     <label style="font-weight: 700; display: block; margin-bottom: 5px;">عنوان المقال *</label>
                     <input type="text" id="art-title" required placeholder="اكتب عنوان المقال هنا..." style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px;">
@@ -163,8 +195,9 @@
                     </select>
                 </div>
                 <div>
-                    <label style="font-weight: 700; display: block; margin-bottom: 5px;">رابط صورة المقال (URL) *</label>
-                    <input type="url" id="art-image" placeholder="https://example.com/image.jpg" style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px;">
+                    <label style="font-weight: 700; display: block; margin-bottom: 5px;">اختر صورة المقال من جهازك *</label>
+                    <input type="file" id="art-image-file" accept="image/*" onchange="handleImageUpload(event)" style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 6px; background: #fff;">
+                    <img id="img-preview" src="" style="display: none; width: 80px; height: 80px; margin-top: 10px; border-radius: 6px; object-fit: cover; border: 1px solid var(--border-color);">
                 </div>
                 <div>
                     <label style="font-weight: 700; display: block; margin-bottom: 5px;">محتوى المقال *</label>
@@ -174,14 +207,11 @@
             </form>
         </div>
 
-        <!-- قائمة إدارة المقالات الحالية -->
         <div class="card" style="padding: 25px;">
             <h3 style="color: var(--gov-blue-dark); margin-bottom: 15px; font-weight: 800;">
                 <i class="fa-solid fa-list-check"></i> المقالات المنشورة حالياً (إدارة وتعديل)
             </h3>
-            <div id="admin-articles-list">
-                <!-- سيتم جلب المقالات هنا تلقائياً -->
-            </div>
+            <div id="admin-articles-list"></div>
         </div>
 
         <div style="margin-top: 20px; text-align: center;">
