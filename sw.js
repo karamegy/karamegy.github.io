@@ -15,6 +15,7 @@ const urlsToCache = [
   './logo.png'
   './sitemap.xml',
   './robots.txt',
+  './googleeb8d677c7529419b.html',
 ];
 
 // تثبيت الخدمة وتخزين كافة الملفات المحدثة
