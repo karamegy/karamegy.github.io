@@ -13,6 +13,8 @@ const urlsToCache = [
   './app.js',
   './Adsesns.js',
   './logo.png'
+  './sitemap.xml',
+  './robots.txt',
 ];
 
 // تثبيت الخدمة وتخزين كافة الملفات المحدثة
