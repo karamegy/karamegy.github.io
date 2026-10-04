@@ -745,6 +745,19 @@ window.submitContactForm = async function(e) {
         }
     }
 };
+// --- تفعيل الـ Service Worker لدعم تشغيل التطبيق كـ PWA والعمل دون إنترنت ---
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+            .then((reg) => {
+                console.log('✅ تم تسجيل الـ ServiceWorker بنجاح، النطاق: ', reg.scope);
+            })
+            .catch((err) => {
+                console.log('❌ فشل تسجيل الـ ServiceWorker: ', err);
+            });
+    });
+}
+
 
 function showContactAlert(msg, textColor, bgColor) {
     const alertBox = document.getElementById('contact-alert');
