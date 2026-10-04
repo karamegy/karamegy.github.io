@@ -1,4 +1,4 @@
-const CACHE_NAME = 'giti-tech-blog-v22';
+const CACHE_NAME = 'giti-tech-blog-v23';
 const urlsToCache = [
   './',
   './index.html',
@@ -12,10 +12,10 @@ const urlsToCache = [
   './style.css',
   './app.js',
   './Adsesns.js',
-  './logo.png'
+  './logo.png',
   './sitemap.xml',
   './robots.txt',
-  './googleeb8d677c7529419b.html',
+  './googleeb8d677c7529419b.html'
 ];
 
 // تثبيت الخدمة وتخزين كافة الملفات المحدثة
@@ -48,14 +48,17 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
   const requestUrl = event.request.url;
 
-  // تجاهل طلبات Firebase، Google APIs، ومكتبات CDN من التخزين المؤقت لضمان عمل قاعدة البيانات واللوحات لحظياً
+  // تجاهل طلبات Firebase، Google APIs، ومكتبات CDN والتطبيقات المنفصلة من التخزين المؤقت
   if (
     requestUrl.includes('firestore') || 
     requestUrl.includes('firebase') || 
     requestUrl.includes('googleapis') || 
     requestUrl.includes('gstatic') || 
     requestUrl.includes('googlesyndication') ||
-    requestUrl.includes('cdnjs.cloudflare.com')
+    requestUrl.includes('cdnjs.cloudflare.com') ||
+    requestUrl.includes('/Nal/') ||
+    requestUrl.includes('/Ton2/') ||
+    requestUrl.includes('/giti/')
   ) {
     return;
   }
@@ -63,7 +66,7 @@ self.addEventListener('fetch', event => {
   event.respondWith(
     fetch(event.request)
       .then(response => {
-        // تحديث الكاش بالنسخة الأحدث في الخلفية
+        // تحديث الكاش بالنسخة الأحدث في الخلفية للطلبات الداخلية فقط
         if (response && response.status === 200 && response.type === 'basic') {
           const responseToCache = response.clone();
           caches.open(CACHE_NAME).then(cache => {
