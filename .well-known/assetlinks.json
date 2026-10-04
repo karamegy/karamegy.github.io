@@ -1,0 +1,10 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "io.github.karamegy.madona",
+    "sha256_cert_fingerprints": [
+      "61:18:AE:23:68:58:DA:99:C1:A5:F4:F2:D4:6E:60:1C:09:6F:BC:5A:4A:C8:94:61:7C:6B:DA:25:43:E4:3A:5C"
+    ]
+  }
+}]
