@@ -1,8 +1,8 @@
 {
-  "name": "GITI Tech & Business OS",
-  "short_name": "GITI Tech",
+  "name": "مدونة GITI Tech والموسوعة التقنية",
+  "short_name": "مدونة GITI",
   "description": "الموسوعة التقنية وأدوات إدارة الأعمال الذكية",
-  "id": "giti-main-blog-app-2026",
+  "id": "giti-blog-root-system-2026-v2",
   "start_url": "./index.html?pwa=main_blog",
   "scope": "./",
   "display": "standalone",
