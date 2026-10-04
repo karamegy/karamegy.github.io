@@ -44,11 +44,11 @@ self.addEventListener('activate', event => {
   );
 });
 
-// استراتيجية جلب البيانات: تجربة الشبكة أولاً مع العودة للكاش عند انقطاع الإنترنت
+// استراتيجية جلب البيانات للرئيسية مع تقييدها تماماً وعدم لمس أي مسار فرعي
 self.addEventListener('fetch', event => {
   const requestUrl = event.request.url;
 
-  // تجاهل طلبات Firebase، Google APIs، ومكتبات CDN والتطبيقات المنفصلة من التخزين المؤقت
+  // 🛑 الحاجز الأمني: منع سيرفر ووركر المدونة من الاقتراب نهائياً من أي تطبيق فرعي أو سحابي
   if (
     requestUrl.includes('firestore') || 
     requestUrl.includes('firebase') || 
@@ -56,17 +56,18 @@ self.addEventListener('fetch', event => {
     requestUrl.includes('gstatic') || 
     requestUrl.includes('googlesyndication') ||
     requestUrl.includes('cdnjs.cloudflare.com') ||
-    requestUrl.includes('/Nal/') ||
-    requestUrl.includes('/Ton2/') ||
-    requestUrl.includes('/giti/')
+    requestUrl.includes('/el-omda-app/') ||  // تطبيق العلاف
+    requestUrl.includes('/Na2la/') ||       // تطبيق نقلة
+    requestUrl.includes('/Nal/') ||         // EIDCO
+    requestUrl.includes('/Ton2/') ||        // GITI ERP
+    requestUrl.includes('/giti/')           // ألعاب الفضاء
   ) {
-    return;
+    return; // اترك هذه المسارات تعمل بحرية تامة وبدون أي تدخل من المدونة
   }
 
   event.respondWith(
     fetch(event.request)
       .then(response => {
-        // تحديث الكاش بالنسخة الأحدث في الخلفية للطلبات الداخلية فقط
         if (response && response.status === 200 && response.type === 'basic') {
           const responseToCache = response.clone();
           caches.open(CACHE_NAME).then(cache => {
@@ -76,7 +77,6 @@ self.addEventListener('fetch', event => {
         return response;
       })
       .catch(() => {
-        // في حال عدم وجود شبكة، استرجع الملف من الكاش
         return caches.match(event.request);
       })
   );
