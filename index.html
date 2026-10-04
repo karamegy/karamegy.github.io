@@ -6,6 +6,10 @@
     <title>مدونة تكنولوجيا الأعمال وأنظمة الإدارة الحديثة | GITI Tech & Business OS</title>
     <meta name="description" content="منصة متقدمة لأحدث المقالات التقنية، أنظمة تخطيط موارد المؤسسات (ERP)، حاسبات الأداء الذكية، وأمن البيانات وحلول التحول الرقمي للشركات." />
 
+    <!-- ربط ملف الـ Manifest الخاص بالـ PWA (تمت الإضافة هنا لحل المشكلة) -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0b2238">
+
     <!-- وسوم المشاركة والمعاينة على منصات التواصل الاجتماعي (Open Graph) -->
     <meta property="og:title" content="مدونة تكنولوجيا الأعمال وأنظمة الإدارة الحديثة | GITI Tech & Business OS">
     <meta property="og:description" content="منصة متقدمة لأحدث المقالات التقنية، أنظمة تخطيط موارد المؤسسات (ERP)، حاسبات الأداء الذكية، وأمن البيانات وحلول التحول الرقمي للشركات.">
@@ -57,7 +61,7 @@
     <!-- إعلانات جوجل أدسنس -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6651309355082807" crossorigin="anonymous"></script>
 
-    <!-- ربط Firebase سحابياً مع المصادقة وإظهار رابط الأدمن دون توجيه تلقائي -->
+    <!-- ربط Firebase سحابياً مع والمصادقة -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
         import { getFirestore, collection, getDocs, doc, setDoc, updateDoc, deleteDoc, onSnapshot, query, where, getDoc, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
@@ -77,14 +81,12 @@
         const db = getFirestore(app);
         const auth = getAuth(app);
 
-        // بريد الأدمن المعتمد
         const ADMIN_EMAILS = ["haretg@gmail.com", "karamegy@gmail.com"]; 
 
         window.db = db;
         window.auth = auth;
         window.firebaseModules = { collection, getDocs, doc, setDoc, updateDoc, deleteDoc, onSnapshot, query, where, getDoc, addDoc, serverTimestamp };
 
-        // مراقبة حالة تسجيل الدخول وتحديث واجهة المستخدم
         onAuthStateChanged(auth, (user) => {
             const authContainer = document.getElementById('auth-container');
             const sidebarLinks = document.querySelector('.sidebar-links');
@@ -102,7 +104,6 @@
                     `;
                 }
 
-                // إظهار رابط لوحة التحكم في القائمة الجانبية للأدمن فقط (بدون توجيه تلقائي)
                 if (isAdmin && sidebarLinks) {
                     if (!document.getElementById('admin-sidebar-link')) {
                         const adminLink = document.createElement('a');
@@ -120,7 +121,6 @@
                         </button>
                     `;
                 }
-                // إزالة رابط الأدمن من القائمة إذا تم تسجيل الخروج
                 const existingAdminLink = document.getElementById('admin-sidebar-link');
                 if (existingAdminLink) existingAdminLink.remove();
             }
@@ -164,7 +164,6 @@
         </div>
         <div style="display: flex; align-items: center; gap: 8px;">
             <div id="auth-container">
-                <!-- زر جوجل المصغر الافتراضي قبل التحميل -->
                 <button onclick="loginWithGoogle()" style="background: #ffffff; color: var(--gov-blue-dark); padding: 3px 9px; border-radius: 4px; font-weight: 700; border: none; cursor: pointer; font-size: 0.78rem; display: inline-flex; align-items: center; gap: 4px;">
                     <i class="fa-brands fa-google" style="color: #db4437;"></i> دخول بجوجل
                 </button>
@@ -185,7 +184,7 @@
         </div>
     </div>
 
-    <!-- الهيدر الرئيسي للمدونة بشعار GITI فقط -->
+    <!-- الهيدر الرئيسي للمدونة -->
     <header>
         <div class="nav-container">
             <div class="gov-branding">
@@ -196,14 +195,13 @@
                 </div>
             </div>
 
-            <!-- زر القائمة الجانبية -->
             <button class="menu-toggle-btn" onclick="toggleSidebar()">
                 <i class="fa-solid fa-bars"></i> القائمة الرئيسية
             </button>
         </div>
     </header>
 
-    <!-- القائمة الجانبية المنسدلة (Sidebar Drawer) -->
+    <!-- القائمة الجانبية المنسدلة -->
     <div id="sidebarOverlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
     <div id="sideDrawer" class="sidebar-drawer">
         <div class="sidebar-header">
@@ -269,30 +267,25 @@
             
             <!-- الشريط الجانبي للأقسام -->
             <aside class="sidebar-categories">
-                
-                <!-- أزرار التطبيقات والألعاب (بألوان بيضاء ونصوص واضحة جداً) -->
                 <div class="card sidebar-card" style="border-top: 3px solid var(--gov-gold); margin-bottom: 20px;">
                     <h3 class="sidebar-title" style="font-size: 0.95rem; color: var(--gov-blue-dark) !important;"><i class="fa-solid fa-rocket" style="color: var(--gov-gold);"></i> تطبيقاتنا وحلولنا الذكية</h3>
                     <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 14px;">
                         
-                        <!-- زر تطبيق EIDCO -->
-                        <a href="https://karamegy.github.io/Nal/" target="_blank" style="display: flex; align-items: center; justify-content: space-between; background: #ffffff; padding: 12px 14px; border-radius: 8px; text-decoration: none; border: 2px solid var(--gov-gold); box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: transform 0.2s;" onmouseover="this.style.transform='translateX(-3px)'" onmouseout="this.style.transform='translateX(0)'">
+                        <a href="https://karamegy.github.io/Nal/" target="_blank" style="display: flex; align-items: center; justify-content: space-between; background: #ffffff; padding: 12px 14px; border-radius: 8px; text-decoration: none; border: 2px solid var(--gov-gold); box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
                             <span style="display: flex; align-items: center; gap: 10px; color: var(--gov-blue-dark) !important; font-size: 0.9rem; font-weight: 900;">
                                 <i class="fa-solid fa-boxes-stacked" style="color: var(--gov-gold); font-size: 1.1rem;"></i> تطبيق EIDCO
                             </span>
                             <span style="font-size: 0.75rem; background: var(--gov-blue-dark); color: var(--gov-gold); padding: 4px 10px; border-radius: 6px; font-weight: 900;">فتح 🚀</span>
                         </a>
 
-                        <!-- زر تطبيق GITI-فواتير -->
-                        <a href="https://karamegy.github.io/Ton2/" target="_blank" style="display: flex; align-items: center; justify-content: space-between; background: #ffffff; padding: 12px 14px; border-radius: 8px; text-decoration: none; border: 2px solid var(--gov-gold); box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: transform 0.2s;" onmouseover="this.style.transform='translateX(-3px)'" onmouseout="this.style.transform='translateX(0)'">
+                        <a href="https://karamegy.github.io/Ton2/" target="_blank" style="display: flex; align-items: center; justify-content: space-between; background: #ffffff; padding: 12px 14px; border-radius: 8px; text-decoration: none; border: 2px solid var(--gov-gold); box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
                             <span style="display: flex; align-items: center; gap: 10px; color: var(--gov-blue-dark) !important; font-size: 0.9rem; font-weight: 900;">
                                 <i class="fa-solid fa-file-invoice-dollar" style="color: var(--gov-gold); font-size: 1.1rem;"></i> GITI-فواتير
                             </span>
                             <span style="font-size: 0.75rem; background: var(--gov-blue-dark); color: var(--gov-gold); padding: 4px 10px; border-radius: 6px; font-weight: 900;">فتح 🚀</span>
                         </a>
 
-                        <!-- زر لعبة السيما والفضاء -->
-                        <a href="https://karamegy.github.io/giti/" target="_blank" style="display: flex; align-items: center; justify-content: space-between; background: #ffffff; padding: 12px 14px; border-radius: 8px; text-decoration: none; border: 2px solid var(--gov-gold); box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: transform 0.2s;" onmouseover="this.style.transform='translateX(-3px)'" onmouseout="this.style.transform='translateX(0)'">
+                        <a href="https://karamegy.github.io/giti/" target="_blank" style="display: flex; align-items: center; justify-content: space-between; background: #ffffff; padding: 12px 14px; border-radius: 8px; text-decoration: none; border: 2px solid var(--gov-gold); box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
                             <span style="display: flex; align-items: center; gap: 10px; color: var(--gov-blue-dark) !important; font-size: 0.9rem; font-weight: 900;">
                                 <i class="fa-solid fa-gamepad" style="color: var(--gov-gold); font-size: 1.1rem;"></i> لعبة السيما والفضاء
                             </span>
@@ -314,28 +307,16 @@
                     </ul>
                 </div>
 
-                <!-- المقالات المحفوظة -->
                 <div class="card sidebar-card">
                     <h3 class="sidebar-title"><i class="fa-solid fa-bookmark"></i> المقالات المحفوظة</h3>
                     <div id="saved-bookmarks-list" style="font-size: 0.85rem; color: #64748b;">
                         <p>لا توجد مقالات محفوظة حالياً.</p>
                     </div>
                 </div>
-
-                <!-- النشرة البريدية -->
-                <div class="card sidebar-card">
-                    <h3 class="sidebar-title"><i class="fa-solid fa-paper-plane"></i> النشرة البريدية</h3>
-                    <form onsubmit="event.preventDefault(); alert('✅ تم الاشتراك بنجاح في النشرة التقنية لـ GITI Tech!'); this.reset();" style="display: flex; flex-direction: column; gap: 10px;">
-                        <input type="email" placeholder="بريدك الإلكتروني..." required style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
-                        <button type="submit" class="submit-btn" style="padding: 10px; font-size: 0.9rem;">اشتراك فوري</button>
-                    </form>
-                </div>
             </aside>
 
             <!-- منطقة المقالات والأدوات -->
             <main class="main-content-area">
-                
-                <!-- قسم الحاسبة الذكية -->
                 <section id="tools-section" class="card" style="margin-bottom: 25px; padding: 25px; border-top: 4px solid var(--gov-gold);">
                     <h3 style="font-size: 1.2rem; color: var(--gov-blue-dark); margin-bottom: 10px; font-weight: 800;">
                         <i class="fa-solid fa-calculator" style="color: var(--gov-gold);"></i> الحاسبة الذكية: تقدير توفير نظام ERP لشركتك
@@ -348,16 +329,13 @@
                     <div id="calc-result" style="margin-top: 15px; font-weight: bold; font-size: 0.95rem; color: var(--gov-blue-dark);"></div>
                 </section>
 
-                <!-- البحث في المقالات -->
                 <div class="card" style="margin-bottom: 25px; padding: 15px;">
                     <div style="position: relative;">
                         <input type="text" id="article-search" placeholder="🔍 ابحث في المقالات والأدوات التقنية..." style="width: 100%; padding: 12px 15px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.95rem;">
                     </div>
                 </div>
 
-                <!-- قائمة المقالات -->
                 <div id="articles-container" style="display: flex; flex-direction: column; gap: 20px;">
-                    
                     <article class="card article-item" data-category="erp" data-id="1">
                         <div class="article-meta-header">
                             <span class="badge badge-paid">تكنولوجيا الشركات</span>
@@ -366,88 +344,23 @@
                         <h2 style="font-size: 1.25rem; color: var(--gov-blue-dark); margin: 8px 0; font-weight: 800;">أهمية أنظمة تخطيط موارد المؤسسات (ERP) في إدارة المتاجر والشركات الناشئة</h2>
                         <p style="color: #64748b; font-size: 0.8rem; margin-bottom: 12px;">نشر بتاريخ: 28 سبتمبر 2026 • بواسطة فريق التحرير التقني</p>
                         <div class="article-body" style="font-size: 0.92rem; line-height: 1.8; color: var(--text-dark);">
-                            <p>تعتبر أنظمة تخطيط موارد المؤسسات (ERP) العصب الرئيسي لأي نشاط تجاري حديث يسعى نحو النمو والاستدامة. ومع ثورة الحوسبة السحابية وتطبيقات الويب التقدمية (PWAs), أصبح بإمكان أصحاب المتاجر إدارة مخازنهم وموظفيهم وحساباتهم بدقة متناهية...</p>
+                            <p>تعتبر أنظمة تخطيط موارد المؤسسات (ERP) العصب الرئيسي لأي نشاط تجاري حديث يسعى نحو النمو والاستدامة...</p>
                         </div>
                         <div style="margin-top: 15px; display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap; border-top: 1px dashed #e2e8f0; padding-top: 12px;">
-                            <div style="display: flex; gap: 10px;">
-                                <button onclick="openFullArticle('1')" class="submit-btn" style="width: auto; padding: 8px 18px; font-size: 0.85rem;">قراءة المقال كاملاً</button>
-                                <button onclick="toggleBookmark('1')" style="background: #f1f5f9; border: 1px solid #cbd5e1; padding: 8px 12px; border-radius: 6px; cursor: pointer;" title="حفظ المقال">🔖 حفظ</button>
-                            </div>
-                            <span style="font-size: 0.8rem; color: var(--gov-gold); font-weight: 700;">⭐ 4.8 / 5</span>
+                            <button onclick="openFullArticle('1')" class="submit-btn" style="width: auto; padding: 8px 18px; font-size: 0.85rem;">قراءة المقال كاملاً</button>
+                            <button onclick="toggleBookmark('1')" style="background: #f1f5f9; border: 1px solid #cbd5e1; padding: 8px 12px; border-radius: 6px; cursor: pointer;" title="حفظ المقال">🔖 حفظ</button>
                         </div>
                     </article>
-
-                    <article class="card article-item" data-category="logistics" data-id="2">
-                        <div class="article-meta-header">
-                            <span class="badge badge-success">أنظمة لوجستية</span>
-                            <span class="reading-time"><i class="fa-regular fa-clock"></i> 5 دقائق</span>
-                        </div>
-                        <h2 style="font-size: 1.25rem; color: var(--gov-blue-dark); margin: 8px 0; font-weight: 800;">كيف تطور نظام إدارة أساطيل الشحن وتتبع الشحنات الفوري (GPS Tracking)؟</h2>
-                        <p style="color: #64748b; font-size: 0.8rem; margin-bottom: 12px;">نشر بتاريخ: 27 سبتمبر 2026 • بواسطة خبير الأنظمة اللوجستية</p>
-                        <div class="article-body" style="font-size: 0.92rem; line-height: 1.8; color: var(--text-dark);">
-                            <p>تعتبر عمليات النقل وإدارة الأساطيل التحدي الأكبر لشركات التوزيع والتجارة الإلكترونية. يتيح دمج تقنيات التتبع الجغرافي اللحظي مع قواعد البيانات الموزعة مراقبة خطوط السير واستهلاك الوقود بدقة...</p>
-                        </div>
-                        <div style="margin-top: 15px; display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap; border-top: 1px dashed #e2e8f0; padding-top: 12px;">
-                            <div style="display: flex; gap: 10px;">
-                                <button onclick="openFullArticle('2')" class="submit-btn" style="width: auto; padding: 8px 18px; font-size: 0.85rem;">قراءة المقال كاملاً</button>
-                                <button onclick="toggleBookmark('2')" style="background: #f1f5f9; border: 1px solid #cbd5e1; padding: 8px 12px; border-radius: 6px; cursor: pointer;" title="حفظ المقال">🔖 حفظ</button>
-                            </div>
-                            <span style="font-size: 0.8rem; color: var(--gov-gold); font-weight: 700;">⭐ 4.9 / 5</span>
-                        </div>
-                    </article>
-
-                    <article class="card article-item" data-category="security" data-id="3">
-                        <div class="article-meta-header">
-                            <span class="badge badge-partial">أمن البيانات</span>
-                            <span class="reading-time"><i class="fa-regular fa-clock"></i> 3 دقائق</span>
-                        </div>
-                        <h2 style="font-size: 1.25rem; color: var(--gov-blue-dark); margin: 8px 0; font-weight: 800;">كيف تحمي بيانات عملك في السحابة وقواعد البيانات الموزعة؟</h2>
-                        <p style="color: #64748b; font-size: 0.8rem; margin-bottom: 12px;">نشر بتاريخ: 25 سبتمبر 2026 • بواسطة مهندس أمن المعلومات</p>
-                        <div class="article-body" style="font-size: 0.92rem; line-height: 1.8; color: var(--text-dark);">
-                            <p>مع الاعتماد المتزايد على التخزين السحابي وقواعد البيانات الموزعة مثل Firebase، أصبح تأمين قواعد البيانات وتفعيل قواعد الصلاحيات الصارمة (Security Rules) أمراً لا غنى عنه لحماية البيانات...</p>
-                        </div>
-                        <div style="margin-top: 15px; display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap; border-top: 1px dashed #e2e8f0; padding-top: 12px;">
-                            <div style="display: flex; gap: 10px;">
-                                <button onclick="openFullArticle('3')" class="submit-btn" style="width: auto; padding: 8px 18px; font-size: 0.85rem;">قراءة المقال كاملاً</button>
-                                <button onclick="toggleBookmark('3')" style="background: #f1f5f9; border: 1px solid #cbd5e1; padding: 8px 12px; border-radius: 6px; cursor: pointer;" title="حفظ المقال">🔖 حفظ</button>
-                            </div>
-                            <span style="font-size: 0.8rem; color: var(--gov-gold); font-weight: 700;">⭐ 4.7 / 5</span>
-                        </div>
-                    </article>
-
                 </div>
             </main>
         </div>
     </div>
 
-    <!-- النافذة المنبثقة لقراءة المقال والتعليق -->
+    <!-- نافذة عرض المقال المنبثقة -->
     <div id="article-modal" style="display: none; position: fixed; inset: 0; background: rgba(11, 34, 56, 0.85); backdrop-filter: blur(5px); z-index: 9999; overflow-y: auto; padding: 20px;">
         <div class="card" style="max-width: 800px; margin: 40px auto; position: relative; padding: 30px; border-top: 5px solid var(--gov-gold);">
             <button onclick="closeFullArticle()" style="position: absolute; top: 15px; left: 15px; background: var(--primary-red); color: #fff; border: none; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-weight: bold;">✕ إغلاق</button>
             <div id="modal-content-area"></div>
-            
-            <div style="margin-top: 25px; padding: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0; text-align: center;">
-                <p style="font-size: 0.9rem; margin-bottom: 8px; font-weight: bold; color: var(--gov-blue-dark);">هل كان هذا المقال مفيداً لك؟ قيّمه الآن:</p>
-                <div id="rating-stars" style="font-size: 1.5rem; cursor: pointer; color: var(--gov-gold);">
-                    <span onclick="rateArticle(1)">⭐</span>
-                    <span onclick="rateArticle(2)">⭐</span>
-                    <span onclick="rateArticle(3)">⭐</span>
-                    <span onclick="rateArticle(4)">⭐</span>
-                    <span onclick="rateArticle(5)">⭐</span>
-                </div>
-                <p id="rating-feedback" style="font-size: 0.8rem; color: #64748b; margin-top: 5px;"></p>
-            </div>
-
-            <div style="margin-top: 30px; border-top: 1px solid #e2e8f0; padding-top: 20px;">
-                <h4 style="margin-bottom: 12px; color: var(--gov-blue-dark); font-weight: 800;"><i class="fa-solid fa-comments"></i> تعليقات الزوار والأعضاء</h4>
-                <div id="comments-list" style="margin-bottom: 15px; font-size: 0.88rem; color: #64748b;">جاري تحميل التعليقات...</div>
-                
-                <!-- نموذج كتابة التعليق (يعتمد على حساب جوجل المسجل) -->
-                <form onsubmit="addCommentToFirebase(event)" style="display: flex; flex-direction: column; gap: 10px;">
-                    <textarea id="comment-text" placeholder="اكتب تعليقك كعضو مسجل..." required rows="3" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-family: inherit;"></textarea>
-                    <button type="submit" class="submit-btn">إرسال التعليق باسم حسابك 📨</button>
-                </form>
-            </div>
         </div>
     </div>
 
@@ -456,6 +369,16 @@
         <p>جميع الحقوق محفوظة &copy; 2027 — GITI Tech & Business OS | <a href="montda.html">🇪🇬 منتدى ومجتمع GITI</a></p>
     </footer>
 
+    <!-- سكريبت تسجيل الـ Service Worker لضمان عمل الـ PWA -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then((reg) => console.log('✅ ServiceWorker registered: ', reg.scope))
+                    .catch((err) => console.log('❌ ServiceWorker registration failed: ', err));
+            });
+        }
+    </script>
     <script src="app.js"></script>
 </body>
 </html>
