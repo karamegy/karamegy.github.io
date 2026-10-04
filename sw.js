@@ -44,17 +44,18 @@ self.addEventListener('activate', event => {
   );
 });
 
-// استراتيجية جلب البيانات للرئيسية مع تقييدها تماماً وعدم لمس أي مسار فرعي
+// استراتيجية جلب البيانات للرئيسية مع تقييدها تماماً وعدم لمس أي مسار فرعي أو إعلانات أدسنس
 self.addEventListener('fetch', event => {
   const requestUrl = event.request.url;
 
-  // 🛑 الحاجز الأمني: منع سيرفر ووركر المدونة من الاقتراب نهائياً من أي تطبيق فرعي أو سحابي
+  // 🛑 الحاجز الأمني الشامل: منع سيرفر ووركر المدونة من الاقتراب نهائياً من أي تطبيق فرعي أو سحابي أو إعلانات أدسنس
   if (
     requestUrl.includes('firestore') || 
     requestUrl.includes('firebase') || 
     requestUrl.includes('googleapis') || 
     requestUrl.includes('gstatic') || 
     requestUrl.includes('googlesyndication') ||
+    requestUrl.includes('adsense') ||        
     requestUrl.includes('cdnjs.cloudflare.com') ||
     requestUrl.includes('/el-omda-app/') ||  // تطبيق العلاف
     requestUrl.includes('/Na2la/') ||       // تطبيق نقلة
@@ -62,7 +63,7 @@ self.addEventListener('fetch', event => {
     requestUrl.includes('/Ton2/') ||        // GITI ERP
     requestUrl.includes('/giti/')           // ألعاب الفضاء
   ) {
-    return; // اترك هذه المسارات تعمل بحرية تامة وبدون أي تدخل من المدونة
+    return; // تمرر الطلبات مباشرة للشبكة بدون أي كاش أو تدخل من المدونة
   }
 
   event.respondWith(
