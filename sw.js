@@ -46,11 +46,20 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
-// التعامل مع طلبات الشبكة (جلب الملفات من الكاش أو الشبكة)
+// التعامل مع طلبات الشبكة وعزل الإعلانات
 self.addEventListener('fetch', (event) => {
-  // استثناء طلبات Firebase و Google AdSense من الكاش لتعتمد على الإنترنت المباشر
   const url = event.request.url;
-  if (url.includes('firestore.googleapis.com') || url.includes('firebase') || url.includes('googlesyndication') || url.includes('googleapis.com')) {
+
+  // استثناء طلبات الإعلانات، شبكات جوجل، و Firebase لتعمل مباشرة عبر الإنترنت
+  if (
+    url.includes('googlesyndication.com') ||
+    url.includes('googleads.g.doubleclick.net') ||
+    url.includes('pagead2.googlesyndication.com') ||
+    url.includes('firestore.googleapis.com') ||
+    url.includes('firebase') ||
+    url.includes('googleapis.com')
+  ) {
+    event.respondWith(fetch(event.request));
     return;
   }
 
@@ -60,8 +69,10 @@ self.addEventListener('fetch', (event) => {
         if (cachedResponse) {
           return cachedResponse;
         }
-        return fetch(event.request).catch(() => {
-          // يمكن وضع صفحة بديلة للوضع غير المتصل (Offline) هنا إذا لزم الأمر
+        return fetch(event.request).then((response) => {
+          return response;
+        }).catch(() => {
+          // صفحة احتياطية عند انقطاع الاتصال إذا لزم الأمر
         });
       })
   );
