@@ -49,8 +49,12 @@ jobs:
           ORG_GRADLE_PROJECT_signingKeyPassword: ${{ secrets.KEY_PASSWORD }}
           ORG_GRADLE_PROJECT_signingStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
         run: |
-          # تحديث المشروع بدون أي حلقات تفاعلية
+          # تحديث المشروع
           bubblewrap update --skipVersionUpgrade || true
+
+          # رفع إصدار minSdk إلى 24 لتوافق المكتبات الحديثة وتجنب الفشل
+          find . -name "build.gradle" -type f -exec sed -i 's/minSdkVersion\s*[0-9]\+/minSdkVersion 24/g' {} +
+          find . -name "build.gradle" -type f -exec sed -i 's/minSdk\s*=\s*[0-9]\+/minSdk = 24/g' {} +
 
           if [ -f "./gradlew" ]; then
             chmod +x ./gradlew
