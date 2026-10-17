@@ -27,7 +27,7 @@ jobs:
 
       - name: Decode Signing Keystore
         run: |
-          echo "${{ secrets.SIGNING_KEYSTORE_BASE64 }}" | base64 --decode > ./signing.keystore
+          echo "${{ secrets.SIGNING_KEYSTORE_BASE64 }}" | base64 --decode > ${{ github.workspace }}/signing.keystore
 
       - name: Setup Android SDK & Config
         run: |
@@ -44,7 +44,7 @@ jobs:
 
       - name: Build APK and AAB via Gradle
         env:
-          ORG_GRADLE_PROJECT_signingKeyStorePath: ../signing.keystore
+          ORG_GRADLE_PROJECT_signingKeyStorePath: ${{ github.workspace }}/signing.keystore
           ORG_GRADLE_PROJECT_signingKeyAlias: ${{ secrets.KEY_ALIAS }}
           ORG_GRADLE_PROJECT_signingKeyPassword: ${{ secrets.KEY_PASSWORD }}
           ORG_GRADLE_PROJECT_signingStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
