@@ -33,10 +33,9 @@ jobs:
         env:
           BUBBLEWRAP_KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           BUBBLEWRAP_KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-          ANDROID_HOME: /usr/local/lib/android/sdk
-          ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
         run: |
-          yes | bubblewrap build
+          bubblewrap init --manifest=twa-manifest.json
+          bubblewrap build --skipVersionUpgrade
 
       - name: Upload App Artifacts (AAB & APK)
         uses: actions/upload-artifact@v4
@@ -45,3 +44,5 @@ jobs:
           path: |
             *.aab
             *.apk
+            **/build/outputs/apk/release/*.apk
+            **/build/outputs/bundle/release/*.aab
