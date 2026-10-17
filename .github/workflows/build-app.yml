@@ -17,13 +17,10 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
-
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
 
       - name: Install Bubblewrap CLI
         run: npm install -g @bubblewrap/cli
@@ -32,32 +29,14 @@ jobs:
         run: |
           echo "${{ secrets.SIGNING_KEYSTORE_BASE64 }}" | base64 --decode > ./signing.keystore
 
-      - name: Build Android App Bundle (.aab)
+      - name: Build Android App (AAB & APK)
         env:
           BUBBLEWRAP_KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           BUBBLEWRAP_KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+          ANDROID_HOME: /usr/local/lib/android/sdk
+          ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
         run: |
-          if [ ! -d "app" ] && [ ! -f "build.gradle" ]; then
-            bubblewrap init --manifest twa-manifest.json
-          fi
-          bubblewrap update --skipVersionUpgrade
-          bubblewrap build
-
-      - name: Build APK file
-        env:
-          ORG_GRADLE_PROJECT_signingKeyStorePath: ../signing.keystore
-          ORG_GRADLE_PROJECT_signingKeyAlias: my-key-alias
-          ORG_GRADLE_PROJECT_signingKeyPassword: ${{ secrets.KEY_PASSWORD }}
-          ORG_GRADLE_PROJECT_signingStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
-        run: |
-          if [ -f "./gradlew" ]; then
-            chmod +x ./gradlew
-            ./gradlew assembleRelease
-          elif [ -d "android" ]; then
-            cd android
-            chmod +x ./gradlew
-            ./gradlew assembleRelease
-          fi
+          yes | bubblewrap build
 
       - name: Upload App Artifacts (AAB & APK)
         uses: actions/upload-artifact@v4
@@ -65,5 +44,4 @@ jobs:
           name: app-release-files
           path: |
             *.aab
-            app/build/outputs/apk/release/*.apk
-            **/build/outputs/apk/release/*.apk
+            *.apk
