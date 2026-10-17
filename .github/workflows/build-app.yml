@@ -1,7 +1,7 @@
-name: Build and Sign TWA App
+name: Build TWA (AAB and APK)
 
 on:
-  workflow_dispatch: # يتيح لك تشغيل البناء يدوياً بضغطة زر من تبويب Actions في جيت هب
+  workflow_dispatch: # للتشغيل اليدوي من تبويب Actions
 
 jobs:
   build:
@@ -37,8 +37,27 @@ jobs:
           bubblewrap update --skipVersionUpgrade
           bubblewrap build
 
-      - name: Upload Generated App Bundle
+      - name: Build APK file
+        env:
+          ORG_GRADLE_PROJECT_signingKeyStorePath: ../signing.keystore
+          ORG_GRADLE_PROJECT_signingKeyAlias: my-key-alias
+          ORG_GRADLE_PROJECT_signingKeyPassword: ${{ secrets.KEY_PASSWORD }}
+          ORG_GRADLE_PROJECT_signingStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
+        run: |
+          if [ -f "./gradlew" ]; then
+            chmod +x ./gradlew
+            ./gradlew assembleRelease
+          elif [ -d "android" ]; then
+            cd android
+            chmod +x ./gradlew
+            ./gradlew assembleRelease
+          fi
+
+      - name: Upload App Artifacts (AAB & APK)
         uses: actions/upload-artifact@v4
         with:
-          name: app-release-bundle
-          path: app-release-bundle.aab
+          name: app-release-files
+          path: |
+            *.aab
+            app/build/outputs/apk/release/*.apk
+            **/build/outputs/apk/release/*.apk
