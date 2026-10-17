@@ -17,6 +17,9 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -34,8 +37,11 @@ jobs:
           BUBBLEWRAP_KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           BUBBLEWRAP_KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: |
+          if [ ! -d "app" ] && [ ! -f "build.gradle" ]; then
+            bubblewrap init --manifest twa-manifest.json
+          fi
           bubblewrap update --skipVersionUpgrade
-          yes | bubblewrap build
+          bubblewrap build
 
       - name: Build APK file
         env:
