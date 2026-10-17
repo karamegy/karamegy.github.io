@@ -29,14 +29,20 @@ jobs:
         run: |
           echo "${{ secrets.SIGNING_KEYSTORE_BASE64 }}" | base64 --decode > ./signing.keystore
 
-      - name: Configure Bubblewrap CLI
+      - name: Setup Android SDK Packages & Config
         run: |
-          mkdir -p ~/.bubblewrap
-          echo "{\"jdkPath\":\"${JAVA_HOME}\",\"androidSdkPath\":\"${ANDROID_HOME}\"}" > ~/.bubblewrap/config.json
-
-      - name: Accept Android SDK Licenses
-        run: |
+          # قبول التراخيص وتثبيت حزم أندرويد المطلوبة لـ Bubblewrap
           yes | ${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager --licenses || true
+          ${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager "platforms;android-34" "build-tools;34.0.0" "platform-tools"
+          
+          # إعداد ملف التكوين بأعلى دقة
+          mkdir -p ~/.bubblewrap
+          cat <<EOF > ~/.bubblewrap/config.json
+          {
+            "jdkPath": "${JAVA_HOME}",
+            "androidSdkPath": "${ANDROID_HOME}"
+          }
+          EOF
 
       - name: Build Android App (AAB & APK)
         env:
