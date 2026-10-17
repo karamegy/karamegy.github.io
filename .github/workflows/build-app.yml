@@ -29,27 +29,25 @@ jobs:
         run: |
           echo "${{ secrets.SIGNING_KEYSTORE_BASE64 }}" | base64 --decode > ./signing.keystore
 
-      - name: Setup Android SDK Packages & Config
+      - name: Initialize Project via Bubblewrap
         run: |
-          sudo chown -R $USER:$USER $ANDROID_HOME
-          printf 'y\ny\ny\ny\ny\ny\ny\n' | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --sdk_root=$ANDROID_HOME --licenses || true
-          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --sdk_root=$ANDROID_HOME "platforms;android-34" "build-tools;34.0.0" "platform-tools"
-          mkdir -p $ANDROID_HOME/tools
-          mkdir -p ~/.bubblewrap
-          cat <<EOF > ~/.bubblewrap/config.json
-          {
-            "jdkPath": "${JAVA_HOME}",
-            "androidSdkPath": "${ANDROID_HOME}"
-          }
-          EOF
+          yes | bubblewrap update --skipVersionUpgrade || true
 
-      - name: Build Android App (AAB & APK)
+      - name: Build APK and AAB directly via Gradle
         env:
-          BUBBLEWRAP_KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
-          BUBBLEWRAP_KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+          ORG_GRADLE_PROJECT_signingKeyStorePath: ../signing.keystore
+          ORG_GRADLE_PROJECT_signingKeyAlias: ${{ secrets.KEY_ALIAS }}
+          ORG_GRADLE_PROJECT_signingKeyPassword: ${{ secrets.KEY_PASSWORD }}
+          ORG_GRADLE_PROJECT_signingStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
         run: |
-          bubblewrap update --skipVersionUpgrade
-          bubblewrap build --keyStorePassword="${{ secrets.KEYSTORE_PASSWORD }}" --keyPassword="${{ secrets.KEY_PASSWORD }}" || (echo "=== BUILD FAILED, SHOWING LOGS ===" && find android -name "build.gradle" && exit 1)
+          if [ -f "./gradlew" ]; then
+            chmod +x ./gradlew
+            ./gradlew bundleRelease assembleRelease
+          elif [ -d "android" ]; then
+            cd android
+            chmod +x ./gradlew
+            ./gradlew bundleRelease assembleRelease
+          fi
 
       - name: Upload App Artifacts (AAB & APK)
         uses: actions/upload-artifact@v4
@@ -58,5 +56,7 @@ jobs:
           path: |
             *.aab
             *.apk
-            **/build/outputs/apk/release/*.apk
+            app/build/outputs/bundle/release/*.aab
+            app/build/outputs/apk/release/*.apk
             **/build/outputs/bundle/release/*.aab
+            **/build/outputs/apk/release/*.apk
