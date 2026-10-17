@@ -47,15 +47,14 @@ jobs:
 
       - name: Patch twa-manifest.json Signing Config
         run: |
-          jq '.signingKey.path = "./signing.keystore" | .signingKey.alias = "${{ secrets.KEY_ALIAS }}"' twa-manifest.json > twa-manifest.tmp.json && mv twa-manifest.tmp.json twa-manifest.json
+          ALIAS_VAL="${{ secrets.KEY_ALIAS }}"
+          if [ -z "$ALIAS_VAL" ]; then ALIAS_VAL="my-key-alias"; fi
+          jq --arg alias "$ALIAS_VAL" '.signingKey.path = "./signing.keystore" | .signingKey.alias = $alias' twa-manifest.json > twa-manifest.tmp.json && mv twa-manifest.tmp.json twa-manifest.json
 
       - name: Build Android App (AAB & APK)
-        env:
-          BUBBLEWRAP_KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
-          BUBBLEWRAP_KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: |
-          bubblewrap update --skipVersionUpgrade
-          bubblewrap build
+          yes | bubblewrap update --skipVersionUpgrade
+          bubblewrap build --keyStorePassword="${{ secrets.KEYSTORE_PASSWORD }}" --keyPassword="${{ secrets.KEY_PASSWORD }}"
 
       - name: Upload App Artifacts (AAB & APK)
         uses: actions/upload-artifact@v4
