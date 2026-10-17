@@ -31,19 +31,10 @@ jobs:
 
       - name: Setup Android SDK Packages & Config
         run: |
-          # 1. إعطاء صلاحيات الكاتبة للمستخدم الحالي على مجلد أندرويد
           sudo chown -R $USER:$USER $ANDROID_HOME
-          
-          # 2. قبول التراخيص وتأكيد حفظها داخل مجلد SDK الرئيسي
           printf 'y\ny\ny\ny\ny\ny\ny\n' | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --sdk_root=$ANDROID_HOME --licenses
-          
-          # 3. تنزيل أدوات البناء وحزمة الأندرويد المطلوبين
           $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --sdk_root=$ANDROID_HOME "platforms;android-34" "build-tools;34.0.0" "platform-tools"
-          
-          # 4. إنشاء مجلد توافقية قديم تطلبه أداة Bubblewrap
           mkdir -p $ANDROID_HOME/tools
-          
-          # 5. ضبط مسارات Bubblewrap بملف التكوين
           mkdir -p ~/.bubblewrap
           cat <<EOF > ~/.bubblewrap/config.json
           {
@@ -57,6 +48,7 @@ jobs:
           BUBBLEWRAP_KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           BUBBLEWRAP_KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: |
+          echo "y" | bubblewrap update
           bubblewrap build --skipVersionUpgrade
 
       - name: Upload App Artifacts (AAB & APK)
