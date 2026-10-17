@@ -1,0 +1,32 @@
+{
+  "path": ".",
+  "packageId": "com.github.karamegy.twa",
+  "host": "karamegy.github.io",
+  "name": "مدونة GITI Tech",
+  "launcherName": "GITI Tech",
+  "display": "standalone",
+  "orientation": "default",
+  "themeColor": "#000000",
+  "themeColorDark": "#000000",
+  "navigationColor": "#000000",
+  "navigationColorDark": "#000000",
+  "navigationDividerColor": "#000000",
+  "navigationDividerColorDark": "#000000",
+  "backgroundColor": "#ffffff",
+  "enableNotifications": true,
+  "startUrl": "/",
+  "iconUrl": "https://karamegy.github.io/logo.png",
+  "maskableIconUrl": "https://karamegy.github.io/logo.png",
+  "monochromeIconUrl": "https://karamegy.github.io/logo.png",
+  "splashScreenFadeOutDuration": 300,
+  "signingKey": {
+    "path": "./signing.keystore",
+    "alias": "my-key-alias"
+  },
+  "appVersionName": "1.0.0",
+  "appVersionCode": 1,
+  "generatorApp": "bubblewrap-cli",
+  "additionalTrustedOrigins": [],
+  "features": {},
+  "alphaDependencies": false
+}
