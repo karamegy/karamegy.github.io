@@ -29,17 +29,29 @@ jobs:
         run: |
           echo "${{ secrets.SIGNING_KEYSTORE_BASE64 }}" | base64 --decode > ./signing.keystore
 
-      - name: Initialize Project via Bubblewrap
+      - name: Setup Android SDK & Config
         run: |
-          yes | bubblewrap update --skipVersionUpgrade || true
+          sudo chown -R $USER:$USER $ANDROID_HOME
+          printf 'y\ny\ny\ny\ny\ny\ny\n' | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --sdk_root=$ANDROID_HOME --licenses || true
+          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --sdk_root=$ANDROID_HOME "platforms;android-34" "build-tools;34.0.0" "platform-tools"
+          mkdir -p ~/.bubblewrap
+          cat <<EOF > ~/.bubblewrap/config.json
+          {
+            "jdkPath": "${JAVA_HOME}",
+            "androidSdkPath": "${ANDROID_HOME}"
+          }
+          EOF
 
-      - name: Build APK and AAB directly via Gradle
+      - name: Build APK and AAB via Gradle
         env:
           ORG_GRADLE_PROJECT_signingKeyStorePath: ../signing.keystore
           ORG_GRADLE_PROJECT_signingKeyAlias: ${{ secrets.KEY_ALIAS }}
           ORG_GRADLE_PROJECT_signingKeyPassword: ${{ secrets.KEY_PASSWORD }}
           ORG_GRADLE_PROJECT_signingStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
         run: |
+          # تحديث المشروع بدون أي حلقات تفاعلية
+          bubblewrap update --skipVersionUpgrade || true
+
           if [ -f "./gradlew" ]; then
             chmod +x ./gradlew
             ./gradlew bundleRelease assembleRelease
