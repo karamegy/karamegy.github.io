@@ -29,18 +29,28 @@ jobs:
         run: |
           echo "${{ secrets.SIGNING_KEYSTORE_BASE64 }}" | base64 --decode > ./signing.keystore
 
-      - name: Setup Android SDK Packages & Permissions
+      - name: Setup Android SDK Packages & Config
         run: |
-          # منح صلاحيات الكتابة الكاملة للمستخدم على مجلد Android SDK
+          # 1. إعطاء صلاحيات الكاتبة للمستخدم الحالي على مجلد أندرويد
           sudo chown -R $USER:$USER $ANDROID_HOME
           
-          # قبول التراخيص وتثبيت حزمة نظام أندرويد 34 رسمياً
-          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
+          # 2. قبول التراخيص وتأكيد حفظها داخل مجلد SDK الرئيسي
+          printf 'y\ny\ny\ny\ny\ny\ny\n' | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --sdk_root=$ANDROID_HOME --licenses
+          
+          # 3. تنزيل أدوات البناء وحزمة الأندرويد المطلوبين
           $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --sdk_root=$ANDROID_HOME "platforms;android-34" "build-tools;34.0.0" "platform-tools"
           
-          # ربط المسارات بملف تكوين Bubblewrap
+          # 4. إنشاء مجلد توافقية قديم تطلبه أداة Bubblewrap
+          mkdir -p $ANDROID_HOME/tools
+          
+          # 5. ضبط مسارات Bubblewrap بملف التكوين
           mkdir -p ~/.bubblewrap
-          echo "{\"jdkPath\":\"${JAVA_HOME}\",\"androidSdkPath\":\"${ANDROID_HOME}\"}" > ~/.bubblewrap/config.json
+          cat <<EOF > ~/.bubblewrap/config.json
+          {
+            "jdkPath": "${JAVA_HOME}",
+            "androidSdkPath": "${ANDROID_HOME}"
+          }
+          EOF
 
       - name: Build Android App (AAB & APK)
         env:
