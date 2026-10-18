@@ -65,6 +65,29 @@ jobs:
             ./gradlew bundleRelease assembleRelease
           fi
 
+      - name: Sign APK Manually
+        run: |
+          BUILD_TOOLS_DIR="$ANDROID_HOME/build-tools/34.0.0"
+          FOUND_APK=$(find . -name "app-release-unsigned.apk" | head -n 1)
+          
+          if [ -n "$FOUND_APK" ]; then
+            DIR=$(dirname "$FOUND_APK")
+            SIGNED_APK="$DIR/app-release.apk"
+            echo "Signing APK found at $FOUND_APK..."
+            
+            $BUILD_TOOLS_DIR/zipalign -v 4 "$FOUND_APK" "$SIGNED_APK"
+            $BUILD_TOOLS_DIR/apksigner sign --ks ${{ github.workspace }}/signing.keystore \
+              --ks-key-alias "${{ secrets.KEY_ALIAS }}" \
+              --ks-pass "pass:${{ secrets.KEYSTORE_PASSWORD }}" \
+              --key-pass "pass:${{ secrets.KEY_PASSWORD }}" \
+              "$SIGNED_APK"
+              
+            echo "APK signed successfully!"
+          else
+            echo "Error: Unsigned APK not found!"
+            exit 1
+          fi
+
       - name: Upload App Artifacts (AAB & APK)
         uses: actions/upload-artifact@v4
         with:
