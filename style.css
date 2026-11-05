@@ -32,7 +32,6 @@ body {
    تأثيرات الفضاء السحيق (نجوم متلألئة + رعد يضرب من السماء)
    ========================================================= */
 
-/* نجوم متلألئة في الخلفية */
 body::before {
     content: '';
     position: fixed;
@@ -60,7 +59,6 @@ body::before {
     100% { opacity: 0.9; transform: scale(1.02); }
 }
 
-/* رعد يضرب من السماء (Lightning Flash Storm) */
 body::after {
     content: '';
     position: fixed;
@@ -93,7 +91,6 @@ body::after {
     z-index: 1;
 }
 
-/* كوكب متوهج في الفضاء خلف الـ Hero */
 .gov-hero-section::before {
     content: '';
     position: absolute;
@@ -113,6 +110,154 @@ body::after {
 @keyframes planetFloat {
     0% { transform: translateY(0px) scale(1) rotate(0deg); }
     100% { transform: translateY(18px) scale(1.06) rotate(5deg); }
+}
+
+/* =========================================================
+   شبكة تطبيقات منظومة GITI (App Ecosystem Grid)
+   ========================================================= */
+.app-ecosystem-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.ecosystem-card {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.ecosystem-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(11, 34, 56, 0.15);
+    border-color: var(--gov-gold);
+}
+
+.ecosystem-card.highlight-card {
+    border: 2px solid #01875f;
+    background: linear-gradient(180deg, #ffffff 0%, #f0fdf4 100%);
+}
+
+.eco-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    background: #f1f5f9;
+    color: var(--gov-blue-dark);
+    padding: 3px 8px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+}
+
+.eco-icon-box {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    margin-bottom: 12px;
+}
+
+.ecosystem-card h3 {
+    font-size: 1.1rem;
+    color: var(--gov-blue-dark);
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.ecosystem-card p {
+    font-size: 0.86rem;
+    color: #475569;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.eco-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.eco-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: #ffffff;
+    transition: opacity 0.2s;
+}
+
+.eco-btn:hover {
+    opacity: 0.9;
+}
+
+.btn-gp { background: #01875f; }
+.btn-web { background: var(--gov-blue-dark); border: 1px solid var(--gov-gold); color: var(--gov-gold); }
+.btn-sec { background: #6366f1; }
+.btn-amber { background: #f59e0b; }
+.btn-lime { background: #65a30d; }
+.btn-pink { background: #db2777; }
+
+.eco-link {
+    font-size: 0.76rem;
+    color: #64748b;
+    text-align: center;
+    text-decoration: underline;
+}
+
+/* =========================================================
+   قسم الأسئلة الشائعة (FAQ Accordion)
+   ========================================================= */
+.faq-accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.faq-item {
+    background: #f8fafc;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 12px 16px;
+    transition: background 0.2s;
+}
+
+.faq-item[open] {
+    background: #ffffff;
+    border-color: var(--gov-gold);
+}
+
+.faq-question {
+    font-weight: 800;
+    color: var(--gov-blue-dark);
+    font-size: 0.95rem;
+    cursor: pointer;
+    outline: none;
+}
+
+.faq-answer {
+    margin-top: 10px;
+    font-size: 0.88rem;
+    color: #475569;
+    line-height: 1.7;
+    border-top: 1px dashed #e2e8f0;
+    padding-top: 10px;
 }
 
 /* =========================================================
