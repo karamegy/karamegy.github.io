@@ -12,6 +12,30 @@ function toggleSidebar() {
 let articlesDatabase = {};
 let currentActiveArticleId = null;
 
+// --- كود حاسبة تقدير القيمة لتطبيقات GITI ERP ---
+window.calculateERPValue = function() {
+    const inputEl = document.getElementById('calc-input');
+    const resultEl = document.getElementById('calc-result');
+    if (!inputEl || !resultEl) return;
+
+    const count = parseInt(inputEl.value);
+    if (isNaN(count) || count <= 0) {
+        resultEl.innerHTML = "⚠️ يرجى إدخال عدد معاملات صحيح أكثر من 0.";
+        resultEl.style.color = "#dc2626";
+        return;
+    }
+
+    const savedHours = Math.round((count * 3) / 60);
+    const savedMoney = Math.round(count * 4.5);
+
+    resultEl.innerHTML = `
+        🎉 باستخدام <strong>تطبيق GITI ERP</strong>:
+        <br>• توفر حوالي <strong>${savedHours} ساعة عمل</strong> شهرياً من وقت الإدخال اليدوي.
+        <br>• تمنع هدر مالي وتقليل خطأ فواتير بقيمة تقديرية <strong>${savedMoney.toLocaleString()} ج.م</strong>.
+    `;
+    resultEl.style.color = "#15803d";
+};
+
 // --- كود مولد بطاقة العضوية المهنية (Canvas Generator) ---
 let cardCanvas, cardCtx;
 let userAvatarImg = new Image();
@@ -204,7 +228,7 @@ async function initDynamicArticles() {
                             <button onclick="openFullArticle('${id}')" class="submit-btn" style="width: auto; padding: 8px 18px; font-size: 0.85rem;">قراءة المقال كاملاً</button>
                             <button onclick="toggleBookmark('${id}')" style="background: #f1f5f9; border: 1px solid #cbd5e1; padding: 8px 12px; border-radius: 6px; cursor: pointer;" title="حفظ المقال">🔖 حفظ</button>
                         </div>
-                        <span style="font-size: 0.8rem; color: var(--gov-gold); font-weight: 700;">⭐ 4.8 / 5</span>
+                        <span style="font-size: 0.8rem; color: var(--gov-gold); font-weight: 700;">⭐ 5.0 / 5</span>
                     </div>
                 </article>
             `;
@@ -297,8 +321,10 @@ function renderBookmarks() {
 
 window.rateArticle = function(stars) {
     const feedback = document.getElementById('rating-feedback');
-    feedback.innerHTML = `✅ شكراً لك! تم تسجيل تقييمك (${stars} نجوم) بنجاح.`;
-    feedback.style.color = '#15803d';
+    if (feedback) {
+        feedback.innerHTML = `✅ شكراً لك! تم تسجيل تقييمك (${stars} نجوم) بنجاح.`;
+        feedback.style.color = '#15803d';
+    }
 };
 
 window.addCommentToFirebase = async function(e) {
@@ -311,7 +337,9 @@ window.addCommentToFirebase = async function(e) {
         return;
     }
 
-    const text = document.getElementById('comment-text').value.trim();
+    const textInput = document.getElementById('comment-text');
+    if (!textInput) return;
+    const text = textInput.value.trim();
     if (!text) return;
 
     try {
@@ -328,7 +356,7 @@ window.addCommentToFirebase = async function(e) {
             timestamp: serverTimestampFn ? serverTimestampFn() : new Date()
         });
 
-        document.getElementById('comment-text').value = '';
+        textInput.value = '';
         alert('✅ تم إرسال تعليقك بنجاح!');
     } catch (err) {
         alert('❌ حدث خطأ أثناء إرسال التعليق: ' + err.message);
@@ -337,6 +365,8 @@ window.addCommentToFirebase = async function(e) {
 
 function loadFirebaseComments(articleId) {
     const commentsList = document.getElementById('comments-list');
+    if (!commentsList) return;
+
     if (!window.db) {
         commentsList.innerHTML = '<p>قاعدة البيانات غير متصلة حالياً.</p>';
         return;
@@ -376,7 +406,6 @@ function loadFirebaseComments(articleId) {
     }
 }
 
-// حفظ استمارة الاستفسارات في مجموعة app_inquiries (تم تصحيح طريقة الاتصال بـ Firebase)
 window.handleFormSubmit = async function(event) {
     event.preventDefault();
     const submitBtn = document.getElementById('submitBtn');
@@ -396,23 +425,19 @@ window.handleFormSubmit = async function(event) {
     };
 
     try {
-        // التأكد من توفر قاعدة البيانات ووحدات الإضافة
         const addDocFn = window.addDoc || window.firebaseModules?.addDoc;
         const collectionFn = window.collection || window.firebaseModules?.collection;
 
         if (window.db && addDocFn && collectionFn) {
             await addDocFn(collectionFn(window.db, "app_inquiries"), formData);
-            document.getElementById('forumForm').style.display = 'none';
-            document.getElementById('successBox').style.display = 'block';
+            if (document.getElementById('forumForm')) document.getElementById('forumForm').style.display = 'none';
+            if (document.getElementById('successBox')) document.getElementById('successBox').style.display = 'block';
+        } else if (window.db && window.firebaseModules) {
+            await window.firebaseModules.addDoc(window.firebaseModules.collection(window.db, "app_inquiries"), formData);
+            if (document.getElementById('forumForm')) document.getElementById('forumForm').style.display = 'none';
+            if (document.getElementById('successBox')) document.getElementById('successBox').style.display = 'block';
         } else {
-            // محاولة جلبها من window.firebaseModules بشكل مباشر
-            if (window.db && window.firebaseModules) {
-                await window.firebaseModules.addDoc(window.firebaseModules.collection(window.db, "app_inquiries"), formData);
-                document.getElementById('forumForm').style.display = 'none';
-                document.getElementById('successBox').style.display = 'block';
-            } else {
-                throw new Error("قاعدة بيانات فايربيس غير متصلة.");
-            }
+            throw new Error("قاعدة بيانات فايربيس غير متصلة.");
         }
     } catch (error) {
         console.error("Firebase Sync Error:", error);
@@ -537,7 +562,7 @@ async function incrementAndFetchPageReads() {
 }
 
 function sanitizeAndValidate(text) {
-    if (!text || typeof text !== 'string') return '';
+    if (!text || typeof text !== 'string') return { cleaned: '', hasBanned: false };
     const cleaned = text.trim().replace(/<[^>]*>?/gm, '');
     const bannedKeywords = ['عنف', 'قتل', 'إرهاب', 'سلاح', 'تفجير', 'كراهية', 'حرب', 'دمار', 'تحريض', 'شتم', 'سب', 'script', 'onerror', 'onload'];
     const lowerText = cleaned.toLowerCase();
@@ -558,8 +583,8 @@ window.submitInquiryToFirebase = async function(e) {
         return;
     }
 
-    const rawName = document.getElementById('inq-name').value;
-    const rawText = document.getElementById('inq-text').value;
+    const rawName = document.getElementById('inq-name')?.value || '';
+    const rawText = document.getElementById('inq-text')?.value || '';
 
     const nameCheck = sanitizeAndValidate(rawName);
     const textCheck = sanitizeAndValidate(rawText);
@@ -705,10 +730,10 @@ window.submitContactForm = async function(e) {
         return;
     }
 
-    const name = document.getElementById('contact-name').value.trim();
-    const email = document.getElementById('contact-email').value.trim();
-    const subject = document.getElementById('contact-subject').value;
-    const message = document.getElementById('contact-msg').value.trim();
+    const name = document.getElementById('contact-name')?.value.trim() || '';
+    const email = document.getElementById('contact-email')?.value.trim() || '';
+    const subject = document.getElementById('contact-subject')?.value || '';
+    const message = document.getElementById('contact-msg')?.value.trim() || '';
 
     const btn = document.getElementById('submit-contact-btn');
     if (btn) {
@@ -737,7 +762,7 @@ window.submitContactForm = async function(e) {
         showContactAlert('✅ شكراً لك! تم إرسال رسالتك بنجاح وحفظها في السحابة.', '#15803d', '#dcfce7');
     } catch (err) {
         console.error("Contact Error:", err);
-        showContactAlert('❌ تعسّر الحفظ بالسحابة. تأكد من إعدادات قواعد أمان Firebase (Firestore Rules).', '#b91c1c', '#fee2e2');
+        showContactAlert('❌ تعسّر الحفظ بالسحابة. تأكد من إعدادات قواعد أمان Firebase.', '#b91c1c', '#fee2e2');
     } finally {
         if (btn) {
             btn.disabled = false;
@@ -745,19 +770,6 @@ window.submitContactForm = async function(e) {
         }
     }
 };
-// --- تفعيل الـ Service Worker لدعم تشغيل التطبيق كـ PWA والعمل دون إنترنت ---
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js')
-            .then((reg) => {
-                console.log('✅ تم تسجيل الـ ServiceWorker بنجاح، النطاق: ', reg.scope);
-            })
-            .catch((err) => {
-                console.log('❌ فشل تسجيل الـ ServiceWorker: ', err);
-            });
-    });
-}
-
 
 function showContactAlert(msg, textColor, bgColor) {
     const alertBox = document.getElementById('contact-alert');
@@ -767,4 +779,13 @@ function showContactAlert(msg, textColor, bgColor) {
     alertBox.style.background = bgColor;
     alertBox.style.display = 'block';
     setTimeout(() => { alertBox.style.display = 'none'; }, 6000);
+}
+
+// --- تسجيل الـ Service Worker لدعم الـ PWA والعمل دون إنترنت ---
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+            .then((reg) => console.log('✅ تم تسجيل الـ ServiceWorker بنجاح: ', reg.scope))
+            .catch((err) => console.log('❌ فشل تسجيل الـ ServiceWorker: ', err));
+    });
 }
