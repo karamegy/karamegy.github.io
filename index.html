@@ -11,18 +11,16 @@
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="author" content="GITI Enterprise Tech">
 
-    <!-- ربط ملف الـ Manifest الخاص بالـ PWA والأيقونات عالية الدقة (512x512) -->
+    <!-- ربط ملف الـ Manifest الخاص بالـ PWA والأيقونات -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0b2238">
-    <link rel="icon" type="image/png" sizes="512x512" href="logo-512.png">
-    <link rel="apple-touch-icon" sizes="512x512" href="logo-512.png">
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="apple-touch-icon" href="logo.png">
 
     <!-- وسوم المشاركة والمعاينة على منصات التواصل الاجتماعي (Open Graph) -->
     <meta property="og:title" content="مدونة تكنولوجيا الأعمال وأنظمة الإدارة الحديثة | GITI Tech & Business OS">
     <meta property="og:description" content="تطبيق GITI ERP للفواتير والحسابات والمقالات التقنية المتقدمة وأدوات التحول الرقمي للمؤسسات.">
-    <meta property="og:image" content="https://karamegy.github.io/logo-512.png">
-    <meta property="og:image:width" content="512">
-    <meta property="og:image:height" content="512">
+    <meta property="og:image" content="https://karamegy.github.io/logo.png">
     <meta property="og:url" content="https://karamegy.github.io/">
     <meta property="og:type" content="website">
 
@@ -30,7 +28,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="مدونة تكنولوجيا الأعمال وأنظمة الإدارة الحديثة | GITI Tech & Business OS">
     <meta name="twitter:description" content="تحميل تطبيق GITI ERP للفواتير والحسابات من Google Play وتصفح مقالات تكنولوجيا الأعمال.">
-    <meta name="twitter:image" content="https://karamegy.github.io/logo-512.png">
+    <meta name="twitter:image" content="https://karamegy.github.io/logo.png">
 
     <!-- Advanced JSON-LD Multi-Schema for Software Application & Organization (SEO & ASO) -->
     <script type="application/ld+json">
@@ -69,7 +67,7 @@
           "@id": "https://karamegy.github.io/#organization",
           "name": "GITI Enterprise ERP & Tech",
           "url": "https://karamegy.github.io/",
-          "logo": "https://karamegy.github.io/logo-512.png",
+          "logo": "https://karamegy.github.io/logo.png",
           "sameAs": [
             "https://play.google.com/store/apps/details?id=io.github.karamegy.Ton2"
           ]
@@ -95,7 +93,7 @@
             content: "";
             position: absolute;
             inset: 0;
-            background-image: url('logo-512.png');
+            background-image: url('logo.png');
             background-repeat: no-repeat;
             background-position: center;
             background-size: 320px auto;
@@ -305,7 +303,7 @@
                 if (authContainer) {
                     authContainer.innerHTML = `
                         <div style="display: flex; align-items: center; gap: 6px; color: #fff; font-size: 0.8rem; cursor: pointer;" onclick="openUserProfile()" title="عرض الملف الشخصي">
-                            <img src="${user.photoURL || 'logo-512.png'}" alt="Avatar" style="width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--gov-gold); object-fit: cover;">
+                            <img src="${user.photoURL || 'logo.png'}" alt="Avatar" style="width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--gov-gold); object-fit: cover;">
                             <span style="font-weight: 700;">${user.displayName ? user.displayName.split(' ')[0] : 'عضو'}</span>
                             <button onclick="logoutUser(); event.stopPropagation();" style="background: var(--primary-red); color: #fff; border: none; padding: 2px 6px; border-radius: 4px; cursor: pointer; font-size: 0.7rem;">خروج</button>
                         </div>
@@ -396,7 +394,7 @@
     <header>
         <div class="nav-container">
             <div class="gov-branding">
-                <img src="logo-512.png" alt="GITI Logo" class="eagle-emblem-img" width="48" height="48">
+                <img src="logo.png" alt="GITI Logo" class="eagle-emblem-img" width="48" height="48">
                 <div class="brand-text-box">
                     <h2>GITI Tech & Business OS</h2>
                     <p>الموسوعة التقنية وأدوات إدارة الأعمال الذكية</p>
@@ -513,7 +511,7 @@
                                 </div>
 
                                 <div class="gp-app-icon-wrapper">
-                                    <img src="logo-512.png" alt="شعار تطبيق الفواتير GITI ERP" class="gp-app-icon" width="52" height="52" loading="lazy">
+                                    <img src="logo.png" alt="شعار تطبيق الفواتير GITI ERP" class="gp-app-icon" width="52" height="52" loading="lazy">
                                 </div>
                             </div>
 
