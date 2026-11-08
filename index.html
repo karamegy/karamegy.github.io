@@ -183,11 +183,11 @@
     <!-- Adsense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6651309355082807" crossorigin="anonymous"></script>
 
-    <!-- Firebase Core Module & Auth (المحدث للهواتف والحواسب) -->
+    <!-- Firebase Core Module & Auth المحدث بدعم Persistence ومزامنة آمنة -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
         import { getFirestore, collection, getDocs, doc, setDoc, updateDoc, deleteDoc, onSnapshot, query, where, getDoc, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-        import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+        import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult, signOut, onAuthStateChanged, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyDTIxdIHfDaEH2wn7dEE9qMnsOlXtlSCI0",
@@ -203,82 +203,90 @@
         const db = getFirestore(app);
         const auth = getAuth(app);
 
+        // تثبيت حفظ جلسة المستخدم محلياً لمنع فقدان تسجيل الدخول عند إعادة التوجيه
+        setPersistence(auth, browserLocalPersistence).catch(console.error);
+
         const ADMIN_EMAILS = ["haretg@gmail.com", "karamegy@gmail.com"]; 
 
         window.db = db;
         window.auth = auth;
         window.firebaseModules = { collection, getDocs, doc, setDoc, updateDoc, deleteDoc, onSnapshot, query, where, getDoc, addDoc, serverTimestamp };
 
-        document.addEventListener('DOMContentLoaded', () => {
-            getRedirectResult(auth).then((result) => {
-                if (result && result.user) {
-                    console.log("✅ تم تسجيل الدخول بنجاح:", result.user.displayName);
+        // دالة تحديث واجهة تسجيل الدخول بشكل مباشر
+        window.updateAuthUI = function(user) {
+            const authContainer = document.getElementById('auth-container');
+            const sidebarLinks = document.querySelector('.sidebar-links');
+
+            if (!authContainer) return;
+
+            if (user) {
+                const isAdmin = ADMIN_EMAILS.includes(user.email) || user.email.includes("haretg") || user.email.includes("karamegy");
+
+                authContainer.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 6px; color: #fff; font-size: 0.8rem; cursor: pointer;" onclick="openUserProfile()" title="عرض الملف الشخصي">
+                        <img src="${user.photoURL || 'logo.png'}" alt="Avatar" style="width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--gov-gold); object-fit: cover;">
+                        <span style="font-weight: 700;">${user.displayName ? user.displayName.split(' ')[0] : 'عضو'}</span>
+                        <button onclick="logoutUser(); event.stopPropagation();" style="background: var(--primary-red); color: #fff; border: none; padding: 2px 6px; border-radius: 4px; cursor: pointer; font-size: 0.7rem;">خروج</button>
+                    </div>
+                `;
+
+                if (isAdmin && sidebarLinks) {
+                    if (!document.getElementById('admin-sidebar-link')) {
+                        const adminLink = document.createElement('a');
+                        adminLink.id = 'admin-sidebar-link';
+                        adminLink.href = 'admin.html';
+                        adminLink.innerHTML = '<i class="fa-solid fa-gauge-high" style="color: var(--gov-gold);"></i> ⚙️ لوحة التحكم (Admin)';
+                        sidebarLinks.prepend(adminLink);
+                    }
                 }
-            }).catch((error) => {
-                console.error("خطأ في إعادة التوجيه:", error);
-            });
+            } else {
+                authContainer.innerHTML = `
+                    <button onclick="loginWithGoogle()" style="background: #ffffff; color: var(--gov-blue-dark); padding: 3px 9px; border-radius: 4px; font-weight: 700; border: none; cursor: pointer; font-size: 0.78rem; display: inline-flex; align-items: center; gap: 4px;">
+                        <i class="fa-brands fa-google" style="color: #db4437;"></i> دخول بجوجل
+                    </button>
+                `;
+                const existingAdminLink = document.getElementById('admin-sidebar-link');
+                if (existingAdminLink) existingAdminLink.remove();
+            }
+        };
 
-            onAuthStateChanged(auth, (user) => {
-                const authContainer = document.getElementById('auth-container');
-                const sidebarLinks = document.querySelector('.sidebar-links');
-
-                if (user) {
-                    const isAdmin = ADMIN_EMAILS.includes(user.email) || user.email.includes("haretg") || user.email.includes("karamegy");
-
-                    if (authContainer) {
-                        authContainer.innerHTML = `
-                            <div style="display: flex; align-items: center; gap: 6px; color: #fff; font-size: 0.8rem; cursor: pointer;" onclick="openUserProfile()" title="عرض الملف الشخصي">
-                                <img src="${user.photoURL || 'logo.png'}" alt="Avatar" style="width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--gov-gold); object-fit: cover;">
-                                <span style="font-weight: 700;">${user.displayName ? user.displayName.split(' ')[0] : 'عضو'}</span>
-                                <button onclick="logoutUser(); event.stopPropagation();" style="background: var(--primary-red); color: #fff; border: none; padding: 2px 6px; border-radius: 4px; cursor: pointer; font-size: 0.7rem;">خروج</button>
-                            </div>
-                        `;
-                    }
-
-                    if (isAdmin && sidebarLinks) {
-                        if (!document.getElementById('admin-sidebar-link')) {
-                            const adminLink = document.createElement('a');
-                            adminLink.id = 'admin-sidebar-link';
-                            adminLink.href = 'admin.html';
-                            adminLink.innerHTML = '<i class="fa-solid fa-gauge-high" style="color: var(--gov-gold);"></i> ⚙️ لوحة التحكم (Admin)';
-                            sidebarLinks.prepend(adminLink);
-                        }
-                    }
-                } else {
-                    if (authContainer) {
-                        authContainer.innerHTML = `
-                            <button onclick="loginWithGoogle()" style="background: #ffffff; color: var(--gov-blue-dark); padding: 3px 9px; border-radius: 4px; font-weight: 700; border: none; cursor: pointer; font-size: 0.78rem; display: inline-flex; align-items: center; gap: 4px;">
-                                <i class="fa-brands fa-google" style="color: #db4437;"></i> دخول بجوجل
-                            </button>
-                        `;
-                    }
-                    const existingAdminLink = document.getElementById('admin-sidebar-link');
-                    if (existingAdminLink) existingAdminLink.remove();
-                }
-            });
+        // متابعة حالة التسجيل تلقائياً مع معالجة نتيجة الـ Redirect
+        onAuthStateChanged(auth, (user) => {
+            window.updateAuthUI(user);
         });
 
+        getRedirectResult(auth).then((result) => {
+            if (result && result.user) {
+                window.updateAuthUI(result.user);
+            }
+        }).catch((error) => {
+            console.error("خطأ في إعادة التوجيه:", error);
+        });
+
+        // دالة تسجيل الدخول المحسنة للهواتف والحواسب
         window.loginWithGoogle = async function() {
             const provider = new GoogleAuthProvider();
-            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
             
             try {
-                if (isMobile) {
-                    await signInWithRedirect(auth, provider);
-                } else {
-                    const result = await signInWithPopup(auth, provider);
-                    const user = result.user;
-                    alert("✅ أهلاً بك يا " + (user.displayName || 'عضو المنصة') + "، تم تسجيل الدخول بنجاح!");
+                // فتح نافذة منبثقة أولاً لتجاوز حظر الكوكيز وتتبع المتصفحات على الهواتف
+                const result = await signInWithPopup(auth, provider);
+                if (result && result.user) {
+                    window.updateAuthUI(result.user);
                 }
             } catch (error) {
-                alert("❌ فشل تسجيل الدخول: " + error.message);
+                console.warn("Popup blocked or failed, using redirect fallback:", error);
+                try {
+                    await signInWithRedirect(auth, provider);
+                } catch (err) {
+                    alert("❌ فشل تسجيل الدخول: " + err.message);
+                }
             }
         };
 
         window.logoutUser = async function() {
             try {
                 await signOut(auth);
-                alert("تم تسجيل الخروج بنجاح.");
+                window.updateAuthUI(null);
                 window.location.reload();
             } catch (error) {
                 console.error(error);
