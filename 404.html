@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- منع جوجل من أرشفة صفحة الخطأ كصفحة محتوى مع السماح بتتبع الروابط -->
+    <meta name="robots" content="noindex, follow">
+    <title>404 - الصفحة غير موجودة | منظومة GITI التقنية</title>
+    <style>
+        :root {
+            --bg-dark: #090d16;
+            --card-bg: #111827;
+            --card-border: rgba(59, 130, 246, 0.25);
+            --primary: #3b82f6;
+            --primary-glow: rgba(59, 130, 246, 0.4);
+            --accent: #10b981;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: var(--bg-dark);
+            background-image: radial-gradient(circle at top right, rgba(59, 130, 246, 0.12), transparent 40%),
+                              radial-gradient(circle at bottom left, rgba(16, 185, 129, 0.08), transparent 40%);
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            max-width: 560px;
+            width: 100%;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+        .badge {
+            display: inline-block;
+            background: rgba(59, 130, 246, 0.15);
+            color: #60a5fa;
+            padding: 6px 14px;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+        .error-num {
+            font-size: 5.5rem;
+            font-weight: 900;
+            line-height: 1;
+            background: linear-gradient(135deg, #60a5fa, #34d399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+        }
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+            color: #ffffff;
+        }
+        p {
+            color: var(--text-muted);
+            font-size: 0.98rem;
+            line-height: 1.65;
+            margin-bottom: 28px;
+        }
+        .btn-main {
+            display: inline-block;
+            background: var(--primary);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 13px 30px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1rem;
+            box-shadow: 0 4px 15px var(--primary-glow);
+            transition: all 0.25s ease;
+        }
+        .btn-main:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+        }
+        .quick-links {
+            margin-top: 28px;
+            padding-top: 22px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .quick-links-title {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+        }
+        .tag {
+            background: rgba(255, 255, 255, 0.05);
+            color: #d1d5db;
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.82rem;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: 0.2s;
+        }
+        .tag:hover {
+            border-color: var(--primary);
+            color: #ffffff;
+            background: rgba(59, 130, 246, 0.15);
+        }
+        .redirect-notice {
+            margin-top: 20px;
+            font-size: 0.82rem;
+            color: #6b7280;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="badge">GITI Tech & Business OS</div>
+        <div class="error-num">404</div>
+        <h1>الصفحة المطلوبة غير متوفرة!</h1>
+        <p>
+            يبدو أن الرابط الذي تحاول الوصول إليه غير صحيح أو تم نقله ضمن تحديثات <strong>منظومة GITI التقنية</strong>. يمكنك العودة للرئيسية أو استكشاف تطبيقاتنا مباشرة.
+        </p>
+
+        <a href="https://karamegy.github.io/" class="btn-main">العودة إلى المركز التقني الرئيسي</a>
+
+        <div class="quick-links">
+            <div class="quick-links-title">أبرز تطبيقات ومنصات المنظومة:</div>
+            <div class="tags">
+                <a href="https://karamegy.github.io/" class="tag">🌟 GITI ERP للفواتير</a>
+                <a href="https://karamegy.github.io/" class="tag">🔒 Apex Shield AI</a>
+                <a href="https://karamegy.github.io/" class="tag">🚚 منصة نقلة (Na2la)</a>
+                <a href="https://karamegy.github.io/" class="tag">💼 EIDCO Business OS</a>
+            </div>
+        </div>
+
+        <div class="redirect-notice">
+            سيتم نقلك تلقائياً إلى الصفحة الرئيسية خلال <strong id="sec" style="color:#60a5fa;">6</strong> ثوانٍ...
+        </div>
+    </div>
+
+    <script>
+        let count = 6;
+        const secEl = document.getElementById('sec');
+        const timer = setInterval(() => {
+            count--;
+            secEl.textContent = count;
+            if (count <= 0) {
+                clearInterval(timer);
+                window.location.replace("https://karamegy.github.io/");
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
